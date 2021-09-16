@@ -845,6 +845,18 @@ pkgcfg_lib_yaml-cpp_yaml-cpp:FILEPATH=/usr/lib/x86_64-linux-gnu/libyaml-cpp.so
 //The directory containing a CMake configuration file for pluginlib.
 pluginlib_DIR:PATH=/opt/ros/noetic/share/pluginlib/cmake
 
+//Value Computed by CMake
+ram_trial_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/build/ram_trial
+
+//Value Computed by CMake
+ram_trial_SOURCE_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/src/ram_trial
+
+//Value Computed by CMake
+ramp_trial_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial
+
+//Value Computed by CMake
+ramp_trial_SOURCE_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial
+
 //The directory containing a CMake configuration file for resource_retriever.
 resource_retriever_DIR:PATH=/opt/ros/noetic/share/resource_retriever/cmake
 
@@ -1388,7 +1400,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=72
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=73
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
