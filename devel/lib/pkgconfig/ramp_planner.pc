@@ -3,6 +3,6 @@ prefix=/home/emendel/Documents/IndepententStudy/ramp/devel
 Name: ramp_planner
 Description: Description of ramp_planner
 Version: 0.0.0
-Cflags: -I/home/emendel/Documents/IndepententStudy/ramp/src/ramp/ramp_planner/include
-Libs: -L${prefix}/lib -lramp_planner
-Requires: roscpp
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

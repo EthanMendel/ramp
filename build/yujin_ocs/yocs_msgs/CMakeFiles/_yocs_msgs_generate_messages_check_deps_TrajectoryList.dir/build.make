@@ -54,7 +54,7 @@ CMAKE_BINARY_DIR = /home/emendel/Documents/IndepententStudy/ramp/build
 include yujin_ocs/yocs_msgs/CMakeFiles/_yocs_msgs_generate_messages_check_deps_TrajectoryList.dir/progress.make
 
 yujin_ocs/yocs_msgs/CMakeFiles/_yocs_msgs_generate_messages_check_deps_TrajectoryList:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build/yujin_ocs/yocs_msgs && ../../catkin_generated/env_cached.sh /usr/bin/python3.8 /opt/ros/noetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py yocs_msgs /home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/TrajectoryList.msg geometry_msgs/Quaternion:std_msgs/Header:yocs_msgs/Waypoint:geometry_msgs/Point:geometry_msgs/Pose:yocs_msgs/Trajectory
+	cd /home/emendel/Documents/IndepententStudy/ramp/build/yujin_ocs/yocs_msgs && ../../catkin_generated/env_cached.sh /usr/bin/python3.8 /opt/ros/noetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py yocs_msgs /home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/TrajectoryList.msg yocs_msgs/Waypoint:geometry_msgs/Quaternion:geometry_msgs/Point:geometry_msgs/Pose:std_msgs/Header:yocs_msgs/Trajectory
 
 _yocs_msgs_generate_messages_check_deps_TrajectoryList: yujin_ocs/yocs_msgs/CMakeFiles/_yocs_msgs_generate_messages_check_deps_TrajectoryList
 _yocs_msgs_generate_messages_check_deps_TrajectoryList: yujin_ocs/yocs_msgs/CMakeFiles/_yocs_msgs_generate_messages_check_deps_TrajectoryList.dir/build.make

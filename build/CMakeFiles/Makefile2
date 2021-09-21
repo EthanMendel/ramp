@@ -70,6 +70,7 @@ all: turtlebot/turtlebot_simulator/turtlebot_stage/all
 all: turtlebot/turtlebot_simulator/turtlebot_stdr/all
 all: kobuki/kobuki_keyop/all
 all: ramp_trial/path_modification/all
+all: ramp_trial/ramp_planner/all
 all: kobuki/kobuki_auto_docking/all
 all: kobuki/kobuki_bumper2pc/all
 all: turtlebot3/turtlebot3_bringup/all
@@ -127,6 +128,7 @@ preinstall: turtlebot/turtlebot_simulator/turtlebot_stage/preinstall
 preinstall: turtlebot/turtlebot_simulator/turtlebot_stdr/preinstall
 preinstall: kobuki/kobuki_keyop/preinstall
 preinstall: ramp_trial/path_modification/preinstall
+preinstall: ramp_trial/ramp_planner/preinstall
 preinstall: kobuki/kobuki_auto_docking/preinstall
 preinstall: kobuki/kobuki_bumper2pc/preinstall
 preinstall: turtlebot3/turtlebot3_bringup/preinstall
@@ -189,6 +191,7 @@ clean: turtlebot/turtlebot_simulator/turtlebot_stage/clean
 clean: turtlebot/turtlebot_simulator/turtlebot_stdr/clean
 clean: kobuki/kobuki_keyop/clean
 clean: ramp_trial/path_modification/clean
+clean: ramp_trial/ramp_planner/clean
 clean: kobuki/kobuki_auto_docking/clean
 clean: kobuki/kobuki_bumper2pc/clean
 clean: turtlebot3/turtlebot3_bringup/clean
@@ -704,6 +707,24 @@ ramp_trial/ramp_msgs/clean: ramp_trial/ramp_msgs/CMakeFiles/ramp_msgs_generate_m
 ramp_trial/ramp_msgs/clean: ramp_trial/ramp_msgs/CMakeFiles/_ramp_msgs_generate_messages_check_deps_EvaluationRequest.dir/clean
 
 .PHONY : ramp_trial/ramp_msgs/clean
+
+#=============================================================================
+# Directory level rules for directory ramp_trial/ramp_planner
+
+# Recursive "all" directory target.
+ramp_trial/ramp_planner/all:
+
+.PHONY : ramp_trial/ramp_planner/all
+
+# Recursive "preinstall" directory target.
+ramp_trial/ramp_planner/preinstall:
+
+.PHONY : ramp_trial/ramp_planner/preinstall
+
+# Recursive "clean" directory target.
+ramp_trial/ramp_planner/clean:
+
+.PHONY : ramp_trial/ramp_planner/clean
 
 #=============================================================================
 # Directory level rules for directory robot_model/robot_model
