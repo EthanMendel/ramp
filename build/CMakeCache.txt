@@ -830,10 +830,10 @@ nodelet_topic_tools_DIR:PATH=/opt/ros/noetic/share/nodelet_topic_tools/cmake
 orocos_kdl_DIR:PATH=/usr/share/orocos_kdl/cmake
 
 //Value Computed by CMake
-path_modification_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/build/ramp/path_modification
+path_modification_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/path_modification
 
 //Value Computed by CMake
-path_modification_SOURCE_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/src/ramp/path_modification
+path_modification_SOURCE_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/path_modification
 
 //The directory containing a CMake configuration file for pcl_conversions.
 pcl_conversions_DIR:PATH=/opt/ros/noetic/share/pcl_conversions/cmake
@@ -886,7 +886,8 @@ ramp_launch_SOURCE_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/src/
 //Value Computed by CMake
 ramp_msgs_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/ramp_msgs
 
-ramp_msgs_DIR:PATH=
+//The directory containing a CMake configuration file for ramp_msgs.
+ramp_msgs_DIR:PATH=/home/emendel/Documents/IndepententStudy/ramp/devel/share/ramp_msgs/cmake
 
 //Value Computed by CMake
 ramp_msgs_SOURCE_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs
@@ -1473,7 +1474,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=73
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=74
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

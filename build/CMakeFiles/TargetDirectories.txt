@@ -221,6 +221,13 @@
 /home/emendel/Documents/IndepententStudy/ramp/build/kobuki/kobuki_keyop/src/CMakeFiles/edit_cache.dir
 /home/emendel/Documents/IndepententStudy/ramp/build/kobuki/kobuki_keyop/src/CMakeFiles/test.dir
 /home/emendel/Documents/IndepententStudy/ramp/build/kobuki/kobuki_keyop/src/CMakeFiles/keyop.dir
+/home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/path_modification/CMakeFiles/install/strip.dir
+/home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/path_modification/CMakeFiles/install/local.dir
+/home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/path_modification/CMakeFiles/install.dir
+/home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/path_modification/CMakeFiles/list_install_components.dir
+/home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/path_modification/CMakeFiles/rebuild_cache.dir
+/home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/path_modification/CMakeFiles/edit_cache.dir
+/home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/path_modification/CMakeFiles/test.dir
 /home/emendel/Documents/IndepententStudy/ramp/build/kobuki/kobuki_auto_docking/CMakeFiles/install/strip.dir
 /home/emendel/Documents/IndepententStudy/ramp/build/kobuki/kobuki_auto_docking/CMakeFiles/install/local.dir
 /home/emendel/Documents/IndepententStudy/ramp/build/kobuki/kobuki_auto_docking/CMakeFiles/test.dir

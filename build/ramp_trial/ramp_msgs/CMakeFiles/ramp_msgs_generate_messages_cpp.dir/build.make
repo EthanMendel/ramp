@@ -82,13 +82,13 @@ ramp_trial/ramp_msgs/CMakeFiles/ramp_msgs_generate_messages_cpp: /home/emendel/D
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/EvaluationRequest.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/EvaluationRequest.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/EvaluationRequest.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/EvaluationRequest.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/MotionState.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/EvaluationRequest.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/KnotPoint.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/EvaluationRequest.h: /opt/ros/noetic/share/trajectory_msgs/msg/JointTrajectory.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/EvaluationRequest.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/Path.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/EvaluationRequest.h: /opt/ros/noetic/share/trajectory_msgs/msg/JointTrajectoryPoint.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/EvaluationRequest.h: /opt/ros/noetic/share/std_msgs/msg/Header.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/EvaluationRequest.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/RampTrajectory.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/EvaluationRequest.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/BezierCurve.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/EvaluationRequest.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/KnotPoint.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/EvaluationRequest.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/Path.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/EvaluationRequest.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/RampTrajectory.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/EvaluationRequest.h: /opt/ros/noetic/share/std_msgs/msg/Header.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/EvaluationRequest.h: /opt/ros/noetic/share/trajectory_msgs/msg/JointTrajectoryPoint.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/EvaluationRequest.h: /opt/ros/noetic/share/trajectory_msgs/msg/JointTrajectory.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/EvaluationRequest.h: /opt/ros/noetic/share/gencpp/msg.h.template
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating C++ code from ramp_msgs/EvaluationRequest.msg"
 	cd /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs && /home/emendel/Documents/IndepententStudy/ramp/build/catkin_generated/env_cached.sh /usr/bin/python3.8 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/EvaluationRequest.msg -Iramp_msgs:/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg -Inav_msgs:/opt/ros/noetic/share/nav_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Itrajectory_msgs:/opt/ros/noetic/share/trajectory_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -p ramp_msgs -o /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs -e /opt/ros/noetic/share/gencpp/cmake/..
@@ -123,12 +123,12 @@ ramp_trial/ramp_msgs/CMakeFiles/ramp_msgs_generate_messages_cpp: /home/emendel/D
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/RampTrajectory.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/RampTrajectory.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/RampTrajectory.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/RampTrajectory.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/MotionState.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/RampTrajectory.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/KnotPoint.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/RampTrajectory.h: /opt/ros/noetic/share/trajectory_msgs/msg/JointTrajectory.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/RampTrajectory.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/Path.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/RampTrajectory.h: /opt/ros/noetic/share/trajectory_msgs/msg/JointTrajectoryPoint.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/RampTrajectory.h: /opt/ros/noetic/share/std_msgs/msg/Header.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/RampTrajectory.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/BezierCurve.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/RampTrajectory.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/KnotPoint.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/RampTrajectory.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/Path.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/RampTrajectory.h: /opt/ros/noetic/share/std_msgs/msg/Header.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/RampTrajectory.h: /opt/ros/noetic/share/trajectory_msgs/msg/JointTrajectoryPoint.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/RampTrajectory.h: /opt/ros/noetic/share/trajectory_msgs/msg/JointTrajectory.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/RampTrajectory.h: /opt/ros/noetic/share/gencpp/msg.h.template
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Generating C++ code from ramp_msgs/RampTrajectory.msg"
 	cd /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs && /home/emendel/Documents/IndepententStudy/ramp/build/catkin_generated/env_cached.sh /usr/bin/python3.8 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/RampTrajectory.msg -Iramp_msgs:/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg -Inav_msgs:/opt/ros/noetic/share/nav_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Itrajectory_msgs:/opt/ros/noetic/share/trajectory_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -p ramp_msgs -o /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs -e /opt/ros/noetic/share/gencpp/cmake/..
@@ -141,10 +141,10 @@ ramp_trial/ramp_msgs/CMakeFiles/ramp_msgs_generate_messages_cpp: /home/emendel/D
 
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/Obstacle.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/Obstacle.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/Obstacle.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/Obstacle.h: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/Obstacle.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/MotionState.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/Obstacle.h: /opt/ros/noetic/share/geometry_msgs/msg/Vector3.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/Obstacle.h: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/Obstacle.h: /opt/ros/noetic/share/geometry_msgs/msg/Transform.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/Obstacle.h: /opt/ros/noetic/share/geometry_msgs/msg/Vector3.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/Obstacle.h: /opt/ros/noetic/share/gencpp/msg.h.template
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Generating C++ code from ramp_msgs/Obstacle.msg"
 	cd /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs && /home/emendel/Documents/IndepententStudy/ramp/build/catkin_generated/env_cached.sh /usr/bin/python3.8 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/Obstacle.msg -Iramp_msgs:/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg -Inav_msgs:/opt/ros/noetic/share/nav_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Itrajectory_msgs:/opt/ros/noetic/share/trajectory_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -p ramp_msgs -o /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs -e /opt/ros/noetic/share/gencpp/cmake/..
@@ -153,8 +153,8 @@ ramp_trial/ramp_msgs/CMakeFiles/ramp_msgs_generate_messages_cpp: /home/emendel/D
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/ObstacleList.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/ObstacleList.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/ObstacleList.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/MotionState.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/ObstacleList.h: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/ObstacleList.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/Obstacle.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/ObstacleList.h: /opt/ros/noetic/share/geometry_msgs/msg/Vector3.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/ObstacleList.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/Obstacle.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/ObstacleList.h: /opt/ros/noetic/share/geometry_msgs/msg/Transform.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/ObstacleList.h: /opt/ros/noetic/share/gencpp/msg.h.template
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Generating C++ code from ramp_msgs/ObstacleList.msg"
@@ -163,13 +163,13 @@ ramp_trial/ramp_msgs/CMakeFiles/ramp_msgs_generate_messages_cpp: /home/emendel/D
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/Population.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/Population.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/Population.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/Population.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/MotionState.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/Population.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/KnotPoint.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/Population.h: /opt/ros/noetic/share/trajectory_msgs/msg/JointTrajectory.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/Population.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/Path.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/Population.h: /opt/ros/noetic/share/trajectory_msgs/msg/JointTrajectoryPoint.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/Population.h: /opt/ros/noetic/share/std_msgs/msg/Header.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/Population.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/RampTrajectory.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/Population.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/BezierCurve.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/Population.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/KnotPoint.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/Population.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/Path.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/Population.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/RampTrajectory.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/Population.h: /opt/ros/noetic/share/std_msgs/msg/Header.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/Population.h: /opt/ros/noetic/share/trajectory_msgs/msg/JointTrajectoryPoint.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/Population.h: /opt/ros/noetic/share/trajectory_msgs/msg/JointTrajectory.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/Population.h: /opt/ros/noetic/share/gencpp/msg.h.template
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Generating C++ code from ramp_msgs/Population.msg"
 	cd /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs && /home/emendel/Documents/IndepententStudy/ramp/build/catkin_generated/env_cached.sh /usr/bin/python3.8 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/Population.msg -Iramp_msgs:/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg -Inav_msgs:/opt/ros/noetic/share/nav_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Itrajectory_msgs:/opt/ros/noetic/share/trajectory_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -p ramp_msgs -o /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs -e /opt/ros/noetic/share/gencpp/cmake/..
@@ -177,10 +177,10 @@ ramp_trial/ramp_msgs/CMakeFiles/ramp_msgs_generate_messages_cpp: /home/emendel/D
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectoryRequest.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectoryRequest.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/TrajectoryRequest.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectoryRequest.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/MotionState.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectoryRequest.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/BezierCurve.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectoryRequest.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/KnotPoint.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectoryRequest.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/Path.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectoryRequest.h: /opt/ros/noetic/share/std_msgs/msg/Header.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectoryRequest.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/BezierCurve.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectoryRequest.h: /opt/ros/noetic/share/gencpp/msg.h.template
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Generating C++ code from ramp_msgs/TrajectoryRequest.msg"
 	cd /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs && /home/emendel/Documents/IndepententStudy/ramp/build/catkin_generated/env_cached.sh /usr/bin/python3.8 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/TrajectoryRequest.msg -Iramp_msgs:/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg -Inav_msgs:/opt/ros/noetic/share/nav_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Itrajectory_msgs:/opt/ros/noetic/share/trajectory_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -p ramp_msgs -o /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs -e /opt/ros/noetic/share/gencpp/cmake/..
@@ -188,13 +188,13 @@ ramp_trial/ramp_msgs/CMakeFiles/ramp_msgs_generate_messages_cpp: /home/emendel/D
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectoryResponse.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectoryResponse.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/TrajectoryResponse.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectoryResponse.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/MotionState.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectoryResponse.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/KnotPoint.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectoryResponse.h: /opt/ros/noetic/share/trajectory_msgs/msg/JointTrajectory.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectoryResponse.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/Path.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectoryResponse.h: /opt/ros/noetic/share/trajectory_msgs/msg/JointTrajectoryPoint.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectoryResponse.h: /opt/ros/noetic/share/std_msgs/msg/Header.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectoryResponse.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/RampTrajectory.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectoryResponse.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/BezierCurve.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectoryResponse.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/KnotPoint.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectoryResponse.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/Path.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectoryResponse.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/RampTrajectory.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectoryResponse.h: /opt/ros/noetic/share/std_msgs/msg/Header.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectoryResponse.h: /opt/ros/noetic/share/trajectory_msgs/msg/JointTrajectoryPoint.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectoryResponse.h: /opt/ros/noetic/share/trajectory_msgs/msg/JointTrajectory.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectoryResponse.h: /opt/ros/noetic/share/gencpp/msg.h.template
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Generating C++ code from ramp_msgs/TrajectoryResponse.msg"
 	cd /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs && /home/emendel/Documents/IndepententStudy/ramp/build/catkin_generated/env_cached.sh /usr/bin/python3.8 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/TrajectoryResponse.msg -Iramp_msgs:/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg -Inav_msgs:/opt/ros/noetic/share/nav_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Itrajectory_msgs:/opt/ros/noetic/share/trajectory_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -p ramp_msgs -o /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs -e /opt/ros/noetic/share/gencpp/cmake/..
@@ -203,14 +203,14 @@ ramp_trial/ramp_msgs/CMakeFiles/ramp_msgs_generate_messages_cpp: /home/emendel/D
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/EvaluationSrv.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/srv/EvaluationSrv.srv
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/EvaluationSrv.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/MotionState.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/EvaluationSrv.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/EvaluationRequest.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/EvaluationSrv.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/KnotPoint.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/EvaluationSrv.h: /opt/ros/noetic/share/trajectory_msgs/msg/JointTrajectory.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/EvaluationSrv.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/EvaluationResponse.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/EvaluationSrv.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/Path.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/EvaluationSrv.h: /opt/ros/noetic/share/trajectory_msgs/msg/JointTrajectoryPoint.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/EvaluationSrv.h: /opt/ros/noetic/share/std_msgs/msg/Header.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/EvaluationSrv.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/RampTrajectory.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/EvaluationSrv.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/BezierCurve.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/EvaluationSrv.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/KnotPoint.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/EvaluationSrv.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/Path.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/EvaluationSrv.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/RampTrajectory.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/EvaluationSrv.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/EvaluationResponse.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/EvaluationSrv.h: /opt/ros/noetic/share/std_msgs/msg/Header.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/EvaluationSrv.h: /opt/ros/noetic/share/trajectory_msgs/msg/JointTrajectoryPoint.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/EvaluationSrv.h: /opt/ros/noetic/share/trajectory_msgs/msg/JointTrajectory.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/EvaluationSrv.h: /opt/ros/noetic/share/gencpp/msg.h.template
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/EvaluationSrv.h: /opt/ros/noetic/share/gencpp/srv.h.template
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Generating C++ code from ramp_msgs/EvaluationSrv.srv"
@@ -219,8 +219,8 @@ ramp_trial/ramp_msgs/CMakeFiles/ramp_msgs_generate_messages_cpp: /home/emendel/D
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/ModificationRequest.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/ModificationRequest.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/srv/ModificationRequest.srv
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/ModificationRequest.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/MotionState.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/ModificationRequest.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/Path.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/ModificationRequest.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/KnotPoint.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/ModificationRequest.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/Path.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/ModificationRequest.h: /opt/ros/noetic/share/gencpp/msg.h.template
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/ModificationRequest.h: /opt/ros/noetic/share/gencpp/srv.h.template
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Generating C++ code from ramp_msgs/ModificationRequest.srv"
@@ -229,15 +229,15 @@ ramp_trial/ramp_msgs/CMakeFiles/ramp_msgs_generate_messages_cpp: /home/emendel/D
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectorySrv.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectorySrv.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/srv/TrajectorySrv.srv
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectorySrv.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/MotionState.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectorySrv.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/TrajectoryResponse.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectorySrv.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/BezierCurve.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectorySrv.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/TrajectoryRequest.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectorySrv.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/KnotPoint.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectorySrv.h: /opt/ros/noetic/share/trajectory_msgs/msg/JointTrajectory.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectorySrv.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/Path.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectorySrv.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/TrajectoryResponse.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectorySrv.h: /opt/ros/noetic/share/trajectory_msgs/msg/JointTrajectoryPoint.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectorySrv.h: /opt/ros/noetic/share/std_msgs/msg/Header.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectorySrv.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/RampTrajectory.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectorySrv.h: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/BezierCurve.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectorySrv.h: /opt/ros/noetic/share/std_msgs/msg/Header.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectorySrv.h: /opt/ros/noetic/share/trajectory_msgs/msg/JointTrajectoryPoint.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectorySrv.h: /opt/ros/noetic/share/trajectory_msgs/msg/JointTrajectory.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectorySrv.h: /opt/ros/noetic/share/gencpp/msg.h.template
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectorySrv.h: /opt/ros/noetic/share/gencpp/srv.h.template
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Generating C++ code from ramp_msgs/TrajectorySrv.srv"
