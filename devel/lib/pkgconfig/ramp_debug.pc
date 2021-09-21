@@ -1,0 +1,8 @@
+prefix=/home/emendel/Documents/IndepententStudy/ramp/devel
+
+Name: ramp_debug
+Description: Description of ramp_debug
+Version: 0.0.0
+Cflags: -I/home/emendel/Documents/IndepententStudy/ramp/src/ramp/ramp_debug/include
+Libs: -L${prefix}/lib -lramp_debug
+Requires: roscpp

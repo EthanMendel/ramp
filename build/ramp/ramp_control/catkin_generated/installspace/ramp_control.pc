@@ -1,0 +1,8 @@
+prefix=/home/emendel/Documents/IndepententStudy/ramp/install
+
+Name: ramp_control
+Description: Description of ramp_control
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib -lramp_control
+Requires: roscpp

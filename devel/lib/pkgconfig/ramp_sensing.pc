@@ -1,0 +1,8 @@
+prefix=/home/emendel/Documents/IndepententStudy/ramp/devel
+
+Name: ramp_sensing
+Description: Description of ramp_sensing
+Version: 0.0.0
+Cflags: -I/home/emendel/Documents/IndepententStudy/ramp/src/ramp/ramp_sensing/include
+Libs: -L${prefix}/lib -lramp_sensing
+Requires: roscpp ramp_msgs

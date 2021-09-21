@@ -403,6 +403,8 @@ Project_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/build
 //Value Computed by CMake
 Project_SOURCE_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/src
 
+QT_QMAKE_EXECUTABLE:FILEPATH=/usr/bin/qmake
+
 //Path to a library.
 RT_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/librt.so
 
@@ -827,6 +829,12 @@ nodelet_topic_tools_DIR:PATH=/opt/ros/noetic/share/nodelet_topic_tools/cmake
 //The directory containing a CMake configuration file for orocos_kdl.
 orocos_kdl_DIR:PATH=/usr/share/orocos_kdl/cmake
 
+//Value Computed by CMake
+path_modification_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/build/ramp/path_modification
+
+//Value Computed by CMake
+path_modification_SOURCE_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/src/ramp/path_modification
+
 //The directory containing a CMake configuration file for pcl_conversions.
 pcl_conversions_DIR:PATH=/opt/ros/noetic/share/pcl_conversions/cmake
 
@@ -850,6 +858,50 @@ ram_trial_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/build/
 
 //Value Computed by CMake
 ram_trial_SOURCE_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/src/ram_trial
+
+//Value Computed by CMake
+ramp_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/build/ramp/ramp
+
+//Value Computed by CMake
+ramp_SOURCE_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/src/ramp/ramp
+
+//Value Computed by CMake
+ramp_control_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/build/ramp/ramp_control
+
+//Value Computed by CMake
+ramp_control_SOURCE_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/src/ramp/ramp_control
+
+//Value Computed by CMake
+ramp_debug_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/build/ramp/ramp_debug
+
+//Value Computed by CMake
+ramp_debug_SOURCE_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/src/ramp/ramp_debug
+
+//Value Computed by CMake
+ramp_launch_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/build/ramp/ramp_launch
+
+//Value Computed by CMake
+ramp_launch_SOURCE_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/src/ramp/ramp_launch
+
+//Value Computed by CMake
+ramp_msgs_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/ramp_msgs
+
+ramp_msgs_DIR:PATH=
+
+//Value Computed by CMake
+ramp_msgs_SOURCE_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs
+
+//Value Computed by CMake
+ramp_planner_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/build/ramp/ramp_planner
+
+//Value Computed by CMake
+ramp_planner_SOURCE_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/src/ramp/ramp_planner
+
+//Value Computed by CMake
+ramp_sensing_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/build/ramp/ramp_sensing
+
+//Value Computed by CMake
+ramp_sensing_SOURCE_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/src/ramp/ramp_sensing
 
 //Value Computed by CMake
 ramp_trial_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial
@@ -961,6 +1013,27 @@ tf_DIR:PATH=/opt/ros/noetic/share/tf/cmake
 
 //The directory containing a CMake configuration file for topic_tools.
 topic_tools_DIR:PATH=/opt/ros/noetic/share/topic_tools/cmake
+
+//Value Computed by CMake
+trajectory_evaluation_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/build/ramp/trajectory_evaluation
+
+//Value Computed by CMake
+trajectory_evaluation_SOURCE_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/src/ramp/trajectory_evaluation
+
+//Value Computed by CMake
+trajectory_generator_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/build/ramp/trajectory_generator
+
+//Value Computed by CMake
+trajectory_generator_SOURCE_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/src/ramp/trajectory_generator
+
+//The directory containing a CMake configuration file for trajectory_msgs.
+trajectory_msgs_DIR:PATH=/opt/ros/noetic/share/trajectory_msgs/cmake
+
+//Value Computed by CMake
+trajectory_visualisation_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/build/ramp/trajectory_visualisation
+
+//Value Computed by CMake
+trajectory_visualisation_SOURCE_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/src/ramp/trajectory_visualisation
 
 //Value Computed by CMake
 turtlebot3_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/build/turtlebot3/turtlebot3

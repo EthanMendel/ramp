@@ -1,0 +1,2 @@
+set(ramp_msgs_MESSAGE_FILES "msg/BezierCurve.msg;msg/EvaluationRequest.msg;msg/EvaluationResponse.msg;msg/KnotPoint.msg;msg/MotionState.msg;msg/Path.msg;msg/RampTrajectory.msg;msg/Range.msg;msg/Obstacle.msg;msg/ObstacleList.msg;msg/Population.msg;msg/TrajectoryRequest.msg;msg/TrajectoryResponse.msg")
+set(ramp_msgs_SERVICE_FILES "srv/EvaluationSrv.srv;srv/ModificationRequest.srv;srv/TrajectorySrv.srv")

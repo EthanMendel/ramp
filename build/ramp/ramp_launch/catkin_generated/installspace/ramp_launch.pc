@@ -1,0 +1,8 @@
+prefix=/home/emendel/Documents/IndepententStudy/ramp/install
+
+Name: ramp_launch
+Description: Description of ramp_launch
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib -lramp_launch
+Requires: 
