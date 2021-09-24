@@ -733,8 +733,7 @@ kobuki_driver_DIR:PATH=/opt/ros/noetic/share/kobuki_driver/cmake
 //Value Computed by CMake
 kobuki_keyop_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/build/kobuki/kobuki_keyop
 
-//The directory containing a CMake configuration file for kobuki_keyop.
-kobuki_keyop_DIR:PATH=/home/emendel/Documents/IndepententStudy/ramp/devel/share/kobuki_keyop/cmake
+kobuki_keyop_DIR:PATH=
 
 //Value Computed by CMake
 kobuki_keyop_SOURCE_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/src/kobuki/kobuki_keyop
@@ -794,7 +793,7 @@ kobuki_testsuite_SOURCE_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp
 laser_geometry_DIR:PATH=/opt/ros/noetic/share/laser_geometry/cmake
 
 //Path to a library.
-lib:FILEPATH=/opt/ros/noetic/lib/libdynamic_reconfigure_config_init_mutex.so
+lib:FILEPATH=/opt/ros/noetic/lib/librostime.so
 
 //The directory containing a CMake configuration file for map_msgs.
 map_msgs_DIR:PATH=/opt/ros/noetic/share/map_msgs/cmake
@@ -852,6 +851,9 @@ pkgcfg_lib_yaml-cpp_yaml-cpp:FILEPATH=/usr/lib/x86_64-linux-gnu/libyaml-cpp.so
 
 //The directory containing a CMake configuration file for pluginlib.
 pluginlib_DIR:PATH=/opt/ros/noetic/share/pluginlib/cmake
+
+//The directory containing a CMake configuration file for qt-ros.
+qt-ros_DIR:PATH=qt-ros_DIR-NOTFOUND
 
 //Value Computed by CMake
 ram_trial_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/build/ram_trial
@@ -1031,10 +1033,10 @@ trajectory_generator_SOURCE_DIR:STATIC=/home/emendel/Documents/IndepententStudy/
 trajectory_msgs_DIR:PATH=/opt/ros/noetic/share/trajectory_msgs/cmake
 
 //Value Computed by CMake
-trajectory_visualisation_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/build/ramp/trajectory_visualisation
+trajectory_visualisation_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/trajectory_visualisation
 
 //Value Computed by CMake
-trajectory_visualisation_SOURCE_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/src/ramp/trajectory_visualisation
+trajectory_visualisation_SOURCE_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/trajectory_visualisation
 
 //Value Computed by CMake
 turtlebot3_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/build/turtlebot3/turtlebot3
@@ -1474,7 +1476,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=75
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=25
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
