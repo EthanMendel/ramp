@@ -1,35 +1,38 @@
 #include "bezier_curve.h"
 
-BezierCurve::BezierCurve() : initialized_(false), deallocated_(false) {}
+
+BezierCurve::BezierCurve() : initialized_(false), deallocated_(false), reachedVMax_(false) {}
 
 BezierCurve::~BezierCurve() {}
 
-void BezierCurve::init(const std::vector<MotionState> segment_points, const double lambda, const MotionState ms_current){
-    segmentPoints_.clear();
-    controlPoints_.clear()
-    ms_max_.msg_.velocities.clear();
-    ms_max_.msg_.accelerations.clear();
 
-    segmentPoints_ = segment_points;
-    l_ = lambda;
 
-    MAX_SPEED_ = 1;
+void BezierCurve::init(const std::vector<MotionState> segment_points, const double lambda, const MotionState ms_current) {
+  segmentPoints_.clear();
+  controlPoints_.clear();
+  ms_max_.msg_.velocities.clear();
+  ms_max_.msg_.accelerations.clear();
 
-    ms_max_.msg_.velocities.push_back(0.707);
-    ms_max_.msg_.velocities.push_back(0.707);
-    ms_max_.msg_.velocities.push_back( (2.f*PI)/3.f );
-    ms_max_.msg_.accelerations.push_back(0.707);
-    ms_max_.msg_.accelerations.push_back(0.707);
-    ms_max_.msg_.accelerations.push_back( (2.f*PI)/3.f );
+  segmentPoints_ = segment_points;
+  l_ = lambda;
+  
+  MAX_SPEED_ = 0.33f;
 
-    ms_current_ = ms_current;
+  ms_max_.msg_.velocities.push_back(0.707);
+  ms_max_.msg_.velocities.push_back(0.707);
+  ms_max_.msg_.velocities.push_back( (2.f*PI)/3.f );
+  ms_max_.msg_.accelerations.push_back(0.707);
+  ms_max_.msg_.accelerations.push_back(0.707);
+  ms_max_.msg_.accelerations.push_back( (2.f*PI)/3.f );
+  
+  ms_current_ = ms_current;
 
-    ms_init_ = getInitialState();
+  ms_init_ = getInitialState();
 
-    initControlPoints();
-    calculateConstants();
+  initControlPoints();
+  calculateConstants();
 
-    ms_begin_ = controlPoints_.at(0).msg_;
+  ms_begin_ = controlPoints_.at(0).msg_;
 }
 
 //tell if curve violates angular motion constraints
@@ -37,92 +40,351 @@ const bool BezierCurve::verify(){
     double v_max = MAX_SPEED_;
     double w_max = (2.f*PI)/3.f;
 
-    u_dot_0_ = getUDotInitial();
+  u_dot_0_ = getUDotInitial();
 
-    double u_dot_max = getUDotMax(u_dot_0_);
-    if(u_dot_max < 0.0001){
-        u_dot_max = getUDotInitial();
-    }
+  double u_dot_max = getUDotMax(u_dot_0_);
+  if(u_dot_max < 0.0001)
+  {
+    u_dot_max = getUDotInitial();
+  }
 
-    double x_dot = (A_*t_R_min_ + C_)*u_dot_max;
-    double y_dot = (B_*t_R_min_ + D_)*u_dot_max;
-    double v_rmin = sqrt(pow(x_dot,2) + pow(y_dot,2));
+  double x_dot = (A_*t_R_min_ + C_)*u_dot_max;
+  double y_dot = (B_*t_R_min_ + D_)*u_dot_max;
+  double v_rmin = sqrt(pow(x_dot,2) + pow(y_dot,2));
+  double w_rmin = v_rmin / R_min_;  
     double w_rmin = v_rmin / R_min_;
+  double w_rmin = v_rmin / R_min_;  
+    double w_rmin = v_rmin / R_min_;
+  double w_rmin = v_rmin / R_min_;  
+    double w_rmin = v_rmin / R_min_;
+  double w_rmin = v_rmin / R_min_;  
+    double w_rmin = v_rmin / R_min_;
+  double w_rmin = v_rmin / R_min_;  
+    double w_rmin = v_rmin / R_min_;
+  double w_rmin = v_rmin / R_min_;  
+    double w_rmin = v_rmin / R_min_;
+  double w_rmin = v_rmin / R_min_;  
+    double w_rmin = v_rmin / R_min_;
+  double w_rmin = v_rmin / R_min_;  
+    double w_rmin = v_rmin / R_min_;
+  double w_rmin = v_rmin / R_min_;  
+    double w_rmin = v_rmin / R_min_;
+  double w_rmin = v_rmin / R_min_;  
+    double w_rmin = v_rmin / R_min_;
+  double w_rmin = v_rmin / R_min_;  
+    double w_rmin = v_rmin / R_min_;
+  double w_rmin = v_rmin / R_min_;  
+    double w_rmin = v_rmin / R_min_;
+  double w_rmin = v_rmin / R_min_;  
+    double w_rmin = v_rmin / R_min_;
+  double w_rmin = v_rmin / R_min_;  
+    double w_rmin = v_rmin / R_min_;
+  double w_rmin = v_rmin / R_min_;  
+    double w_rmin = v_rmin / R_min_;
+  double w_rmin = v_rmin / R_min_;  
+    double w_rmin = v_rmin / R_min_;
+  double w_rmin = v_rmin / R_min_;  
+    double w_rmin = v_rmin / R_min_;
+  double w_rmin = v_rmin / R_min_;  
 
-    return ( l_ < 1. && (t_R_min_ >- 0 && t_R_min_ <= 1) && (w_rmin <= w_max) );
+  return ( l_ < 1. && (t_R_min_ >= 0 && t_R_min_ <= 1) && (w_rmin <= w_max) );
 }
+
+
 
 const double BezierCurve::findVelocity(const uint8_t i, const double l, const double theta) const {
-    double a = (2.*ms_max_.msg_.accelerations.at(i)/3.);
+  // Use 2/3 of max acceleration
+  double a = (2.*ms_max_.msg_.accelerations.at(i)/3.);
 
-    double v_0 = ms_current_.msg_.velocities.size() > 0 ?
-                    ms_current_.msg_.velocities.at(i) : 0;
-    
-    double radicand = (2*a*l) + pow(v_0, 2);
-    double v = sqrt(radicand);
+  // Use the current velocity as initial
+  double v_0 = ms_current_.msg_.velocities.size() > 0 ?
+                ms_current_.msg_.velocities.at(i) : 0;
 
+  double radicand = (2*a*l) + pow(v_0, 2);
+  double v = sqrt(radicand);
+  
+  double v_max = MAX_SPEED_;  
     double v_max = MAX_SPEED_;
-    double v_target = i == 0 ? cos(theta) * v_max : sin(theta) * v_max;
+  double v_max = MAX_SPEED_;  
+    double v_max = MAX_SPEED_;
+  double v_max = MAX_SPEED_;  
+    double v_max = MAX_SPEED_;
+  double v_max = MAX_SPEED_;  
+    double v_max = MAX_SPEED_;
+  double v_max = MAX_SPEED_;  
+    double v_max = MAX_SPEED_;
+  double v_max = MAX_SPEED_;  
+    double v_max = MAX_SPEED_;
+  double v_max = MAX_SPEED_;  
+    double v_max = MAX_SPEED_;
+  double v_max = MAX_SPEED_;  
+    double v_max = MAX_SPEED_;
+  double v_max = MAX_SPEED_;  
+    double v_max = MAX_SPEED_;
+  double v_max = MAX_SPEED_;  
+    double v_max = MAX_SPEED_;
+  double v_max = MAX_SPEED_;  
+    double v_max = MAX_SPEED_;
+  double v_max = MAX_SPEED_;  
+    double v_max = MAX_SPEED_;
+  double v_max = MAX_SPEED_;  
+    double v_max = MAX_SPEED_;
+  double v_max = MAX_SPEED_;  
+    double v_max = MAX_SPEED_;
+  double v_max = MAX_SPEED_;  
+    double v_max = MAX_SPEED_;
+  double v_max = MAX_SPEED_;  
+    double v_max = MAX_SPEED_;
+  double v_max = MAX_SPEED_;  
+    double v_max = MAX_SPEED_;
+  double v_max = MAX_SPEED_;  
+    double v_max = MAX_SPEED_;
+  double v_max = MAX_SPEED_;  
+  double v_target = i == 0 ? cos(theta) * v_max : sin(theta) * v_max;
 
-
-    if( v > v_target){
-        v = v_target;
-    }
-    if(v < -v_target){
-        v = -v_target;
-    }
-
-    return v;
+  // Check for bounds
+  if(v > v_target) 
+  {
+    v = v_target;
+  }
+  if(v < -v_target) 
+  {
+    v = -v_target;
+  }
+   
+  return v;
 }
 
-const MotionState BezierCurve::getInitialState(){
-    MotionState result;
-    for(int8_t i=0;i<3;i++){
-        result.msg_.velocities.push_back(0);
-    }
+const MotionState BezierCurve::getInitialState() {
 
-    //find slope
-    double rise = segmentPoints_.at(1).msg_.positions.at(1) -
-                  segmentPoints_.at(0).msg_.positions.at(1);
+  MotionState result;
+  for(uint8_t i=0;i<3;i++) {
+    result.msg_.velocities.push_back(0);
+  }
+
+  //find slope
+  double rise = segmentPoints_.at(1).msg_.positions.at(1) -
+                segmentPoints_.at(0).msg_.positions.at(1);
+  double run  = segmentPoints_.at(1).msg_.positions.at(0) - 
     double run  = segmentPoints_.at(1).msg_.positions.at(0) -
-                  segmentPoints_.at(0).msg_.positions.at(0);
-    double slope = (run != 0) ? rise / run : rise;
+  double run  = segmentPoints_.at(1).msg_.positions.at(0) - 
+    double run  = segmentPoints_.at(1).msg_.positions.at(0) -
+  double run  = segmentPoints_.at(1).msg_.positions.at(0) - 
+    double run  = segmentPoints_.at(1).msg_.positions.at(0) -
+  double run  = segmentPoints_.at(1).msg_.positions.at(0) - 
+    double run  = segmentPoints_.at(1).msg_.positions.at(0) -
+  double run  = segmentPoints_.at(1).msg_.positions.at(0) - 
+    double run  = segmentPoints_.at(1).msg_.positions.at(0) -
+  double run  = segmentPoints_.at(1).msg_.positions.at(0) - 
+    double run  = segmentPoints_.at(1).msg_.positions.at(0) -
+  double run  = segmentPoints_.at(1).msg_.positions.at(0) - 
+    double run  = segmentPoints_.at(1).msg_.positions.at(0) -
+  double run  = segmentPoints_.at(1).msg_.positions.at(0) - 
+    double run  = segmentPoints_.at(1).msg_.positions.at(0) -
+  double run  = segmentPoints_.at(1).msg_.positions.at(0) - 
+    double run  = segmentPoints_.at(1).msg_.positions.at(0) -
+  double run  = segmentPoints_.at(1).msg_.positions.at(0) - 
+    double run  = segmentPoints_.at(1).msg_.positions.at(0) -
+  double run  = segmentPoints_.at(1).msg_.positions.at(0) - 
+    double run  = segmentPoints_.at(1).msg_.positions.at(0) -
+  double run  = segmentPoints_.at(1).msg_.positions.at(0) - 
+    double run  = segmentPoints_.at(1).msg_.positions.at(0) -
+  double run  = segmentPoints_.at(1).msg_.positions.at(0) - 
+    double run  = segmentPoints_.at(1).msg_.positions.at(0) -
+  double run  = segmentPoints_.at(1).msg_.positions.at(0) - 
+    double run  = segmentPoints_.at(1).msg_.positions.at(0) -
+  double run  = segmentPoints_.at(1).msg_.positions.at(0) - 
+    double run  = segmentPoints_.at(1).msg_.positions.at(0) -
+  double run  = segmentPoints_.at(1).msg_.positions.at(0) - 
+    double run  = segmentPoints_.at(1).msg_.positions.at(0) -
+  double run  = segmentPoints_.at(1).msg_.positions.at(0) - 
+                segmentPoints_.at(0).msg_.positions.at(0);
+  double slope  = (run != 0) ? ryse / run : ryse;
 
-    double theta = utility_.findAngleFromAToB(segmentPoints_.at(0).msg_.positions, segmentPoints_.at(1).msg_.positions);
-
-    double l = l_ * utility_.positionDistance(
+  double theta = utility_.findAngleFromAToB(segmentPoints_.at(0).msg_.positions, segmentPoints_.at(1).msg_.positions);
+  
+  // segment 1 size
+  double l = l_ * utility_.positionDistance(
+      segmentPoints_.at(0).msg_.positions, 
         segmentPoints_.at(0).msg_.positions,
-        segmentPoints_.at(1).msg_.positions);
+      segmentPoints_.at(0).msg_.positions, 
+        segmentPoints_.at(0).msg_.positions,
+      segmentPoints_.at(0).msg_.positions, 
+        segmentPoints_.at(0).msg_.positions,
+      segmentPoints_.at(0).msg_.positions, 
+        segmentPoints_.at(0).msg_.positions,
+      segmentPoints_.at(0).msg_.positions, 
+        segmentPoints_.at(0).msg_.positions,
+      segmentPoints_.at(0).msg_.positions, 
+        segmentPoints_.at(0).msg_.positions,
+      segmentPoints_.at(0).msg_.positions, 
+        segmentPoints_.at(0).msg_.positions,
+      segmentPoints_.at(0).msg_.positions, 
+        segmentPoints_.at(0).msg_.positions,
+      segmentPoints_.at(0).msg_.positions, 
+        segmentPoints_.at(0).msg_.positions,
+      segmentPoints_.at(0).msg_.positions, 
+        segmentPoints_.at(0).msg_.positions,
+      segmentPoints_.at(0).msg_.positions, 
+        segmentPoints_.at(0).msg_.positions,
+      segmentPoints_.at(0).msg_.positions, 
+        segmentPoints_.at(0).msg_.positions,
+      segmentPoints_.at(0).msg_.positions, 
+        segmentPoints_.at(0).msg_.positions,
+      segmentPoints_.at(0).msg_.positions, 
+        segmentPoints_.at(0).msg_.positions,
+      segmentPoints_.at(0).msg_.positions, 
+        segmentPoints_.at(0).msg_.positions,
+      segmentPoints_.at(0).msg_.positions, 
+        segmentPoints_.at(0).msg_.positions,
+      segmentPoints_.at(0).msg_.positions, 
+        segmentPoints_.at(0).msg_.positions,
+      segmentPoints_.at(0).msg_.positions, 
+        segmentPoints_.at(0).msg_.positions,
+      segmentPoints_.at(0).msg_.positions, 
+      segmentPoints_.at(1).msg_.positions);
+  double v_max = 0.33;
 
-    double v_max = 0.33;
+  // If change in y is greater
+  // no change in x
+  // greater change in y, 1st quadrant
+  // greater change in y, 3rd quadrant
+  // greater change in y, 4th quadrant
+  if( (run == 0)                ||
+      (slope >= 1)              ||
+      (slope == -1 && run < 0)  ||
+      (slope < -1) ) {
+    result.msg_.velocities.at(1) = findVelocity(1, l, theta);
 
-    // if Dy > Dx, >Dy, 1st quadrant. >Dy 3rd quadrant. >Dy 4th quadrant
-    if((run==0)                 ||
-       (slope >= 1)             ||
-       (slope == -1 && run < 0) ||
-       (slope < -1) ){
-        result.msg_.velocities.at(1) = findVelocity(1, l, theta);
-        if(run == 0.){
-            result.msg_.velocities.at(0) = 0;
-        }else if(run > 0.){
+    if(run == 0.){
+      result.msg_.velocities.at(0) = 0.;
+    }else if(run > 0.){
+      result.msg_.velocities.at(0) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );      
             result.msg_.velocities.at(0) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );
-        }else{
-            result.msg_.velocities.at(0) = -sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );
-        }
+      result.msg_.velocities.at(0) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );      
+            result.msg_.velocities.at(0) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );
+      result.msg_.velocities.at(0) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );      
+            result.msg_.velocities.at(0) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );
+      result.msg_.velocities.at(0) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );      
+            result.msg_.velocities.at(0) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );
+      result.msg_.velocities.at(0) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );      
+            result.msg_.velocities.at(0) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );
+      result.msg_.velocities.at(0) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );      
+            result.msg_.velocities.at(0) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );
+      result.msg_.velocities.at(0) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );      
+            result.msg_.velocities.at(0) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );
+      result.msg_.velocities.at(0) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );      
+            result.msg_.velocities.at(0) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );
+      result.msg_.velocities.at(0) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );      
+            result.msg_.velocities.at(0) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );
+      result.msg_.velocities.at(0) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );      
+            result.msg_.velocities.at(0) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );
+      result.msg_.velocities.at(0) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );      
+            result.msg_.velocities.at(0) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );
+      result.msg_.velocities.at(0) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );      
+            result.msg_.velocities.at(0) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );
+      result.msg_.velocities.at(0) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );      
+            result.msg_.velocities.at(0) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );
+      result.msg_.velocities.at(0) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );      
+            result.msg_.velocities.at(0) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );
+      result.msg_.velocities.at(0) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );      
+            result.msg_.velocities.at(0) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );
+      result.msg_.velocities.at(0) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );      
+            result.msg_.velocities.at(0) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );
+      result.msg_.velocities.at(0) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );      
+            result.msg_.velocities.at(0) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );
+      result.msg_.velocities.at(0) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );      
+            result.msg_.velocities.at(0) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );
+      result.msg_.velocities.at(0) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );      
     }else{
-        result.msg_.velocities.at(0) = findVelocity(0, l, theta);
-        if(rise == 0.){
-            result.msg_.velocities.at(1) = 0;
-        }else if(rise > 0.){
-            result.msg_.velocities.at(1) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(0),2) );
-        }else{
-            result.msg_.velocities.at(1) = -sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(0),2) );
-        }
+      result.msg_.velocities.at(0) = -sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );  
+            result.msg_.velocities.at(0) = -sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );
+      result.msg_.velocities.at(0) = -sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );  
+            result.msg_.velocities.at(0) = -sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );
+      result.msg_.velocities.at(0) = -sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );  
+            result.msg_.velocities.at(0) = -sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );
+      result.msg_.velocities.at(0) = -sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );  
+            result.msg_.velocities.at(0) = -sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );
+      result.msg_.velocities.at(0) = -sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );  
+            result.msg_.velocities.at(0) = -sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );
+      result.msg_.velocities.at(0) = -sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );  
+            result.msg_.velocities.at(0) = -sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );
+      result.msg_.velocities.at(0) = -sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );  
+            result.msg_.velocities.at(0) = -sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );
+      result.msg_.velocities.at(0) = -sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );  
+            result.msg_.velocities.at(0) = -sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );
+      result.msg_.velocities.at(0) = -sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );  
+            result.msg_.velocities.at(0) = -sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );
+      result.msg_.velocities.at(0) = -sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );  
+            result.msg_.velocities.at(0) = -sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );
+      result.msg_.velocities.at(0) = -sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );  
+            result.msg_.velocities.at(0) = -sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );
+      result.msg_.velocities.at(0) = -sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );  
+            result.msg_.velocities.at(0) = -sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );
+      result.msg_.velocities.at(0) = -sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );  
+            result.msg_.velocities.at(0) = -sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );
+      result.msg_.velocities.at(0) = -sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );  
+            result.msg_.velocities.at(0) = -sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );
+      result.msg_.velocities.at(0) = -sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );  
+            result.msg_.velocities.at(0) = -sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );
+      result.msg_.velocities.at(0) = -sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );  
+            result.msg_.velocities.at(0) = -sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );
+      result.msg_.velocities.at(0) = -sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );  
+            result.msg_.velocities.at(0) = -sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );
+      result.msg_.velocities.at(0) = -sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );  
+            result.msg_.velocities.at(0) = -sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );
+      result.msg_.velocities.at(0) = -sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(1),2) );  
     }
+  }else {
+    result.msg_.velocities.at(0) = findVelocity(0, l, theta);
+    if(ryse == 0.){
+      result.msg_.velocities.at(1) = 0;
+    }else if(ryse > 0.){
+      result.msg_.velocities.at(1) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(0),2) );      
+            result.msg_.velocities.at(1) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(0),2) );
+      result.msg_.velocities.at(1) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(0),2) );      
+            result.msg_.velocities.at(1) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(0),2) );
+      result.msg_.velocities.at(1) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(0),2) );      
+            result.msg_.velocities.at(1) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(0),2) );
+      result.msg_.velocities.at(1) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(0),2) );      
+            result.msg_.velocities.at(1) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(0),2) );
+      result.msg_.velocities.at(1) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(0),2) );      
+            result.msg_.velocities.at(1) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(0),2) );
+      result.msg_.velocities.at(1) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(0),2) );      
+            result.msg_.velocities.at(1) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(0),2) );
+      result.msg_.velocities.at(1) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(0),2) );      
+            result.msg_.velocities.at(1) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(0),2) );
+      result.msg_.velocities.at(1) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(0),2) );      
+            result.msg_.velocities.at(1) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(0),2) );
+      result.msg_.velocities.at(1) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(0),2) );      
+            result.msg_.velocities.at(1) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(0),2) );
+      result.msg_.velocities.at(1) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(0),2) );      
+            result.msg_.velocities.at(1) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(0),2) );
+      result.msg_.velocities.at(1) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(0),2) );      
+            result.msg_.velocities.at(1) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(0),2) );
+      result.msg_.velocities.at(1) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(0),2) );      
+            result.msg_.velocities.at(1) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(0),2) );
+      result.msg_.velocities.at(1) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(0),2) );      
+            result.msg_.velocities.at(1) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(0),2) );
+      result.msg_.velocities.at(1) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(0),2) );      
+            result.msg_.velocities.at(1) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(0),2) );
+      result.msg_.velocities.at(1) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(0),2) );      
+            result.msg_.velocities.at(1) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(0),2) );
+      result.msg_.velocities.at(1) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(0),2) );      
+            result.msg_.velocities.at(1) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(0),2) );
+      result.msg_.velocities.at(1) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(0),2) );      
+            result.msg_.velocities.at(1) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(0),2) );
+      result.msg_.velocities.at(1) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(0),2) );      
+            result.msg_.velocities.at(1) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(0),2) );
+      result.msg_.velocities.at(1) = sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(0),2) );      
+    }else{
+      result.msg_.velocities.at(1) = -sqrt( pow(v_max,2) - pow(result.msg_.velocities.at(0),2) );
+    }
+  }
 
-    result.msg_.accelerations.push_back(0);
-    result.msg_.accelerations.push_back(0);
-
+  result.msg_.accelerations.push_back(0);
+  result.msg_.accelerations.push_back(0);
+  
     return result;
 }
 
@@ -498,8 +760,7 @@ void BezierCurve::calculateT_R_min() {
   }
 }
 
-void BezierCurve::calculateConstants() 
-{
+void BezierCurve::calculateConstants() {
   calculateABCD();
   calculateT_R_min();
   calculateR_min();

@@ -10,9 +10,12 @@
 #include "modifier.h"
 #include "population.h"
 #include "control_handler.h"
+#include "rviz_handler.h"
 #include "parameter_handler.h"
 #include "bezier_curve.h"
 #include <type_traits>
+#include <tf/transform_broadcaster.h>
+
 
 struct ModificationResult 
 {
@@ -54,6 +57,8 @@ class Planner {
     MotionState start_;
     MotionState goal_;
     std::vector<Range> ranges_;
+    double max_speed_linear_;
+    double max_speed_angular_;
 
     // Starting motion state for planning cycle
     MotionState startPlanning_;
@@ -81,6 +86,10 @@ class Planner {
     ros::Timer imminentCollisionTimer_;
     ros::Duration imminentCollisionCycle_;
    
+    // Publishing p=map c=odom
+    ros::Timer pubMapOdomTimer_;
+    ros::Duration pubMapOdom_;
+    void pubMapOdomCb(const ros::TimerEvent& e);
     
     // Robot ID
     int id_;
@@ -101,36 +110,61 @@ class Planner {
     void planningCycles(int num);
     void go();
     void goTest(float sec=-1);
+    void resetForSLTest();
     
     // Initialization 
     void initPopulation();
+    void initPopulationHolo();
     void init(const uint8_t             i,                
               const ros::NodeHandle&    h, 
               const MotionState         s,                
               const MotionState         g, 
               const std::vector<Range>  r,                
+              const double              max_speed_linear,
+              const double              max_speed_angular,
               const int                 population_size, 
+              const double              robot_radius,
               const bool                sub_populations,  
+              const std::string         global_frame,
+              const std::string         update_topic,
               const TrajectoryType      pop_type=HYBRID,
-              const int                 gens_before_cc=0,
-              const double              t_pc_rate=2.,
+              const int                 num_ppcs=0,
+              bool                      stop_after_ppcs=false,
+              const bool                sensingBeforeCC=0,
+              const double              t_sc_rate=10.,
               const double              t_fixed_cc=2.,
-              const bool                errorReduction=0);
+              const bool                only_sensing=0,
+              const bool                moving_robot=1,
+              const bool                errorReduction=0,
+              const bool                try_ic_loop=0,
+              const double              T_weight=0,
+              const double              A_weight=0,
+              const double              D_weight=0,
+              bool                      show_full_traj=0);
     
     // Send the best trajectory to the control package
     void sendBest();
     
     // Send the whole population to the trajectory viewer
-    void sendPopulation(const Population& pop) const;
+    ros::Duration sendPop_;
+    ros::Timer sendPopTimer_;
+    ros::Time t_prevSendPop_;
+    void sendPopulationCb(const ros::TimerEvent& t);
+    void sendPopulation();
     void displayTrajectory(const ramp_msgs::RampTrajectory traj) const;
+    void buildLineList(const RampTrajectory& trajec, int id, visualization_msgs::Marker& result) const;
 
     // Evaluate the population 
-    void evaluateTrajectory(RampTrajectory& t, bool full=true) const;
-    void evaluatePopulation();
+    void evaluateTrajectory(RampTrajectory& t, bool hmap=false);
+
+    // full=false specifies that the fitness should be skipped when evaluating
+    // This was used for evaluating movingOn, but I'm not sure why
+    //void evaluateTrajectory(RampTrajectory& t, bool full=true);
+    
+    void evaluatePopulation(bool hmap=false);
     
     // Modify trajectory or path
     const std::vector<Path> modifyPath();
-
     void modifyTrajec(std::vector<RampTrajectory>& result);
 
 
@@ -155,9 +189,9 @@ class Planner {
 
 
 
-    void buildEvaluationSrv(std::vector<RampTrajectory>& trajecs, ramp_msgs::EvaluationSrv& result) const;
+    void buildEvaluationSrv(std::vector<RampTrajectory>& trajecs, ramp_msgs::EvaluationSrv& result, bool hmap=false) const;
     void buildEvaluationSrv(const RampTrajectory& trajec, ramp_msgs::EvaluationSrv& result) const;
-    void buildEvaluationRequest(const RampTrajectory& trajec, ramp_msgs::EvaluationRequest& result, bool full=true) const;
+    void buildEvaluationRequest(const RampTrajectory& trajec, ramp_msgs::EvaluationRequest& result, bool hmap=false) const;
 
 
     // Request information from other packages
@@ -174,11 +208,11 @@ class Planner {
 
 
     // Many trajectories
-    void requestEvaluation(std::vector<RampTrajectory>& trajecs);
+    void requestEvaluation(std::vector<RampTrajectory>& trajecs, bool hmap=false);
 
     // One trajectory
-    void requestEvaluation(ramp_msgs::EvaluationRequest& request) const;
-    void requestEvaluation(RampTrajectory& t, bool full=true) const;
+    void requestEvaluation(ramp_msgs::EvaluationRequest& request);
+    void requestEvaluation(RampTrajectory& t, bool hmap=false);
 
 
 
@@ -190,8 +224,9 @@ class Planner {
 
     const ramp_msgs::BezierCurve               handleCurveEnd(const RampTrajectory traj) const;
     
+    void deleteDuplicateKnotPoints(Path& p);
 
-    void adaptCurves     (const MotionState& ms, const ros::Duration& d, std::vector<ramp_msgs::BezierCurve>& result);
+    void adaptCurves     (const MotionState& ms, const ros::Duration& d, std::vector<ramp_msgs::BezierCurve>& result, std::vector<Path> adaptedPaths);
     void adaptPaths      (const MotionState& ms, const ros::Duration& d, std::vector<Path>& result);
     void adaptPopulation (const MotionState& ms, const ros::Duration& d);
 
@@ -205,6 +240,8 @@ class Planner {
     const std::vector<MotionState> setMi(const RampTrajectory& trj_current) const;
 
     std::vector<RampTrajectory> ob_trajectory_;
+    std::vector<ramp_msgs::Obstacle> obs_;
+    std::vector<ramp_msgs::Obstacle> obsHmap_;
 
 
     const MotionType findMotionType(const ramp_msgs::Obstacle ob) const;
@@ -212,7 +249,13 @@ class Planner {
     const ramp_msgs::Path getObstaclePath(const ramp_msgs::Obstacle ob, const MotionType mt) const;
     
     void sensingCycleCallback     (const ramp_msgs::ObstacleList& msg);
-    void updateCallback(const ramp_msgs::MotionState& msg);
+    void updateCbPose(const geometry_msgs::PoseWithCovarianceStamped msg);
+    void updateCbControlNode(const ramp_msgs::MotionState& msg);
+    void combinedMapCb(const nav_msgs::OccupancyGrid msg);
+
+
+    void hilbertMapObsCb(const nav_msgs::OccupancyGrid& hmapObs);
+
 
     /** Data */
 
@@ -324,10 +367,10 @@ class Planner {
 
 
     // Work for CC
-    void doControlCycle();
+    void doControlCycle(bool sendBestTraj=true);
 
     // Returns the index in the trajectory's path to start checking if the robot has passed it
-    const uint8_t getIndexStartPathAdapting(const RampTrajectory t) const;
+    const uint8_t getIndexStartPathAdapting(const RampTrajectory& t) const;
 
 
     // Returns true if motion state satisfies constraints to be a knot point in Path p 
@@ -349,7 +392,7 @@ class Planner {
     bool predictTransition(const RampTrajectory& from, const RampTrajectory& to, const double& t);
 
 
-    void reportData() ;
+    void printData() ;
 
 
     ros::Duration d_IC_;
@@ -394,8 +437,8 @@ class Planner {
     // Index of previous best trajectory
     unsigned int        i_best_prev_;
 
-    // Number of generations to wait before starting control cycles
-    unsigned int        generationsBeforeCC_;
+    // True if doing SCs while doing PCs before CCs start
+    bool                sensingBeforeCC_;
 
     // Maximum number of generations to occur between control cycles
     unsigned int        generationsPerCC_;
@@ -425,6 +468,7 @@ class Planner {
     TrajectoryRequestHandler*   h_traj_req_;
     EvaluationRequestHandler*   h_eval_req_;
     ControlHandler*             h_control_;
+    RvizHandler*                h_rviz_;
     Modifier*                   modifier_;
 
     // Parameter handler
@@ -451,7 +495,11 @@ class Planner {
     bool moving_on_coll_;
 
 
-    ros::Time t_prevCC_;
+    ros::Time t_prevCC_ros_;
+    std::chrono::high_resolution_clock::time_point t_startRamp_;
+    std::chrono::high_resolution_clock::time_point t_prevCC_;
+    std::chrono::high_resolution_clock::time_point t_prevPC_;
+    std::chrono::high_resolution_clock::time_point t_prevSC_;
     uint8_t pc_switch_;
 
 
@@ -464,17 +512,6 @@ class Planner {
     double avg_error_correct_val_pos_, avg_error_correct_val_or_;
     
 
-    std::vector<ros::Duration> adapt_durs_;
-    std::vector<ros::Duration> trans_durs_;
-    std::vector<ros::Duration> cc_durs_;
-    std::vector<ros::Duration> mutate_durs_;
-    std::vector<ros::Duration> pc_durs_;
-    std::vector<ros::Duration> sc_durs_;
-    std::vector<ros::Duration> trajec_durs_;
-    std::vector<ros::Duration> eval_durs_;
-    std::vector<ros::Duration> error_correct_durs_;
-    double avg_adapt_dur_, avg_trans_dur_, avg_cc_dur_, avg_mutate_dur_, avg_pc_dur_, avg_trajec_dur_, 
-           avg_eval_dur_, avg_error_correct_dur_, avg_sc_dur_;
 
 
     bool reset_;
@@ -482,6 +519,156 @@ class Planner {
     bool log_switching_;
     int num_mods_;
     int num_succ_mods_;
+
+    double robot_radius_;
+
+    bool only_sensing_;
+    bool moving_robot_;
+    int id_line_list_;
+
+    std::string global_frame_;
+    std::string update_topic_;
+    
+    // Using a TransformListener is too inconsistent to rely on
+    // because sometimes the tfs are there, sometimes it gives me the
+    // "have to extrapolate future data" error, so instead 
+    // store a transform and manually apply it since the tf is static
+    tf::StampedTransform tf_global_costmap_;
+    tf::StampedTransform tf_global_odom_;
+    tf::StampedTransform tf_global_odom_rot_;
+    
+    
+    int i_prevBest_;
+    
+    
+    bool show_full_traj_;
+    
+    /*
+     * Vectors to hold recorded data
+     * in-line comments will specify what method records the data
+     * All data is written to disk in reportData() method
+     */
+    std::vector<ros::Duration> adapt_durs_;
+    std::vector<ros::Duration> trans_durs_;
+    double avg_adapt_dur_, avg_trans_dur_, avg_cc_dur_, avg_mutate_dur_, avg_pc_dur_, avg_trajec_dur_, 
+           avg_eval_dur_, avg_error_correct_dur_, avg_sc_dur_;
+
+    int num_ppcs_;
+    bool stop_after_ppcs_;
+
+    bool forceMinMod_;
+    bool evalHMap_;
+    bool tryICLoop_;
+    bool combinedMapReceived_;
+
+    double T_weight_;
+    double A_weight_;
+    double D_weight_;
+
+    /*
+     * General data
+     */
+    // Variables to hold data
+    ros::Duration d_runtime_;                             // go()
+    int num_pcs_;                                         // go()
+    int num_scs_;                                         // sensingCycleCallback
+    int num_ccs_;                                         // controlCycleCallback
+    int num_switches_;
+    int pop_size_;                                        // init
+    std::vector<ros::Duration> d_compute_switch_all_ts_;  // doControlCycle
+    std::vector<int> switch_t_size_;                      // getTransitionTrajectory
+    std::vector<int> trajec_size_;                        // doControlCycle
+    ros::Duration d_best_is_feas_;                        // sensingCycleCallback
+    ros::Duration d_time_in_ic_;                          // imminentCollisionCallback
+    RampTrajectory full_trajectory_;                      // doControlCycle (does not include motion error)
+    std::vector<double> min_dist_obs_;                    // sensingCycleCallback
+    std::vector<double> motion_error_amount_;             // planningCycleCallback
+    std::vector<int> num_trajecs_gen_;
+    std::vector<int> num_trajecs_eval_;
+
+    ros::Time t_startedFeas_;
+
+    // Files
+    std::ofstream f_runtime_;
+    std::ofstream f_num_pcs_;
+    std::ofstream f_num_scs_;
+    std::ofstream f_num_ccs_;
+    std::ofstream f_num_switches_;
+    std::ofstream f_pop_size_;
+    std::ofstream f_eval_weights_;
+    std::ofstream f_compute_switch_all_ts_;
+    std::ofstream f_switch_t_size_;
+    std::ofstream f_trajec_size_;
+    std::ofstream f_best_is_feas_;
+    std::ofstream f_time_in_ic_;
+    std::ofstream f_full_trajectory_;
+    std::ofstream f_min_dist_obs_;
+    std::ofstream f_motion_error_amount_;
+    std::ofstream f_num_trajecs_gen_;
+    std::ofstream f_num_trajecs_eval_;
+    
+
+    void printGeneralData() const;
+
+    // helper vars
+    ros::Time t_lastFeasible_;
+    
+    /*
+     * Duration data
+     */
+    // Variables to hold data
+    std::vector<double> pc_durs_;  // planningCycleCallback
+    std::vector<double> pc_freqs_;  // planningCycleCallback
+    std::vector<double> sc_durs_;  // sensingCycleCallback
+    std::vector<double> sc_freqs_;                    // doControlCycle
+    std::vector<double> cc_durs_;                    // doControlCycle
+    std::vector<double> cc_freqs_;                    // doControlCycle
+    std::vector<double> trajec_durs_;                // requestTrajectory
+    std::vector<double> eval_durs_;                  // requestEvaluation
+    std::vector<double> mod_durs_;                   // modification
+    std::vector<double> mod_traj_durs_;              // modification including trajec
+    std::vector<double> mutate_durs_;                // planningCycleCallback
+    std::vector<double> error_correct_durs_eval_;    // planningCycleCallback
+    std::vector<double> error_correct_durs_no_eval_; // planningCycleCallback
+
+    // Files
+    std::ofstream f_pc_durs_;
+    std::ofstream f_pc_freqs_;
+    std::ofstream f_sc_durs_;
+    std::ofstream f_sc_freqs_;
+    std::ofstream f_cc_durs_;
+    std::ofstream f_cc_freqs_;
+    std::ofstream f_trajec_durs_;
+    std::ofstream f_eval_durs_;
+    std::ofstream f_mod_durs_;
+    std::ofstream f_mod_traj_durs_;
+    std::ofstream f_mutate_durs_;
+    std::ofstream f_error_correct_durs_eval_;
+    std::ofstream f_error_correct_durs_no_eval_;
+
+    void printDurationData() const;
+
+
+    
+    /*
+     * Environment data
+     *  This can be recorded by hand
+     *  double width_; 
+     *  double height_;
+     *  std::vector<double> ob_size_;
+     *  std::vector<double> ob_speed_;
+     *  std::vector<int> num_obs_;
+     */   
+
+    int i_best;
+
+
+    void openFiles();
+    void closeFiles();
+
+    void writeGeneralData();
+    void writeDurationData();
+    void writeData();
 };
 
 #endif

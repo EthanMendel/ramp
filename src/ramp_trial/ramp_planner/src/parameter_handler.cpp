@@ -14,3 +14,7 @@ void ParameterHandler::setCCStarted(bool cc) {
 void ParameterHandler::setTestCase(bool ready_tc){
   ros::param::set("ramp/ready_tc", ready_tc);
 }
+
+void ParameterHandler::setPPCDone(bool ppc_done){
+  ros::param::set("ramp/preplanning_cycles_done", ppc_done);
+}

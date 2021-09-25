@@ -14,8 +14,10 @@ class Population {
 
     /* Methods */
     const unsigned int    size() const;
-    const int             add(const RampTrajectory& rt);
+    const int             add(const RampTrajectory& rt, bool forceMin=false);
+    const int             addWithSubPop(const RampTrajectory& rt, bool forceMin=false);
     const int             calcBestIndex() const;
+    const int             calcWorstIndex() const;
     void                  clear();
     void                  replace(const uint8_t i, const RampTrajectory& trajec);
     void                  replaceAll(const std::vector<RampTrajectory>& new_pop);
@@ -36,7 +38,8 @@ class Population {
     void setStartTime(double t_start);
    
     const std::vector<RampTrajectory> getBestFromSubPops() const;
-    const std::vector<Population> createSubPopulations(const double delta_theta=PI/18.f);
+    const int getSubPopIndex(const RampTrajectory& traj) const;
+    const std::vector<Population> createSubPopulations(const double delta_theta=PI/6.f);
 
 
     const std::string     fitnessFeasibleToString() const;
@@ -49,6 +52,7 @@ class Population {
     unsigned int                maxSize_;
 
     double                      t_start_;
+    double                      deltaThetaSubPops_;
     
     std::vector<RampTrajectory> trajectories_;
     

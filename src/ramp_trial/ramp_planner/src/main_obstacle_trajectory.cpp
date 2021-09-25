@@ -4,93 +4,95 @@
 #include "control_handler.h"
 #include "trajectory_request_handler.h"
 
-int main(int argc, char **argv){
-    ros::init(argc, argv, "obstacle");
-    ros::NodeHandle handle;
 
-    ros::ServiceClient client = handle.serviceClient<ramp_msgs::TrajectorySrv>("/trajectory_generator");
-    ros::Publisher pub_traj = handle.advertise<ramp_msgs::RampTrajectory>("bestTrajec", 1000);
-    ros::Publisher pub_pop = handle.advertise<ramp_msgs::Population>("/population", 1000);
-    Utility u;
+int main(int argc, char** argv){
+  ros::init(argc, argv, "obstacle");
+  ros::NodeHandle handle;
 
-    MotionState s;
-    s.msg_.positions.push_back(1.5);
-    s.msg_.positions.push_back(2.f);
-    s.msg_.positions.push_back(-3.f * PI / 4.f);
-    s.msg_.velocities.push_back(-0.23f);
-    s.msg_.velocities.push_back(-0.23f);
-    s.msg_.velocities.push_back(0.22f);
+  ros::ServiceClient client = handle.serviceClient<ramp_msgs::TrajectorySrv>("/trajectory_generator");
+  ros::Publisher pub_traj = handle.advertise<ramp_msgs::RampTrajectory>("bestTrajec", 1000);
+  ros::Publisher pub_pop = handle.advertise<ramp_msgs::Population>("/population", 1000);  
+  Utility u;
 
-    MotionState kp;
-    kp.msg_.positions.push_back(1.f);
-    kp.msg_.positions.push_back(2.f);
-    kp.msg_.positions.push_back(0.f);
-    kp.msg_.velocities.push_back(0.f);
-    kp.msg_.velocities.push_back(0.f);
-    kp.msg_.velocities.push_back(0.f);
+  MotionState s;
+  s.msg_.positions.push_back(1.5);
+  s.msg_.positions.push_back(2.f);
+  s.msg_.positions.push_back(-3.f*PI/4.f);
+  s.msg_.velocities.push_back(-0.23f);
+  s.msg_.velocities.push_back(-0.23f);
+  s.msg_.velocities.push_back(0.22f);
 
-    MotionState g;
-    g.msg_.positions.push_back(3.5f);
-    g.msg_.positions.push_back(1.5f);
-    g.msg_.positions.push_back(PI);
-    g.msg_.velocities.push_back(0.f);
-    g.msg_.velocities.push_back(0.f);
-    g.msg_.velocities.push_back(0.f);
+  MotionState kp;
+  kp.msg_.positions.push_back(1.f);
+  kp.msg_.positions.push_back(2.f);
+  kp.msg_.positions.push_back(0.f);
+  kp.msg_.velocities.push_back(0.f);
+  kp.msg_.velocities.push_back(0.f);
+  kp.msg_.velocities.push_back(0.f);
 
-    KnotPoint kp_s(s);
-    KnotPoint kp_g(g);
+  MotionState g;
+  g.msg_.positions.push_back(3.5f);
+  g.msg_.positions.push_back(1.5f);
+  g.msg_.positions.push_back(PI);
+  g.msg_.velocities.push_back(0.f);
+  g.msg_.velocities.push_back(0.f);
+  g.msg_.velocities.push_back(0.f);
 
-    Path p(s, g);
-    p.addBeforeGoal(kp);
+  KnotPoint kp_s(s);
+  KnotPoint kp_g(g);
 
-    Path pred;
-    pred.msg_.points.push_back(kp_s.buildKnotPointMsg());
+  Path p(s,g);
+  p.addBeforeGoal(kp);
 
-    ramp_msgs::TrajectoryRequest tr;
-    tr.path = pred.buildPathMsg();
-    tr.type = PREDICTION;
+  Path pred;
+  pred.msg_.points.push_back(kp_s.buildKnotPointMsg());
 
-    ramp_msgs::BezierCurve curve;
+  ramp_msgs::TrajectoryRequest tr;
+  tr.path = pred.buildPathMsg();
+  tr.type = PREDICTION;
 
-    tr.bezierCurves.push_back(curve);
+  ramp_msgs::BezierCurve curve;
 
-    ROS_INFO("Press Enter to request and send the trajectory\n");
-    std::cin.get();
+  tr.bezierCurves.push_back(curve);
+  
+  ROS_INFO("Press Enter to request and send the trajectory\n");
+  std::cin.get();
 
-    ramp_msgs::TrajectorySrv tr_srv;
-    tr_srv.request.reqs.push_back(tr);
+  ramp_msgs::TrajectorySrv tr_srv;
+  tr_srv.request.reqs.push_back(tr);
 
-    // get and publish trajectory
-    if (client.call(tr_srv)){
-        ROS_INFO("Got obstacle trajectory!");
-    }else{
-        ROS_WARN("Some error getting obstacle trajectory");
-    }
+  // get and publish trajectory
+  if(client.call(tr_srv)) {
+    ROS_INFO("Got obstacle trajectory!");
+  }else {
+    ROS_WARN("Some error getting obstacle trajectory");
+  }
 
-    bool cc_started = false;
-    ros::Rate r(10);
+  bool cc_started = false;
+  ros::Rate r(10);
+  
+  while(!cc_started){
+    handle.getParam("/ramp/cc_started", cc_started);
+    //ROS_INFO("/ramp/cc_started: %s", cc_started ? "True" : "False");
+    r.sleep();
+    ros::spinOnce();
+  }
 
-    while (!cc_started){
-        handle.getParam("/ramp/cc_started", cc_started);
-        r.sleep();
-        ros::spinOnce();
-    }
+  ros::Rate rs(7);
+  rs.sleep();
 
-    ros::Rate rs(7);
-    rs.sleep();
+  ROS_INFO("Publishing trajectory: %s", u.toString(tr_srv.response.resps.at(0).trajectory).c_str());
+  pub_traj.publish(tr_srv.response.resps.at(0).trajectory);
+  pub_traj.publish(tr_srv.response.resps.at(0).trajectory);
+  pub_traj.publish(tr_srv.response.resps.at(0).trajectory);
+  pub_traj.publish(tr_srv.response.resps.at(0).trajectory);
+  pub_traj.publish(tr_srv.response.resps.at(0).trajectory);
+  
+  // create population to send to trajectory_visualization
+  ramp_msgs::Population pop;
+  pop.population.push_back(tr_srv.response.resps.at(0).trajectory);
+  
+  pub_pop.publish(pop);
 
-    ROS_INFO("Publishing trajectory: %s", u.toString(tr_srv.response.resps.at(0).trajectory).c_str());
-    pub_traj.publish(tr_srv.response.resps.at(0).trajectory);
-    pub_traj.publish(tr_srv.response.resps.at(0).trajectory);
-    pub_traj.publish(tr_srv.response.resps.at(0).trajectory);
-    pub_traj.publish(tr_srv.response.resps.at(0).trajectory);
-    pub_traj.publish(tr_srv.response.resps.at(0).trajectory);
-
-    // create population to send to trajectory_visualization
-    ramp_msgs::Population pop;
-    pop.population.push_back(tr_srv.response.resps.at(0).trajectory);
-
-    pub_pop.publish(pop);
-
-    return 0;
+  return 0;
 }

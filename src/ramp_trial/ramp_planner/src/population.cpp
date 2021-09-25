@@ -55,7 +55,7 @@ void Population::replace(const uint8_t i, const RampTrajectory& trajec)
   }
   else 
   {
-    //ROS_WARN("Replacing trajectory at index %i, but population size = %lu\n", (int)i, trajectories_.size());
+    ////ROS_WARN("Replacing trajectory at index %i, but population size = %lu\n", (int)i, trajectories_.size());
     trajectories_.push_back(trajec);
     paths_.push_back(trajec.msg_.holonomic_path);  
   }
@@ -71,6 +71,7 @@ void Population::replaceAll(const std::vector<RampTrajectory>& new_pop)
 
   // Set paths vector
   paths_.clear();
+  paths_.reserve(new_pop.size());
   for(uint8_t i=0;i<new_pop.size();i++) 
   {
     paths_.push_back(new_pop.at(i).msg_.holonomic_path);
@@ -91,7 +92,12 @@ const int Population::getNumSubPops() const
 
 
 /** This method returns the minimum fitness of the population */
-const double Population::getMinFitness() const {
+const double Population::getMinFitness() const 
+{
+  if(trajectories_.size() == 0)
+  {
+    return 0;
+  }
   double result = trajectories_.at(0).msg_.fitness;
 
   for(uint8_t i=1;i<trajectories_.size();i++) {
@@ -108,18 +114,18 @@ const double Population::getMinFitness() const {
 
 const bool Population::contains(const RampTrajectory& rt) const 
 {
-  //ROS_INFO("In Population::contains");
+  ////ROS_INFO("In Population::contains");
   for(uint8_t i=0;i<size();i++) 
   {
-    //ROS_INFO("i: %i size(): %i", i, size());
+    ////ROS_INFO("i: %i size(): %i", i, size());
     if(trajectories_.at(i).equals(rt)) 
     {
-      //ROS_INFO("Population contains trajectory at index %i", (int)i);
+      ////ROS_INFO("Population contains trajectory at index %i", (int)i);
       return true;
     }
   }
 
-  //ROS_INFO("Population does not contain trajectory");
+  ////ROS_INFO("Population does not contain trajectory");
   return false;
 }
 
@@ -144,12 +150,12 @@ const bool Population::feasibleExists() const
 
 
 
-/** This method returns true if there is at least one infeasible trajectory in the population */
+/** This method returns true if there is at least one infeasible trajectory in the population that is NOT the best trajectory */
 const bool Population::infeasibleExists() const 
 {
   for(uint8_t i=0;i<trajectories_.size();i++) 
   {
-    if(!trajectories_.at(i).msg_.feasible) 
+    if(!trajectories_.at(i).msg_.feasible && i != calcBestIndex()) 
     {
       return true;
     }
@@ -169,84 +175,51 @@ const bool Population::infeasibleExists() const
 const bool Population::replacementPossible(const RampTrajectory& rt) const 
 {
   //ROS_INFO("In Population::replacementPossible");
-  //////ROS_INFO("rt: %s", rt.toString().c_str());
-  //ROS_INFO("rt.fitness: %f feasible: %s t_coll: %f", rt.msg_.fitness, rt.msg_.feasible ? "True" : "False", rt.msg_.t_firstCollision.toSec());
-  //////ROS_INFO("pop: %s", toString().c_str());
-  
-  /*////ROS_INFO("Trajec 1 fit: %f feasible: %s t_coll: %f", trajectories_.at(1).msg_.fitness, 
-      trajectories_.at(1).msg_.feasible ? "True" : "False", trajectories_.at(1).msg_.t_firstCollision);*/
-
-  //ROS_INFO("getMinFitness(): %f", getMinFitness());
-
-  // If the fitness is not higher than the minimum fitness
-  /*if(rt.msg_.fitness <= getMinFitness()) 
-  {
-    ROS_INFO("Fitness < Minimum Fitness, %f < %f, returning false", rt.msg_.fitness, getMinFitness());
-    return false;
-  }*/
+  ////////ROS_INFO("rt: %s", rt.toString().c_str());
+  ////ROS_INFO("rt.fitness: %f feasible: %s t_coll: %f", rt.msg_.fitness, rt.msg_.feasible ? "True" : "False", rt.msg_.t_firstCollision.toSec());
+  ////////ROS_INFO("pop: %s", toString().c_str());
   
   // If the trajectory is infeasible and
   // no infeasible trajectories exist, no
   // trajectories can be replaced
   if(!rt.msg_.feasible && !infeasibleExists()) 
   {
-    //ROS_INFO("rt is infeasible, no other infeasible trajecs, returning false");
+    ////ROS_INFO("rt is infeasible, no other infeasible trajecs, returning false");
+    return false;
+  }
+  
+  if(rt.msg_.fitness < getMinFitness())
+  {
+    //ROS_INFO("Fitness is less than minimum fitness");
     return false;
   }
 
   /** IF subpopulations are being used */
+  // Need to calculate new trajectory's i_subPop to check stuff about that 1 subPop
   if(subPopulations_.size() > 0) 
   {
-    //std::cout<<"\nIn sub-pops\n";
+    //ROS_INFO("In sub-pops");
     
-    // If each subpopulation has <= 1 trajectory,
-    // no trajectories can be replaced
-    std::vector<uint8_t> i_validSubpops;
-    for(uint8_t i=0;i<subPopulations_.size();i++) 
+    // Get the sub-pop that this traj belongs to
+    int iSP = getSubPopIndex(rt);
+
+    //ROS_INFO("isp: %i subPopulations_.size(): %i", iSP, (int)subPopulations_.size());
+    if(subPopulations_.at(iSP).size() < 2 || rt.msg_.fitness < subPopulations_.at(iSP).getMinFitness()) 
     {
-      if(subPopulations_.at(i).size() > 1 && rt.msg_.fitness > subPopulations_.at(i).getMinFitness()) 
-      {
-        i_validSubpops.push_back(i);
-      }
-    }
-    if(i_validSubpops.size() == 0) 
-    {
-      //std::cout<<"\nAll sub-pops size < 2, not possible\n";
       return false;
-    }
-    else 
-    {
-      //std::cout<<"\ni_validSubPops.size(): "<<i_validSubpops.size()<<"\n";
     }
   
     // If the valid sub-populations have only feasible trajectories
     // no trajectories can be replaced
     // or if rt's fitness is lower than the min fitness of sub-population
-    if(!rt.msg_.feasible) 
+    if(rt.msg_.feasible == false && subPopulations_[iSP].infeasibleExists() == false) 
     {
-      ////ROS_INFO("In !feasible");
-      ////ROS_INFO("i_validSubpops.size: %i", (int)i_validSubpops.size());
-      bool valid=false;
-      for(uint8_t i=0;i<i_validSubpops.size();i++) 
-      {
-        ////ROS_INFO("i: %i", i);
-        if(subPopulations_.at(i_validSubpops.at(i)).infeasibleExists() &&
-            rt.msg_.fitness > subPopulations_.at(i_validSubpops.at(i)).getMinFitness())
-        {
-          valid = true;
-        }
-      }
-
-      if(!valid) 
-      {
-        ////ROS_INFO("Not valid, returning false");
-        return false;
-      }
+      return false;
     } // end if rt is infeasible
   } // end if sub-populations are used
 
-  //ROS_INFO("Replacement is possible");
-  //ROS_INFO("Exiting Population::replacementPossible");
+  ////ROS_INFO("Replacement is possible");
+  ////ROS_INFO("Exiting Population::replacementPossible");
   return true;
 } // End replacementPossible
 
@@ -261,52 +234,49 @@ const bool Population::canReplace(const RampTrajectory& rt, const int& i) const
   //ROS_INFO("In Population::canReplace");
   //ROS_INFO("i: %i feasible: %s", i, trajectories_.at(i).msg_.feasible ? "True" : "False");
   
+  // Don't replace the best trajectory in the population
+  // (maybe change this to be whatever traj the robot is moving on? the best may change between control cycles)
   if(i == calcBestIndex()) 
   {
     //ROS_INFO("i == i_best, returning false");
     return false;
   }
 
+  // Don't let an infeasible trajec replace a feasible one
   if(!rt.msg_.feasible && trajectories_.at(i).msg_.feasible) 
   {
     //ROS_INFO("rt infeasible, i feasible, returning false");
     return false;
   }
 
+  // Elitist method
+  /*if(rt.msg_.fitness < trajectories_.at(i).msg_.fitness)
+  {
+    //ROS_INFO("fitness is less than %i fitness, returning false", i);
+    return false;
+  }*/
+
 
   // If sub-populations are used,
   if(subPopulations_.size() > 0) 
   {
-    //std::cout<<"\nIn sub-pops are being used!";
+    //ROS_INFO("SubPopulations are being used");
     
     //std::cout<<"\ntrajectories.size(): "<<trajectories_.size();
     RampTrajectory temp = trajectories_.at(i);
 
     //std::cout<<"\nsubPopulations.size(): "<<subPopulations_.size();
     //std::cout<<"\ntemp.i_subPopulation: "<<temp.msg_.i_subPopulation<<"\n";
-    Population p = subPopulations_.at(temp.msg_.i_subPopulation);
-
-    if(p.trajectories_.size() < 2) 
+    
+    // Check that temp's sub-population has at least 2 trajectories
+    if(subPopulations_.at(temp.msg_.i_subPopulation).trajectories_.size() < 2)
     {
+      //ROS_INFO("Sub-pop size < 2, returning false");
       //std::cout<<"\nSub-Population size < 2, returning false\n";
       return false;
     }
-
-    //std::cout<<"\np.trajectories.size(): "<<p.trajectories_.size();
-    //std::cout<<"\np.calcBestIndex(): "<<p.calcBestIndex()<<"\n";
-
-    // if i is the best in trajectory i's sub-population
-    if(temp.equals( p.trajectories_.at(p.calcBestIndex()) )) 
-    {
-      //std::cout<<"\ntemp == best in sub-population, returning false\n";
-      return false;
-    }
-
-    if(rt.msg_.fitness < temp.msg_.fitness)
-    {
-      return false;
-    }
   } // end if sub-pops are being used
+
   
   //ROS_INFO("Returning true");
   //ROS_INFO("Exiting Population::canReplace");
@@ -340,7 +310,7 @@ const int Population::getReplacementID(const RampTrajectory& rt) const
   do 
   {
     result = rand() % trajectories_.size();
-    ////ROS_INFO("result: %i", result); 
+    //////ROS_INFO("result: %i", result); 
   }
   
   // Keep getting a random index until it
@@ -354,18 +324,54 @@ const int Population::getReplacementID(const RampTrajectory& rt) const
 
 
 
+/*
+ * Returns the index of the sub-population
+ */
+const int Population::getSubPopIndex(const RampTrajectory& traj) const
+{
+  //ROS_INFO("In getSubPopIndex");
+  int result = -1;
 
+
+  // Get direction and Convert to [0,2PI]
+  double departure_direction = traj.getDirection();
+  //ROS_INFO("departure_direction: %f", departure_direction);
+
+  if(departure_direction < 0)
+  {
+    departure_direction += (2*PI);
+  }
+
+  int num = ceil((2.0*PI) / deltaThetaSubPops_);
+  
+  //ROS_INFO("departure_direction: %f deltaThetaSubPops_: %f num: %i", departure_direction, deltaThetaSubPops_, num);
+
+  // Find the sub-pop it belongs to
+  // and add it to that sub-pop
+  for(uint8_t sp=0;sp<num;sp++) 
+  {
+    if(departure_direction < deltaThetaSubPops_*(sp+1)) 
+    {
+      //traj.msg_.i_subPopulation = sp;
+      result = sp;
+      break;
+    }
+  } // end inner loop
+
+  return result;
+}
 
 
 /** This method adds a trajectory to the population. 
  *  If the population is full, a random trajectory (that isn't the best one) is replaced
  *  Returns the index that the trajectory is added at */
-const int Population::add(const RampTrajectory& rt) 
+const int Population::add(const RampTrajectory& rt, bool forceMin)
 {
-  /*ROS_INFO("In Population::add");
-  ROS_INFO("Pop: %s", toString().c_str());
-  ROS_INFO("rt: %s", rt.toString().c_str());
-  ROS_INFO("Pop best id: %i", calcBestIndex());*/
+  //ROS_INFO("In Population::add");
+  //ROS_INFO("forceMin: %s", forceMin ? "True" : "False");
+  /*//ROS_INFO("Pop: %s", toString().c_str());
+  //ROS_INFO("rt: %s", rt.toString().c_str());
+  //ROS_INFO("Pop best id: %i", calcBestIndex());*/
 
   /*if(subPopulations_.size() > 0) 
   {
@@ -380,32 +386,71 @@ const int Population::add(const RampTrajectory& rt)
   // If it's not full, simply push back
   if(isSubPopulation_ || trajectories_.size() < maxSize_) 
   {
+    //ROS_INFO("In isSubPopulation_ || trajectories_.size() < maxSize_");
     trajectories_.push_back (rt);  
     paths_.push_back        (rt.msg_.holonomic_path);
     
-    //ROS_INFO("In if isSubPopulation_ || trajectories_.size() < maxSize_");
-    ////ROS_INFO("Exiting Population::add");
+    ////ROS_INFO("In if isSubPopulation_ || trajectories_.size() < maxSize_");
+    //////ROS_INFO("Exiting Population::add");
     return trajectories_.size()-1;
   }
+
+  // Else if we are forcing it to replace the min traj
+  else if(!contains(rt) && forceMin)
+  {
+    int i_min = calcWorstIndex();
+
+    // Check the sub-pop for i_min
+    if(subPopulations_.size() > 0)
+    {
+      // Check if the worst trajec is not the only one in its sub-pops
+      if( subPopulations_[trajectories_[i_min].msg_.i_subPopulation].size() > 1)
+      {
+        //ROS_INFO("Trajectory to replace: %s", trajectories_[i_min].toString().c_str());
+        replace(i_min, rt);
+        return i_min;
+      }
+      // Else, replace a random trajectory
+      else if(replacementPossible(rt))
+      {
+        //ROS_INFO("Using random");
+        int i = getReplacementID(rt);
+        replace(i, rt);
+        return i;
+      }
+    } // end if using sub-pops
+    else
+    {
+      replace(i_min, rt);
+    }
+  } // end if forceMin
 
   // If full, replace a trajectory
   else if(!contains(rt) && replacementPossible(rt)) 
   {
+    //ROS_INFO("In !contains(rt) && replacementPossible(rt)");
     int i = getReplacementID(rt);
+    //ROS_INFO("i: %i", i);
+
+    if(trajectories_[i].msg_.feasible && !rt.msg_.feasible)
+    {
+      //ROS_WARN("Replacing a feasible trajectory with an infeasible one!");
+      //ROS_INFO("Trajec being added to index %i\nTrajectory currently at %i: %s", i, i, trajectories_[i].toString().c_str());
+    }
 
     replace(i, rt);
     
     //ROS_INFO("Added trajectory to index %i", i);
-    ////ROS_INFO("Exiting Population::add");
+    //////ROS_INFO("Exiting Population::add");
     return i;
   }
 
 
-  /*//ROS_INFO("Cannot add trajectory");
-  //ROS_INFO("%s", rt.toString().c_str());
-  //ROS_INFO("pop: %s", toString().c_str());*/
+  /*////ROS_INFO("Cannot add trajectory");
+  ////ROS_INFO("%s", rt.toString().c_str());
+  ////ROS_INFO("pop: %s", toString().c_str());*/
 
-  ////ROS_INFO("Exiting Population::add");
+  //////ROS_INFO("Exiting Population::add");
   return -1;
 } //End add
 
@@ -414,10 +459,11 @@ const int Population::add(const RampTrajectory& rt)
 /** Returns the fittest trajectory and sets calcBestIndex() */
 const int Population::calcBestIndex() const 
 {
+  ////ROS_INFO("In Population::calcBestIndex");
   if(size() == 0)
   {
-    ROS_ERROR("Calling Population::calcBestIndex(), but Population is empty");
-    //ROS_INFO("Pop: %s", toString().c_str());
+    //ROS_ERROR("Calling Population::calcBestIndex(), but Population is empty");
+    ////ROS_INFO("Pop: %s", toString().c_str());
     return -1;
   }
  
@@ -432,8 +478,35 @@ const int Population::calcBestIndex() const
   } //end for
 
 
+  ////ROS_INFO("Exiting Population::calcBestIndex");
   return i_max; 
 } //End calcBestIndex
+
+
+const int Population::calcWorstIndex() const
+{
+  ////ROS_INFO("In Population::calcBestIndex");
+  if(size() == 0)
+  {
+    //ROS_ERROR("Calling Population::calcBestIndex(), but Population is empty");
+    ////ROS_INFO("Pop: %s", toString().c_str());
+    return -1;
+  }
+ 
+  // Find the index of the trajectory with the highest fitness value
+  int i_min = 0;
+  for(int i=1;i<trajectories_.size();i++) 
+  {
+    if(trajectories_.at(i).msg_.fitness < trajectories_.at(i_min).msg_.fitness) 
+    {
+      i_min = i;
+    }
+  } //end for
+
+
+  ////ROS_INFO("Exiting Population::calcBestIndex");
+  return i_min;
+}
 
 
 
@@ -480,12 +553,15 @@ const std::vector<RampTrajectory> Population::getBestFromSubPops() const
 
   if(subPopulations_.size() == 0) 
   {
-    //ROS_ERROR("Calling Population::getBestFromSubPops, but Population has no sub-populations!");
+    ////ROS_ERROR("Calling Population::getBestFromSubPops, but Population has no sub-populations!");
   }
 
-  else {
-    for(uint8_t i=0;i<subPopulations_.size();i++) {
-      if(subPopulations_.at(i).size() > 0) {
+  else 
+  {
+    for(uint8_t i=0;i<subPopulations_.size();i++) 
+    {
+      if(subPopulations_.at(i).size() > 0) 
+      {
         int i_best = subPopulations_.at(i).calcBestIndex(); 
         result.push_back(subPopulations_.at(i).get(i_best));
       }
@@ -502,11 +578,13 @@ const std::vector<RampTrajectory> Population::getBestFromSubPops() const
 const std::vector<Population> Population::createSubPopulations(const double delta_theta) 
 {
   subPopulations_.clear();
+  deltaThetaSubPops_ = delta_theta;
 
 
   // Get the number of sub-pops for delta_theta
-  int num = ceil((2*PI) / delta_theta);
-  ////ROS_INFO("num: %i", num);
+  //int num = ceil((2*PI) / delta_theta);
+  int num = ceil((PI*2.f) / delta_theta);
+  //////ROS_INFO("num: %i", num);
  
   // Create the sub-populations
   for(uint8_t i=0;i<num;i++) 
@@ -604,7 +682,7 @@ const std::string Population::toString() const
   {
     for(unsigned int i=0;i<trajectories_.size();i++) 
     {
-      ////ROS_INFO("Population::toString i: %i", (int)i);
+      //////ROS_INFO("Population::toString i: %i", (int)i);
       result<<"\nTrajectory "<<i<<": "<<trajectories_.at(i).toString();
     }
   }

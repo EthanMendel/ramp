@@ -1,0 +1,112 @@
+# RAMP misc parameters #
+population_size: 8
+
+sub_populations: true
+
+modifications: true
+
+evaluations: true
+
+seed_population: true
+
+error_reduction: true
+
+# If true, planning and control cycles are cut off
+only_sensing: false
+
+# If false, control cycles are cut off
+moving_robot: true
+
+preplanning_cycles: 100
+
+sensing_before_control_cycle: false
+
+pop_traj_type: 1 #0=holonomic, 1=hybrid
+
+show_full_traj: true
+
+use_start_param: false
+
+stop_after_ppcs: false
+
+try_ic_loop: false
+
+fixed_control_cycle_rate: 1.4
+
+sensing_cycle_rate: 10
+
+
+
+# Sensing parameters #
+
+field_of_view_angle: 1.25
+
+remove_outside_fov: false
+
+# if your sensor is an rgbd camera
+# crop the map so it doesn't cover behind the robot (b/c sensor cannot see there)
+crop_map: true
+
+# Remember that the combined map is published on /combined_map 
+# Remember to set track_unknown_space = true in the costmap param file
+use_hilbert_map: false
+
+use_static_map: true
+
+use_odom_topics: false
+
+# This is here for cases when we just want to record costmap data w/o worrying about the obstacles generated or for recording static maps
+# Should only be false in very rare circumstances
+detect_obs: true
+
+
+
+
+# Evaluation weight parameters #
+
+eval_weight_T: 1.00 #1 #1.75
+
+# As D weight increases, overall contribution of D to the cost decreases
+# This is because high values of D are good so we add 1/D to the fitness cost
+eval_weight_D: 0.00 #0.13 #.2
+
+eval_weight_A: 0.00 #0.48 #0.01
+
+eval_weight_P: 0.00
+
+
+
+
+# Robot configuration parameters #
+global_frame: "map"
+
+update_topic: "odom"
+
+shrink_ranges: false
+
+
+
+# Experimental setup parameters #
+#
+# Turtlebot obstacle topics
+#obstacle_vels: ['/obstacle_1/mobile_base/commands/velocity', '/obstacle_2/mobile_base/commands/velocity', '/obstacle_3/mobile_base/commands/velocity']
+#obstacle_odoms: ['/obstacle_1/odom', '/obstacle_2/odom']
+#obstacle_odoms: ['/obstacle_1/odom','/obstacle_2/odom']
+#obstacle_vels: ['/obstacle_1/mobile_base/commands/velocity','/obstacle_2/mobile_base/commands/velocity']
+#obstacle_delays: [0,0]
+#obstacle_radii: [0.2,0.2]
+
+# Stage simulator obstacle topics
+# No obstacles
+#obstacle_odoms: []
+#obstacle_vels: []
+#obstacle_delays: []
+
+#obstacle_odoms: ['/robot_1/odom', '/robot_2/odom']
+#obstacle_vels: ['/robot_1/cmd_vel', '/robot_2/cmd_vel']
+#obstacle_delays: [2, 0]
+
+
+#gazebo_model_names: ['cardboard_box', 'cardboard_box_0']
+#gazebo_model_names: []
+

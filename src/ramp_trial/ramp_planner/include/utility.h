@@ -9,14 +9,25 @@
 #include <limits>
 #include <stdlib.h>
 #include <stdio.h>
+#include <chrono>
 #include <time.h>
+#include <signal.h>
 #include "range.h"
 #include "ramp_msgs/RampTrajectory.h"
 #include "ramp_msgs/Path.h"
 #include "ramp_msgs/ObstacleList.h"
+#include "ramp_msgs/HilbertMap.h"
 #include "std_msgs/Bool.h"
+#include "geometry_msgs/PoseWithCovarianceStamped.h"
 #include <tf/transform_datatypes.h>
+#include <tf/transform_listener.h>
 #include <ros/console.h>
+#include <ros/package.h>
+using namespace std::chrono;
+
+/*
+ * Change this class to a singleton pattern
+ */
 
 #define PI 3.14159f
 
@@ -57,7 +68,7 @@ class Utility {
     const std::string toString(const ramp_msgs::KnotPoint kp) const;
     const std::string toString(const ramp_msgs::Path path) const;
     const std::string toString(const ramp_msgs::BezierCurve bi) const;
-    const std::string toString(const ramp_msgs::RampTrajectory traj) const;
+    const std::string toString(const ramp_msgs::RampTrajectory traj, bool printKnotPoints=true) const;
     const std::string toString(const trajectory_msgs::JointTrajectoryPoint p) const;
 };
 
