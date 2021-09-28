@@ -72,6 +72,7 @@ all: turtlebot/turtlebot_simulator/turtlebot_stdr/all
 all: kobuki/kobuki_keyop/all
 all: ramp_trial/path_modification/all
 all: ramp_trial/ramp_planner/all
+all: ramp_trial/ramp_planner_new/all
 all: kobuki/kobuki_auto_docking/all
 all: kobuki/kobuki_bumper2pc/all
 all: turtlebot3/turtlebot3_bringup/all
@@ -131,6 +132,7 @@ preinstall: turtlebot/turtlebot_simulator/turtlebot_stdr/preinstall
 preinstall: kobuki/kobuki_keyop/preinstall
 preinstall: ramp_trial/path_modification/preinstall
 preinstall: ramp_trial/ramp_planner/preinstall
+preinstall: ramp_trial/ramp_planner_new/preinstall
 preinstall: kobuki/kobuki_auto_docking/preinstall
 preinstall: kobuki/kobuki_bumper2pc/preinstall
 preinstall: turtlebot3/turtlebot3_bringup/preinstall
@@ -195,6 +197,7 @@ clean: turtlebot/turtlebot_simulator/turtlebot_stdr/clean
 clean: kobuki/kobuki_keyop/clean
 clean: ramp_trial/path_modification/clean
 clean: ramp_trial/ramp_planner/clean
+clean: ramp_trial/ramp_planner_new/clean
 clean: kobuki/kobuki_auto_docking/clean
 clean: kobuki/kobuki_bumper2pc/clean
 clean: turtlebot3/turtlebot3_bringup/clean
@@ -776,6 +779,24 @@ ramp_trial/ramp_planner/clean: ramp_trial/ramp_planner/CMakeFiles/pub_map_odom.d
 ramp_trial/ramp_planner/clean: ramp_trial/ramp_planner/CMakeFiles/ramp_planner.dir/clean
 
 .PHONY : ramp_trial/ramp_planner/clean
+
+#=============================================================================
+# Directory level rules for directory ramp_trial/ramp_planner_new
+
+# Recursive "all" directory target.
+ramp_trial/ramp_planner_new/all:
+
+.PHONY : ramp_trial/ramp_planner_new/all
+
+# Recursive "preinstall" directory target.
+ramp_trial/ramp_planner_new/preinstall:
+
+.PHONY : ramp_trial/ramp_planner_new/preinstall
+
+# Recursive "clean" directory target.
+ramp_trial/ramp_planner_new/clean:
+
+.PHONY : ramp_trial/ramp_planner_new/clean
 
 #=============================================================================
 # Directory level rules for directory robot_model/robot_model

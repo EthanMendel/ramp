@@ -281,6 +281,13 @@
 /home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/ramp_planner/CMakeFiles/tf2_msgs_generate_messages_py.dir
 /home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/ramp_planner/CMakeFiles/pub_map_odom.dir
 /home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/ramp_planner/CMakeFiles/ramp_planner.dir
+/home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/ramp_planner_new/CMakeFiles/install/strip.dir
+/home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/ramp_planner_new/CMakeFiles/install/local.dir
+/home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/ramp_planner_new/CMakeFiles/install.dir
+/home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/ramp_planner_new/CMakeFiles/list_install_components.dir
+/home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/ramp_planner_new/CMakeFiles/rebuild_cache.dir
+/home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/ramp_planner_new/CMakeFiles/edit_cache.dir
+/home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/ramp_planner_new/CMakeFiles/test.dir
 /home/emendel/Documents/IndepententStudy/ramp/build/kobuki/kobuki_auto_docking/CMakeFiles/install/strip.dir
 /home/emendel/Documents/IndepententStudy/ramp/build/kobuki/kobuki_auto_docking/CMakeFiles/install/local.dir
 /home/emendel/Documents/IndepententStudy/ramp/build/kobuki/kobuki_auto_docking/CMakeFiles/nodelet_generate_messages_cpp.dir

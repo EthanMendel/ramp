@@ -905,6 +905,12 @@ ramp_planner_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/bui
 ramp_planner_SOURCE_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner
 
 //Value Computed by CMake
+ramp_planner_new_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/ramp_planner_new
+
+//Value Computed by CMake
+ramp_planner_new_SOURCE_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new
+
+//Value Computed by CMake
 ramp_sensing_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/build/ramp/ramp_sensing
 
 //Value Computed by CMake
@@ -1480,7 +1486,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=76
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=77
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
