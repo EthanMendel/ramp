@@ -1,4 +1,4 @@
-#include "ramp_trajectory.h"
+#include "../include/ramp_trajectory.h"
 
 RampTrajectory::RampTrajectory(unsigned int id) 
 {

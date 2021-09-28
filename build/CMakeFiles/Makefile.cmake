@@ -912,6 +912,7 @@ set(CMAKE_DEPEND_INFO_FILES
   "ramp_trial/ramp_planner/CMakeFiles/tf2_msgs_generate_messages_py.dir/DependInfo.cmake"
   "ramp_trial/ramp_planner/CMakeFiles/pub_map_odom.dir/DependInfo.cmake"
   "ramp_trial/ramp_planner/CMakeFiles/ramp_planner.dir/DependInfo.cmake"
+  "ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/DependInfo.cmake"
   "kobuki/kobuki_auto_docking/CMakeFiles/nodelet_generate_messages_cpp.dir/DependInfo.cmake"
   "kobuki/kobuki_auto_docking/CMakeFiles/nodelet_generate_messages_nodejs.dir/DependInfo.cmake"
   "kobuki/kobuki_auto_docking/CMakeFiles/bond_generate_messages_py.dir/DependInfo.cmake"

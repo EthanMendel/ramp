@@ -167,6 +167,210 @@ depend:
 	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
+# Convenience name for target.
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/rule:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/rule
+.PHONY : ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/rule
+
+# Convenience name for target.
+ramp_planner_new: ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/rule
+
+.PHONY : ramp_planner_new
+
+# fast build rule for target.
+ramp_planner_new/fast:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build
+.PHONY : ramp_planner_new/fast
+
+src/knot_point.o: src/knot_point.cpp.o
+
+.PHONY : src/knot_point.o
+
+# target to build an object file
+src/knot_point.cpp.o:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/knot_point.cpp.o
+.PHONY : src/knot_point.cpp.o
+
+src/knot_point.i: src/knot_point.cpp.i
+
+.PHONY : src/knot_point.i
+
+# target to preprocess a source file
+src/knot_point.cpp.i:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/knot_point.cpp.i
+.PHONY : src/knot_point.cpp.i
+
+src/knot_point.s: src/knot_point.cpp.s
+
+.PHONY : src/knot_point.s
+
+# target to generate assembly for a file
+src/knot_point.cpp.s:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/knot_point.cpp.s
+.PHONY : src/knot_point.cpp.s
+
+src/main.o: src/main.cpp.o
+
+.PHONY : src/main.o
+
+# target to build an object file
+src/main.cpp.o:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/main.cpp.o
+.PHONY : src/main.cpp.o
+
+src/main.i: src/main.cpp.i
+
+.PHONY : src/main.i
+
+# target to preprocess a source file
+src/main.cpp.i:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/main.cpp.i
+.PHONY : src/main.cpp.i
+
+src/main.s: src/main.cpp.s
+
+.PHONY : src/main.s
+
+# target to generate assembly for a file
+src/main.cpp.s:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/main.cpp.s
+.PHONY : src/main.cpp.s
+
+src/motion_state.o: src/motion_state.cpp.o
+
+.PHONY : src/motion_state.o
+
+# target to build an object file
+src/motion_state.cpp.o:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/motion_state.cpp.o
+.PHONY : src/motion_state.cpp.o
+
+src/motion_state.i: src/motion_state.cpp.i
+
+.PHONY : src/motion_state.i
+
+# target to preprocess a source file
+src/motion_state.cpp.i:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/motion_state.cpp.i
+.PHONY : src/motion_state.cpp.i
+
+src/motion_state.s: src/motion_state.cpp.s
+
+.PHONY : src/motion_state.s
+
+# target to generate assembly for a file
+src/motion_state.cpp.s:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/motion_state.cpp.s
+.PHONY : src/motion_state.cpp.s
+
+src/path.o: src/path.cpp.o
+
+.PHONY : src/path.o
+
+# target to build an object file
+src/path.cpp.o:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/path.cpp.o
+.PHONY : src/path.cpp.o
+
+src/path.i: src/path.cpp.i
+
+.PHONY : src/path.i
+
+# target to preprocess a source file
+src/path.cpp.i:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/path.cpp.i
+.PHONY : src/path.cpp.i
+
+src/path.s: src/path.cpp.s
+
+.PHONY : src/path.s
+
+# target to generate assembly for a file
+src/path.cpp.s:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/path.cpp.s
+.PHONY : src/path.cpp.s
+
+src/range.o: src/range.cpp.o
+
+.PHONY : src/range.o
+
+# target to build an object file
+src/range.cpp.o:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/range.cpp.o
+.PHONY : src/range.cpp.o
+
+src/range.i: src/range.cpp.i
+
+.PHONY : src/range.i
+
+# target to preprocess a source file
+src/range.cpp.i:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/range.cpp.i
+.PHONY : src/range.cpp.i
+
+src/range.s: src/range.cpp.s
+
+.PHONY : src/range.s
+
+# target to generate assembly for a file
+src/range.cpp.s:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/range.cpp.s
+.PHONY : src/range.cpp.s
+
+src/rviz_handler.o: src/rviz_handler.cpp.o
+
+.PHONY : src/rviz_handler.o
+
+# target to build an object file
+src/rviz_handler.cpp.o:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp.o
+.PHONY : src/rviz_handler.cpp.o
+
+src/rviz_handler.i: src/rviz_handler.cpp.i
+
+.PHONY : src/rviz_handler.i
+
+# target to preprocess a source file
+src/rviz_handler.cpp.i:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp.i
+.PHONY : src/rviz_handler.cpp.i
+
+src/rviz_handler.s: src/rviz_handler.cpp.s
+
+.PHONY : src/rviz_handler.s
+
+# target to generate assembly for a file
+src/rviz_handler.cpp.s:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp.s
+.PHONY : src/rviz_handler.cpp.s
+
+src/utility.o: src/utility.cpp.o
+
+.PHONY : src/utility.o
+
+# target to build an object file
+src/utility.cpp.o:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/utility.cpp.o
+.PHONY : src/utility.cpp.o
+
+src/utility.i: src/utility.cpp.i
+
+.PHONY : src/utility.i
+
+# target to preprocess a source file
+src/utility.cpp.i:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/utility.cpp.i
+.PHONY : src/utility.cpp.i
+
+src/utility.s: src/utility.cpp.s
+
+.PHONY : src/utility.s
+
+# target to generate assembly for a file
+src/utility.cpp.s:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/utility.cpp.s
+.PHONY : src/utility.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -180,6 +384,28 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... test"
+	@echo "... ramp_planner_new"
+	@echo "... src/knot_point.o"
+	@echo "... src/knot_point.i"
+	@echo "... src/knot_point.s"
+	@echo "... src/main.o"
+	@echo "... src/main.i"
+	@echo "... src/main.s"
+	@echo "... src/motion_state.o"
+	@echo "... src/motion_state.i"
+	@echo "... src/motion_state.s"
+	@echo "... src/path.o"
+	@echo "... src/path.i"
+	@echo "... src/path.s"
+	@echo "... src/range.o"
+	@echo "... src/range.i"
+	@echo "... src/range.s"
+	@echo "... src/rviz_handler.o"
+	@echo "... src/rviz_handler.i"
+	@echo "... src/rviz_handler.s"
+	@echo "... src/utility.o"
+	@echo "... src/utility.i"
+	@echo "... src/utility.s"
 .PHONY : help
 
 

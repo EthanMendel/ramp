@@ -1,0 +1,8 @@
+<launch>
+
+<rosparam file="$(find ramp_planner_new)/config.yaml" command="load" ns="ramp" />
+
+<rosparam file="$(find ramp_planner_new)/launch/config/robot_0.yaml" command="load" ns="robot_info/" />
+
+
+</launch>

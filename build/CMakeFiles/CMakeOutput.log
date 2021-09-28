@@ -790,3 +790,88 @@ make[1]: Leaving directory '/home/emendel/Documents/IndepententStudy/ramp/build/
 
 Source file was:
 int main() { return 0; }
+Performing C++ SOURCE FILE Test COMPILER_SUPPORTS_CXX11 succeeded with the following output:
+Change Dir: /home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_d0803/fast && make[1]: Entering directory '/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTC_d0803.dir/build.make CMakeFiles/cmTC_d0803.dir/build
+make[2]: Entering directory '/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_d0803.dir/src.cxx.o
+/usr/bin/c++    -DCOMPILER_SUPPORTS_CXX11   -std=c++11 -o CMakeFiles/cmTC_d0803.dir/src.cxx.o -c /home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_d0803
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d0803.dir/link.txt --verbose=1
+/usr/bin/c++   -DCOMPILER_SUPPORTS_CXX11    -rdynamic CMakeFiles/cmTC_d0803.dir/src.cxx.o  -o cmTC_d0803 
+make[2]: Leaving directory '/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory '/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles/CMakeTmp'
+
+
+Source file was:
+int main() { return 0; }
+Performing C++ SOURCE FILE Test COMPILER_SUPPORTS_CXX11 succeeded with the following output:
+Change Dir: /home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_bca77/fast && make[1]: Entering directory '/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTC_bca77.dir/build.make CMakeFiles/cmTC_bca77.dir/build
+make[2]: Entering directory '/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_bca77.dir/src.cxx.o
+/usr/bin/c++    -DCOMPILER_SUPPORTS_CXX11   -std=c++11 -o CMakeFiles/cmTC_bca77.dir/src.cxx.o -c /home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_bca77
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_bca77.dir/link.txt --verbose=1
+/usr/bin/c++   -DCOMPILER_SUPPORTS_CXX11    -rdynamic CMakeFiles/cmTC_bca77.dir/src.cxx.o  -o cmTC_bca77 
+make[2]: Leaving directory '/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory '/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles/CMakeTmp'
+
+
+Source file was:
+int main() { return 0; }
+Performing C++ SOURCE FILE Test COMPILER_SUPPORTS_CXX11 succeeded with the following output:
+Change Dir: /home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_dbb94/fast && make[1]: Entering directory '/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTC_dbb94.dir/build.make CMakeFiles/cmTC_dbb94.dir/build
+make[2]: Entering directory '/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_dbb94.dir/src.cxx.o
+/usr/bin/c++    -DCOMPILER_SUPPORTS_CXX11   -std=c++11 -o CMakeFiles/cmTC_dbb94.dir/src.cxx.o -c /home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_dbb94
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_dbb94.dir/link.txt --verbose=1
+/usr/bin/c++   -DCOMPILER_SUPPORTS_CXX11    -rdynamic CMakeFiles/cmTC_dbb94.dir/src.cxx.o  -o cmTC_dbb94 
+make[2]: Leaving directory '/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory '/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles/CMakeTmp'
+
+
+Source file was:
+int main() { return 0; }
+Performing C++ SOURCE FILE Test COMPILER_SUPPORTS_CXX11 succeeded with the following output:
+Change Dir: /home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_7b95e/fast && make[1]: Entering directory '/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTC_7b95e.dir/build.make CMakeFiles/cmTC_7b95e.dir/build
+make[2]: Entering directory '/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_7b95e.dir/src.cxx.o
+/usr/bin/c++    -DCOMPILER_SUPPORTS_CXX11   -std=c++11 -o CMakeFiles/cmTC_7b95e.dir/src.cxx.o -c /home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_7b95e
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7b95e.dir/link.txt --verbose=1
+/usr/bin/c++   -DCOMPILER_SUPPORTS_CXX11    -rdynamic CMakeFiles/cmTC_7b95e.dir/src.cxx.o  -o cmTC_7b95e 
+make[2]: Leaving directory '/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory '/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles/CMakeTmp'
+
+
+Source file was:
+int main() { return 0; }
+Performing C++ SOURCE FILE Test COMPILER_SUPPORTS_CXX11 succeeded with the following output:
+Change Dir: /home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_0f238/fast && make[1]: Entering directory '/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTC_0f238.dir/build.make CMakeFiles/cmTC_0f238.dir/build
+make[2]: Entering directory '/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_0f238.dir/src.cxx.o
+/usr/bin/c++    -DCOMPILER_SUPPORTS_CXX11   -std=c++11 -o CMakeFiles/cmTC_0f238.dir/src.cxx.o -c /home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_0f238
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0f238.dir/link.txt --verbose=1
+/usr/bin/c++   -DCOMPILER_SUPPORTS_CXX11    -rdynamic CMakeFiles/cmTC_0f238.dir/src.cxx.o  -o cmTC_0f238 
+make[2]: Leaving directory '/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory '/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles/CMakeTmp'
+
+
+Source file was:
+int main() { return 0; }

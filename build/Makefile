@@ -1754,6 +1754,19 @@ ramp_planner/fast:
 .PHONY : ramp_planner/fast
 
 #=============================================================================
+# Target rules for targets named ramp_planner_new
+
+# Build rule for target.
+ramp_planner_new: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ramp_planner_new
+.PHONY : ramp_planner_new
+
+# fast build rule for target.
+ramp_planner_new/fast:
+	$(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build
+.PHONY : ramp_planner_new/fast
+
+#=============================================================================
 # Target rules for targets named nodelet_generate_messages_cpp
 
 # Build rule for target.
@@ -4488,6 +4501,7 @@ help:
 	@echo "... tf2_msgs_generate_messages_py"
 	@echo "... pub_map_odom"
 	@echo "... ramp_planner"
+	@echo "... ramp_planner_new"
 	@echo "... nodelet_generate_messages_cpp"
 	@echo "... nodelet_generate_messages_nodejs"
 	@echo "... bond_generate_messages_py"

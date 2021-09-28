@@ -1,4 +1,4 @@
-#include "knot_point.h"
+#include "../include/knot_point.h"
 
 KnotPoint::KnotPoint() : stopTime_(0) {}
 
