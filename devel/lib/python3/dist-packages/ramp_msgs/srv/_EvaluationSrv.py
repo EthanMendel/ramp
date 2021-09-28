@@ -7,12 +7,13 @@ import genpy
 import struct
 
 import genpy
+import geometry_msgs.msg
 import ramp_msgs.msg
 import std_msgs.msg
 import trajectory_msgs.msg
 
 class EvaluationSrvRequest(genpy.Message):
-  _md5sum = "fcf6b2aaca3f00a1a4d772744cce78ee"
+  _md5sum = "c5f4358a97c363f83106d9ab74137f28"
   _type = "ramp_msgs/EvaluationSrvRequest"
   _has_header = False  # flag to mark the presence of a Header object
   _full_text = """EvaluationRequest[] reqs
@@ -21,16 +22,18 @@ class EvaluationSrvRequest(genpy.Message):
 ================================================================================
 MSG: ramp_msgs/EvaluationRequest
 RampTrajectory trajectory
+float64 robot_radius
 float64 currentTheta
 float64 theta_cc
 RampTrajectory[] obstacle_trjs
+CircleGroup[] obstacle_cir_groups
 bool imminent_collision
-float64 coll_dist
 float64 offset
 bool full_eval
 
 bool consider_trans
 bool trans_possible
+bool hmap_eval
 
 ================================================================================
 MSG: ramp_msgs/RampTrajectory
@@ -120,7 +123,29 @@ ramp_msgs/KnotPoint[] points
 MSG: ramp_msgs/KnotPoint
 ramp_msgs/MotionState motionState
 uint32 stopTime
-"""
+
+================================================================================
+MSG: ramp_msgs/CircleGroup
+ramp_msgs/Circle fitCir
+ramp_msgs/Circle[] packedCirs
+
+================================================================================
+MSG: ramp_msgs/Circle
+geometry_msgs/Vector3 center
+float64 radius
+
+================================================================================
+MSG: geometry_msgs/Vector3
+# This represents a vector in free space. 
+# It is only meant to represent a direction. Therefore, it does not
+# make sense to apply a translation to it (e.g., when applying a 
+# generic rigid transformation to a Vector3, tf2 will only apply the
+# rotation). If you want your data to be translatable too, use the
+# geometry_msgs/Point message instead.
+
+float64 x
+float64 y
+float64 z"""
   __slots__ = ['reqs']
   _slot_types = ['ramp_msgs/EvaluationRequest[]']
 
@@ -402,7 +427,7 @@ uint32 stopTime
         _x = _v16
         buff.write(_get_struct_2i().pack(_x.secs, _x.nsecs))
         _x = val1
-        buff.write(_get_struct_2d().pack(_x.currentTheta, _x.theta_cc))
+        buff.write(_get_struct_3d().pack(_x.robot_radius, _x.currentTheta, _x.theta_cc))
         length = len(val1.obstacle_trjs)
         buff.write(_struct_I.pack(length))
         for val2 in val1.obstacle_trjs:
@@ -645,8 +670,25 @@ uint32 stopTime
           _v31 = val2.t_start
           _x = _v31
           buff.write(_get_struct_2i().pack(_x.secs, _x.nsecs))
+        length = len(val1.obstacle_cir_groups)
+        buff.write(_struct_I.pack(length))
+        for val2 in val1.obstacle_cir_groups:
+          _v32 = val2.fitCir
+          _v33 = _v32.center
+          _x = _v33
+          buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
+          _x = _v32.radius
+          buff.write(_get_struct_d().pack(_x))
+          length = len(val2.packedCirs)
+          buff.write(_struct_I.pack(length))
+          for val3 in val2.packedCirs:
+            _v34 = val3.center
+            _x = _v34
+            buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
+            _x = val3.radius
+            buff.write(_get_struct_d().pack(_x))
         _x = val1
-        buff.write(_get_struct_B2d3B().pack(_x.imminent_collision, _x.coll_dist, _x.offset, _x.full_eval, _x.consider_trans, _x.trans_possible))
+        buff.write(_get_struct_Bd4B().pack(_x.imminent_collision, _x.offset, _x.full_eval, _x.consider_trans, _x.trans_possible, _x.hmap_eval))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -667,29 +709,7 @@ uint32 stopTime
       self.reqs = []
       for i in range(0, length):
         val1 = ramp_msgs.msg.EvaluationRequest()
-        _v32 = val1.trajectory
-        _v33 = _v32.header
-        start = end
-        end += 4
-        (_v33.seq,) = _get_struct_I().unpack(str[start:end])
-        _v34 = _v33.stamp
-        _x = _v34
-        start = end
-        end += 8
-        (_x.secs, _x.nsecs,) = _get_struct_2I().unpack(str[start:end])
-        start = end
-        end += 4
-        (length,) = _struct_I.unpack(str[start:end])
-        start = end
-        end += length
-        if python3:
-          _v33.frame_id = str[start:end].decode('utf-8', 'rosmsg')
-        else:
-          _v33.frame_id = str[start:end]
-        start = end
-        end += 2
-        (_v32.id,) = _get_struct_H().unpack(str[start:end])
-        _v35 = _v32.trajectory
+        _v35 = val1.trajectory
         _v36 = _v35.header
         start = end
         end += 4
@@ -709,9 +729,31 @@ uint32 stopTime
         else:
           _v36.frame_id = str[start:end]
         start = end
+        end += 2
+        (_v35.id,) = _get_struct_H().unpack(str[start:end])
+        _v38 = _v35.trajectory
+        _v39 = _v38.header
+        start = end
+        end += 4
+        (_v39.seq,) = _get_struct_I().unpack(str[start:end])
+        _v40 = _v39.stamp
+        _x = _v40
+        start = end
+        end += 8
+        (_x.secs, _x.nsecs,) = _get_struct_2I().unpack(str[start:end])
+        start = end
         end += 4
         (length,) = _struct_I.unpack(str[start:end])
-        _v35.joint_names = []
+        start = end
+        end += length
+        if python3:
+          _v39.frame_id = str[start:end].decode('utf-8', 'rosmsg')
+        else:
+          _v39.frame_id = str[start:end]
+        start = end
+        end += 4
+        (length,) = _struct_I.unpack(str[start:end])
+        _v38.joint_names = []
         for i in range(0, length):
           start = end
           end += 4
@@ -722,11 +764,11 @@ uint32 stopTime
             val4 = str[start:end].decode('utf-8', 'rosmsg')
           else:
             val4 = str[start:end]
-          _v35.joint_names.append(val4)
+          _v38.joint_names.append(val4)
         start = end
         end += 4
         (length,) = _struct_I.unpack(str[start:end])
-        _v35.points = []
+        _v38.points = []
         for i in range(0, length):
           val4 = trajectory_msgs.msg.JointTrajectoryPoint()
           start = end
@@ -761,12 +803,12 @@ uint32 stopTime
           s = struct.Struct(pattern)
           end += s.size
           val4.effort = s.unpack(str[start:end])
-          _v38 = val4.time_from_start
-          _x = _v38
+          _v41 = val4.time_from_start
+          _x = _v41
           start = end
           end += 8
           (_x.secs, _x.nsecs,) = _get_struct_2i().unpack(str[start:end])
-          _v35.points.append(val4)
+          _v38.points.append(val4)
         start = end
         end += 4
         (length,) = _struct_I.unpack(str[start:end])
@@ -774,19 +816,19 @@ uint32 stopTime
         start = end
         s = struct.Struct(pattern)
         end += s.size
-        _v32.i_knotPoints = s.unpack(str[start:end])
+        _v35.i_knotPoints = s.unpack(str[start:end])
         start = end
         end += 4
         (length,) = _struct_I.unpack(str[start:end])
-        _v32.curves = []
+        _v35.curves = []
         for i in range(0, length):
           val3 = ramp_msgs.msg.BezierCurve()
-          _v39 = val3.header
+          _v42 = val3.header
           start = end
           end += 4
-          (_v39.seq,) = _get_struct_I().unpack(str[start:end])
-          _v40 = _v39.stamp
-          _x = _v40
+          (_v42.seq,) = _get_struct_I().unpack(str[start:end])
+          _v43 = _v42.stamp
+          _x = _v43
           start = end
           end += 8
           (_x.secs, _x.nsecs,) = _get_struct_2I().unpack(str[start:end])
@@ -796,9 +838,9 @@ uint32 stopTime
           start = end
           end += length
           if python3:
-            _v39.frame_id = str[start:end].decode('utf-8', 'rosmsg')
+            _v42.frame_id = str[start:end].decode('utf-8', 'rosmsg')
           else:
-            _v39.frame_id = str[start:end]
+            _v42.frame_id = str[start:end]
           start = end
           end += 4
           (length,) = _struct_I.unpack(str[start:end])
@@ -936,7 +978,7 @@ uint32 stopTime
           start = end
           end += 8
           (val3.l,) = _get_struct_d().unpack(str[start:end])
-          _v41 = val3.ms_maxVA
+          _v44 = val3.ms_maxVA
           start = end
           end += 4
           (length,) = _struct_I.unpack(str[start:end])
@@ -944,7 +986,7 @@ uint32 stopTime
           start = end
           s = struct.Struct(pattern)
           end += s.size
-          _v41.positions = s.unpack(str[start:end])
+          _v44.positions = s.unpack(str[start:end])
           start = end
           end += 4
           (length,) = _struct_I.unpack(str[start:end])
@@ -952,7 +994,7 @@ uint32 stopTime
           start = end
           s = struct.Struct(pattern)
           end += s.size
-          _v41.velocities = s.unpack(str[start:end])
+          _v44.velocities = s.unpack(str[start:end])
           start = end
           end += 4
           (length,) = _struct_I.unpack(str[start:end])
@@ -960,7 +1002,7 @@ uint32 stopTime
           start = end
           s = struct.Struct(pattern)
           end += s.size
-          _v41.accelerations = s.unpack(str[start:end])
+          _v44.accelerations = s.unpack(str[start:end])
           start = end
           end += 4
           (length,) = _struct_I.unpack(str[start:end])
@@ -968,95 +1010,11 @@ uint32 stopTime
           start = end
           s = struct.Struct(pattern)
           end += s.size
-          _v41.jerks = s.unpack(str[start:end])
+          _v44.jerks = s.unpack(str[start:end])
           start = end
           end += 8
-          (_v41.time,) = _get_struct_d().unpack(str[start:end])
-          _v42 = val3.ms_initialVA
-          start = end
-          end += 4
-          (length,) = _struct_I.unpack(str[start:end])
-          pattern = '<%sd'%length
-          start = end
-          s = struct.Struct(pattern)
-          end += s.size
-          _v42.positions = s.unpack(str[start:end])
-          start = end
-          end += 4
-          (length,) = _struct_I.unpack(str[start:end])
-          pattern = '<%sd'%length
-          start = end
-          s = struct.Struct(pattern)
-          end += s.size
-          _v42.velocities = s.unpack(str[start:end])
-          start = end
-          end += 4
-          (length,) = _struct_I.unpack(str[start:end])
-          pattern = '<%sd'%length
-          start = end
-          s = struct.Struct(pattern)
-          end += s.size
-          _v42.accelerations = s.unpack(str[start:end])
-          start = end
-          end += 4
-          (length,) = _struct_I.unpack(str[start:end])
-          pattern = '<%sd'%length
-          start = end
-          s = struct.Struct(pattern)
-          end += s.size
-          _v42.jerks = s.unpack(str[start:end])
-          start = end
-          end += 8
-          (_v42.time,) = _get_struct_d().unpack(str[start:end])
-          _v43 = val3.ms_begin
-          start = end
-          end += 4
-          (length,) = _struct_I.unpack(str[start:end])
-          pattern = '<%sd'%length
-          start = end
-          s = struct.Struct(pattern)
-          end += s.size
-          _v43.positions = s.unpack(str[start:end])
-          start = end
-          end += 4
-          (length,) = _struct_I.unpack(str[start:end])
-          pattern = '<%sd'%length
-          start = end
-          s = struct.Struct(pattern)
-          end += s.size
-          _v43.velocities = s.unpack(str[start:end])
-          start = end
-          end += 4
-          (length,) = _struct_I.unpack(str[start:end])
-          pattern = '<%sd'%length
-          start = end
-          s = struct.Struct(pattern)
-          end += s.size
-          _v43.accelerations = s.unpack(str[start:end])
-          start = end
-          end += 4
-          (length,) = _struct_I.unpack(str[start:end])
-          pattern = '<%sd'%length
-          start = end
-          s = struct.Struct(pattern)
-          end += s.size
-          _v43.jerks = s.unpack(str[start:end])
-          start = end
-          end += 8
-          (_v43.time,) = _get_struct_d().unpack(str[start:end])
-          _x = val3
-          start = end
-          end += 32
-          (_x.u_0, _x.u_dot_0, _x.u_dot_max, _x.u_target,) = _get_struct_4d().unpack(str[start:end])
-          _v32.curves.append(val3)
-        _v44 = _v32.holonomic_path
-        start = end
-        end += 4
-        (length,) = _struct_I.unpack(str[start:end])
-        _v44.points = []
-        for i in range(0, length):
-          val4 = ramp_msgs.msg.KnotPoint()
-          _v45 = val4.motionState
+          (_v44.time,) = _get_struct_d().unpack(str[start:end])
+          _v45 = val3.ms_initialVA
           start = end
           end += 4
           (length,) = _struct_I.unpack(str[start:end])
@@ -1092,61 +1050,123 @@ uint32 stopTime
           start = end
           end += 8
           (_v45.time,) = _get_struct_d().unpack(str[start:end])
+          _v46 = val3.ms_begin
+          start = end
+          end += 4
+          (length,) = _struct_I.unpack(str[start:end])
+          pattern = '<%sd'%length
+          start = end
+          s = struct.Struct(pattern)
+          end += s.size
+          _v46.positions = s.unpack(str[start:end])
+          start = end
+          end += 4
+          (length,) = _struct_I.unpack(str[start:end])
+          pattern = '<%sd'%length
+          start = end
+          s = struct.Struct(pattern)
+          end += s.size
+          _v46.velocities = s.unpack(str[start:end])
+          start = end
+          end += 4
+          (length,) = _struct_I.unpack(str[start:end])
+          pattern = '<%sd'%length
+          start = end
+          s = struct.Struct(pattern)
+          end += s.size
+          _v46.accelerations = s.unpack(str[start:end])
+          start = end
+          end += 4
+          (length,) = _struct_I.unpack(str[start:end])
+          pattern = '<%sd'%length
+          start = end
+          s = struct.Struct(pattern)
+          end += s.size
+          _v46.jerks = s.unpack(str[start:end])
+          start = end
+          end += 8
+          (_v46.time,) = _get_struct_d().unpack(str[start:end])
+          _x = val3
+          start = end
+          end += 32
+          (_x.u_0, _x.u_dot_0, _x.u_dot_max, _x.u_target,) = _get_struct_4d().unpack(str[start:end])
+          _v35.curves.append(val3)
+        _v47 = _v35.holonomic_path
+        start = end
+        end += 4
+        (length,) = _struct_I.unpack(str[start:end])
+        _v47.points = []
+        for i in range(0, length):
+          val4 = ramp_msgs.msg.KnotPoint()
+          _v48 = val4.motionState
+          start = end
+          end += 4
+          (length,) = _struct_I.unpack(str[start:end])
+          pattern = '<%sd'%length
+          start = end
+          s = struct.Struct(pattern)
+          end += s.size
+          _v48.positions = s.unpack(str[start:end])
+          start = end
+          end += 4
+          (length,) = _struct_I.unpack(str[start:end])
+          pattern = '<%sd'%length
+          start = end
+          s = struct.Struct(pattern)
+          end += s.size
+          _v48.velocities = s.unpack(str[start:end])
+          start = end
+          end += 4
+          (length,) = _struct_I.unpack(str[start:end])
+          pattern = '<%sd'%length
+          start = end
+          s = struct.Struct(pattern)
+          end += s.size
+          _v48.accelerations = s.unpack(str[start:end])
+          start = end
+          end += 4
+          (length,) = _struct_I.unpack(str[start:end])
+          pattern = '<%sd'%length
+          start = end
+          s = struct.Struct(pattern)
+          end += s.size
+          _v48.jerks = s.unpack(str[start:end])
+          start = end
+          end += 8
+          (_v48.time,) = _get_struct_d().unpack(str[start:end])
           start = end
           end += 4
           (val4.stopTime,) = _get_struct_I().unpack(str[start:end])
-          _v44.points.append(val4)
-        _x = _v32
+          _v47.points.append(val4)
+        _x = _v35
         start = end
         end += 9
         (_x.feasible, _x.fitness,) = _get_struct_Bd().unpack(str[start:end])
-        _v32.feasible = bool(_v32.feasible)
-        _v46 = _v32.t_firstCollision
-        _x = _v46
+        _v35.feasible = bool(_v35.feasible)
+        _v49 = _v35.t_firstCollision
+        _x = _v49
         start = end
         end += 8
         (_x.secs, _x.nsecs,) = _get_struct_2i().unpack(str[start:end])
         start = end
         end += 1
-        (_v32.i_subPopulation,) = _get_struct_b().unpack(str[start:end])
-        _v47 = _v32.t_start
-        _x = _v47
+        (_v35.i_subPopulation,) = _get_struct_b().unpack(str[start:end])
+        _v50 = _v35.t_start
+        _x = _v50
         start = end
         end += 8
         (_x.secs, _x.nsecs,) = _get_struct_2i().unpack(str[start:end])
         _x = val1
         start = end
-        end += 16
-        (_x.currentTheta, _x.theta_cc,) = _get_struct_2d().unpack(str[start:end])
+        end += 24
+        (_x.robot_radius, _x.currentTheta, _x.theta_cc,) = _get_struct_3d().unpack(str[start:end])
         start = end
         end += 4
         (length,) = _struct_I.unpack(str[start:end])
         val1.obstacle_trjs = []
         for i in range(0, length):
           val2 = ramp_msgs.msg.RampTrajectory()
-          _v48 = val2.header
-          start = end
-          end += 4
-          (_v48.seq,) = _get_struct_I().unpack(str[start:end])
-          _v49 = _v48.stamp
-          _x = _v49
-          start = end
-          end += 8
-          (_x.secs, _x.nsecs,) = _get_struct_2I().unpack(str[start:end])
-          start = end
-          end += 4
-          (length,) = _struct_I.unpack(str[start:end])
-          start = end
-          end += length
-          if python3:
-            _v48.frame_id = str[start:end].decode('utf-8', 'rosmsg')
-          else:
-            _v48.frame_id = str[start:end]
-          start = end
-          end += 2
-          (val2.id,) = _get_struct_H().unpack(str[start:end])
-          _v50 = val2.trajectory
-          _v51 = _v50.header
+          _v51 = val2.header
           start = end
           end += 4
           (_v51.seq,) = _get_struct_I().unpack(str[start:end])
@@ -1165,9 +1185,31 @@ uint32 stopTime
           else:
             _v51.frame_id = str[start:end]
           start = end
+          end += 2
+          (val2.id,) = _get_struct_H().unpack(str[start:end])
+          _v53 = val2.trajectory
+          _v54 = _v53.header
+          start = end
+          end += 4
+          (_v54.seq,) = _get_struct_I().unpack(str[start:end])
+          _v55 = _v54.stamp
+          _x = _v55
+          start = end
+          end += 8
+          (_x.secs, _x.nsecs,) = _get_struct_2I().unpack(str[start:end])
+          start = end
           end += 4
           (length,) = _struct_I.unpack(str[start:end])
-          _v50.joint_names = []
+          start = end
+          end += length
+          if python3:
+            _v54.frame_id = str[start:end].decode('utf-8', 'rosmsg')
+          else:
+            _v54.frame_id = str[start:end]
+          start = end
+          end += 4
+          (length,) = _struct_I.unpack(str[start:end])
+          _v53.joint_names = []
           for i in range(0, length):
             start = end
             end += 4
@@ -1178,11 +1220,11 @@ uint32 stopTime
               val4 = str[start:end].decode('utf-8', 'rosmsg')
             else:
               val4 = str[start:end]
-            _v50.joint_names.append(val4)
+            _v53.joint_names.append(val4)
           start = end
           end += 4
           (length,) = _struct_I.unpack(str[start:end])
-          _v50.points = []
+          _v53.points = []
           for i in range(0, length):
             val4 = trajectory_msgs.msg.JointTrajectoryPoint()
             start = end
@@ -1217,12 +1259,12 @@ uint32 stopTime
             s = struct.Struct(pattern)
             end += s.size
             val4.effort = s.unpack(str[start:end])
-            _v53 = val4.time_from_start
-            _x = _v53
+            _v56 = val4.time_from_start
+            _x = _v56
             start = end
             end += 8
             (_x.secs, _x.nsecs,) = _get_struct_2i().unpack(str[start:end])
-            _v50.points.append(val4)
+            _v53.points.append(val4)
           start = end
           end += 4
           (length,) = _struct_I.unpack(str[start:end])
@@ -1237,12 +1279,12 @@ uint32 stopTime
           val2.curves = []
           for i in range(0, length):
             val3 = ramp_msgs.msg.BezierCurve()
-            _v54 = val3.header
+            _v57 = val3.header
             start = end
             end += 4
-            (_v54.seq,) = _get_struct_I().unpack(str[start:end])
-            _v55 = _v54.stamp
-            _x = _v55
+            (_v57.seq,) = _get_struct_I().unpack(str[start:end])
+            _v58 = _v57.stamp
+            _x = _v58
             start = end
             end += 8
             (_x.secs, _x.nsecs,) = _get_struct_2I().unpack(str[start:end])
@@ -1252,9 +1294,9 @@ uint32 stopTime
             start = end
             end += length
             if python3:
-              _v54.frame_id = str[start:end].decode('utf-8', 'rosmsg')
+              _v57.frame_id = str[start:end].decode('utf-8', 'rosmsg')
             else:
-              _v54.frame_id = str[start:end]
+              _v57.frame_id = str[start:end]
             start = end
             end += 4
             (length,) = _struct_I.unpack(str[start:end])
@@ -1392,7 +1434,7 @@ uint32 stopTime
             start = end
             end += 8
             (val3.l,) = _get_struct_d().unpack(str[start:end])
-            _v56 = val3.ms_maxVA
+            _v59 = val3.ms_maxVA
             start = end
             end += 4
             (length,) = _struct_I.unpack(str[start:end])
@@ -1400,7 +1442,7 @@ uint32 stopTime
             start = end
             s = struct.Struct(pattern)
             end += s.size
-            _v56.positions = s.unpack(str[start:end])
+            _v59.positions = s.unpack(str[start:end])
             start = end
             end += 4
             (length,) = _struct_I.unpack(str[start:end])
@@ -1408,7 +1450,7 @@ uint32 stopTime
             start = end
             s = struct.Struct(pattern)
             end += s.size
-            _v56.velocities = s.unpack(str[start:end])
+            _v59.velocities = s.unpack(str[start:end])
             start = end
             end += 4
             (length,) = _struct_I.unpack(str[start:end])
@@ -1416,7 +1458,7 @@ uint32 stopTime
             start = end
             s = struct.Struct(pattern)
             end += s.size
-            _v56.accelerations = s.unpack(str[start:end])
+            _v59.accelerations = s.unpack(str[start:end])
             start = end
             end += 4
             (length,) = _struct_I.unpack(str[start:end])
@@ -1424,95 +1466,11 @@ uint32 stopTime
             start = end
             s = struct.Struct(pattern)
             end += s.size
-            _v56.jerks = s.unpack(str[start:end])
+            _v59.jerks = s.unpack(str[start:end])
             start = end
             end += 8
-            (_v56.time,) = _get_struct_d().unpack(str[start:end])
-            _v57 = val3.ms_initialVA
-            start = end
-            end += 4
-            (length,) = _struct_I.unpack(str[start:end])
-            pattern = '<%sd'%length
-            start = end
-            s = struct.Struct(pattern)
-            end += s.size
-            _v57.positions = s.unpack(str[start:end])
-            start = end
-            end += 4
-            (length,) = _struct_I.unpack(str[start:end])
-            pattern = '<%sd'%length
-            start = end
-            s = struct.Struct(pattern)
-            end += s.size
-            _v57.velocities = s.unpack(str[start:end])
-            start = end
-            end += 4
-            (length,) = _struct_I.unpack(str[start:end])
-            pattern = '<%sd'%length
-            start = end
-            s = struct.Struct(pattern)
-            end += s.size
-            _v57.accelerations = s.unpack(str[start:end])
-            start = end
-            end += 4
-            (length,) = _struct_I.unpack(str[start:end])
-            pattern = '<%sd'%length
-            start = end
-            s = struct.Struct(pattern)
-            end += s.size
-            _v57.jerks = s.unpack(str[start:end])
-            start = end
-            end += 8
-            (_v57.time,) = _get_struct_d().unpack(str[start:end])
-            _v58 = val3.ms_begin
-            start = end
-            end += 4
-            (length,) = _struct_I.unpack(str[start:end])
-            pattern = '<%sd'%length
-            start = end
-            s = struct.Struct(pattern)
-            end += s.size
-            _v58.positions = s.unpack(str[start:end])
-            start = end
-            end += 4
-            (length,) = _struct_I.unpack(str[start:end])
-            pattern = '<%sd'%length
-            start = end
-            s = struct.Struct(pattern)
-            end += s.size
-            _v58.velocities = s.unpack(str[start:end])
-            start = end
-            end += 4
-            (length,) = _struct_I.unpack(str[start:end])
-            pattern = '<%sd'%length
-            start = end
-            s = struct.Struct(pattern)
-            end += s.size
-            _v58.accelerations = s.unpack(str[start:end])
-            start = end
-            end += 4
-            (length,) = _struct_I.unpack(str[start:end])
-            pattern = '<%sd'%length
-            start = end
-            s = struct.Struct(pattern)
-            end += s.size
-            _v58.jerks = s.unpack(str[start:end])
-            start = end
-            end += 8
-            (_v58.time,) = _get_struct_d().unpack(str[start:end])
-            _x = val3
-            start = end
-            end += 32
-            (_x.u_0, _x.u_dot_0, _x.u_dot_max, _x.u_target,) = _get_struct_4d().unpack(str[start:end])
-            val2.curves.append(val3)
-          _v59 = val2.holonomic_path
-          start = end
-          end += 4
-          (length,) = _struct_I.unpack(str[start:end])
-          _v59.points = []
-          for i in range(0, length):
-            val4 = ramp_msgs.msg.KnotPoint()
-            _v60 = val4.motionState
+            (_v59.time,) = _get_struct_d().unpack(str[start:end])
+            _v60 = val3.ms_initialVA
             start = end
             end += 4
             (length,) = _struct_I.unpack(str[start:end])
@@ -1548,37 +1506,153 @@ uint32 stopTime
             start = end
             end += 8
             (_v60.time,) = _get_struct_d().unpack(str[start:end])
+            _v61 = val3.ms_begin
+            start = end
+            end += 4
+            (length,) = _struct_I.unpack(str[start:end])
+            pattern = '<%sd'%length
+            start = end
+            s = struct.Struct(pattern)
+            end += s.size
+            _v61.positions = s.unpack(str[start:end])
+            start = end
+            end += 4
+            (length,) = _struct_I.unpack(str[start:end])
+            pattern = '<%sd'%length
+            start = end
+            s = struct.Struct(pattern)
+            end += s.size
+            _v61.velocities = s.unpack(str[start:end])
+            start = end
+            end += 4
+            (length,) = _struct_I.unpack(str[start:end])
+            pattern = '<%sd'%length
+            start = end
+            s = struct.Struct(pattern)
+            end += s.size
+            _v61.accelerations = s.unpack(str[start:end])
+            start = end
+            end += 4
+            (length,) = _struct_I.unpack(str[start:end])
+            pattern = '<%sd'%length
+            start = end
+            s = struct.Struct(pattern)
+            end += s.size
+            _v61.jerks = s.unpack(str[start:end])
+            start = end
+            end += 8
+            (_v61.time,) = _get_struct_d().unpack(str[start:end])
+            _x = val3
+            start = end
+            end += 32
+            (_x.u_0, _x.u_dot_0, _x.u_dot_max, _x.u_target,) = _get_struct_4d().unpack(str[start:end])
+            val2.curves.append(val3)
+          _v62 = val2.holonomic_path
+          start = end
+          end += 4
+          (length,) = _struct_I.unpack(str[start:end])
+          _v62.points = []
+          for i in range(0, length):
+            val4 = ramp_msgs.msg.KnotPoint()
+            _v63 = val4.motionState
+            start = end
+            end += 4
+            (length,) = _struct_I.unpack(str[start:end])
+            pattern = '<%sd'%length
+            start = end
+            s = struct.Struct(pattern)
+            end += s.size
+            _v63.positions = s.unpack(str[start:end])
+            start = end
+            end += 4
+            (length,) = _struct_I.unpack(str[start:end])
+            pattern = '<%sd'%length
+            start = end
+            s = struct.Struct(pattern)
+            end += s.size
+            _v63.velocities = s.unpack(str[start:end])
+            start = end
+            end += 4
+            (length,) = _struct_I.unpack(str[start:end])
+            pattern = '<%sd'%length
+            start = end
+            s = struct.Struct(pattern)
+            end += s.size
+            _v63.accelerations = s.unpack(str[start:end])
+            start = end
+            end += 4
+            (length,) = _struct_I.unpack(str[start:end])
+            pattern = '<%sd'%length
+            start = end
+            s = struct.Struct(pattern)
+            end += s.size
+            _v63.jerks = s.unpack(str[start:end])
+            start = end
+            end += 8
+            (_v63.time,) = _get_struct_d().unpack(str[start:end])
             start = end
             end += 4
             (val4.stopTime,) = _get_struct_I().unpack(str[start:end])
-            _v59.points.append(val4)
+            _v62.points.append(val4)
           _x = val2
           start = end
           end += 9
           (_x.feasible, _x.fitness,) = _get_struct_Bd().unpack(str[start:end])
           val2.feasible = bool(val2.feasible)
-          _v61 = val2.t_firstCollision
-          _x = _v61
+          _v64 = val2.t_firstCollision
+          _x = _v64
           start = end
           end += 8
           (_x.secs, _x.nsecs,) = _get_struct_2i().unpack(str[start:end])
           start = end
           end += 1
           (val2.i_subPopulation,) = _get_struct_b().unpack(str[start:end])
-          _v62 = val2.t_start
-          _x = _v62
+          _v65 = val2.t_start
+          _x = _v65
           start = end
           end += 8
           (_x.secs, _x.nsecs,) = _get_struct_2i().unpack(str[start:end])
           val1.obstacle_trjs.append(val2)
+        start = end
+        end += 4
+        (length,) = _struct_I.unpack(str[start:end])
+        val1.obstacle_cir_groups = []
+        for i in range(0, length):
+          val2 = ramp_msgs.msg.CircleGroup()
+          _v66 = val2.fitCir
+          _v67 = _v66.center
+          _x = _v67
+          start = end
+          end += 24
+          (_x.x, _x.y, _x.z,) = _get_struct_3d().unpack(str[start:end])
+          start = end
+          end += 8
+          (_v66.radius,) = _get_struct_d().unpack(str[start:end])
+          start = end
+          end += 4
+          (length,) = _struct_I.unpack(str[start:end])
+          val2.packedCirs = []
+          for i in range(0, length):
+            val3 = ramp_msgs.msg.Circle()
+            _v68 = val3.center
+            _x = _v68
+            start = end
+            end += 24
+            (_x.x, _x.y, _x.z,) = _get_struct_3d().unpack(str[start:end])
+            start = end
+            end += 8
+            (val3.radius,) = _get_struct_d().unpack(str[start:end])
+            val2.packedCirs.append(val3)
+          val1.obstacle_cir_groups.append(val2)
         _x = val1
         start = end
-        end += 20
-        (_x.imminent_collision, _x.coll_dist, _x.offset, _x.full_eval, _x.consider_trans, _x.trans_possible,) = _get_struct_B2d3B().unpack(str[start:end])
+        end += 13
+        (_x.imminent_collision, _x.offset, _x.full_eval, _x.consider_trans, _x.trans_possible, _x.hmap_eval,) = _get_struct_Bd4B().unpack(str[start:end])
         val1.imminent_collision = bool(val1.imminent_collision)
         val1.full_eval = bool(val1.full_eval)
         val1.consider_trans = bool(val1.consider_trans)
         val1.trans_possible = bool(val1.trans_possible)
+        val1.hmap_eval = bool(val1.hmap_eval)
         self.reqs.append(val1)
       return self
     except struct.error as e:
@@ -1595,45 +1669,45 @@ uint32 stopTime
       length = len(self.reqs)
       buff.write(_struct_I.pack(length))
       for val1 in self.reqs:
-        _v63 = val1.trajectory
-        _v64 = _v63.header
-        _x = _v64.seq
+        _v69 = val1.trajectory
+        _v70 = _v69.header
+        _x = _v70.seq
         buff.write(_get_struct_I().pack(_x))
-        _v65 = _v64.stamp
-        _x = _v65
+        _v71 = _v70.stamp
+        _x = _v71
         buff.write(_get_struct_2I().pack(_x.secs, _x.nsecs))
-        _x = _v64.frame_id
+        _x = _v70.frame_id
         length = len(_x)
         if python3 or type(_x) == unicode:
           _x = _x.encode('utf-8')
           length = len(_x)
         buff.write(struct.Struct('<I%ss'%length).pack(length, _x))
-        _x = _v63.id
+        _x = _v69.id
         buff.write(_get_struct_H().pack(_x))
-        _v66 = _v63.trajectory
-        _v67 = _v66.header
-        _x = _v67.seq
+        _v72 = _v69.trajectory
+        _v73 = _v72.header
+        _x = _v73.seq
         buff.write(_get_struct_I().pack(_x))
-        _v68 = _v67.stamp
-        _x = _v68
+        _v74 = _v73.stamp
+        _x = _v74
         buff.write(_get_struct_2I().pack(_x.secs, _x.nsecs))
-        _x = _v67.frame_id
+        _x = _v73.frame_id
         length = len(_x)
         if python3 or type(_x) == unicode:
           _x = _x.encode('utf-8')
           length = len(_x)
         buff.write(struct.Struct('<I%ss'%length).pack(length, _x))
-        length = len(_v66.joint_names)
+        length = len(_v72.joint_names)
         buff.write(_struct_I.pack(length))
-        for val4 in _v66.joint_names:
+        for val4 in _v72.joint_names:
           length = len(val4)
           if python3 or type(val4) == unicode:
             val4 = val4.encode('utf-8')
             length = len(val4)
           buff.write(struct.Struct('<I%ss'%length).pack(length, val4))
-        length = len(_v66.points)
+        length = len(_v72.points)
         buff.write(_struct_I.pack(length))
-        for val4 in _v66.points:
+        for val4 in _v72.points:
           length = len(val4.positions)
           buff.write(_struct_I.pack(length))
           pattern = '<%sd'%length
@@ -1650,23 +1724,23 @@ uint32 stopTime
           buff.write(_struct_I.pack(length))
           pattern = '<%sd'%length
           buff.write(val4.effort.tostring())
-          _v69 = val4.time_from_start
-          _x = _v69
+          _v75 = val4.time_from_start
+          _x = _v75
           buff.write(_get_struct_2i().pack(_x.secs, _x.nsecs))
-        length = len(_v63.i_knotPoints)
+        length = len(_v69.i_knotPoints)
         buff.write(_struct_I.pack(length))
         pattern = '<%sH'%length
-        buff.write(_v63.i_knotPoints.tostring())
-        length = len(_v63.curves)
+        buff.write(_v69.i_knotPoints.tostring())
+        length = len(_v69.curves)
         buff.write(_struct_I.pack(length))
-        for val3 in _v63.curves:
-          _v70 = val3.header
-          _x = _v70.seq
+        for val3 in _v69.curves:
+          _v76 = val3.header
+          _x = _v76.seq
           buff.write(_get_struct_I().pack(_x))
-          _v71 = _v70.stamp
-          _x = _v71
+          _v77 = _v76.stamp
+          _x = _v77
           buff.write(_get_struct_2I().pack(_x.secs, _x.nsecs))
-          _x = _v70.frame_id
+          _x = _v76.frame_id
           length = len(_x)
           if python3 or type(_x) == unicode:
             _x = _x.encode('utf-8')
@@ -1741,112 +1815,112 @@ uint32 stopTime
             buff.write(_get_struct_d().pack(_x))
           _x = val3.l
           buff.write(_get_struct_d().pack(_x))
-          _v72 = val3.ms_maxVA
-          length = len(_v72.positions)
+          _v78 = val3.ms_maxVA
+          length = len(_v78.positions)
           buff.write(_struct_I.pack(length))
           pattern = '<%sd'%length
-          buff.write(_v72.positions.tostring())
-          length = len(_v72.velocities)
+          buff.write(_v78.positions.tostring())
+          length = len(_v78.velocities)
           buff.write(_struct_I.pack(length))
           pattern = '<%sd'%length
-          buff.write(_v72.velocities.tostring())
-          length = len(_v72.accelerations)
+          buff.write(_v78.velocities.tostring())
+          length = len(_v78.accelerations)
           buff.write(_struct_I.pack(length))
           pattern = '<%sd'%length
-          buff.write(_v72.accelerations.tostring())
-          length = len(_v72.jerks)
+          buff.write(_v78.accelerations.tostring())
+          length = len(_v78.jerks)
           buff.write(_struct_I.pack(length))
           pattern = '<%sd'%length
-          buff.write(_v72.jerks.tostring())
-          _x = _v72.time
+          buff.write(_v78.jerks.tostring())
+          _x = _v78.time
           buff.write(_get_struct_d().pack(_x))
-          _v73 = val3.ms_initialVA
-          length = len(_v73.positions)
+          _v79 = val3.ms_initialVA
+          length = len(_v79.positions)
           buff.write(_struct_I.pack(length))
           pattern = '<%sd'%length
-          buff.write(_v73.positions.tostring())
-          length = len(_v73.velocities)
+          buff.write(_v79.positions.tostring())
+          length = len(_v79.velocities)
           buff.write(_struct_I.pack(length))
           pattern = '<%sd'%length
-          buff.write(_v73.velocities.tostring())
-          length = len(_v73.accelerations)
+          buff.write(_v79.velocities.tostring())
+          length = len(_v79.accelerations)
           buff.write(_struct_I.pack(length))
           pattern = '<%sd'%length
-          buff.write(_v73.accelerations.tostring())
-          length = len(_v73.jerks)
+          buff.write(_v79.accelerations.tostring())
+          length = len(_v79.jerks)
           buff.write(_struct_I.pack(length))
           pattern = '<%sd'%length
-          buff.write(_v73.jerks.tostring())
-          _x = _v73.time
+          buff.write(_v79.jerks.tostring())
+          _x = _v79.time
           buff.write(_get_struct_d().pack(_x))
-          _v74 = val3.ms_begin
-          length = len(_v74.positions)
+          _v80 = val3.ms_begin
+          length = len(_v80.positions)
           buff.write(_struct_I.pack(length))
           pattern = '<%sd'%length
-          buff.write(_v74.positions.tostring())
-          length = len(_v74.velocities)
+          buff.write(_v80.positions.tostring())
+          length = len(_v80.velocities)
           buff.write(_struct_I.pack(length))
           pattern = '<%sd'%length
-          buff.write(_v74.velocities.tostring())
-          length = len(_v74.accelerations)
+          buff.write(_v80.velocities.tostring())
+          length = len(_v80.accelerations)
           buff.write(_struct_I.pack(length))
           pattern = '<%sd'%length
-          buff.write(_v74.accelerations.tostring())
-          length = len(_v74.jerks)
+          buff.write(_v80.accelerations.tostring())
+          length = len(_v80.jerks)
           buff.write(_struct_I.pack(length))
           pattern = '<%sd'%length
-          buff.write(_v74.jerks.tostring())
-          _x = _v74.time
+          buff.write(_v80.jerks.tostring())
+          _x = _v80.time
           buff.write(_get_struct_d().pack(_x))
           _x = val3
           buff.write(_get_struct_4d().pack(_x.u_0, _x.u_dot_0, _x.u_dot_max, _x.u_target))
-        _v75 = _v63.holonomic_path
-        length = len(_v75.points)
+        _v81 = _v69.holonomic_path
+        length = len(_v81.points)
         buff.write(_struct_I.pack(length))
-        for val4 in _v75.points:
-          _v76 = val4.motionState
-          length = len(_v76.positions)
+        for val4 in _v81.points:
+          _v82 = val4.motionState
+          length = len(_v82.positions)
           buff.write(_struct_I.pack(length))
           pattern = '<%sd'%length
-          buff.write(_v76.positions.tostring())
-          length = len(_v76.velocities)
+          buff.write(_v82.positions.tostring())
+          length = len(_v82.velocities)
           buff.write(_struct_I.pack(length))
           pattern = '<%sd'%length
-          buff.write(_v76.velocities.tostring())
-          length = len(_v76.accelerations)
+          buff.write(_v82.velocities.tostring())
+          length = len(_v82.accelerations)
           buff.write(_struct_I.pack(length))
           pattern = '<%sd'%length
-          buff.write(_v76.accelerations.tostring())
-          length = len(_v76.jerks)
+          buff.write(_v82.accelerations.tostring())
+          length = len(_v82.jerks)
           buff.write(_struct_I.pack(length))
           pattern = '<%sd'%length
-          buff.write(_v76.jerks.tostring())
-          _x = _v76.time
+          buff.write(_v82.jerks.tostring())
+          _x = _v82.time
           buff.write(_get_struct_d().pack(_x))
           _x = val4.stopTime
           buff.write(_get_struct_I().pack(_x))
-        _x = _v63
+        _x = _v69
         buff.write(_get_struct_Bd().pack(_x.feasible, _x.fitness))
-        _v77 = _v63.t_firstCollision
-        _x = _v77
+        _v83 = _v69.t_firstCollision
+        _x = _v83
         buff.write(_get_struct_2i().pack(_x.secs, _x.nsecs))
-        _x = _v63.i_subPopulation
+        _x = _v69.i_subPopulation
         buff.write(_get_struct_b().pack(_x))
-        _v78 = _v63.t_start
-        _x = _v78
+        _v84 = _v69.t_start
+        _x = _v84
         buff.write(_get_struct_2i().pack(_x.secs, _x.nsecs))
         _x = val1
-        buff.write(_get_struct_2d().pack(_x.currentTheta, _x.theta_cc))
+        buff.write(_get_struct_3d().pack(_x.robot_radius, _x.currentTheta, _x.theta_cc))
         length = len(val1.obstacle_trjs)
         buff.write(_struct_I.pack(length))
         for val2 in val1.obstacle_trjs:
-          _v79 = val2.header
-          _x = _v79.seq
+          _v85 = val2.header
+          _x = _v85.seq
           buff.write(_get_struct_I().pack(_x))
-          _v80 = _v79.stamp
-          _x = _v80
+          _v86 = _v85.stamp
+          _x = _v86
           buff.write(_get_struct_2I().pack(_x.secs, _x.nsecs))
-          _x = _v79.frame_id
+          _x = _v85.frame_id
           length = len(_x)
           if python3 or type(_x) == unicode:
             _x = _x.encode('utf-8')
@@ -1854,30 +1928,30 @@ uint32 stopTime
           buff.write(struct.Struct('<I%ss'%length).pack(length, _x))
           _x = val2.id
           buff.write(_get_struct_H().pack(_x))
-          _v81 = val2.trajectory
-          _v82 = _v81.header
-          _x = _v82.seq
+          _v87 = val2.trajectory
+          _v88 = _v87.header
+          _x = _v88.seq
           buff.write(_get_struct_I().pack(_x))
-          _v83 = _v82.stamp
-          _x = _v83
+          _v89 = _v88.stamp
+          _x = _v89
           buff.write(_get_struct_2I().pack(_x.secs, _x.nsecs))
-          _x = _v82.frame_id
+          _x = _v88.frame_id
           length = len(_x)
           if python3 or type(_x) == unicode:
             _x = _x.encode('utf-8')
             length = len(_x)
           buff.write(struct.Struct('<I%ss'%length).pack(length, _x))
-          length = len(_v81.joint_names)
+          length = len(_v87.joint_names)
           buff.write(_struct_I.pack(length))
-          for val4 in _v81.joint_names:
+          for val4 in _v87.joint_names:
             length = len(val4)
             if python3 or type(val4) == unicode:
               val4 = val4.encode('utf-8')
               length = len(val4)
             buff.write(struct.Struct('<I%ss'%length).pack(length, val4))
-          length = len(_v81.points)
+          length = len(_v87.points)
           buff.write(_struct_I.pack(length))
-          for val4 in _v81.points:
+          for val4 in _v87.points:
             length = len(val4.positions)
             buff.write(_struct_I.pack(length))
             pattern = '<%sd'%length
@@ -1894,8 +1968,8 @@ uint32 stopTime
             buff.write(_struct_I.pack(length))
             pattern = '<%sd'%length
             buff.write(val4.effort.tostring())
-            _v84 = val4.time_from_start
-            _x = _v84
+            _v90 = val4.time_from_start
+            _x = _v90
             buff.write(_get_struct_2i().pack(_x.secs, _x.nsecs))
           length = len(val2.i_knotPoints)
           buff.write(_struct_I.pack(length))
@@ -1904,13 +1978,13 @@ uint32 stopTime
           length = len(val2.curves)
           buff.write(_struct_I.pack(length))
           for val3 in val2.curves:
-            _v85 = val3.header
-            _x = _v85.seq
+            _v91 = val3.header
+            _x = _v91.seq
             buff.write(_get_struct_I().pack(_x))
-            _v86 = _v85.stamp
-            _x = _v86
+            _v92 = _v91.stamp
+            _x = _v92
             buff.write(_get_struct_2I().pack(_x.secs, _x.nsecs))
-            _x = _v85.frame_id
+            _x = _v91.frame_id
             length = len(_x)
             if python3 or type(_x) == unicode:
               _x = _x.encode('utf-8')
@@ -1985,102 +2059,119 @@ uint32 stopTime
               buff.write(_get_struct_d().pack(_x))
             _x = val3.l
             buff.write(_get_struct_d().pack(_x))
-            _v87 = val3.ms_maxVA
-            length = len(_v87.positions)
+            _v93 = val3.ms_maxVA
+            length = len(_v93.positions)
             buff.write(_struct_I.pack(length))
             pattern = '<%sd'%length
-            buff.write(_v87.positions.tostring())
-            length = len(_v87.velocities)
+            buff.write(_v93.positions.tostring())
+            length = len(_v93.velocities)
             buff.write(_struct_I.pack(length))
             pattern = '<%sd'%length
-            buff.write(_v87.velocities.tostring())
-            length = len(_v87.accelerations)
+            buff.write(_v93.velocities.tostring())
+            length = len(_v93.accelerations)
             buff.write(_struct_I.pack(length))
             pattern = '<%sd'%length
-            buff.write(_v87.accelerations.tostring())
-            length = len(_v87.jerks)
+            buff.write(_v93.accelerations.tostring())
+            length = len(_v93.jerks)
             buff.write(_struct_I.pack(length))
             pattern = '<%sd'%length
-            buff.write(_v87.jerks.tostring())
-            _x = _v87.time
+            buff.write(_v93.jerks.tostring())
+            _x = _v93.time
             buff.write(_get_struct_d().pack(_x))
-            _v88 = val3.ms_initialVA
-            length = len(_v88.positions)
+            _v94 = val3.ms_initialVA
+            length = len(_v94.positions)
             buff.write(_struct_I.pack(length))
             pattern = '<%sd'%length
-            buff.write(_v88.positions.tostring())
-            length = len(_v88.velocities)
+            buff.write(_v94.positions.tostring())
+            length = len(_v94.velocities)
             buff.write(_struct_I.pack(length))
             pattern = '<%sd'%length
-            buff.write(_v88.velocities.tostring())
-            length = len(_v88.accelerations)
+            buff.write(_v94.velocities.tostring())
+            length = len(_v94.accelerations)
             buff.write(_struct_I.pack(length))
             pattern = '<%sd'%length
-            buff.write(_v88.accelerations.tostring())
-            length = len(_v88.jerks)
+            buff.write(_v94.accelerations.tostring())
+            length = len(_v94.jerks)
             buff.write(_struct_I.pack(length))
             pattern = '<%sd'%length
-            buff.write(_v88.jerks.tostring())
-            _x = _v88.time
+            buff.write(_v94.jerks.tostring())
+            _x = _v94.time
             buff.write(_get_struct_d().pack(_x))
-            _v89 = val3.ms_begin
-            length = len(_v89.positions)
+            _v95 = val3.ms_begin
+            length = len(_v95.positions)
             buff.write(_struct_I.pack(length))
             pattern = '<%sd'%length
-            buff.write(_v89.positions.tostring())
-            length = len(_v89.velocities)
+            buff.write(_v95.positions.tostring())
+            length = len(_v95.velocities)
             buff.write(_struct_I.pack(length))
             pattern = '<%sd'%length
-            buff.write(_v89.velocities.tostring())
-            length = len(_v89.accelerations)
+            buff.write(_v95.velocities.tostring())
+            length = len(_v95.accelerations)
             buff.write(_struct_I.pack(length))
             pattern = '<%sd'%length
-            buff.write(_v89.accelerations.tostring())
-            length = len(_v89.jerks)
+            buff.write(_v95.accelerations.tostring())
+            length = len(_v95.jerks)
             buff.write(_struct_I.pack(length))
             pattern = '<%sd'%length
-            buff.write(_v89.jerks.tostring())
-            _x = _v89.time
+            buff.write(_v95.jerks.tostring())
+            _x = _v95.time
             buff.write(_get_struct_d().pack(_x))
             _x = val3
             buff.write(_get_struct_4d().pack(_x.u_0, _x.u_dot_0, _x.u_dot_max, _x.u_target))
-          _v90 = val2.holonomic_path
-          length = len(_v90.points)
+          _v96 = val2.holonomic_path
+          length = len(_v96.points)
           buff.write(_struct_I.pack(length))
-          for val4 in _v90.points:
-            _v91 = val4.motionState
-            length = len(_v91.positions)
+          for val4 in _v96.points:
+            _v97 = val4.motionState
+            length = len(_v97.positions)
             buff.write(_struct_I.pack(length))
             pattern = '<%sd'%length
-            buff.write(_v91.positions.tostring())
-            length = len(_v91.velocities)
+            buff.write(_v97.positions.tostring())
+            length = len(_v97.velocities)
             buff.write(_struct_I.pack(length))
             pattern = '<%sd'%length
-            buff.write(_v91.velocities.tostring())
-            length = len(_v91.accelerations)
+            buff.write(_v97.velocities.tostring())
+            length = len(_v97.accelerations)
             buff.write(_struct_I.pack(length))
             pattern = '<%sd'%length
-            buff.write(_v91.accelerations.tostring())
-            length = len(_v91.jerks)
+            buff.write(_v97.accelerations.tostring())
+            length = len(_v97.jerks)
             buff.write(_struct_I.pack(length))
             pattern = '<%sd'%length
-            buff.write(_v91.jerks.tostring())
-            _x = _v91.time
+            buff.write(_v97.jerks.tostring())
+            _x = _v97.time
             buff.write(_get_struct_d().pack(_x))
             _x = val4.stopTime
             buff.write(_get_struct_I().pack(_x))
           _x = val2
           buff.write(_get_struct_Bd().pack(_x.feasible, _x.fitness))
-          _v92 = val2.t_firstCollision
-          _x = _v92
+          _v98 = val2.t_firstCollision
+          _x = _v98
           buff.write(_get_struct_2i().pack(_x.secs, _x.nsecs))
           _x = val2.i_subPopulation
           buff.write(_get_struct_b().pack(_x))
-          _v93 = val2.t_start
-          _x = _v93
+          _v99 = val2.t_start
+          _x = _v99
           buff.write(_get_struct_2i().pack(_x.secs, _x.nsecs))
+        length = len(val1.obstacle_cir_groups)
+        buff.write(_struct_I.pack(length))
+        for val2 in val1.obstacle_cir_groups:
+          _v100 = val2.fitCir
+          _v101 = _v100.center
+          _x = _v101
+          buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
+          _x = _v100.radius
+          buff.write(_get_struct_d().pack(_x))
+          length = len(val2.packedCirs)
+          buff.write(_struct_I.pack(length))
+          for val3 in val2.packedCirs:
+            _v102 = val3.center
+            _x = _v102
+            buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
+            _x = val3.radius
+            buff.write(_get_struct_d().pack(_x))
         _x = val1
-        buff.write(_get_struct_B2d3B().pack(_x.imminent_collision, _x.coll_dist, _x.offset, _x.full_eval, _x.consider_trans, _x.trans_possible))
+        buff.write(_get_struct_Bd4B().pack(_x.imminent_collision, _x.offset, _x.full_eval, _x.consider_trans, _x.trans_possible, _x.hmap_eval))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -2102,13 +2193,13 @@ uint32 stopTime
       self.reqs = []
       for i in range(0, length):
         val1 = ramp_msgs.msg.EvaluationRequest()
-        _v94 = val1.trajectory
-        _v95 = _v94.header
+        _v103 = val1.trajectory
+        _v104 = _v103.header
         start = end
         end += 4
-        (_v95.seq,) = _get_struct_I().unpack(str[start:end])
-        _v96 = _v95.stamp
-        _x = _v96
+        (_v104.seq,) = _get_struct_I().unpack(str[start:end])
+        _v105 = _v104.stamp
+        _x = _v105
         start = end
         end += 8
         (_x.secs, _x.nsecs,) = _get_struct_2I().unpack(str[start:end])
@@ -2118,19 +2209,19 @@ uint32 stopTime
         start = end
         end += length
         if python3:
-          _v95.frame_id = str[start:end].decode('utf-8', 'rosmsg')
+          _v104.frame_id = str[start:end].decode('utf-8', 'rosmsg')
         else:
-          _v95.frame_id = str[start:end]
+          _v104.frame_id = str[start:end]
         start = end
         end += 2
-        (_v94.id,) = _get_struct_H().unpack(str[start:end])
-        _v97 = _v94.trajectory
-        _v98 = _v97.header
+        (_v103.id,) = _get_struct_H().unpack(str[start:end])
+        _v106 = _v103.trajectory
+        _v107 = _v106.header
         start = end
         end += 4
-        (_v98.seq,) = _get_struct_I().unpack(str[start:end])
-        _v99 = _v98.stamp
-        _x = _v99
+        (_v107.seq,) = _get_struct_I().unpack(str[start:end])
+        _v108 = _v107.stamp
+        _x = _v108
         start = end
         end += 8
         (_x.secs, _x.nsecs,) = _get_struct_2I().unpack(str[start:end])
@@ -2140,13 +2231,13 @@ uint32 stopTime
         start = end
         end += length
         if python3:
-          _v98.frame_id = str[start:end].decode('utf-8', 'rosmsg')
+          _v107.frame_id = str[start:end].decode('utf-8', 'rosmsg')
         else:
-          _v98.frame_id = str[start:end]
+          _v107.frame_id = str[start:end]
         start = end
         end += 4
         (length,) = _struct_I.unpack(str[start:end])
-        _v97.joint_names = []
+        _v106.joint_names = []
         for i in range(0, length):
           start = end
           end += 4
@@ -2157,11 +2248,11 @@ uint32 stopTime
             val4 = str[start:end].decode('utf-8', 'rosmsg')
           else:
             val4 = str[start:end]
-          _v97.joint_names.append(val4)
+          _v106.joint_names.append(val4)
         start = end
         end += 4
         (length,) = _struct_I.unpack(str[start:end])
-        _v97.points = []
+        _v106.points = []
         for i in range(0, length):
           val4 = trajectory_msgs.msg.JointTrajectoryPoint()
           start = end
@@ -2196,12 +2287,12 @@ uint32 stopTime
           s = struct.Struct(pattern)
           end += s.size
           val4.effort = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
-          _v100 = val4.time_from_start
-          _x = _v100
+          _v109 = val4.time_from_start
+          _x = _v109
           start = end
           end += 8
           (_x.secs, _x.nsecs,) = _get_struct_2i().unpack(str[start:end])
-          _v97.points.append(val4)
+          _v106.points.append(val4)
         start = end
         end += 4
         (length,) = _struct_I.unpack(str[start:end])
@@ -2209,19 +2300,19 @@ uint32 stopTime
         start = end
         s = struct.Struct(pattern)
         end += s.size
-        _v94.i_knotPoints = numpy.frombuffer(str[start:end], dtype=numpy.uint16, count=length)
+        _v103.i_knotPoints = numpy.frombuffer(str[start:end], dtype=numpy.uint16, count=length)
         start = end
         end += 4
         (length,) = _struct_I.unpack(str[start:end])
-        _v94.curves = []
+        _v103.curves = []
         for i in range(0, length):
           val3 = ramp_msgs.msg.BezierCurve()
-          _v101 = val3.header
+          _v110 = val3.header
           start = end
           end += 4
-          (_v101.seq,) = _get_struct_I().unpack(str[start:end])
-          _v102 = _v101.stamp
-          _x = _v102
+          (_v110.seq,) = _get_struct_I().unpack(str[start:end])
+          _v111 = _v110.stamp
+          _x = _v111
           start = end
           end += 8
           (_x.secs, _x.nsecs,) = _get_struct_2I().unpack(str[start:end])
@@ -2231,9 +2322,9 @@ uint32 stopTime
           start = end
           end += length
           if python3:
-            _v101.frame_id = str[start:end].decode('utf-8', 'rosmsg')
+            _v110.frame_id = str[start:end].decode('utf-8', 'rosmsg')
           else:
-            _v101.frame_id = str[start:end]
+            _v110.frame_id = str[start:end]
           start = end
           end += 4
           (length,) = _struct_I.unpack(str[start:end])
@@ -2371,7 +2462,7 @@ uint32 stopTime
           start = end
           end += 8
           (val3.l,) = _get_struct_d().unpack(str[start:end])
-          _v103 = val3.ms_maxVA
+          _v112 = val3.ms_maxVA
           start = end
           end += 4
           (length,) = _struct_I.unpack(str[start:end])
@@ -2379,7 +2470,7 @@ uint32 stopTime
           start = end
           s = struct.Struct(pattern)
           end += s.size
-          _v103.positions = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
+          _v112.positions = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
           start = end
           end += 4
           (length,) = _struct_I.unpack(str[start:end])
@@ -2387,7 +2478,7 @@ uint32 stopTime
           start = end
           s = struct.Struct(pattern)
           end += s.size
-          _v103.velocities = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
+          _v112.velocities = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
           start = end
           end += 4
           (length,) = _struct_I.unpack(str[start:end])
@@ -2395,7 +2486,7 @@ uint32 stopTime
           start = end
           s = struct.Struct(pattern)
           end += s.size
-          _v103.accelerations = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
+          _v112.accelerations = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
           start = end
           end += 4
           (length,) = _struct_I.unpack(str[start:end])
@@ -2403,11 +2494,11 @@ uint32 stopTime
           start = end
           s = struct.Struct(pattern)
           end += s.size
-          _v103.jerks = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
+          _v112.jerks = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
           start = end
           end += 8
-          (_v103.time,) = _get_struct_d().unpack(str[start:end])
-          _v104 = val3.ms_initialVA
+          (_v112.time,) = _get_struct_d().unpack(str[start:end])
+          _v113 = val3.ms_initialVA
           start = end
           end += 4
           (length,) = _struct_I.unpack(str[start:end])
@@ -2415,7 +2506,7 @@ uint32 stopTime
           start = end
           s = struct.Struct(pattern)
           end += s.size
-          _v104.positions = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
+          _v113.positions = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
           start = end
           end += 4
           (length,) = _struct_I.unpack(str[start:end])
@@ -2423,7 +2514,7 @@ uint32 stopTime
           start = end
           s = struct.Struct(pattern)
           end += s.size
-          _v104.velocities = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
+          _v113.velocities = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
           start = end
           end += 4
           (length,) = _struct_I.unpack(str[start:end])
@@ -2431,7 +2522,7 @@ uint32 stopTime
           start = end
           s = struct.Struct(pattern)
           end += s.size
-          _v104.accelerations = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
+          _v113.accelerations = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
           start = end
           end += 4
           (length,) = _struct_I.unpack(str[start:end])
@@ -2439,11 +2530,11 @@ uint32 stopTime
           start = end
           s = struct.Struct(pattern)
           end += s.size
-          _v104.jerks = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
+          _v113.jerks = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
           start = end
           end += 8
-          (_v104.time,) = _get_struct_d().unpack(str[start:end])
-          _v105 = val3.ms_begin
+          (_v113.time,) = _get_struct_d().unpack(str[start:end])
+          _v114 = val3.ms_begin
           start = end
           end += 4
           (length,) = _struct_I.unpack(str[start:end])
@@ -2451,7 +2542,7 @@ uint32 stopTime
           start = end
           s = struct.Struct(pattern)
           end += s.size
-          _v105.positions = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
+          _v114.positions = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
           start = end
           end += 4
           (length,) = _struct_I.unpack(str[start:end])
@@ -2459,7 +2550,7 @@ uint32 stopTime
           start = end
           s = struct.Struct(pattern)
           end += s.size
-          _v105.velocities = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
+          _v114.velocities = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
           start = end
           end += 4
           (length,) = _struct_I.unpack(str[start:end])
@@ -2467,7 +2558,7 @@ uint32 stopTime
           start = end
           s = struct.Struct(pattern)
           end += s.size
-          _v105.accelerations = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
+          _v114.accelerations = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
           start = end
           end += 4
           (length,) = _struct_I.unpack(str[start:end])
@@ -2475,23 +2566,23 @@ uint32 stopTime
           start = end
           s = struct.Struct(pattern)
           end += s.size
-          _v105.jerks = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
+          _v114.jerks = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
           start = end
           end += 8
-          (_v105.time,) = _get_struct_d().unpack(str[start:end])
+          (_v114.time,) = _get_struct_d().unpack(str[start:end])
           _x = val3
           start = end
           end += 32
           (_x.u_0, _x.u_dot_0, _x.u_dot_max, _x.u_target,) = _get_struct_4d().unpack(str[start:end])
-          _v94.curves.append(val3)
-        _v106 = _v94.holonomic_path
+          _v103.curves.append(val3)
+        _v115 = _v103.holonomic_path
         start = end
         end += 4
         (length,) = _struct_I.unpack(str[start:end])
-        _v106.points = []
+        _v115.points = []
         for i in range(0, length):
           val4 = ramp_msgs.msg.KnotPoint()
-          _v107 = val4.motionState
+          _v116 = val4.motionState
           start = end
           end += 4
           (length,) = _struct_I.unpack(str[start:end])
@@ -2499,7 +2590,7 @@ uint32 stopTime
           start = end
           s = struct.Struct(pattern)
           end += s.size
-          _v107.positions = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
+          _v116.positions = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
           start = end
           end += 4
           (length,) = _struct_I.unpack(str[start:end])
@@ -2507,7 +2598,7 @@ uint32 stopTime
           start = end
           s = struct.Struct(pattern)
           end += s.size
-          _v107.velocities = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
+          _v116.velocities = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
           start = end
           end += 4
           (length,) = _struct_I.unpack(str[start:end])
@@ -2515,7 +2606,7 @@ uint32 stopTime
           start = end
           s = struct.Struct(pattern)
           end += s.size
-          _v107.accelerations = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
+          _v116.accelerations = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
           start = end
           end += 4
           (length,) = _struct_I.unpack(str[start:end])
@@ -2523,48 +2614,48 @@ uint32 stopTime
           start = end
           s = struct.Struct(pattern)
           end += s.size
-          _v107.jerks = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
+          _v116.jerks = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
           start = end
           end += 8
-          (_v107.time,) = _get_struct_d().unpack(str[start:end])
+          (_v116.time,) = _get_struct_d().unpack(str[start:end])
           start = end
           end += 4
           (val4.stopTime,) = _get_struct_I().unpack(str[start:end])
-          _v106.points.append(val4)
-        _x = _v94
+          _v115.points.append(val4)
+        _x = _v103
         start = end
         end += 9
         (_x.feasible, _x.fitness,) = _get_struct_Bd().unpack(str[start:end])
-        _v94.feasible = bool(_v94.feasible)
-        _v108 = _v94.t_firstCollision
-        _x = _v108
+        _v103.feasible = bool(_v103.feasible)
+        _v117 = _v103.t_firstCollision
+        _x = _v117
         start = end
         end += 8
         (_x.secs, _x.nsecs,) = _get_struct_2i().unpack(str[start:end])
         start = end
         end += 1
-        (_v94.i_subPopulation,) = _get_struct_b().unpack(str[start:end])
-        _v109 = _v94.t_start
-        _x = _v109
+        (_v103.i_subPopulation,) = _get_struct_b().unpack(str[start:end])
+        _v118 = _v103.t_start
+        _x = _v118
         start = end
         end += 8
         (_x.secs, _x.nsecs,) = _get_struct_2i().unpack(str[start:end])
         _x = val1
         start = end
-        end += 16
-        (_x.currentTheta, _x.theta_cc,) = _get_struct_2d().unpack(str[start:end])
+        end += 24
+        (_x.robot_radius, _x.currentTheta, _x.theta_cc,) = _get_struct_3d().unpack(str[start:end])
         start = end
         end += 4
         (length,) = _struct_I.unpack(str[start:end])
         val1.obstacle_trjs = []
         for i in range(0, length):
           val2 = ramp_msgs.msg.RampTrajectory()
-          _v110 = val2.header
+          _v119 = val2.header
           start = end
           end += 4
-          (_v110.seq,) = _get_struct_I().unpack(str[start:end])
-          _v111 = _v110.stamp
-          _x = _v111
+          (_v119.seq,) = _get_struct_I().unpack(str[start:end])
+          _v120 = _v119.stamp
+          _x = _v120
           start = end
           end += 8
           (_x.secs, _x.nsecs,) = _get_struct_2I().unpack(str[start:end])
@@ -2574,19 +2665,19 @@ uint32 stopTime
           start = end
           end += length
           if python3:
-            _v110.frame_id = str[start:end].decode('utf-8', 'rosmsg')
+            _v119.frame_id = str[start:end].decode('utf-8', 'rosmsg')
           else:
-            _v110.frame_id = str[start:end]
+            _v119.frame_id = str[start:end]
           start = end
           end += 2
           (val2.id,) = _get_struct_H().unpack(str[start:end])
-          _v112 = val2.trajectory
-          _v113 = _v112.header
+          _v121 = val2.trajectory
+          _v122 = _v121.header
           start = end
           end += 4
-          (_v113.seq,) = _get_struct_I().unpack(str[start:end])
-          _v114 = _v113.stamp
-          _x = _v114
+          (_v122.seq,) = _get_struct_I().unpack(str[start:end])
+          _v123 = _v122.stamp
+          _x = _v123
           start = end
           end += 8
           (_x.secs, _x.nsecs,) = _get_struct_2I().unpack(str[start:end])
@@ -2596,13 +2687,13 @@ uint32 stopTime
           start = end
           end += length
           if python3:
-            _v113.frame_id = str[start:end].decode('utf-8', 'rosmsg')
+            _v122.frame_id = str[start:end].decode('utf-8', 'rosmsg')
           else:
-            _v113.frame_id = str[start:end]
+            _v122.frame_id = str[start:end]
           start = end
           end += 4
           (length,) = _struct_I.unpack(str[start:end])
-          _v112.joint_names = []
+          _v121.joint_names = []
           for i in range(0, length):
             start = end
             end += 4
@@ -2613,11 +2704,11 @@ uint32 stopTime
               val4 = str[start:end].decode('utf-8', 'rosmsg')
             else:
               val4 = str[start:end]
-            _v112.joint_names.append(val4)
+            _v121.joint_names.append(val4)
           start = end
           end += 4
           (length,) = _struct_I.unpack(str[start:end])
-          _v112.points = []
+          _v121.points = []
           for i in range(0, length):
             val4 = trajectory_msgs.msg.JointTrajectoryPoint()
             start = end
@@ -2652,12 +2743,12 @@ uint32 stopTime
             s = struct.Struct(pattern)
             end += s.size
             val4.effort = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
-            _v115 = val4.time_from_start
-            _x = _v115
+            _v124 = val4.time_from_start
+            _x = _v124
             start = end
             end += 8
             (_x.secs, _x.nsecs,) = _get_struct_2i().unpack(str[start:end])
-            _v112.points.append(val4)
+            _v121.points.append(val4)
           start = end
           end += 4
           (length,) = _struct_I.unpack(str[start:end])
@@ -2672,12 +2763,12 @@ uint32 stopTime
           val2.curves = []
           for i in range(0, length):
             val3 = ramp_msgs.msg.BezierCurve()
-            _v116 = val3.header
+            _v125 = val3.header
             start = end
             end += 4
-            (_v116.seq,) = _get_struct_I().unpack(str[start:end])
-            _v117 = _v116.stamp
-            _x = _v117
+            (_v125.seq,) = _get_struct_I().unpack(str[start:end])
+            _v126 = _v125.stamp
+            _x = _v126
             start = end
             end += 8
             (_x.secs, _x.nsecs,) = _get_struct_2I().unpack(str[start:end])
@@ -2687,9 +2778,9 @@ uint32 stopTime
             start = end
             end += length
             if python3:
-              _v116.frame_id = str[start:end].decode('utf-8', 'rosmsg')
+              _v125.frame_id = str[start:end].decode('utf-8', 'rosmsg')
             else:
-              _v116.frame_id = str[start:end]
+              _v125.frame_id = str[start:end]
             start = end
             end += 4
             (length,) = _struct_I.unpack(str[start:end])
@@ -2827,7 +2918,7 @@ uint32 stopTime
             start = end
             end += 8
             (val3.l,) = _get_struct_d().unpack(str[start:end])
-            _v118 = val3.ms_maxVA
+            _v127 = val3.ms_maxVA
             start = end
             end += 4
             (length,) = _struct_I.unpack(str[start:end])
@@ -2835,7 +2926,7 @@ uint32 stopTime
             start = end
             s = struct.Struct(pattern)
             end += s.size
-            _v118.positions = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
+            _v127.positions = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
             start = end
             end += 4
             (length,) = _struct_I.unpack(str[start:end])
@@ -2843,7 +2934,7 @@ uint32 stopTime
             start = end
             s = struct.Struct(pattern)
             end += s.size
-            _v118.velocities = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
+            _v127.velocities = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
             start = end
             end += 4
             (length,) = _struct_I.unpack(str[start:end])
@@ -2851,7 +2942,7 @@ uint32 stopTime
             start = end
             s = struct.Struct(pattern)
             end += s.size
-            _v118.accelerations = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
+            _v127.accelerations = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
             start = end
             end += 4
             (length,) = _struct_I.unpack(str[start:end])
@@ -2859,11 +2950,11 @@ uint32 stopTime
             start = end
             s = struct.Struct(pattern)
             end += s.size
-            _v118.jerks = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
+            _v127.jerks = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
             start = end
             end += 8
-            (_v118.time,) = _get_struct_d().unpack(str[start:end])
-            _v119 = val3.ms_initialVA
+            (_v127.time,) = _get_struct_d().unpack(str[start:end])
+            _v128 = val3.ms_initialVA
             start = end
             end += 4
             (length,) = _struct_I.unpack(str[start:end])
@@ -2871,7 +2962,7 @@ uint32 stopTime
             start = end
             s = struct.Struct(pattern)
             end += s.size
-            _v119.positions = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
+            _v128.positions = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
             start = end
             end += 4
             (length,) = _struct_I.unpack(str[start:end])
@@ -2879,7 +2970,7 @@ uint32 stopTime
             start = end
             s = struct.Struct(pattern)
             end += s.size
-            _v119.velocities = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
+            _v128.velocities = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
             start = end
             end += 4
             (length,) = _struct_I.unpack(str[start:end])
@@ -2887,7 +2978,7 @@ uint32 stopTime
             start = end
             s = struct.Struct(pattern)
             end += s.size
-            _v119.accelerations = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
+            _v128.accelerations = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
             start = end
             end += 4
             (length,) = _struct_I.unpack(str[start:end])
@@ -2895,11 +2986,11 @@ uint32 stopTime
             start = end
             s = struct.Struct(pattern)
             end += s.size
-            _v119.jerks = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
+            _v128.jerks = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
             start = end
             end += 8
-            (_v119.time,) = _get_struct_d().unpack(str[start:end])
-            _v120 = val3.ms_begin
+            (_v128.time,) = _get_struct_d().unpack(str[start:end])
+            _v129 = val3.ms_begin
             start = end
             end += 4
             (length,) = _struct_I.unpack(str[start:end])
@@ -2907,7 +2998,7 @@ uint32 stopTime
             start = end
             s = struct.Struct(pattern)
             end += s.size
-            _v120.positions = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
+            _v129.positions = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
             start = end
             end += 4
             (length,) = _struct_I.unpack(str[start:end])
@@ -2915,7 +3006,7 @@ uint32 stopTime
             start = end
             s = struct.Struct(pattern)
             end += s.size
-            _v120.velocities = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
+            _v129.velocities = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
             start = end
             end += 4
             (length,) = _struct_I.unpack(str[start:end])
@@ -2923,7 +3014,7 @@ uint32 stopTime
             start = end
             s = struct.Struct(pattern)
             end += s.size
-            _v120.accelerations = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
+            _v129.accelerations = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
             start = end
             end += 4
             (length,) = _struct_I.unpack(str[start:end])
@@ -2931,23 +3022,23 @@ uint32 stopTime
             start = end
             s = struct.Struct(pattern)
             end += s.size
-            _v120.jerks = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
+            _v129.jerks = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
             start = end
             end += 8
-            (_v120.time,) = _get_struct_d().unpack(str[start:end])
+            (_v129.time,) = _get_struct_d().unpack(str[start:end])
             _x = val3
             start = end
             end += 32
             (_x.u_0, _x.u_dot_0, _x.u_dot_max, _x.u_target,) = _get_struct_4d().unpack(str[start:end])
             val2.curves.append(val3)
-          _v121 = val2.holonomic_path
+          _v130 = val2.holonomic_path
           start = end
           end += 4
           (length,) = _struct_I.unpack(str[start:end])
-          _v121.points = []
+          _v130.points = []
           for i in range(0, length):
             val4 = ramp_msgs.msg.KnotPoint()
-            _v122 = val4.motionState
+            _v131 = val4.motionState
             start = end
             end += 4
             (length,) = _struct_I.unpack(str[start:end])
@@ -2955,7 +3046,7 @@ uint32 stopTime
             start = end
             s = struct.Struct(pattern)
             end += s.size
-            _v122.positions = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
+            _v131.positions = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
             start = end
             end += 4
             (length,) = _struct_I.unpack(str[start:end])
@@ -2963,7 +3054,7 @@ uint32 stopTime
             start = end
             s = struct.Struct(pattern)
             end += s.size
-            _v122.velocities = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
+            _v131.velocities = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
             start = end
             end += 4
             (length,) = _struct_I.unpack(str[start:end])
@@ -2971,7 +3062,7 @@ uint32 stopTime
             start = end
             s = struct.Struct(pattern)
             end += s.size
-            _v122.accelerations = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
+            _v131.accelerations = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
             start = end
             end += 4
             (length,) = _struct_I.unpack(str[start:end])
@@ -2979,41 +3070,73 @@ uint32 stopTime
             start = end
             s = struct.Struct(pattern)
             end += s.size
-            _v122.jerks = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
+            _v131.jerks = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
             start = end
             end += 8
-            (_v122.time,) = _get_struct_d().unpack(str[start:end])
+            (_v131.time,) = _get_struct_d().unpack(str[start:end])
             start = end
             end += 4
             (val4.stopTime,) = _get_struct_I().unpack(str[start:end])
-            _v121.points.append(val4)
+            _v130.points.append(val4)
           _x = val2
           start = end
           end += 9
           (_x.feasible, _x.fitness,) = _get_struct_Bd().unpack(str[start:end])
           val2.feasible = bool(val2.feasible)
-          _v123 = val2.t_firstCollision
-          _x = _v123
+          _v132 = val2.t_firstCollision
+          _x = _v132
           start = end
           end += 8
           (_x.secs, _x.nsecs,) = _get_struct_2i().unpack(str[start:end])
           start = end
           end += 1
           (val2.i_subPopulation,) = _get_struct_b().unpack(str[start:end])
-          _v124 = val2.t_start
-          _x = _v124
+          _v133 = val2.t_start
+          _x = _v133
           start = end
           end += 8
           (_x.secs, _x.nsecs,) = _get_struct_2i().unpack(str[start:end])
           val1.obstacle_trjs.append(val2)
+        start = end
+        end += 4
+        (length,) = _struct_I.unpack(str[start:end])
+        val1.obstacle_cir_groups = []
+        for i in range(0, length):
+          val2 = ramp_msgs.msg.CircleGroup()
+          _v134 = val2.fitCir
+          _v135 = _v134.center
+          _x = _v135
+          start = end
+          end += 24
+          (_x.x, _x.y, _x.z,) = _get_struct_3d().unpack(str[start:end])
+          start = end
+          end += 8
+          (_v134.radius,) = _get_struct_d().unpack(str[start:end])
+          start = end
+          end += 4
+          (length,) = _struct_I.unpack(str[start:end])
+          val2.packedCirs = []
+          for i in range(0, length):
+            val3 = ramp_msgs.msg.Circle()
+            _v136 = val3.center
+            _x = _v136
+            start = end
+            end += 24
+            (_x.x, _x.y, _x.z,) = _get_struct_3d().unpack(str[start:end])
+            start = end
+            end += 8
+            (val3.radius,) = _get_struct_d().unpack(str[start:end])
+            val2.packedCirs.append(val3)
+          val1.obstacle_cir_groups.append(val2)
         _x = val1
         start = end
-        end += 20
-        (_x.imminent_collision, _x.coll_dist, _x.offset, _x.full_eval, _x.consider_trans, _x.trans_possible,) = _get_struct_B2d3B().unpack(str[start:end])
+        end += 13
+        (_x.imminent_collision, _x.offset, _x.full_eval, _x.consider_trans, _x.trans_possible, _x.hmap_eval,) = _get_struct_Bd4B().unpack(str[start:end])
         val1.imminent_collision = bool(val1.imminent_collision)
         val1.full_eval = bool(val1.full_eval)
         val1.consider_trans = bool(val1.consider_trans)
         val1.trans_possible = bool(val1.trans_possible)
+        val1.hmap_eval = bool(val1.hmap_eval)
         self.reqs.append(val1)
       return self
     except struct.error as e:
@@ -3029,36 +3152,36 @@ def _get_struct_2I():
     if _struct_2I is None:
         _struct_2I = struct.Struct("<2I")
     return _struct_2I
-_struct_2d = None
-def _get_struct_2d():
-    global _struct_2d
-    if _struct_2d is None:
-        _struct_2d = struct.Struct("<2d")
-    return _struct_2d
 _struct_2i = None
 def _get_struct_2i():
     global _struct_2i
     if _struct_2i is None:
         _struct_2i = struct.Struct("<2i")
     return _struct_2i
+_struct_3d = None
+def _get_struct_3d():
+    global _struct_3d
+    if _struct_3d is None:
+        _struct_3d = struct.Struct("<3d")
+    return _struct_3d
 _struct_4d = None
 def _get_struct_4d():
     global _struct_4d
     if _struct_4d is None:
         _struct_4d = struct.Struct("<4d")
     return _struct_4d
-_struct_B2d3B = None
-def _get_struct_B2d3B():
-    global _struct_B2d3B
-    if _struct_B2d3B is None:
-        _struct_B2d3B = struct.Struct("<B2d3B")
-    return _struct_B2d3B
 _struct_Bd = None
 def _get_struct_Bd():
     global _struct_Bd
     if _struct_Bd is None:
         _struct_Bd = struct.Struct("<Bd")
     return _struct_Bd
+_struct_Bd4B = None
+def _get_struct_Bd4B():
+    global _struct_Bd4B
+    if _struct_Bd4B is None:
+        _struct_Bd4B = struct.Struct("<Bd4B")
+    return _struct_Bd4B
 _struct_H = None
 def _get_struct_H():
     global _struct_H
@@ -3144,8 +3267,8 @@ duration t_firstCollision
       for val1 in self.resps:
         _x = val1
         buff.write(_get_struct_dB().pack(_x.fitness, _x.feasible))
-        _v125 = val1.t_firstCollision
-        _x = _v125
+        _v137 = val1.t_firstCollision
+        _x = _v137
         buff.write(_get_struct_2i().pack(_x.secs, _x.nsecs))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
@@ -3172,8 +3295,8 @@ duration t_firstCollision
         end += 9
         (_x.fitness, _x.feasible,) = _get_struct_dB().unpack(str[start:end])
         val1.feasible = bool(val1.feasible)
-        _v126 = val1.t_firstCollision
-        _x = _v126
+        _v138 = val1.t_firstCollision
+        _x = _v138
         start = end
         end += 8
         (_x.secs, _x.nsecs,) = _get_struct_2i().unpack(str[start:end])
@@ -3195,8 +3318,8 @@ duration t_firstCollision
       for val1 in self.resps:
         _x = val1
         buff.write(_get_struct_dB().pack(_x.fitness, _x.feasible))
-        _v127 = val1.t_firstCollision
-        _x = _v127
+        _v139 = val1.t_firstCollision
+        _x = _v139
         buff.write(_get_struct_2i().pack(_x.secs, _x.nsecs))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
@@ -3224,8 +3347,8 @@ duration t_firstCollision
         end += 9
         (_x.fitness, _x.feasible,) = _get_struct_dB().unpack(str[start:end])
         val1.feasible = bool(val1.feasible)
-        _v128 = val1.t_firstCollision
-        _x = _v128
+        _v140 = val1.t_firstCollision
+        _x = _v140
         start = end
         end += 8
         (_x.secs, _x.nsecs,) = _get_struct_2i().unpack(str[start:end])
@@ -3252,6 +3375,6 @@ def _get_struct_dB():
     return _struct_dB
 class EvaluationSrv(object):
   _type          = 'ramp_msgs/EvaluationSrv'
-  _md5sum = 'aff4480b2055f23de2549199bf38a51a'
+  _md5sum = 'bb14ee9ba2b91774273c2644f7a15381'
   _request_class  = EvaluationSrvRequest
   _response_class = EvaluationSrvResponse

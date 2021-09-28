@@ -182,81 +182,6 @@ kobuki_bumper2pc_nodelet/fast:
 	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f kobuki/kobuki_bumper2pc/CMakeFiles/kobuki_bumper2pc_nodelet.dir/build.make kobuki/kobuki_bumper2pc/CMakeFiles/kobuki_bumper2pc_nodelet.dir/build
 .PHONY : kobuki_bumper2pc_nodelet/fast
 
-# Convenience name for target.
-kobuki/kobuki_bumper2pc/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 kobuki/kobuki_bumper2pc/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule
-.PHONY : kobuki/kobuki_bumper2pc/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule
-
-# Convenience name for target.
-sensor_msgs_generate_messages_py: kobuki/kobuki_bumper2pc/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule
-
-.PHONY : sensor_msgs_generate_messages_py
-
-# fast build rule for target.
-sensor_msgs_generate_messages_py/fast:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f kobuki/kobuki_bumper2pc/CMakeFiles/sensor_msgs_generate_messages_py.dir/build.make kobuki/kobuki_bumper2pc/CMakeFiles/sensor_msgs_generate_messages_py.dir/build
-.PHONY : sensor_msgs_generate_messages_py/fast
-
-# Convenience name for target.
-kobuki/kobuki_bumper2pc/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/rule:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 kobuki/kobuki_bumper2pc/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/rule
-.PHONY : kobuki/kobuki_bumper2pc/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-sensor_msgs_generate_messages_nodejs: kobuki/kobuki_bumper2pc/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/rule
-
-.PHONY : sensor_msgs_generate_messages_nodejs
-
-# fast build rule for target.
-sensor_msgs_generate_messages_nodejs/fast:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f kobuki/kobuki_bumper2pc/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/build.make kobuki/kobuki_bumper2pc/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/build
-.PHONY : sensor_msgs_generate_messages_nodejs/fast
-
-# Convenience name for target.
-kobuki/kobuki_bumper2pc/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 kobuki/kobuki_bumper2pc/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule
-.PHONY : kobuki/kobuki_bumper2pc/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-sensor_msgs_generate_messages_lisp: kobuki/kobuki_bumper2pc/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule
-
-.PHONY : sensor_msgs_generate_messages_lisp
-
-# fast build rule for target.
-sensor_msgs_generate_messages_lisp/fast:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f kobuki/kobuki_bumper2pc/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/build.make kobuki/kobuki_bumper2pc/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/build
-.PHONY : sensor_msgs_generate_messages_lisp/fast
-
-# Convenience name for target.
-kobuki/kobuki_bumper2pc/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 kobuki/kobuki_bumper2pc/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule
-.PHONY : kobuki/kobuki_bumper2pc/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-sensor_msgs_generate_messages_eus: kobuki/kobuki_bumper2pc/CMakeFiles/sensor_msgs_generate_messages_eus.dir/rule
-
-.PHONY : sensor_msgs_generate_messages_eus
-
-# fast build rule for target.
-sensor_msgs_generate_messages_eus/fast:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f kobuki/kobuki_bumper2pc/CMakeFiles/sensor_msgs_generate_messages_eus.dir/build.make kobuki/kobuki_bumper2pc/CMakeFiles/sensor_msgs_generate_messages_eus.dir/build
-.PHONY : sensor_msgs_generate_messages_eus/fast
-
-# Convenience name for target.
-kobuki/kobuki_bumper2pc/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 kobuki/kobuki_bumper2pc/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule
-.PHONY : kobuki/kobuki_bumper2pc/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-sensor_msgs_generate_messages_cpp: kobuki/kobuki_bumper2pc/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/rule
-
-.PHONY : sensor_msgs_generate_messages_cpp
-
-# fast build rule for target.
-sensor_msgs_generate_messages_cpp/fast:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f kobuki/kobuki_bumper2pc/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/build.make kobuki/kobuki_bumper2pc/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/build
-.PHONY : sensor_msgs_generate_messages_cpp/fast
-
 src/kobuki_bumper2pc.o: src/kobuki_bumper2pc.cpp.o
 
 .PHONY : src/kobuki_bumper2pc.o
@@ -298,11 +223,6 @@ help:
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... kobuki_bumper2pc_nodelet"
-	@echo "... sensor_msgs_generate_messages_py"
-	@echo "... sensor_msgs_generate_messages_nodejs"
-	@echo "... sensor_msgs_generate_messages_lisp"
-	@echo "... sensor_msgs_generate_messages_eus"
-	@echo "... sensor_msgs_generate_messages_cpp"
 	@echo "... src/kobuki_bumper2pc.o"
 	@echo "... src/kobuki_bumper2pc.i"
 	@echo "... src/kobuki_bumper2pc.s"

@@ -30,14 +30,26 @@ struct TrajectoryRequest_
     , type(0)
     , print(false)
     , bezierCurves()
-    , segments(0)  {
+    , segments(0)
+    , max_speed_linear(0.0)
+    , max_speed_angular(0.0)
+    , sl_traj(false)
+    , sl_final_speed(0.0)
+    , sl_init_dur()
+    , sl_final_dur()  {
     }
   TrajectoryRequest_(const ContainerAllocator& _alloc)
     : path(_alloc)
     , type(0)
     , print(false)
     , bezierCurves(_alloc)
-    , segments(0)  {
+    , segments(0)
+    , max_speed_linear(0.0)
+    , max_speed_angular(0.0)
+    , sl_traj(false)
+    , sl_final_speed(0.0)
+    , sl_init_dur()
+    , sl_final_dur()  {
   (void)_alloc;
     }
 
@@ -57,6 +69,24 @@ struct TrajectoryRequest_
 
    typedef int8_t _segments_type;
   _segments_type segments;
+
+   typedef double _max_speed_linear_type;
+  _max_speed_linear_type max_speed_linear;
+
+   typedef double _max_speed_angular_type;
+  _max_speed_angular_type max_speed_angular;
+
+   typedef uint8_t _sl_traj_type;
+  _sl_traj_type sl_traj;
+
+   typedef double _sl_final_speed_type;
+  _sl_final_speed_type sl_final_speed;
+
+   typedef ros::Duration _sl_init_dur_type;
+  _sl_init_dur_type sl_init_dur;
+
+   typedef ros::Duration _sl_final_dur_type;
+  _sl_final_dur_type sl_final_dur;
 
 
 
@@ -91,7 +121,13 @@ bool operator==(const ::ramp_msgs::TrajectoryRequest_<ContainerAllocator1> & lhs
     lhs.type == rhs.type &&
     lhs.print == rhs.print &&
     lhs.bezierCurves == rhs.bezierCurves &&
-    lhs.segments == rhs.segments;
+    lhs.segments == rhs.segments &&
+    lhs.max_speed_linear == rhs.max_speed_linear &&
+    lhs.max_speed_angular == rhs.max_speed_angular &&
+    lhs.sl_traj == rhs.sl_traj &&
+    lhs.sl_final_speed == rhs.sl_final_speed &&
+    lhs.sl_init_dur == rhs.sl_init_dur &&
+    lhs.sl_final_dur == rhs.sl_final_dur;
 }
 
 template<typename ContainerAllocator1, typename ContainerAllocator2>
@@ -148,12 +184,12 @@ struct MD5Sum< ::ramp_msgs::TrajectoryRequest_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "90b320ee1b26415bfc5a720e57c91cb0";
+    return "ad9619205ac6cad901fa5450a41bd191";
   }
 
   static const char* value(const ::ramp_msgs::TrajectoryRequest_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x90b320ee1b26415bULL;
-  static const uint64_t static_value2 = 0xfc5a720e57c91cb0ULL;
+  static const uint64_t static_value1 = 0xad9619205ac6cad9ULL;
+  static const uint64_t static_value2 = 0x01fa5450a41bd191ULL;
 };
 
 template<class ContainerAllocator>
@@ -177,6 +213,14 @@ struct Definition< ::ramp_msgs::TrajectoryRequest_<ContainerAllocator> >
 "bool print\n"
 "ramp_msgs/BezierCurve[] bezierCurves\n"
 "int8 segments\n"
+"float64 max_speed_linear\n"
+"float64 max_speed_angular\n"
+"\n"
+"# For system-level test generation...\n"
+"bool sl_traj\n"
+"float64 sl_final_speed\n"
+"duration sl_init_dur\n"
+"duration sl_final_dur\n"
 "\n"
 "================================================================================\n"
 "MSG: ramp_msgs/Path\n"
@@ -254,6 +298,12 @@ namespace serialization
       stream.next(m.print);
       stream.next(m.bezierCurves);
       stream.next(m.segments);
+      stream.next(m.max_speed_linear);
+      stream.next(m.max_speed_angular);
+      stream.next(m.sl_traj);
+      stream.next(m.sl_final_speed);
+      stream.next(m.sl_init_dur);
+      stream.next(m.sl_final_dur);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -289,6 +339,18 @@ struct Printer< ::ramp_msgs::TrajectoryRequest_<ContainerAllocator> >
     }
     s << indent << "segments: ";
     Printer<int8_t>::stream(s, indent + "  ", v.segments);
+    s << indent << "max_speed_linear: ";
+    Printer<double>::stream(s, indent + "  ", v.max_speed_linear);
+    s << indent << "max_speed_angular: ";
+    Printer<double>::stream(s, indent + "  ", v.max_speed_angular);
+    s << indent << "sl_traj: ";
+    Printer<uint8_t>::stream(s, indent + "  ", v.sl_traj);
+    s << indent << "sl_final_speed: ";
+    Printer<double>::stream(s, indent + "  ", v.sl_final_speed);
+    s << indent << "sl_init_dur: ";
+    Printer<ros::Duration>::stream(s, indent + "  ", v.sl_init_dur);
+    s << indent << "sl_final_dur: ";
+    Printer<ros::Duration>::stream(s, indent + "  ", v.sl_final_dur);
   }
 };
 

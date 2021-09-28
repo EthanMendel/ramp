@@ -6,11 +6,12 @@ python3 = True if sys.hexversion > 0x03000000 else False
 import genpy
 import struct
 
+import genpy
 import ramp_msgs.msg
 import std_msgs.msg
 
 class TrajectoryRequest(genpy.Message):
-  _md5sum = "90b320ee1b26415bfc5a720e57c91cb0"
+  _md5sum = "ad9619205ac6cad901fa5450a41bd191"
   _type = "ramp_msgs/TrajectoryRequest"
   _has_header = False  # flag to mark the presence of a Header object
   _full_text = """ramp_msgs/Path path
@@ -18,6 +19,14 @@ uint8 type
 bool print
 ramp_msgs/BezierCurve[] bezierCurves
 int8 segments
+float64 max_speed_linear
+float64 max_speed_angular
+
+# For system-level test generation...
+bool sl_traj
+float64 sl_final_speed
+duration sl_init_dur
+duration sl_final_dur
 
 ================================================================================
 MSG: ramp_msgs/Path
@@ -73,8 +82,8 @@ time stamp
 #Frame this data is associated with
 string frame_id
 """
-  __slots__ = ['path','type','print','bezierCurves','segments']
-  _slot_types = ['ramp_msgs/Path','uint8','bool','ramp_msgs/BezierCurve[]','int8']
+  __slots__ = ['path','type','print','bezierCurves','segments','max_speed_linear','max_speed_angular','sl_traj','sl_final_speed','sl_init_dur','sl_final_dur']
+  _slot_types = ['ramp_msgs/Path','uint8','bool','ramp_msgs/BezierCurve[]','int8','float64','float64','bool','float64','duration','duration']
 
   def __init__(self, *args, **kwds):
     """
@@ -84,7 +93,7 @@ string frame_id
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       path,type,print,bezierCurves,segments
+       path,type,print,bezierCurves,segments,max_speed_linear,max_speed_angular,sl_traj,sl_final_speed,sl_init_dur,sl_final_dur
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -103,12 +112,30 @@ string frame_id
         self.bezierCurves = []
       if self.segments is None:
         self.segments = 0
+      if self.max_speed_linear is None:
+        self.max_speed_linear = 0.
+      if self.max_speed_angular is None:
+        self.max_speed_angular = 0.
+      if self.sl_traj is None:
+        self.sl_traj = False
+      if self.sl_final_speed is None:
+        self.sl_final_speed = 0.
+      if self.sl_init_dur is None:
+        self.sl_init_dur = genpy.Duration()
+      if self.sl_final_dur is None:
+        self.sl_final_dur = genpy.Duration()
     else:
       self.path = ramp_msgs.msg.Path()
       self.type = 0
       self.print = False
       self.bezierCurves = []
       self.segments = 0
+      self.max_speed_linear = 0.
+      self.max_speed_angular = 0.
+      self.sl_traj = False
+      self.sl_final_speed = 0.
+      self.sl_init_dur = genpy.Duration()
+      self.sl_final_dur = genpy.Duration()
 
   def _get_types(self):
     """
@@ -291,8 +318,8 @@ string frame_id
         buff.write(_get_struct_d().pack(_x))
         _x = val1
         buff.write(_get_struct_4d().pack(_x.u_0, _x.u_dot_0, _x.u_dot_max, _x.u_target))
-      _x = self.segments
-      buff.write(_get_struct_b().pack(_x))
+      _x = self
+      buff.write(_get_struct_b2dBd4i().pack(_x.segments, _x.max_speed_linear, _x.max_speed_angular, _x.sl_traj, _x.sl_final_speed, _x.sl_init_dur.secs, _x.sl_init_dur.nsecs, _x.sl_final_dur.secs, _x.sl_final_dur.nsecs))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -308,6 +335,10 @@ string frame_id
         self.path = ramp_msgs.msg.Path()
       if self.bezierCurves is None:
         self.bezierCurves = None
+      if self.sl_init_dur is None:
+        self.sl_init_dur = genpy.Duration()
+      if self.sl_final_dur is None:
+        self.sl_final_dur = genpy.Duration()
       end = 0
       start = end
       end += 4
@@ -634,9 +665,13 @@ string frame_id
         end += 32
         (_x.u_0, _x.u_dot_0, _x.u_dot_max, _x.u_target,) = _get_struct_4d().unpack(str[start:end])
         self.bezierCurves.append(val1)
+      _x = self
       start = end
-      end += 1
-      (self.segments,) = _get_struct_b().unpack(str[start:end])
+      end += 42
+      (_x.segments, _x.max_speed_linear, _x.max_speed_angular, _x.sl_traj, _x.sl_final_speed, _x.sl_init_dur.secs, _x.sl_init_dur.nsecs, _x.sl_final_dur.secs, _x.sl_final_dur.nsecs,) = _get_struct_b2dBd4i().unpack(str[start:end])
+      self.sl_traj = bool(self.sl_traj)
+      self.sl_init_dur.canon()
+      self.sl_final_dur.canon()
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -818,8 +853,8 @@ string frame_id
         buff.write(_get_struct_d().pack(_x))
         _x = val1
         buff.write(_get_struct_4d().pack(_x.u_0, _x.u_dot_0, _x.u_dot_max, _x.u_target))
-      _x = self.segments
-      buff.write(_get_struct_b().pack(_x))
+      _x = self
+      buff.write(_get_struct_b2dBd4i().pack(_x.segments, _x.max_speed_linear, _x.max_speed_angular, _x.sl_traj, _x.sl_final_speed, _x.sl_init_dur.secs, _x.sl_init_dur.nsecs, _x.sl_final_dur.secs, _x.sl_final_dur.nsecs))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -836,6 +871,10 @@ string frame_id
         self.path = ramp_msgs.msg.Path()
       if self.bezierCurves is None:
         self.bezierCurves = None
+      if self.sl_init_dur is None:
+        self.sl_init_dur = genpy.Duration()
+      if self.sl_final_dur is None:
+        self.sl_final_dur = genpy.Duration()
       end = 0
       start = end
       end += 4
@@ -1162,9 +1201,13 @@ string frame_id
         end += 32
         (_x.u_0, _x.u_dot_0, _x.u_dot_max, _x.u_target,) = _get_struct_4d().unpack(str[start:end])
         self.bezierCurves.append(val1)
+      _x = self
       start = end
-      end += 1
-      (self.segments,) = _get_struct_b().unpack(str[start:end])
+      end += 42
+      (_x.segments, _x.max_speed_linear, _x.max_speed_angular, _x.sl_traj, _x.sl_final_speed, _x.sl_init_dur.secs, _x.sl_init_dur.nsecs, _x.sl_final_dur.secs, _x.sl_final_dur.nsecs,) = _get_struct_b2dBd4i().unpack(str[start:end])
+      self.sl_traj = bool(self.sl_traj)
+      self.sl_init_dur.canon()
+      self.sl_final_dur.canon()
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -1191,12 +1234,12 @@ def _get_struct_4d():
     if _struct_4d is None:
         _struct_4d = struct.Struct("<4d")
     return _struct_4d
-_struct_b = None
-def _get_struct_b():
-    global _struct_b
-    if _struct_b is None:
-        _struct_b = struct.Struct("<b")
-    return _struct_b
+_struct_b2dBd4i = None
+def _get_struct_b2dBd4i():
+    global _struct_b2dBd4i
+    if _struct_b2dBd4i is None:
+        _struct_b2dBd4i = struct.Struct("<b2dBd4i")
+    return _struct_b2dBd4i
 _struct_d = None
 def _get_struct_d():
     global _struct_d

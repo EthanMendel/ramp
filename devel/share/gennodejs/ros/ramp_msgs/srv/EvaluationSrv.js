@@ -75,7 +75,7 @@ class EvaluationSrvRequest {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return 'fcf6b2aaca3f00a1a4d772744cce78ee';
+    return 'c5f4358a97c363f83106d9ab74137f28';
   }
 
   static messageDefinition() {
@@ -87,16 +87,18 @@ class EvaluationSrvRequest {
     ================================================================================
     MSG: ramp_msgs/EvaluationRequest
     RampTrajectory trajectory
+    float64 robot_radius
     float64 currentTheta
     float64 theta_cc
     RampTrajectory[] obstacle_trjs
+    CircleGroup[] obstacle_cir_groups
     bool imminent_collision
-    float64 coll_dist
     float64 offset
     bool full_eval
     
     bool consider_trans
     bool trans_possible
+    bool hmap_eval
     
     ================================================================================
     MSG: ramp_msgs/RampTrajectory
@@ -187,6 +189,28 @@ class EvaluationSrvRequest {
     ramp_msgs/MotionState motionState
     uint32 stopTime
     
+    ================================================================================
+    MSG: ramp_msgs/CircleGroup
+    ramp_msgs/Circle fitCir
+    ramp_msgs/Circle[] packedCirs
+    
+    ================================================================================
+    MSG: ramp_msgs/Circle
+    geometry_msgs/Vector3 center
+    float64 radius
+    
+    ================================================================================
+    MSG: geometry_msgs/Vector3
+    # This represents a vector in free space. 
+    # It is only meant to represent a direction. Therefore, it does not
+    # make sense to apply a translation to it (e.g., when applying a 
+    # generic rigid transformation to a Vector3, tf2 will only apply the
+    # rotation). If you want your data to be translatable too, use the
+    # geometry_msgs/Point message instead.
+    
+    float64 x
+    float64 y
+    float64 z
     `;
   }
 
@@ -306,6 +330,6 @@ class EvaluationSrvResponse {
 module.exports = {
   Request: EvaluationSrvRequest,
   Response: EvaluationSrvResponse,
-  md5sum() { return 'aff4480b2055f23de2549199bf38a51a'; },
+  md5sum() { return 'bb14ee9ba2b91774273c2644f7a15381'; },
   datatype() { return 'ramp_msgs/EvaluationSrv'; }
 };

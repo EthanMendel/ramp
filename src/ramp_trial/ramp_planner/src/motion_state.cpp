@@ -137,8 +137,6 @@ const bool MotionState::equals(const MotionState& ms, const double epsilon) cons
 
 void MotionState::setEqual(const MotionState ms) {
   msg_ = ms.msg_; 
-    msg_ = ms.msg_;
-  msg_ = ms.msg_; 
   mobile_base_k_ = ms.mobile_base_k_;
 }
 
@@ -147,8 +145,6 @@ void MotionState::setEqual(const MotionState ms) {
  * if base_theta is true, consider the base orientation
  * */
 const double MotionState::comparePosition(const MotionState& c, const bool base_theta) const {
-  double result = 0; 
-  double result = 0;
   double result = 0; 
 
   // For each DOF, sum the (X2-X1)^2

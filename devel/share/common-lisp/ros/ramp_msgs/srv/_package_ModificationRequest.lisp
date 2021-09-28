@@ -3,10 +3,12 @@
           PATHS
           OP-VAL
           OP
-          MOVE_DIST-VAL
-          MOVE_DIST
-          MOVE_DIR-VAL
-          MOVE_DIR
+          REPAIR_DIST-VAL
+          REPAIR_DIST
+          REPAIR_DIR-VAL
+          REPAIR_DIR
+          REPAIR_OB_R-VAL
+          REPAIR_OB_R
           MOD_PATHS-VAL
           MOD_PATHS
 ))

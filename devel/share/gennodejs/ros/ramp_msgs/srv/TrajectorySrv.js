@@ -15,7 +15,6 @@ let TrajectoryRequest = require('../msg/TrajectoryRequest.js');
 
 //-----------------------------------------------------------
 
-let RampTrajectory = require('../msg/RampTrajectory.js');
 let TrajectoryResponse = require('../msg/TrajectoryResponse.js');
 
 //-----------------------------------------------------------
@@ -76,7 +75,7 @@ class TrajectorySrvRequest {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '101e27bc6a9ab5f6be0769461d2fc9bd';
+    return '4482f86700b066be4ed8ea43c3afcfa6';
   }
 
   static messageDefinition() {
@@ -92,6 +91,14 @@ class TrajectorySrvRequest {
     bool print
     ramp_msgs/BezierCurve[] bezierCurves
     int8 segments
+    float64 max_speed_linear
+    float64 max_speed_angular
+    
+    # For system-level test generation...
+    bool sl_traj
+    float64 sl_final_speed
+    duration sl_init_dur
+    duration sl_final_dur
     
     ================================================================================
     MSG: ramp_msgs/Path
@@ -174,23 +181,9 @@ class TrajectorySrvResponse {
   constructor(initObj={}) {
     if (initObj === null) {
       // initObj === null is a special case for deserialization where we don't initialize fields
-      this.trajectory = null;
-      this.error = null;
       this.resps = null;
     }
     else {
-      if (initObj.hasOwnProperty('trajectory')) {
-        this.trajectory = initObj.trajectory
-      }
-      else {
-        this.trajectory = new RampTrajectory();
-      }
-      if (initObj.hasOwnProperty('error')) {
-        this.error = initObj.error
-      }
-      else {
-        this.error = false;
-      }
       if (initObj.hasOwnProperty('resps')) {
         this.resps = initObj.resps
       }
@@ -202,10 +195,6 @@ class TrajectorySrvResponse {
 
   static serialize(obj, buffer, bufferOffset) {
     // Serializes a message object of type TrajectorySrvResponse
-    // Serialize message field [trajectory]
-    bufferOffset = RampTrajectory.serialize(obj.trajectory, buffer, bufferOffset);
-    // Serialize message field [error]
-    bufferOffset = _serializer.bool(obj.error, buffer, bufferOffset);
     // Serialize message field [resps]
     // Serialize the length for message field [resps]
     bufferOffset = _serializer.uint32(obj.resps.length, buffer, bufferOffset);
@@ -219,10 +208,6 @@ class TrajectorySrvResponse {
     //deserializes a message object of type TrajectorySrvResponse
     let len;
     let data = new TrajectorySrvResponse(null);
-    // Deserialize message field [trajectory]
-    data.trajectory = RampTrajectory.deserialize(buffer, bufferOffset);
-    // Deserialize message field [error]
-    data.error = _deserializer.bool(buffer, bufferOffset);
     // Deserialize message field [resps]
     // Deserialize array length for message field [resps]
     len = _deserializer.uint32(buffer, bufferOffset);
@@ -235,11 +220,10 @@ class TrajectorySrvResponse {
 
   static getMessageSize(object) {
     let length = 0;
-    length += RampTrajectory.getMessageSize(object.trajectory);
     object.resps.forEach((val) => {
       length += TrajectoryResponse.getMessageSize(val);
     });
-    return length + 5;
+    return length + 4;
   }
 
   static datatype() {
@@ -249,18 +233,20 @@ class TrajectorySrvResponse {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '9c1e8ebdfb3e8233fe73af09818604e7';
+    return '7c551a792aa4472a1be4db823364d34a';
   }
 
   static messageDefinition() {
     // Returns full string definition for message
     return `
     
-    RampTrajectory trajectory
-    bool error
-    
     TrajectoryResponse[] resps
     
+    
+    ================================================================================
+    MSG: ramp_msgs/TrajectoryResponse
+    RampTrajectory trajectory
+    bool error
     
     ================================================================================
     MSG: ramp_msgs/RampTrajectory
@@ -351,11 +337,6 @@ class TrajectorySrvResponse {
     ramp_msgs/MotionState motionState
     uint32 stopTime
     
-    ================================================================================
-    MSG: ramp_msgs/TrajectoryResponse
-    RampTrajectory trajectory
-    bool error
-    
     `;
   }
 
@@ -365,20 +346,6 @@ class TrajectorySrvResponse {
       msg = {};
     }
     const resolved = new TrajectorySrvResponse(null);
-    if (msg.trajectory !== undefined) {
-      resolved.trajectory = RampTrajectory.Resolve(msg.trajectory)
-    }
-    else {
-      resolved.trajectory = new RampTrajectory()
-    }
-
-    if (msg.error !== undefined) {
-      resolved.error = msg.error;
-    }
-    else {
-      resolved.error = false
-    }
-
     if (msg.resps !== undefined) {
       resolved.resps = new Array(msg.resps.length);
       for (let i = 0; i < resolved.resps.length; ++i) {
@@ -396,6 +363,6 @@ class TrajectorySrvResponse {
 module.exports = {
   Request: TrajectorySrvRequest,
   Response: TrajectorySrvResponse,
-  md5sum() { return '74cb2a92026a7e1f5cd832b3efb48cb0'; },
+  md5sum() { return '8ccd59d329076db69674b9c52d4134e4'; },
   datatype() { return 'ramp_msgs/TrajectorySrv'; }
 };

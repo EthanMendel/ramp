@@ -1,8 +1,11 @@
 file(REMOVE_RECURSE
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/ramp_msgs/manifest.l"
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/ramp_msgs/msg/BezierCurve.l"
+  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/ramp_msgs/msg/Circle.l"
+  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/ramp_msgs/msg/CircleGroup.l"
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/ramp_msgs/msg/EvaluationRequest.l"
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/ramp_msgs/msg/EvaluationResponse.l"
+  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/ramp_msgs/msg/HilbertMap.l"
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/ramp_msgs/msg/KnotPoint.l"
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/ramp_msgs/msg/MotionState.l"
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/ramp_msgs/msg/Obstacle.l"

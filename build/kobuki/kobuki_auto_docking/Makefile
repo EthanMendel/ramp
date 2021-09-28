@@ -80,17 +80,6 @@ install/local/fast: preinstall/fast
 	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
 
-# Special rule for the target test
-test:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
-	/usr/bin/ctest --force-new-ctest-process $(ARGS)
-.PHONY : test
-
-# Special rule for the target test
-test/fast: test
-
-.PHONY : test/fast
-
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
@@ -135,6 +124,17 @@ install/fast: preinstall/fast
 	/usr/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
+	/usr/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+
+.PHONY : test/fast
+
 # The main all target
 all: cmake_check_build_system
 	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles /home/emendel/Documents/IndepententStudy/ramp/build/kobuki/kobuki_auto_docking/CMakeFiles/progress.marks
@@ -166,66 +166,6 @@ preinstall/fast:
 depend:
 	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
-
-# Convenience name for target.
-kobuki/kobuki_auto_docking/CMakeFiles/kobuki_auto_docking_nodelet.dir/rule:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 kobuki/kobuki_auto_docking/CMakeFiles/kobuki_auto_docking_nodelet.dir/rule
-.PHONY : kobuki/kobuki_auto_docking/CMakeFiles/kobuki_auto_docking_nodelet.dir/rule
-
-# Convenience name for target.
-kobuki_auto_docking_nodelet: kobuki/kobuki_auto_docking/CMakeFiles/kobuki_auto_docking_nodelet.dir/rule
-
-.PHONY : kobuki_auto_docking_nodelet
-
-# fast build rule for target.
-kobuki_auto_docking_nodelet/fast:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f kobuki/kobuki_auto_docking/CMakeFiles/kobuki_auto_docking_nodelet.dir/build.make kobuki/kobuki_auto_docking/CMakeFiles/kobuki_auto_docking_nodelet.dir/build
-.PHONY : kobuki_auto_docking_nodelet/fast
-
-# Convenience name for target.
-kobuki/kobuki_auto_docking/CMakeFiles/kobuki_auto_docking_ros.dir/rule:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 kobuki/kobuki_auto_docking/CMakeFiles/kobuki_auto_docking_ros.dir/rule
-.PHONY : kobuki/kobuki_auto_docking/CMakeFiles/kobuki_auto_docking_ros.dir/rule
-
-# Convenience name for target.
-kobuki_auto_docking_ros: kobuki/kobuki_auto_docking/CMakeFiles/kobuki_auto_docking_ros.dir/rule
-
-.PHONY : kobuki_auto_docking_ros
-
-# fast build rule for target.
-kobuki_auto_docking_ros/fast:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f kobuki/kobuki_auto_docking/CMakeFiles/kobuki_auto_docking_ros.dir/build.make kobuki/kobuki_auto_docking/CMakeFiles/kobuki_auto_docking_ros.dir/build
-.PHONY : kobuki_auto_docking_ros/fast
-
-# Convenience name for target.
-kobuki/kobuki_auto_docking/CMakeFiles/actionlib_generate_messages_py.dir/rule:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 kobuki/kobuki_auto_docking/CMakeFiles/actionlib_generate_messages_py.dir/rule
-.PHONY : kobuki/kobuki_auto_docking/CMakeFiles/actionlib_generate_messages_py.dir/rule
-
-# Convenience name for target.
-actionlib_generate_messages_py: kobuki/kobuki_auto_docking/CMakeFiles/actionlib_generate_messages_py.dir/rule
-
-.PHONY : actionlib_generate_messages_py
-
-# fast build rule for target.
-actionlib_generate_messages_py/fast:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f kobuki/kobuki_auto_docking/CMakeFiles/actionlib_generate_messages_py.dir/build.make kobuki/kobuki_auto_docking/CMakeFiles/actionlib_generate_messages_py.dir/build
-.PHONY : actionlib_generate_messages_py/fast
-
-# Convenience name for target.
-kobuki/kobuki_auto_docking/CMakeFiles/actionlib_generate_messages_nodejs.dir/rule:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 kobuki/kobuki_auto_docking/CMakeFiles/actionlib_generate_messages_nodejs.dir/rule
-.PHONY : kobuki/kobuki_auto_docking/CMakeFiles/actionlib_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-actionlib_generate_messages_nodejs: kobuki/kobuki_auto_docking/CMakeFiles/actionlib_generate_messages_nodejs.dir/rule
-
-.PHONY : actionlib_generate_messages_nodejs
-
-# fast build rule for target.
-actionlib_generate_messages_nodejs/fast:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f kobuki/kobuki_auto_docking/CMakeFiles/actionlib_generate_messages_nodejs.dir/build.make kobuki/kobuki_auto_docking/CMakeFiles/actionlib_generate_messages_nodejs.dir/build
-.PHONY : actionlib_generate_messages_nodejs/fast
 
 # Convenience name for target.
 kobuki/kobuki_auto_docking/CMakeFiles/nodelet_generate_messages_cpp.dir/rule:
@@ -318,21 +258,6 @@ nodelet_generate_messages_lisp/fast:
 .PHONY : nodelet_generate_messages_lisp/fast
 
 # Convenience name for target.
-kobuki/kobuki_auto_docking/CMakeFiles/actionlib_generate_messages_cpp.dir/rule:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 kobuki/kobuki_auto_docking/CMakeFiles/actionlib_generate_messages_cpp.dir/rule
-.PHONY : kobuki/kobuki_auto_docking/CMakeFiles/actionlib_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-actionlib_generate_messages_cpp: kobuki/kobuki_auto_docking/CMakeFiles/actionlib_generate_messages_cpp.dir/rule
-
-.PHONY : actionlib_generate_messages_cpp
-
-# fast build rule for target.
-actionlib_generate_messages_cpp/fast:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f kobuki/kobuki_auto_docking/CMakeFiles/actionlib_generate_messages_cpp.dir/build.make kobuki/kobuki_auto_docking/CMakeFiles/actionlib_generate_messages_cpp.dir/build
-.PHONY : actionlib_generate_messages_cpp/fast
-
-# Convenience name for target.
 kobuki/kobuki_auto_docking/CMakeFiles/bond_generate_messages_eus.dir/rule:
 	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 kobuki/kobuki_auto_docking/CMakeFiles/bond_generate_messages_eus.dir/rule
 .PHONY : kobuki/kobuki_auto_docking/CMakeFiles/bond_generate_messages_eus.dir/rule
@@ -393,34 +318,34 @@ bond_generate_messages_lisp/fast:
 .PHONY : bond_generate_messages_lisp/fast
 
 # Convenience name for target.
-kobuki/kobuki_auto_docking/CMakeFiles/actionlib_generate_messages_eus.dir/rule:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 kobuki/kobuki_auto_docking/CMakeFiles/actionlib_generate_messages_eus.dir/rule
-.PHONY : kobuki/kobuki_auto_docking/CMakeFiles/actionlib_generate_messages_eus.dir/rule
+kobuki/kobuki_auto_docking/CMakeFiles/kobuki_auto_docking_ros.dir/rule:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 kobuki/kobuki_auto_docking/CMakeFiles/kobuki_auto_docking_ros.dir/rule
+.PHONY : kobuki/kobuki_auto_docking/CMakeFiles/kobuki_auto_docking_ros.dir/rule
 
 # Convenience name for target.
-actionlib_generate_messages_eus: kobuki/kobuki_auto_docking/CMakeFiles/actionlib_generate_messages_eus.dir/rule
+kobuki_auto_docking_ros: kobuki/kobuki_auto_docking/CMakeFiles/kobuki_auto_docking_ros.dir/rule
 
-.PHONY : actionlib_generate_messages_eus
+.PHONY : kobuki_auto_docking_ros
 
 # fast build rule for target.
-actionlib_generate_messages_eus/fast:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f kobuki/kobuki_auto_docking/CMakeFiles/actionlib_generate_messages_eus.dir/build.make kobuki/kobuki_auto_docking/CMakeFiles/actionlib_generate_messages_eus.dir/build
-.PHONY : actionlib_generate_messages_eus/fast
+kobuki_auto_docking_ros/fast:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f kobuki/kobuki_auto_docking/CMakeFiles/kobuki_auto_docking_ros.dir/build.make kobuki/kobuki_auto_docking/CMakeFiles/kobuki_auto_docking_ros.dir/build
+.PHONY : kobuki_auto_docking_ros/fast
 
 # Convenience name for target.
-kobuki/kobuki_auto_docking/CMakeFiles/actionlib_generate_messages_lisp.dir/rule:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 kobuki/kobuki_auto_docking/CMakeFiles/actionlib_generate_messages_lisp.dir/rule
-.PHONY : kobuki/kobuki_auto_docking/CMakeFiles/actionlib_generate_messages_lisp.dir/rule
+kobuki/kobuki_auto_docking/CMakeFiles/kobuki_auto_docking_nodelet.dir/rule:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 kobuki/kobuki_auto_docking/CMakeFiles/kobuki_auto_docking_nodelet.dir/rule
+.PHONY : kobuki/kobuki_auto_docking/CMakeFiles/kobuki_auto_docking_nodelet.dir/rule
 
 # Convenience name for target.
-actionlib_generate_messages_lisp: kobuki/kobuki_auto_docking/CMakeFiles/actionlib_generate_messages_lisp.dir/rule
+kobuki_auto_docking_nodelet: kobuki/kobuki_auto_docking/CMakeFiles/kobuki_auto_docking_nodelet.dir/rule
 
-.PHONY : actionlib_generate_messages_lisp
+.PHONY : kobuki_auto_docking_nodelet
 
 # fast build rule for target.
-actionlib_generate_messages_lisp/fast:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f kobuki/kobuki_auto_docking/CMakeFiles/actionlib_generate_messages_lisp.dir/build.make kobuki/kobuki_auto_docking/CMakeFiles/actionlib_generate_messages_lisp.dir/build
-.PHONY : actionlib_generate_messages_lisp/fast
+kobuki_auto_docking_nodelet/fast:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f kobuki/kobuki_auto_docking/CMakeFiles/kobuki_auto_docking_nodelet.dir/build.make kobuki/kobuki_auto_docking/CMakeFiles/kobuki_auto_docking_nodelet.dir/build
+.PHONY : kobuki_auto_docking_nodelet/fast
 
 src/auto_docking_ros.o: src/auto_docking_ros.cpp.o
 
@@ -484,11 +409,6 @@ help:
 	@echo "... depend"
 	@echo "... install/strip"
 	@echo "... install/local"
-	@echo "... test"
-	@echo "... kobuki_auto_docking_nodelet"
-	@echo "... kobuki_auto_docking_ros"
-	@echo "... actionlib_generate_messages_py"
-	@echo "... actionlib_generate_messages_nodejs"
 	@echo "... nodelet_generate_messages_cpp"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
@@ -498,14 +418,14 @@ help:
 	@echo "... list_install_components"
 	@echo "... bond_generate_messages_nodejs"
 	@echo "... nodelet_generate_messages_lisp"
-	@echo "... actionlib_generate_messages_cpp"
 	@echo "... install"
 	@echo "... bond_generate_messages_eus"
 	@echo "... bond_generate_messages_cpp"
 	@echo "... nodelet_generate_messages_py"
 	@echo "... bond_generate_messages_lisp"
-	@echo "... actionlib_generate_messages_eus"
-	@echo "... actionlib_generate_messages_lisp"
+	@echo "... kobuki_auto_docking_ros"
+	@echo "... kobuki_auto_docking_nodelet"
+	@echo "... test"
 	@echo "... src/auto_docking_ros.o"
 	@echo "... src/auto_docking_ros.i"
 	@echo "... src/auto_docking_ros.s"

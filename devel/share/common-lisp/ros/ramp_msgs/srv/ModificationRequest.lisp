@@ -17,14 +17,19 @@
     :initarg :op
     :type cl:string
     :initform "")
-   (move_dist
-    :reader move_dist
-    :initarg :move_dist
+   (repair_dist
+    :reader repair_dist
+    :initarg :repair_dist
     :type cl:float
     :initform 0.0)
-   (move_dir
-    :reader move_dir
-    :initarg :move_dir
+   (repair_dir
+    :reader repair_dir
+    :initarg :repair_dir
+    :type cl:float
+    :initform 0.0)
+   (repair_ob_r
+    :reader repair_ob_r
+    :initarg :repair_ob_r
     :type cl:float
     :initform 0.0))
 )
@@ -47,15 +52,20 @@
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader ramp_msgs-srv:op-val is deprecated.  Use ramp_msgs-srv:op instead.")
   (op m))
 
-(cl:ensure-generic-function 'move_dist-val :lambda-list '(m))
-(cl:defmethod move_dist-val ((m <ModificationRequest-request>))
-  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader ramp_msgs-srv:move_dist-val is deprecated.  Use ramp_msgs-srv:move_dist instead.")
-  (move_dist m))
+(cl:ensure-generic-function 'repair_dist-val :lambda-list '(m))
+(cl:defmethod repair_dist-val ((m <ModificationRequest-request>))
+  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader ramp_msgs-srv:repair_dist-val is deprecated.  Use ramp_msgs-srv:repair_dist instead.")
+  (repair_dist m))
 
-(cl:ensure-generic-function 'move_dir-val :lambda-list '(m))
-(cl:defmethod move_dir-val ((m <ModificationRequest-request>))
-  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader ramp_msgs-srv:move_dir-val is deprecated.  Use ramp_msgs-srv:move_dir instead.")
-  (move_dir m))
+(cl:ensure-generic-function 'repair_dir-val :lambda-list '(m))
+(cl:defmethod repair_dir-val ((m <ModificationRequest-request>))
+  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader ramp_msgs-srv:repair_dir-val is deprecated.  Use ramp_msgs-srv:repair_dir instead.")
+  (repair_dir m))
+
+(cl:ensure-generic-function 'repair_ob_r-val :lambda-list '(m))
+(cl:defmethod repair_ob_r-val ((m <ModificationRequest-request>))
+  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader ramp_msgs-srv:repair_ob_r-val is deprecated.  Use ramp_msgs-srv:repair_ob_r instead.")
+  (repair_ob_r m))
 (cl:defmethod roslisp-msg-protocol:serialize ((msg <ModificationRequest-request>) ostream)
   "Serializes a message object of type '<ModificationRequest-request>"
   (cl:let ((__ros_arr_len (cl:length (cl:slot-value msg 'paths))))
@@ -71,7 +81,7 @@
     (cl:write-byte (cl:ldb (cl:byte 8 16) __ros_str_len) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 24) __ros_str_len) ostream))
   (cl:map cl:nil #'(cl:lambda (c) (cl:write-byte (cl:char-code c) ostream)) (cl:slot-value msg 'op))
-  (cl:let ((bits (roslisp-utils:encode-double-float-bits (cl:slot-value msg 'move_dist))))
+  (cl:let ((bits (roslisp-utils:encode-double-float-bits (cl:slot-value msg 'repair_dist))))
     (cl:write-byte (cl:ldb (cl:byte 8 0) bits) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 8) bits) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 16) bits) ostream)
@@ -80,7 +90,16 @@
     (cl:write-byte (cl:ldb (cl:byte 8 40) bits) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 48) bits) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 56) bits) ostream))
-  (cl:let ((bits (roslisp-utils:encode-double-float-bits (cl:slot-value msg 'move_dir))))
+  (cl:let ((bits (roslisp-utils:encode-double-float-bits (cl:slot-value msg 'repair_dir))))
+    (cl:write-byte (cl:ldb (cl:byte 8 0) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 8) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 16) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 24) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 32) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 40) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 48) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 56) bits) ostream))
+  (cl:let ((bits (roslisp-utils:encode-double-float-bits (cl:slot-value msg 'repair_ob_r))))
     (cl:write-byte (cl:ldb (cl:byte 8 0) bits) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 8) bits) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 16) bits) ostream)
@@ -119,7 +138,7 @@
       (cl:setf (cl:ldb (cl:byte 8 40) bits) (cl:read-byte istream))
       (cl:setf (cl:ldb (cl:byte 8 48) bits) (cl:read-byte istream))
       (cl:setf (cl:ldb (cl:byte 8 56) bits) (cl:read-byte istream))
-    (cl:setf (cl:slot-value msg 'move_dist) (roslisp-utils:decode-double-float-bits bits)))
+    (cl:setf (cl:slot-value msg 'repair_dist) (roslisp-utils:decode-double-float-bits bits)))
     (cl:let ((bits 0))
       (cl:setf (cl:ldb (cl:byte 8 0) bits) (cl:read-byte istream))
       (cl:setf (cl:ldb (cl:byte 8 8) bits) (cl:read-byte istream))
@@ -129,7 +148,17 @@
       (cl:setf (cl:ldb (cl:byte 8 40) bits) (cl:read-byte istream))
       (cl:setf (cl:ldb (cl:byte 8 48) bits) (cl:read-byte istream))
       (cl:setf (cl:ldb (cl:byte 8 56) bits) (cl:read-byte istream))
-    (cl:setf (cl:slot-value msg 'move_dir) (roslisp-utils:decode-double-float-bits bits)))
+    (cl:setf (cl:slot-value msg 'repair_dir) (roslisp-utils:decode-double-float-bits bits)))
+    (cl:let ((bits 0))
+      (cl:setf (cl:ldb (cl:byte 8 0) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 8) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 16) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 24) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 32) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 40) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 48) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 56) bits) (cl:read-byte istream))
+    (cl:setf (cl:slot-value msg 'repair_ob_r) (roslisp-utils:decode-double-float-bits bits)))
   msg
 )
 (cl:defmethod roslisp-msg-protocol:ros-datatype ((msg (cl:eql '<ModificationRequest-request>)))
@@ -140,20 +169,21 @@
   "ramp_msgs/ModificationRequestRequest")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<ModificationRequest-request>)))
   "Returns md5sum for a message object of type '<ModificationRequest-request>"
-  "81d0e2ec37dd2f917b71cfdf955b990d")
+  "e2f4c66b0fd63d5e71b5be50fa7c661e")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'ModificationRequest-request)))
   "Returns md5sum for a message object of type 'ModificationRequest-request"
-  "81d0e2ec37dd2f917b71cfdf955b990d")
+  "e2f4c66b0fd63d5e71b5be50fa7c661e")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<ModificationRequest-request>)))
   "Returns full string definition for message of type '<ModificationRequest-request>"
-  (cl:format cl:nil "Path[] paths~%string op~%float64 move_dist~%float64 move_dir~%~%~%================================================================================~%MSG: ramp_msgs/Path~%ramp_msgs/KnotPoint[] points~%~%================================================================================~%MSG: ramp_msgs/KnotPoint~%ramp_msgs/MotionState motionState~%uint32 stopTime~%~%================================================================================~%MSG: ramp_msgs/MotionState~%float64[] positions~%float64[] velocities~%float64[] accelerations~%float64[] jerks~%~%# change to duration~%float64 time~%~%~%"))
+  (cl:format cl:nil "Path[] paths~%string op~%float64 repair_dist~%float64 repair_dir~%float64 repair_ob_r~%~%~%================================================================================~%MSG: ramp_msgs/Path~%ramp_msgs/KnotPoint[] points~%~%================================================================================~%MSG: ramp_msgs/KnotPoint~%ramp_msgs/MotionState motionState~%uint32 stopTime~%~%================================================================================~%MSG: ramp_msgs/MotionState~%float64[] positions~%float64[] velocities~%float64[] accelerations~%float64[] jerks~%~%# change to duration~%float64 time~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'ModificationRequest-request)))
   "Returns full string definition for message of type 'ModificationRequest-request"
-  (cl:format cl:nil "Path[] paths~%string op~%float64 move_dist~%float64 move_dir~%~%~%================================================================================~%MSG: ramp_msgs/Path~%ramp_msgs/KnotPoint[] points~%~%================================================================================~%MSG: ramp_msgs/KnotPoint~%ramp_msgs/MotionState motionState~%uint32 stopTime~%~%================================================================================~%MSG: ramp_msgs/MotionState~%float64[] positions~%float64[] velocities~%float64[] accelerations~%float64[] jerks~%~%# change to duration~%float64 time~%~%~%"))
+  (cl:format cl:nil "Path[] paths~%string op~%float64 repair_dist~%float64 repair_dir~%float64 repair_ob_r~%~%~%================================================================================~%MSG: ramp_msgs/Path~%ramp_msgs/KnotPoint[] points~%~%================================================================================~%MSG: ramp_msgs/KnotPoint~%ramp_msgs/MotionState motionState~%uint32 stopTime~%~%================================================================================~%MSG: ramp_msgs/MotionState~%float64[] positions~%float64[] velocities~%float64[] accelerations~%float64[] jerks~%~%# change to duration~%float64 time~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <ModificationRequest-request>))
   (cl:+ 0
      4 (cl:reduce #'cl:+ (cl:slot-value msg 'paths) :key #'(cl:lambda (ele) (cl:declare (cl:ignorable ele)) (cl:+ (roslisp-msg-protocol:serialization-length ele))))
      4 (cl:length (cl:slot-value msg 'op))
+     8
      8
      8
 ))
@@ -162,8 +192,9 @@
   (cl:list 'ModificationRequest-request
     (cl:cons ':paths (paths msg))
     (cl:cons ':op (op msg))
-    (cl:cons ':move_dist (move_dist msg))
-    (cl:cons ':move_dir (move_dir msg))
+    (cl:cons ':repair_dist (repair_dist msg))
+    (cl:cons ':repair_dir (repair_dir msg))
+    (cl:cons ':repair_ob_r (repair_ob_r msg))
 ))
 ;//! \htmlinclude ModificationRequest-response.msg.html
 
@@ -219,10 +250,10 @@
   "ramp_msgs/ModificationRequestResponse")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<ModificationRequest-response>)))
   "Returns md5sum for a message object of type '<ModificationRequest-response>"
-  "81d0e2ec37dd2f917b71cfdf955b990d")
+  "e2f4c66b0fd63d5e71b5be50fa7c661e")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'ModificationRequest-response)))
   "Returns md5sum for a message object of type 'ModificationRequest-response"
-  "81d0e2ec37dd2f917b71cfdf955b990d")
+  "e2f4c66b0fd63d5e71b5be50fa7c661e")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<ModificationRequest-response>)))
   "Returns full string definition for message of type '<ModificationRequest-response>"
   (cl:format cl:nil "~%Path[]  mod_paths~%~%~%================================================================================~%MSG: ramp_msgs/Path~%ramp_msgs/KnotPoint[] points~%~%================================================================================~%MSG: ramp_msgs/KnotPoint~%ramp_msgs/MotionState motionState~%uint32 stopTime~%~%================================================================================~%MSG: ramp_msgs/MotionState~%float64[] positions~%float64[] velocities~%float64[] accelerations~%float64[] jerks~%~%# change to duration~%float64 time~%~%~%"))

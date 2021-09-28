@@ -1,7 +1,10 @@
 file(REMOVE_RECURSE
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/gennodejs/ros/ramp_msgs/msg/BezierCurve.js"
+  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/gennodejs/ros/ramp_msgs/msg/Circle.js"
+  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/gennodejs/ros/ramp_msgs/msg/CircleGroup.js"
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/gennodejs/ros/ramp_msgs/msg/EvaluationRequest.js"
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/gennodejs/ros/ramp_msgs/msg/EvaluationResponse.js"
+  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/gennodejs/ros/ramp_msgs/msg/HilbertMap.js"
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/gennodejs/ros/ramp_msgs/msg/KnotPoint.js"
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/gennodejs/ros/ramp_msgs/msg/MotionState.js"
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/gennodejs/ros/ramp_msgs/msg/Obstacle.js"

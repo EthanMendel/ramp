@@ -40,7 +40,7 @@ template<>
 struct MD5Sum< ::ramp_msgs::TrajectorySrv > {
   static const char* value()
   {
-    return "74cb2a92026a7e1f5cd832b3efb48cb0";
+    return "8ccd59d329076db69674b9c52d4134e4";
   }
 
   static const char* value(const ::ramp_msgs::TrajectorySrv&) { return value(); }

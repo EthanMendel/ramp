@@ -13,8 +13,8 @@ const _finder = _ros_msg_utils.Find;
 const _getByteLength = _ros_msg_utils.getByteLength;
 let BezierCurve = require('./BezierCurve.js');
 let Path = require('./Path.js');
-let std_msgs = _finder('std_msgs');
 let trajectory_msgs = _finder('trajectory_msgs');
+let std_msgs = _finder('std_msgs');
 
 //-----------------------------------------------------------
 

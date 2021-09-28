@@ -591,6 +591,9 @@ ecl_type_traits_DIR:PATH=/opt/ros/noetic/share/ecl_type_traits/cmake
 //The directory containing a CMake configuration file for ecl_utilities.
 ecl_utilities_DIR:PATH=/opt/ros/noetic/share/ecl_utilities/cmake
 
+//The directory containing a CMake configuration file for gazebo_msgs.
+gazebo_msgs_DIR:PATH=/opt/ros/noetic/share/gazebo_msgs/cmake
+
 //The directory containing a CMake configuration file for gencpp.
 gencpp_DIR:PATH=/opt/ros/noetic/share/gencpp/cmake
 
@@ -733,7 +736,8 @@ kobuki_driver_DIR:PATH=/opt/ros/noetic/share/kobuki_driver/cmake
 //Value Computed by CMake
 kobuki_keyop_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/build/kobuki/kobuki_keyop
 
-kobuki_keyop_DIR:PATH=
+//The directory containing a CMake configuration file for kobuki_keyop.
+kobuki_keyop_DIR:PATH=/home/emendel/Documents/IndepententStudy/ramp/devel/share/kobuki_keyop/cmake
 
 //Value Computed by CMake
 kobuki_keyop_SOURCE_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/src/kobuki/kobuki_keyop
@@ -793,7 +797,7 @@ kobuki_testsuite_SOURCE_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp
 laser_geometry_DIR:PATH=/opt/ros/noetic/share/laser_geometry/cmake
 
 //Path to a library.
-lib:FILEPATH=/opt/ros/noetic/lib/librostime.so
+lib:FILEPATH=/opt/ros/noetic/lib/libdynamic_reconfigure_config_init_mutex.so
 
 //The directory containing a CMake configuration file for map_msgs.
 map_msgs_DIR:PATH=/opt/ros/noetic/share/map_msgs/cmake
@@ -880,10 +884,10 @@ ramp_debug_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/build
 ramp_debug_SOURCE_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/src/ramp/ramp_debug
 
 //Value Computed by CMake
-ramp_launch_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/build/ramp/ramp_launch
+ramp_launch_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/ramp_launch
 
 //Value Computed by CMake
-ramp_launch_SOURCE_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/src/ramp/ramp_launch
+ramp_launch_SOURCE_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_launch
 
 //Value Computed by CMake
 ramp_msgs_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/ramp_msgs
@@ -1476,7 +1480,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=25
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=76
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

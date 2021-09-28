@@ -9,13 +9,14 @@ import struct
 import ramp_msgs.msg
 
 class ModificationRequestRequest(genpy.Message):
-  _md5sum = "6a1d61389648b601b0bb8dc72c5e0625"
+  _md5sum = "1b9149e06876118897e547ab93169683"
   _type = "ramp_msgs/ModificationRequestRequest"
   _has_header = False  # flag to mark the presence of a Header object
   _full_text = """Path[] paths
 string op
-float64 move_dist
-float64 move_dir
+float64 repair_dist
+float64 repair_dir
+float64 repair_ob_r
 
 
 ================================================================================
@@ -37,8 +38,8 @@ float64[] jerks
 # change to duration
 float64 time
 """
-  __slots__ = ['paths','op','move_dist','move_dir']
-  _slot_types = ['ramp_msgs/Path[]','string','float64','float64']
+  __slots__ = ['paths','op','repair_dist','repair_dir','repair_ob_r']
+  _slot_types = ['ramp_msgs/Path[]','string','float64','float64','float64']
 
   def __init__(self, *args, **kwds):
     """
@@ -48,7 +49,7 @@ float64 time
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       paths,op,move_dist,move_dir
+       paths,op,repair_dist,repair_dir,repair_ob_r
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -61,15 +62,18 @@ float64 time
         self.paths = []
       if self.op is None:
         self.op = ''
-      if self.move_dist is None:
-        self.move_dist = 0.
-      if self.move_dir is None:
-        self.move_dir = 0.
+      if self.repair_dist is None:
+        self.repair_dist = 0.
+      if self.repair_dir is None:
+        self.repair_dir = 0.
+      if self.repair_ob_r is None:
+        self.repair_ob_r = 0.
     else:
       self.paths = []
       self.op = ''
-      self.move_dist = 0.
-      self.move_dir = 0.
+      self.repair_dist = 0.
+      self.repair_dir = 0.
+      self.repair_ob_r = 0.
 
   def _get_types(self):
     """
@@ -117,7 +121,7 @@ float64 time
         length = len(_x)
       buff.write(struct.Struct('<I%ss'%length).pack(length, _x))
       _x = self
-      buff.write(_get_struct_2d().pack(_x.move_dist, _x.move_dir))
+      buff.write(_get_struct_3d().pack(_x.repair_dist, _x.repair_dir, _x.repair_ob_r))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -196,8 +200,8 @@ float64 time
         self.op = str[start:end]
       _x = self
       start = end
-      end += 16
-      (_x.move_dist, _x.move_dir,) = _get_struct_2d().unpack(str[start:end])
+      end += 24
+      (_x.repair_dist, _x.repair_dir, _x.repair_ob_r,) = _get_struct_3d().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -244,7 +248,7 @@ float64 time
         length = len(_x)
       buff.write(struct.Struct('<I%ss'%length).pack(length, _x))
       _x = self
-      buff.write(_get_struct_2d().pack(_x.move_dist, _x.move_dir))
+      buff.write(_get_struct_3d().pack(_x.repair_dist, _x.repair_dir, _x.repair_ob_r))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -324,8 +328,8 @@ float64 time
         self.op = str[start:end]
       _x = self
       start = end
-      end += 16
-      (_x.move_dist, _x.move_dir,) = _get_struct_2d().unpack(str[start:end])
+      end += 24
+      (_x.repair_dist, _x.repair_dir, _x.repair_ob_r,) = _get_struct_3d().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -334,12 +338,12 @@ _struct_I = genpy.struct_I
 def _get_struct_I():
     global _struct_I
     return _struct_I
-_struct_2d = None
-def _get_struct_2d():
-    global _struct_2d
-    if _struct_2d is None:
-        _struct_2d = struct.Struct("<2d")
-    return _struct_2d
+_struct_3d = None
+def _get_struct_3d():
+    global _struct_3d
+    if _struct_3d is None:
+        _struct_3d = struct.Struct("<3d")
+    return _struct_3d
 _struct_d = None
 def _get_struct_d():
     global _struct_d
@@ -637,6 +641,6 @@ def _get_struct_d():
     return _struct_d
 class ModificationRequest(object):
   _type          = 'ramp_msgs/ModificationRequest'
-  _md5sum = '81d0e2ec37dd2f917b71cfdf955b990d'
+  _md5sum = 'e2f4c66b0fd63d5e71b5be50fa7c661e'
   _request_class  = ModificationRequestRequest
   _response_class = ModificationRequestResponse

@@ -1,8 +1,11 @@
 file(REMOVE_RECURSE
   "/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/BezierCurve.h"
+  "/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/Circle.h"
+  "/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/CircleGroup.h"
   "/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/EvaluationRequest.h"
   "/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/EvaluationResponse.h"
   "/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/EvaluationSrv.h"
+  "/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/HilbertMap.h"
   "/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/KnotPoint.h"
   "/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/ModificationRequest.h"
   "/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/MotionState.h"

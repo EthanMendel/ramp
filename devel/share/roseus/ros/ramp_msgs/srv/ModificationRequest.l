@@ -20,21 +20,23 @@
 
 (defclass ramp_msgs::ModificationRequestRequest
   :super ros::object
-  :slots (_paths _op _move_dist _move_dir ))
+  :slots (_paths _op _repair_dist _repair_dir _repair_ob_r ))
 
 (defmethod ramp_msgs::ModificationRequestRequest
   (:init
    (&key
     ((:paths __paths) ())
     ((:op __op) "")
-    ((:move_dist __move_dist) 0.0)
-    ((:move_dir __move_dir) 0.0)
+    ((:repair_dist __repair_dist) 0.0)
+    ((:repair_dir __repair_dir) 0.0)
+    ((:repair_ob_r __repair_ob_r) 0.0)
     )
    (send-super :init)
    (setq _paths __paths)
    (setq _op (string __op))
-   (setq _move_dist (float __move_dist))
-   (setq _move_dir (float __move_dir))
+   (setq _repair_dist (float __repair_dist))
+   (setq _repair_dir (float __repair_dir))
+   (setq _repair_ob_r (float __repair_ob_r))
    self)
   (:paths
    (&rest __paths)
@@ -46,12 +48,15 @@
   (:op
    (&optional __op)
    (if __op (setq _op __op)) _op)
-  (:move_dist
-   (&optional __move_dist)
-   (if __move_dist (setq _move_dist __move_dist)) _move_dist)
-  (:move_dir
-   (&optional __move_dir)
-   (if __move_dir (setq _move_dir __move_dir)) _move_dir)
+  (:repair_dist
+   (&optional __repair_dist)
+   (if __repair_dist (setq _repair_dist __repair_dist)) _repair_dist)
+  (:repair_dir
+   (&optional __repair_dir)
+   (if __repair_dir (setq _repair_dir __repair_dir)) _repair_dir)
+  (:repair_ob_r
+   (&optional __repair_ob_r)
+   (if __repair_ob_r (setq _repair_ob_r __repair_ob_r)) _repair_ob_r)
   (:serialization-length
    ()
    (+
@@ -59,9 +64,11 @@
     (apply #'+ (send-all _paths :serialization-length)) 4
     ;; string _op
     4 (length _op)
-    ;; float64 _move_dist
+    ;; float64 _repair_dist
     8
-    ;; float64 _move_dir
+    ;; float64 _repair_dir
+    8
+    ;; float64 _repair_ob_r
     8
     ))
   (:serialize
@@ -75,10 +82,12 @@
        )
      ;; string _op
        (write-long (length _op) s) (princ _op s)
-     ;; float64 _move_dist
-       (sys::poke _move_dist (send s :buffer) (send s :count) :double) (incf (stream-count s) 8)
-     ;; float64 _move_dir
-       (sys::poke _move_dir (send s :buffer) (send s :count) :double) (incf (stream-count s) 8)
+     ;; float64 _repair_dist
+       (sys::poke _repair_dist (send s :buffer) (send s :count) :double) (incf (stream-count s) 8)
+     ;; float64 _repair_dir
+       (sys::poke _repair_dir (send s :buffer) (send s :count) :double) (incf (stream-count s) 8)
+     ;; float64 _repair_ob_r
+       (sys::poke _repair_ob_r (send s :buffer) (send s :count) :double) (incf (stream-count s) 8)
      ;;
      (if (null strm) (get-output-stream-string s))))
   (:deserialize
@@ -92,10 +101,12 @@
      ))
    ;; string _op
      (let (n) (setq n (sys::peek buf ptr- :integer)) (incf ptr- 4) (setq _op (subseq buf ptr- (+ ptr- n))) (incf ptr- n))
-   ;; float64 _move_dist
-     (setq _move_dist (sys::peek buf ptr- :double)) (incf ptr- 8)
-   ;; float64 _move_dir
-     (setq _move_dir (sys::peek buf ptr- :double)) (incf ptr- 8)
+   ;; float64 _repair_dist
+     (setq _repair_dist (sys::peek buf ptr- :double)) (incf ptr- 8)
+   ;; float64 _repair_dir
+     (setq _repair_dir (sys::peek buf ptr- :double)) (incf ptr- 8)
+   ;; float64 _repair_ob_r
+     (setq _repair_ob_r (sys::peek buf ptr- :double)) (incf ptr- 8)
    ;;
    self)
   )
@@ -153,7 +164,7 @@
   :super ros::object
   :slots ())
 
-(setf (get ramp_msgs::ModificationRequest :md5sum-) "81d0e2ec37dd2f917b71cfdf955b990d")
+(setf (get ramp_msgs::ModificationRequest :md5sum-) "e2f4c66b0fd63d5e71b5be50fa7c661e")
 (setf (get ramp_msgs::ModificationRequest :datatype-) "ramp_msgs/ModificationRequest")
 (setf (get ramp_msgs::ModificationRequest :request) ramp_msgs::ModificationRequestRequest)
 (setf (get ramp_msgs::ModificationRequest :response) ramp_msgs::ModificationRequestResponse)
@@ -161,13 +172,14 @@
 (defmethod ramp_msgs::ModificationRequestRequest
   (:response () (instance ramp_msgs::ModificationRequestResponse :init)))
 
-(setf (get ramp_msgs::ModificationRequestRequest :md5sum-) "81d0e2ec37dd2f917b71cfdf955b990d")
+(setf (get ramp_msgs::ModificationRequestRequest :md5sum-) "e2f4c66b0fd63d5e71b5be50fa7c661e")
 (setf (get ramp_msgs::ModificationRequestRequest :datatype-) "ramp_msgs/ModificationRequestRequest")
 (setf (get ramp_msgs::ModificationRequestRequest :definition-)
       "Path[] paths
 string op
-float64 move_dist
-float64 move_dir
+float64 repair_dist
+float64 repair_dir
+float64 repair_ob_r
 
 
 ================================================================================
@@ -213,13 +225,14 @@ float64[] jerks
 float64 time
 ")
 
-(setf (get ramp_msgs::ModificationRequestResponse :md5sum-) "81d0e2ec37dd2f917b71cfdf955b990d")
+(setf (get ramp_msgs::ModificationRequestResponse :md5sum-) "e2f4c66b0fd63d5e71b5be50fa7c661e")
 (setf (get ramp_msgs::ModificationRequestResponse :datatype-) "ramp_msgs/ModificationRequestResponse")
 (setf (get ramp_msgs::ModificationRequestResponse :definition-)
       "Path[] paths
 string op
-float64 move_dist
-float64 move_dir
+float64 repair_dist
+float64 repair_dir
+float64 repair_ob_r
 
 
 ================================================================================
@@ -267,6 +280,6 @@ float64 time
 
 
 
-(provide :ramp_msgs/ModificationRequest "81d0e2ec37dd2f917b71cfdf955b990d")
+(provide :ramp_msgs/ModificationRequest "e2f4c66b0fd63d5e71b5be50fa7c661e")
 
 

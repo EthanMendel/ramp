@@ -25,6 +25,12 @@ class TrajectoryRequest {
       this.print = null;
       this.bezierCurves = null;
       this.segments = null;
+      this.max_speed_linear = null;
+      this.max_speed_angular = null;
+      this.sl_traj = null;
+      this.sl_final_speed = null;
+      this.sl_init_dur = null;
+      this.sl_final_dur = null;
     }
     else {
       if (initObj.hasOwnProperty('path')) {
@@ -57,6 +63,42 @@ class TrajectoryRequest {
       else {
         this.segments = 0;
       }
+      if (initObj.hasOwnProperty('max_speed_linear')) {
+        this.max_speed_linear = initObj.max_speed_linear
+      }
+      else {
+        this.max_speed_linear = 0.0;
+      }
+      if (initObj.hasOwnProperty('max_speed_angular')) {
+        this.max_speed_angular = initObj.max_speed_angular
+      }
+      else {
+        this.max_speed_angular = 0.0;
+      }
+      if (initObj.hasOwnProperty('sl_traj')) {
+        this.sl_traj = initObj.sl_traj
+      }
+      else {
+        this.sl_traj = false;
+      }
+      if (initObj.hasOwnProperty('sl_final_speed')) {
+        this.sl_final_speed = initObj.sl_final_speed
+      }
+      else {
+        this.sl_final_speed = 0.0;
+      }
+      if (initObj.hasOwnProperty('sl_init_dur')) {
+        this.sl_init_dur = initObj.sl_init_dur
+      }
+      else {
+        this.sl_init_dur = {secs: 0, nsecs: 0};
+      }
+      if (initObj.hasOwnProperty('sl_final_dur')) {
+        this.sl_final_dur = initObj.sl_final_dur
+      }
+      else {
+        this.sl_final_dur = {secs: 0, nsecs: 0};
+      }
     }
   }
 
@@ -76,6 +118,18 @@ class TrajectoryRequest {
     });
     // Serialize message field [segments]
     bufferOffset = _serializer.int8(obj.segments, buffer, bufferOffset);
+    // Serialize message field [max_speed_linear]
+    bufferOffset = _serializer.float64(obj.max_speed_linear, buffer, bufferOffset);
+    // Serialize message field [max_speed_angular]
+    bufferOffset = _serializer.float64(obj.max_speed_angular, buffer, bufferOffset);
+    // Serialize message field [sl_traj]
+    bufferOffset = _serializer.bool(obj.sl_traj, buffer, bufferOffset);
+    // Serialize message field [sl_final_speed]
+    bufferOffset = _serializer.float64(obj.sl_final_speed, buffer, bufferOffset);
+    // Serialize message field [sl_init_dur]
+    bufferOffset = _serializer.duration(obj.sl_init_dur, buffer, bufferOffset);
+    // Serialize message field [sl_final_dur]
+    bufferOffset = _serializer.duration(obj.sl_final_dur, buffer, bufferOffset);
     return bufferOffset;
   }
 
@@ -98,6 +152,18 @@ class TrajectoryRequest {
     }
     // Deserialize message field [segments]
     data.segments = _deserializer.int8(buffer, bufferOffset);
+    // Deserialize message field [max_speed_linear]
+    data.max_speed_linear = _deserializer.float64(buffer, bufferOffset);
+    // Deserialize message field [max_speed_angular]
+    data.max_speed_angular = _deserializer.float64(buffer, bufferOffset);
+    // Deserialize message field [sl_traj]
+    data.sl_traj = _deserializer.bool(buffer, bufferOffset);
+    // Deserialize message field [sl_final_speed]
+    data.sl_final_speed = _deserializer.float64(buffer, bufferOffset);
+    // Deserialize message field [sl_init_dur]
+    data.sl_init_dur = _deserializer.duration(buffer, bufferOffset);
+    // Deserialize message field [sl_final_dur]
+    data.sl_final_dur = _deserializer.duration(buffer, bufferOffset);
     return data;
   }
 
@@ -107,7 +173,7 @@ class TrajectoryRequest {
     object.bezierCurves.forEach((val) => {
       length += BezierCurve.getMessageSize(val);
     });
-    return length + 7;
+    return length + 48;
   }
 
   static datatype() {
@@ -117,7 +183,7 @@ class TrajectoryRequest {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '90b320ee1b26415bfc5a720e57c91cb0';
+    return 'ad9619205ac6cad901fa5450a41bd191';
   }
 
   static messageDefinition() {
@@ -128,6 +194,14 @@ class TrajectoryRequest {
     bool print
     ramp_msgs/BezierCurve[] bezierCurves
     int8 segments
+    float64 max_speed_linear
+    float64 max_speed_angular
+    
+    # For system-level test generation...
+    bool sl_traj
+    float64 sl_final_speed
+    duration sl_init_dur
+    duration sl_final_dur
     
     ================================================================================
     MSG: ramp_msgs/Path
@@ -228,6 +302,48 @@ class TrajectoryRequest {
     }
     else {
       resolved.segments = 0
+    }
+
+    if (msg.max_speed_linear !== undefined) {
+      resolved.max_speed_linear = msg.max_speed_linear;
+    }
+    else {
+      resolved.max_speed_linear = 0.0
+    }
+
+    if (msg.max_speed_angular !== undefined) {
+      resolved.max_speed_angular = msg.max_speed_angular;
+    }
+    else {
+      resolved.max_speed_angular = 0.0
+    }
+
+    if (msg.sl_traj !== undefined) {
+      resolved.sl_traj = msg.sl_traj;
+    }
+    else {
+      resolved.sl_traj = false
+    }
+
+    if (msg.sl_final_speed !== undefined) {
+      resolved.sl_final_speed = msg.sl_final_speed;
+    }
+    else {
+      resolved.sl_final_speed = 0.0
+    }
+
+    if (msg.sl_init_dur !== undefined) {
+      resolved.sl_init_dur = msg.sl_init_dur;
+    }
+    else {
+      resolved.sl_init_dur = {secs: 0, nsecs: 0}
+    }
+
+    if (msg.sl_final_dur !== undefined) {
+      resolved.sl_final_dur = msg.sl_final_dur;
+    }
+    else {
+      resolved.sl_final_dur = {secs: 0, nsecs: 0}
     }
 
     return resolved;

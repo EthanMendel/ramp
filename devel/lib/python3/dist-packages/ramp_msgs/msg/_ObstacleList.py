@@ -7,10 +7,12 @@ import genpy
 import struct
 
 import geometry_msgs.msg
+import nav_msgs.msg
 import ramp_msgs.msg
+import std_msgs.msg
 
 class ObstacleList(genpy.Message):
-  _md5sum = "947b99d348284eef3629b08cb7f8113d"
+  _md5sum = "e71c90d2100e662cf3842007b56c7206"
   _type = "ramp_msgs/ObstacleList"
   _has_header = False  # flag to mark the presence of a Header object
   _full_text = """ramp_msgs/Obstacle[] obstacles
@@ -18,6 +20,8 @@ class ObstacleList(genpy.Message):
 ================================================================================
 MSG: ramp_msgs/Obstacle
 ramp_msgs/MotionState ob_ms
+ramp_msgs/CircleGroup cirGroup
+nav_msgs/Odometry odom
 geometry_msgs/Transform T_w_odom
 
 ================================================================================
@@ -31,11 +35,14 @@ float64[] jerks
 float64 time
 
 ================================================================================
-MSG: geometry_msgs/Transform
-# This represents the transform between two coordinate frames in free space.
+MSG: ramp_msgs/CircleGroup
+ramp_msgs/Circle fitCir
+ramp_msgs/Circle[] packedCirs
 
-Vector3 translation
-Quaternion rotation
+================================================================================
+MSG: ramp_msgs/Circle
+geometry_msgs/Vector3 center
+float64 radius
 
 ================================================================================
 MSG: geometry_msgs/Vector3
@@ -50,6 +57,57 @@ float64 x
 float64 y
 float64 z
 ================================================================================
+MSG: nav_msgs/Odometry
+# This represents an estimate of a position and velocity in free space.  
+# The pose in this message should be specified in the coordinate frame given by header.frame_id.
+# The twist in this message should be specified in the coordinate frame given by the child_frame_id
+Header header
+string child_frame_id
+geometry_msgs/PoseWithCovariance pose
+geometry_msgs/TwistWithCovariance twist
+
+================================================================================
+MSG: std_msgs/Header
+# Standard metadata for higher-level stamped data types.
+# This is generally used to communicate timestamped data 
+# in a particular coordinate frame.
+# 
+# sequence ID: consecutively increasing ID 
+uint32 seq
+#Two-integer timestamp that is expressed as:
+# * stamp.sec: seconds (stamp_secs) since epoch (in Python the variable is called 'secs')
+# * stamp.nsec: nanoseconds since stamp_secs (in Python the variable is called 'nsecs')
+# time-handling sugar is provided by the client library
+time stamp
+#Frame this data is associated with
+string frame_id
+
+================================================================================
+MSG: geometry_msgs/PoseWithCovariance
+# This represents a pose in free space with uncertainty.
+
+Pose pose
+
+# Row-major representation of the 6x6 covariance matrix
+# The orientation parameters use a fixed-axis representation.
+# In order, the parameters are:
+# (x, y, z, rotation about X axis, rotation about Y axis, rotation about Z axis)
+float64[36] covariance
+
+================================================================================
+MSG: geometry_msgs/Pose
+# A representation of pose in free space, composed of position and orientation. 
+Point position
+Quaternion orientation
+
+================================================================================
+MSG: geometry_msgs/Point
+# This contains the position of a point in free space
+float64 x
+float64 y
+float64 z
+
+================================================================================
 MSG: geometry_msgs/Quaternion
 # This represents an orientation in free space in quaternion form.
 
@@ -57,6 +115,31 @@ float64 x
 float64 y
 float64 z
 float64 w
+
+================================================================================
+MSG: geometry_msgs/TwistWithCovariance
+# This expresses velocity in free space with uncertainty.
+
+Twist twist
+
+# Row-major representation of the 6x6 covariance matrix
+# The orientation parameters use a fixed-axis representation.
+# In order, the parameters are:
+# (x, y, z, rotation about X axis, rotation about Y axis, rotation about Z axis)
+float64[36] covariance
+
+================================================================================
+MSG: geometry_msgs/Twist
+# This expresses velocity in free space broken into its linear and angular parts.
+Vector3  linear
+Vector3  angular
+
+================================================================================
+MSG: geometry_msgs/Transform
+# This represents the transform between two coordinate frames in free space.
+
+Vector3 translation
+Quaternion rotation
 """
   __slots__ = ['obstacles']
   _slot_types = ['ramp_msgs/Obstacle[]']
@@ -117,12 +200,64 @@ float64 w
         buff.write(struct.Struct(pattern).pack(*_v1.jerks))
         _x = _v1.time
         buff.write(_get_struct_d().pack(_x))
-        _v2 = val1.T_w_odom
-        _v3 = _v2.translation
-        _x = _v3
-        buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
-        _v4 = _v2.rotation
+        _v2 = val1.cirGroup
+        _v3 = _v2.fitCir
+        _v4 = _v3.center
         _x = _v4
+        buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
+        _x = _v3.radius
+        buff.write(_get_struct_d().pack(_x))
+        length = len(_v2.packedCirs)
+        buff.write(_struct_I.pack(length))
+        for val3 in _v2.packedCirs:
+          _v5 = val3.center
+          _x = _v5
+          buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
+          _x = val3.radius
+          buff.write(_get_struct_d().pack(_x))
+        _v6 = val1.odom
+        _v7 = _v6.header
+        _x = _v7.seq
+        buff.write(_get_struct_I().pack(_x))
+        _v8 = _v7.stamp
+        _x = _v8
+        buff.write(_get_struct_2I().pack(_x.secs, _x.nsecs))
+        _x = _v7.frame_id
+        length = len(_x)
+        if python3 or type(_x) == unicode:
+          _x = _x.encode('utf-8')
+          length = len(_x)
+        buff.write(struct.Struct('<I%ss'%length).pack(length, _x))
+        _x = _v6.child_frame_id
+        length = len(_x)
+        if python3 or type(_x) == unicode:
+          _x = _x.encode('utf-8')
+          length = len(_x)
+        buff.write(struct.Struct('<I%ss'%length).pack(length, _x))
+        _v9 = _v6.pose
+        _v10 = _v9.pose
+        _v11 = _v10.position
+        _x = _v11
+        buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
+        _v12 = _v10.orientation
+        _x = _v12
+        buff.write(_get_struct_4d().pack(_x.x, _x.y, _x.z, _x.w))
+        buff.write(_get_struct_36d().pack(*_v9.covariance))
+        _v13 = _v6.twist
+        _v14 = _v13.twist
+        _v15 = _v14.linear
+        _x = _v15
+        buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
+        _v16 = _v14.angular
+        _x = _v16
+        buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
+        buff.write(_get_struct_36d().pack(*_v13.covariance))
+        _v17 = val1.T_w_odom
+        _v18 = _v17.translation
+        _x = _v18
+        buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
+        _v19 = _v17.rotation
+        _x = _v19
         buff.write(_get_struct_4d().pack(_x.x, _x.y, _x.z, _x.w))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
@@ -144,7 +279,7 @@ float64 w
       self.obstacles = []
       for i in range(0, length):
         val1 = ramp_msgs.msg.Obstacle()
-        _v5 = val1.ob_ms
+        _v20 = val1.ob_ms
         start = end
         end += 4
         (length,) = _struct_I.unpack(str[start:end])
@@ -152,7 +287,7 @@ float64 w
         start = end
         s = struct.Struct(pattern)
         end += s.size
-        _v5.positions = s.unpack(str[start:end])
+        _v20.positions = s.unpack(str[start:end])
         start = end
         end += 4
         (length,) = _struct_I.unpack(str[start:end])
@@ -160,7 +295,7 @@ float64 w
         start = end
         s = struct.Struct(pattern)
         end += s.size
-        _v5.velocities = s.unpack(str[start:end])
+        _v20.velocities = s.unpack(str[start:end])
         start = end
         end += 4
         (length,) = _struct_I.unpack(str[start:end])
@@ -168,7 +303,7 @@ float64 w
         start = end
         s = struct.Struct(pattern)
         end += s.size
-        _v5.accelerations = s.unpack(str[start:end])
+        _v20.accelerations = s.unpack(str[start:end])
         start = end
         end += 4
         (length,) = _struct_I.unpack(str[start:end])
@@ -176,18 +311,101 @@ float64 w
         start = end
         s = struct.Struct(pattern)
         end += s.size
-        _v5.jerks = s.unpack(str[start:end])
+        _v20.jerks = s.unpack(str[start:end])
         start = end
         end += 8
-        (_v5.time,) = _get_struct_d().unpack(str[start:end])
-        _v6 = val1.T_w_odom
-        _v7 = _v6.translation
-        _x = _v7
+        (_v20.time,) = _get_struct_d().unpack(str[start:end])
+        _v21 = val1.cirGroup
+        _v22 = _v21.fitCir
+        _v23 = _v22.center
+        _x = _v23
         start = end
         end += 24
         (_x.x, _x.y, _x.z,) = _get_struct_3d().unpack(str[start:end])
-        _v8 = _v6.rotation
-        _x = _v8
+        start = end
+        end += 8
+        (_v22.radius,) = _get_struct_d().unpack(str[start:end])
+        start = end
+        end += 4
+        (length,) = _struct_I.unpack(str[start:end])
+        _v21.packedCirs = []
+        for i in range(0, length):
+          val3 = ramp_msgs.msg.Circle()
+          _v24 = val3.center
+          _x = _v24
+          start = end
+          end += 24
+          (_x.x, _x.y, _x.z,) = _get_struct_3d().unpack(str[start:end])
+          start = end
+          end += 8
+          (val3.radius,) = _get_struct_d().unpack(str[start:end])
+          _v21.packedCirs.append(val3)
+        _v25 = val1.odom
+        _v26 = _v25.header
+        start = end
+        end += 4
+        (_v26.seq,) = _get_struct_I().unpack(str[start:end])
+        _v27 = _v26.stamp
+        _x = _v27
+        start = end
+        end += 8
+        (_x.secs, _x.nsecs,) = _get_struct_2I().unpack(str[start:end])
+        start = end
+        end += 4
+        (length,) = _struct_I.unpack(str[start:end])
+        start = end
+        end += length
+        if python3:
+          _v26.frame_id = str[start:end].decode('utf-8', 'rosmsg')
+        else:
+          _v26.frame_id = str[start:end]
+        start = end
+        end += 4
+        (length,) = _struct_I.unpack(str[start:end])
+        start = end
+        end += length
+        if python3:
+          _v25.child_frame_id = str[start:end].decode('utf-8', 'rosmsg')
+        else:
+          _v25.child_frame_id = str[start:end]
+        _v28 = _v25.pose
+        _v29 = _v28.pose
+        _v30 = _v29.position
+        _x = _v30
+        start = end
+        end += 24
+        (_x.x, _x.y, _x.z,) = _get_struct_3d().unpack(str[start:end])
+        _v31 = _v29.orientation
+        _x = _v31
+        start = end
+        end += 32
+        (_x.x, _x.y, _x.z, _x.w,) = _get_struct_4d().unpack(str[start:end])
+        start = end
+        end += 288
+        _v28.covariance = _get_struct_36d().unpack(str[start:end])
+        _v32 = _v25.twist
+        _v33 = _v32.twist
+        _v34 = _v33.linear
+        _x = _v34
+        start = end
+        end += 24
+        (_x.x, _x.y, _x.z,) = _get_struct_3d().unpack(str[start:end])
+        _v35 = _v33.angular
+        _x = _v35
+        start = end
+        end += 24
+        (_x.x, _x.y, _x.z,) = _get_struct_3d().unpack(str[start:end])
+        start = end
+        end += 288
+        _v32.covariance = _get_struct_36d().unpack(str[start:end])
+        _v36 = val1.T_w_odom
+        _v37 = _v36.translation
+        _x = _v37
+        start = end
+        end += 24
+        (_x.x, _x.y, _x.z,) = _get_struct_3d().unpack(str[start:end])
+        _v38 = _v36.rotation
+        _x = _v38
         start = end
         end += 32
         (_x.x, _x.y, _x.z, _x.w,) = _get_struct_4d().unpack(str[start:end])
@@ -207,31 +425,83 @@ float64 w
       length = len(self.obstacles)
       buff.write(_struct_I.pack(length))
       for val1 in self.obstacles:
-        _v9 = val1.ob_ms
-        length = len(_v9.positions)
+        _v39 = val1.ob_ms
+        length = len(_v39.positions)
         buff.write(_struct_I.pack(length))
         pattern = '<%sd'%length
-        buff.write(_v9.positions.tostring())
-        length = len(_v9.velocities)
+        buff.write(_v39.positions.tostring())
+        length = len(_v39.velocities)
         buff.write(_struct_I.pack(length))
         pattern = '<%sd'%length
-        buff.write(_v9.velocities.tostring())
-        length = len(_v9.accelerations)
+        buff.write(_v39.velocities.tostring())
+        length = len(_v39.accelerations)
         buff.write(_struct_I.pack(length))
         pattern = '<%sd'%length
-        buff.write(_v9.accelerations.tostring())
-        length = len(_v9.jerks)
+        buff.write(_v39.accelerations.tostring())
+        length = len(_v39.jerks)
         buff.write(_struct_I.pack(length))
         pattern = '<%sd'%length
-        buff.write(_v9.jerks.tostring())
-        _x = _v9.time
+        buff.write(_v39.jerks.tostring())
+        _x = _v39.time
         buff.write(_get_struct_d().pack(_x))
-        _v10 = val1.T_w_odom
-        _v11 = _v10.translation
-        _x = _v11
+        _v40 = val1.cirGroup
+        _v41 = _v40.fitCir
+        _v42 = _v41.center
+        _x = _v42
         buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
-        _v12 = _v10.rotation
-        _x = _v12
+        _x = _v41.radius
+        buff.write(_get_struct_d().pack(_x))
+        length = len(_v40.packedCirs)
+        buff.write(_struct_I.pack(length))
+        for val3 in _v40.packedCirs:
+          _v43 = val3.center
+          _x = _v43
+          buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
+          _x = val3.radius
+          buff.write(_get_struct_d().pack(_x))
+        _v44 = val1.odom
+        _v45 = _v44.header
+        _x = _v45.seq
+        buff.write(_get_struct_I().pack(_x))
+        _v46 = _v45.stamp
+        _x = _v46
+        buff.write(_get_struct_2I().pack(_x.secs, _x.nsecs))
+        _x = _v45.frame_id
+        length = len(_x)
+        if python3 or type(_x) == unicode:
+          _x = _x.encode('utf-8')
+          length = len(_x)
+        buff.write(struct.Struct('<I%ss'%length).pack(length, _x))
+        _x = _v44.child_frame_id
+        length = len(_x)
+        if python3 or type(_x) == unicode:
+          _x = _x.encode('utf-8')
+          length = len(_x)
+        buff.write(struct.Struct('<I%ss'%length).pack(length, _x))
+        _v47 = _v44.pose
+        _v48 = _v47.pose
+        _v49 = _v48.position
+        _x = _v49
+        buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
+        _v50 = _v48.orientation
+        _x = _v50
+        buff.write(_get_struct_4d().pack(_x.x, _x.y, _x.z, _x.w))
+        buff.write(_v47.covariance.tostring())
+        _v51 = _v44.twist
+        _v52 = _v51.twist
+        _v53 = _v52.linear
+        _x = _v53
+        buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
+        _v54 = _v52.angular
+        _x = _v54
+        buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
+        buff.write(_v51.covariance.tostring())
+        _v55 = val1.T_w_odom
+        _v56 = _v55.translation
+        _x = _v56
+        buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
+        _v57 = _v55.rotation
+        _x = _v57
         buff.write(_get_struct_4d().pack(_x.x, _x.y, _x.z, _x.w))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
@@ -254,7 +524,7 @@ float64 w
       self.obstacles = []
       for i in range(0, length):
         val1 = ramp_msgs.msg.Obstacle()
-        _v13 = val1.ob_ms
+        _v58 = val1.ob_ms
         start = end
         end += 4
         (length,) = _struct_I.unpack(str[start:end])
@@ -262,7 +532,7 @@ float64 w
         start = end
         s = struct.Struct(pattern)
         end += s.size
-        _v13.positions = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
+        _v58.positions = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
         start = end
         end += 4
         (length,) = _struct_I.unpack(str[start:end])
@@ -270,7 +540,7 @@ float64 w
         start = end
         s = struct.Struct(pattern)
         end += s.size
-        _v13.velocities = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
+        _v58.velocities = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
         start = end
         end += 4
         (length,) = _struct_I.unpack(str[start:end])
@@ -278,7 +548,7 @@ float64 w
         start = end
         s = struct.Struct(pattern)
         end += s.size
-        _v13.accelerations = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
+        _v58.accelerations = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
         start = end
         end += 4
         (length,) = _struct_I.unpack(str[start:end])
@@ -286,18 +556,101 @@ float64 w
         start = end
         s = struct.Struct(pattern)
         end += s.size
-        _v13.jerks = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
+        _v58.jerks = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
         start = end
         end += 8
-        (_v13.time,) = _get_struct_d().unpack(str[start:end])
-        _v14 = val1.T_w_odom
-        _v15 = _v14.translation
-        _x = _v15
+        (_v58.time,) = _get_struct_d().unpack(str[start:end])
+        _v59 = val1.cirGroup
+        _v60 = _v59.fitCir
+        _v61 = _v60.center
+        _x = _v61
         start = end
         end += 24
         (_x.x, _x.y, _x.z,) = _get_struct_3d().unpack(str[start:end])
-        _v16 = _v14.rotation
-        _x = _v16
+        start = end
+        end += 8
+        (_v60.radius,) = _get_struct_d().unpack(str[start:end])
+        start = end
+        end += 4
+        (length,) = _struct_I.unpack(str[start:end])
+        _v59.packedCirs = []
+        for i in range(0, length):
+          val3 = ramp_msgs.msg.Circle()
+          _v62 = val3.center
+          _x = _v62
+          start = end
+          end += 24
+          (_x.x, _x.y, _x.z,) = _get_struct_3d().unpack(str[start:end])
+          start = end
+          end += 8
+          (val3.radius,) = _get_struct_d().unpack(str[start:end])
+          _v59.packedCirs.append(val3)
+        _v63 = val1.odom
+        _v64 = _v63.header
+        start = end
+        end += 4
+        (_v64.seq,) = _get_struct_I().unpack(str[start:end])
+        _v65 = _v64.stamp
+        _x = _v65
+        start = end
+        end += 8
+        (_x.secs, _x.nsecs,) = _get_struct_2I().unpack(str[start:end])
+        start = end
+        end += 4
+        (length,) = _struct_I.unpack(str[start:end])
+        start = end
+        end += length
+        if python3:
+          _v64.frame_id = str[start:end].decode('utf-8', 'rosmsg')
+        else:
+          _v64.frame_id = str[start:end]
+        start = end
+        end += 4
+        (length,) = _struct_I.unpack(str[start:end])
+        start = end
+        end += length
+        if python3:
+          _v63.child_frame_id = str[start:end].decode('utf-8', 'rosmsg')
+        else:
+          _v63.child_frame_id = str[start:end]
+        _v66 = _v63.pose
+        _v67 = _v66.pose
+        _v68 = _v67.position
+        _x = _v68
+        start = end
+        end += 24
+        (_x.x, _x.y, _x.z,) = _get_struct_3d().unpack(str[start:end])
+        _v69 = _v67.orientation
+        _x = _v69
+        start = end
+        end += 32
+        (_x.x, _x.y, _x.z, _x.w,) = _get_struct_4d().unpack(str[start:end])
+        start = end
+        end += 288
+        _v66.covariance = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=36)
+        _v70 = _v63.twist
+        _v71 = _v70.twist
+        _v72 = _v71.linear
+        _x = _v72
+        start = end
+        end += 24
+        (_x.x, _x.y, _x.z,) = _get_struct_3d().unpack(str[start:end])
+        _v73 = _v71.angular
+        _x = _v73
+        start = end
+        end += 24
+        (_x.x, _x.y, _x.z,) = _get_struct_3d().unpack(str[start:end])
+        start = end
+        end += 288
+        _v70.covariance = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=36)
+        _v74 = val1.T_w_odom
+        _v75 = _v74.translation
+        _x = _v75
+        start = end
+        end += 24
+        (_x.x, _x.y, _x.z,) = _get_struct_3d().unpack(str[start:end])
+        _v76 = _v74.rotation
+        _x = _v76
         start = end
         end += 32
         (_x.x, _x.y, _x.z, _x.w,) = _get_struct_4d().unpack(str[start:end])
@@ -310,6 +663,18 @@ _struct_I = genpy.struct_I
 def _get_struct_I():
     global _struct_I
     return _struct_I
+_struct_2I = None
+def _get_struct_2I():
+    global _struct_2I
+    if _struct_2I is None:
+        _struct_2I = struct.Struct("<2I")
+    return _struct_2I
+_struct_36d = None
+def _get_struct_36d():
+    global _struct_36d
+    if _struct_36d is None:
+        _struct_36d = struct.Struct("<36d")
+    return _struct_36d
 _struct_3d = None
 def _get_struct_3d():
     global _struct_3d

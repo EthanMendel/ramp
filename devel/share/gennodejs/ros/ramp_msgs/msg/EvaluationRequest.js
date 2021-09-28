@@ -12,6 +12,7 @@ const _arrayDeserializer = _deserializer.Array;
 const _finder = _ros_msg_utils.Find;
 const _getByteLength = _ros_msg_utils.getByteLength;
 let RampTrajectory = require('./RampTrajectory.js');
+let CircleGroup = require('./CircleGroup.js');
 
 //-----------------------------------------------------------
 
@@ -20,15 +21,17 @@ class EvaluationRequest {
     if (initObj === null) {
       // initObj === null is a special case for deserialization where we don't initialize fields
       this.trajectory = null;
+      this.robot_radius = null;
       this.currentTheta = null;
       this.theta_cc = null;
       this.obstacle_trjs = null;
+      this.obstacle_cir_groups = null;
       this.imminent_collision = null;
-      this.coll_dist = null;
       this.offset = null;
       this.full_eval = null;
       this.consider_trans = null;
       this.trans_possible = null;
+      this.hmap_eval = null;
     }
     else {
       if (initObj.hasOwnProperty('trajectory')) {
@@ -36,6 +39,12 @@ class EvaluationRequest {
       }
       else {
         this.trajectory = new RampTrajectory();
+      }
+      if (initObj.hasOwnProperty('robot_radius')) {
+        this.robot_radius = initObj.robot_radius
+      }
+      else {
+        this.robot_radius = 0.0;
       }
       if (initObj.hasOwnProperty('currentTheta')) {
         this.currentTheta = initObj.currentTheta
@@ -55,17 +64,17 @@ class EvaluationRequest {
       else {
         this.obstacle_trjs = [];
       }
+      if (initObj.hasOwnProperty('obstacle_cir_groups')) {
+        this.obstacle_cir_groups = initObj.obstacle_cir_groups
+      }
+      else {
+        this.obstacle_cir_groups = [];
+      }
       if (initObj.hasOwnProperty('imminent_collision')) {
         this.imminent_collision = initObj.imminent_collision
       }
       else {
         this.imminent_collision = false;
-      }
-      if (initObj.hasOwnProperty('coll_dist')) {
-        this.coll_dist = initObj.coll_dist
-      }
-      else {
-        this.coll_dist = 0.0;
       }
       if (initObj.hasOwnProperty('offset')) {
         this.offset = initObj.offset
@@ -91,6 +100,12 @@ class EvaluationRequest {
       else {
         this.trans_possible = false;
       }
+      if (initObj.hasOwnProperty('hmap_eval')) {
+        this.hmap_eval = initObj.hmap_eval
+      }
+      else {
+        this.hmap_eval = false;
+      }
     }
   }
 
@@ -98,6 +113,8 @@ class EvaluationRequest {
     // Serializes a message object of type EvaluationRequest
     // Serialize message field [trajectory]
     bufferOffset = RampTrajectory.serialize(obj.trajectory, buffer, bufferOffset);
+    // Serialize message field [robot_radius]
+    bufferOffset = _serializer.float64(obj.robot_radius, buffer, bufferOffset);
     // Serialize message field [currentTheta]
     bufferOffset = _serializer.float64(obj.currentTheta, buffer, bufferOffset);
     // Serialize message field [theta_cc]
@@ -108,10 +125,14 @@ class EvaluationRequest {
     obj.obstacle_trjs.forEach((val) => {
       bufferOffset = RampTrajectory.serialize(val, buffer, bufferOffset);
     });
+    // Serialize message field [obstacle_cir_groups]
+    // Serialize the length for message field [obstacle_cir_groups]
+    bufferOffset = _serializer.uint32(obj.obstacle_cir_groups.length, buffer, bufferOffset);
+    obj.obstacle_cir_groups.forEach((val) => {
+      bufferOffset = CircleGroup.serialize(val, buffer, bufferOffset);
+    });
     // Serialize message field [imminent_collision]
     bufferOffset = _serializer.bool(obj.imminent_collision, buffer, bufferOffset);
-    // Serialize message field [coll_dist]
-    bufferOffset = _serializer.float64(obj.coll_dist, buffer, bufferOffset);
     // Serialize message field [offset]
     bufferOffset = _serializer.float64(obj.offset, buffer, bufferOffset);
     // Serialize message field [full_eval]
@@ -120,6 +141,8 @@ class EvaluationRequest {
     bufferOffset = _serializer.bool(obj.consider_trans, buffer, bufferOffset);
     // Serialize message field [trans_possible]
     bufferOffset = _serializer.bool(obj.trans_possible, buffer, bufferOffset);
+    // Serialize message field [hmap_eval]
+    bufferOffset = _serializer.bool(obj.hmap_eval, buffer, bufferOffset);
     return bufferOffset;
   }
 
@@ -129,6 +152,8 @@ class EvaluationRequest {
     let data = new EvaluationRequest(null);
     // Deserialize message field [trajectory]
     data.trajectory = RampTrajectory.deserialize(buffer, bufferOffset);
+    // Deserialize message field [robot_radius]
+    data.robot_radius = _deserializer.float64(buffer, bufferOffset);
     // Deserialize message field [currentTheta]
     data.currentTheta = _deserializer.float64(buffer, bufferOffset);
     // Deserialize message field [theta_cc]
@@ -140,10 +165,15 @@ class EvaluationRequest {
     for (let i = 0; i < len; ++i) {
       data.obstacle_trjs[i] = RampTrajectory.deserialize(buffer, bufferOffset)
     }
+    // Deserialize message field [obstacle_cir_groups]
+    // Deserialize array length for message field [obstacle_cir_groups]
+    len = _deserializer.uint32(buffer, bufferOffset);
+    data.obstacle_cir_groups = new Array(len);
+    for (let i = 0; i < len; ++i) {
+      data.obstacle_cir_groups[i] = CircleGroup.deserialize(buffer, bufferOffset)
+    }
     // Deserialize message field [imminent_collision]
     data.imminent_collision = _deserializer.bool(buffer, bufferOffset);
-    // Deserialize message field [coll_dist]
-    data.coll_dist = _deserializer.float64(buffer, bufferOffset);
     // Deserialize message field [offset]
     data.offset = _deserializer.float64(buffer, bufferOffset);
     // Deserialize message field [full_eval]
@@ -152,6 +182,8 @@ class EvaluationRequest {
     data.consider_trans = _deserializer.bool(buffer, bufferOffset);
     // Deserialize message field [trans_possible]
     data.trans_possible = _deserializer.bool(buffer, bufferOffset);
+    // Deserialize message field [hmap_eval]
+    data.hmap_eval = _deserializer.bool(buffer, bufferOffset);
     return data;
   }
 
@@ -161,7 +193,10 @@ class EvaluationRequest {
     object.obstacle_trjs.forEach((val) => {
       length += RampTrajectory.getMessageSize(val);
     });
-    return length + 40;
+    object.obstacle_cir_groups.forEach((val) => {
+      length += CircleGroup.getMessageSize(val);
+    });
+    return length + 45;
   }
 
   static datatype() {
@@ -171,23 +206,25 @@ class EvaluationRequest {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '8964e17c705f63c522df77b43636a204';
+    return '40e525bfb7e4a2a45b79429a4d3f00db';
   }
 
   static messageDefinition() {
     // Returns full string definition for message
     return `
     RampTrajectory trajectory
+    float64 robot_radius
     float64 currentTheta
     float64 theta_cc
     RampTrajectory[] obstacle_trjs
+    CircleGroup[] obstacle_cir_groups
     bool imminent_collision
-    float64 coll_dist
     float64 offset
     bool full_eval
     
     bool consider_trans
     bool trans_possible
+    bool hmap_eval
     
     ================================================================================
     MSG: ramp_msgs/RampTrajectory
@@ -278,6 +315,28 @@ class EvaluationRequest {
     ramp_msgs/MotionState motionState
     uint32 stopTime
     
+    ================================================================================
+    MSG: ramp_msgs/CircleGroup
+    ramp_msgs/Circle fitCir
+    ramp_msgs/Circle[] packedCirs
+    
+    ================================================================================
+    MSG: ramp_msgs/Circle
+    geometry_msgs/Vector3 center
+    float64 radius
+    
+    ================================================================================
+    MSG: geometry_msgs/Vector3
+    # This represents a vector in free space. 
+    # It is only meant to represent a direction. Therefore, it does not
+    # make sense to apply a translation to it (e.g., when applying a 
+    # generic rigid transformation to a Vector3, tf2 will only apply the
+    # rotation). If you want your data to be translatable too, use the
+    # geometry_msgs/Point message instead.
+    
+    float64 x
+    float64 y
+    float64 z
     `;
   }
 
@@ -292,6 +351,13 @@ class EvaluationRequest {
     }
     else {
       resolved.trajectory = new RampTrajectory()
+    }
+
+    if (msg.robot_radius !== undefined) {
+      resolved.robot_radius = msg.robot_radius;
+    }
+    else {
+      resolved.robot_radius = 0.0
     }
 
     if (msg.currentTheta !== undefined) {
@@ -318,18 +384,21 @@ class EvaluationRequest {
       resolved.obstacle_trjs = []
     }
 
+    if (msg.obstacle_cir_groups !== undefined) {
+      resolved.obstacle_cir_groups = new Array(msg.obstacle_cir_groups.length);
+      for (let i = 0; i < resolved.obstacle_cir_groups.length; ++i) {
+        resolved.obstacle_cir_groups[i] = CircleGroup.Resolve(msg.obstacle_cir_groups[i]);
+      }
+    }
+    else {
+      resolved.obstacle_cir_groups = []
+    }
+
     if (msg.imminent_collision !== undefined) {
       resolved.imminent_collision = msg.imminent_collision;
     }
     else {
       resolved.imminent_collision = false
-    }
-
-    if (msg.coll_dist !== undefined) {
-      resolved.coll_dist = msg.coll_dist;
-    }
-    else {
-      resolved.coll_dist = 0.0
     }
 
     if (msg.offset !== undefined) {
@@ -358,6 +427,13 @@ class EvaluationRequest {
     }
     else {
       resolved.trans_possible = false
+    }
+
+    if (msg.hmap_eval !== undefined) {
+      resolved.hmap_eval = msg.hmap_eval;
+    }
+    else {
+      resolved.hmap_eval = false
     }
 
     return resolved;

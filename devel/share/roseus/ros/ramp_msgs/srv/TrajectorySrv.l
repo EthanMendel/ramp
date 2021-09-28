@@ -69,30 +69,16 @@
 
 (defclass ramp_msgs::TrajectorySrvResponse
   :super ros::object
-  :slots (_trajectory _error _resps ))
+  :slots (_resps ))
 
 (defmethod ramp_msgs::TrajectorySrvResponse
   (:init
    (&key
-    ((:trajectory __trajectory) (instance ramp_msgs::RampTrajectory :init))
-    ((:error __error) nil)
     ((:resps __resps) ())
     )
    (send-super :init)
-   (setq _trajectory __trajectory)
-   (setq _error __error)
    (setq _resps __resps)
    self)
-  (:trajectory
-   (&rest __trajectory)
-   (if (keywordp (car __trajectory))
-       (send* _trajectory __trajectory)
-     (progn
-       (if __trajectory (setq _trajectory (car __trajectory)))
-       _trajectory)))
-  (:error
-   (&optional (__error :null))
-   (if (not (eq __error :null)) (setq _error __error)) _error)
   (:resps
    (&rest __resps)
    (if (keywordp (car __resps))
@@ -103,10 +89,6 @@
   (:serialization-length
    ()
    (+
-    ;; ramp_msgs/RampTrajectory _trajectory
-    (send _trajectory :serialization-length)
-    ;; bool _error
-    1
     ;; ramp_msgs/TrajectoryResponse[] _resps
     (apply #'+ (send-all _resps :serialization-length)) 4
     ))
@@ -114,10 +96,6 @@
    (&optional strm)
    (let ((s (if strm strm
               (make-string-output-stream (send self :serialization-length)))))
-     ;; ramp_msgs/RampTrajectory _trajectory
-       (send _trajectory :serialize s)
-     ;; bool _error
-       (if _error (write-byte -1 s) (write-byte 0 s))
      ;; ramp_msgs/TrajectoryResponse[] _resps
      (write-long (length _resps) s)
      (dolist (elem _resps)
@@ -127,10 +105,6 @@
      (if (null strm) (get-output-stream-string s))))
   (:deserialize
    (buf &optional (ptr- 0))
-   ;; ramp_msgs/RampTrajectory _trajectory
-     (send _trajectory :deserialize buf ptr-) (incf ptr- (send _trajectory :serialization-length))
-   ;; bool _error
-     (setq _error (not (= 0 (sys::peek buf ptr- :char)))) (incf ptr- 1)
    ;; ramp_msgs/TrajectoryResponse[] _resps
    (let (n)
      (setq n (sys::peek buf ptr- :integer)) (incf ptr- 4)
@@ -146,7 +120,7 @@
   :super ros::object
   :slots ())
 
-(setf (get ramp_msgs::TrajectorySrv :md5sum-) "74cb2a92026a7e1f5cd832b3efb48cb0")
+(setf (get ramp_msgs::TrajectorySrv :md5sum-) "8ccd59d329076db69674b9c52d4134e4")
 (setf (get ramp_msgs::TrajectorySrv :datatype-) "ramp_msgs/TrajectorySrv")
 (setf (get ramp_msgs::TrajectorySrv :request) ramp_msgs::TrajectorySrvRequest)
 (setf (get ramp_msgs::TrajectorySrv :response) ramp_msgs::TrajectorySrvResponse)
@@ -154,7 +128,7 @@
 (defmethod ramp_msgs::TrajectorySrvRequest
   (:response () (instance ramp_msgs::TrajectorySrvResponse :init)))
 
-(setf (get ramp_msgs::TrajectorySrvRequest :md5sum-) "74cb2a92026a7e1f5cd832b3efb48cb0")
+(setf (get ramp_msgs::TrajectorySrvRequest :md5sum-) "8ccd59d329076db69674b9c52d4134e4")
 (setf (get ramp_msgs::TrajectorySrvRequest :datatype-) "ramp_msgs/TrajectorySrvRequest")
 (setf (get ramp_msgs::TrajectorySrvRequest :definition-)
       "TrajectoryRequest[] reqs
@@ -167,6 +141,14 @@ uint8 type
 bool print
 ramp_msgs/BezierCurve[] bezierCurves
 int8 segments
+float64 max_speed_linear
+float64 max_speed_angular
+
+# For system-level test generation...
+bool sl_traj
+float64 sl_final_speed
+duration sl_init_dur
+duration sl_final_dur
 
 ================================================================================
 MSG: ramp_msgs/Path
@@ -223,11 +205,13 @@ time stamp
 string frame_id
 ---
 
-RampTrajectory trajectory
-bool error
-
 TrajectoryResponse[] resps
 
+
+================================================================================
+MSG: ramp_msgs/TrajectoryResponse
+RampTrajectory trajectory
+bool error
 
 ================================================================================
 MSG: ramp_msgs/RampTrajectory
@@ -317,14 +301,9 @@ ramp_msgs/KnotPoint[] points
 MSG: ramp_msgs/KnotPoint
 ramp_msgs/MotionState motionState
 uint32 stopTime
-
-================================================================================
-MSG: ramp_msgs/TrajectoryResponse
-RampTrajectory trajectory
-bool error
 ")
 
-(setf (get ramp_msgs::TrajectorySrvResponse :md5sum-) "74cb2a92026a7e1f5cd832b3efb48cb0")
+(setf (get ramp_msgs::TrajectorySrvResponse :md5sum-) "8ccd59d329076db69674b9c52d4134e4")
 (setf (get ramp_msgs::TrajectorySrvResponse :datatype-) "ramp_msgs/TrajectorySrvResponse")
 (setf (get ramp_msgs::TrajectorySrvResponse :definition-)
       "TrajectoryRequest[] reqs
@@ -337,6 +316,14 @@ uint8 type
 bool print
 ramp_msgs/BezierCurve[] bezierCurves
 int8 segments
+float64 max_speed_linear
+float64 max_speed_angular
+
+# For system-level test generation...
+bool sl_traj
+float64 sl_final_speed
+duration sl_init_dur
+duration sl_final_dur
 
 ================================================================================
 MSG: ramp_msgs/Path
@@ -393,11 +380,13 @@ time stamp
 string frame_id
 ---
 
-RampTrajectory trajectory
-bool error
-
 TrajectoryResponse[] resps
 
+
+================================================================================
+MSG: ramp_msgs/TrajectoryResponse
+RampTrajectory trajectory
+bool error
 
 ================================================================================
 MSG: ramp_msgs/RampTrajectory
@@ -487,15 +476,10 @@ ramp_msgs/KnotPoint[] points
 MSG: ramp_msgs/KnotPoint
 ramp_msgs/MotionState motionState
 uint32 stopTime
-
-================================================================================
-MSG: ramp_msgs/TrajectoryResponse
-RampTrajectory trajectory
-bool error
 ")
 
 
 
-(provide :ramp_msgs/TrajectorySrv "74cb2a92026a7e1f5cd832b3efb48cb0")
+(provide :ramp_msgs/TrajectorySrv "8ccd59d329076db69674b9c52d4134e4")
 
 

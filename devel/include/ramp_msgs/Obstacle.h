@@ -16,6 +16,8 @@
 #include <ros/message_operations.h>
 
 #include <ramp_msgs/MotionState.h>
+#include <ramp_msgs/CircleGroup.h>
+#include <nav_msgs/Odometry.h>
 #include <geometry_msgs/Transform.h>
 
 namespace ramp_msgs
@@ -27,10 +29,14 @@ struct Obstacle_
 
   Obstacle_()
     : ob_ms()
+    , cirGroup()
+    , odom()
     , T_w_odom()  {
     }
   Obstacle_(const ContainerAllocator& _alloc)
     : ob_ms(_alloc)
+    , cirGroup(_alloc)
+    , odom(_alloc)
     , T_w_odom(_alloc)  {
   (void)_alloc;
     }
@@ -39,6 +45,12 @@ struct Obstacle_
 
    typedef  ::ramp_msgs::MotionState_<ContainerAllocator>  _ob_ms_type;
   _ob_ms_type ob_ms;
+
+   typedef  ::ramp_msgs::CircleGroup_<ContainerAllocator>  _cirGroup_type;
+  _cirGroup_type cirGroup;
+
+   typedef  ::nav_msgs::Odometry_<ContainerAllocator>  _odom_type;
+  _odom_type odom;
 
    typedef  ::geometry_msgs::Transform_<ContainerAllocator>  _T_w_odom_type;
   _T_w_odom_type T_w_odom;
@@ -73,6 +85,8 @@ template<typename ContainerAllocator1, typename ContainerAllocator2>
 bool operator==(const ::ramp_msgs::Obstacle_<ContainerAllocator1> & lhs, const ::ramp_msgs::Obstacle_<ContainerAllocator2> & rhs)
 {
   return lhs.ob_ms == rhs.ob_ms &&
+    lhs.cirGroup == rhs.cirGroup &&
+    lhs.odom == rhs.odom &&
     lhs.T_w_odom == rhs.T_w_odom;
 }
 
@@ -130,12 +144,12 @@ struct MD5Sum< ::ramp_msgs::Obstacle_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "1c898b42573c16c59c5800c91c7d0b57";
+    return "4161a43c4114be728fdd1d8e33f7e027";
   }
 
   static const char* value(const ::ramp_msgs::Obstacle_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x1c898b42573c16c5ULL;
-  static const uint64_t static_value2 = 0x9c5800c91c7d0b57ULL;
+  static const uint64_t static_value1 = 0x4161a43c4114be72ULL;
+  static const uint64_t static_value2 = 0x8fdd1d8e33f7e027ULL;
 };
 
 template<class ContainerAllocator>
@@ -155,6 +169,8 @@ struct Definition< ::ramp_msgs::Obstacle_<ContainerAllocator> >
   static const char* value()
   {
     return "ramp_msgs/MotionState ob_ms\n"
+"ramp_msgs/CircleGroup cirGroup\n"
+"nav_msgs/Odometry odom\n"
 "geometry_msgs/Transform T_w_odom\n"
 "\n"
 "================================================================================\n"
@@ -168,11 +184,14 @@ struct Definition< ::ramp_msgs::Obstacle_<ContainerAllocator> >
 "float64 time\n"
 "\n"
 "================================================================================\n"
-"MSG: geometry_msgs/Transform\n"
-"# This represents the transform between two coordinate frames in free space.\n"
+"MSG: ramp_msgs/CircleGroup\n"
+"ramp_msgs/Circle fitCir\n"
+"ramp_msgs/Circle[] packedCirs\n"
 "\n"
-"Vector3 translation\n"
-"Quaternion rotation\n"
+"================================================================================\n"
+"MSG: ramp_msgs/Circle\n"
+"geometry_msgs/Vector3 center\n"
+"float64 radius\n"
 "\n"
 "================================================================================\n"
 "MSG: geometry_msgs/Vector3\n"
@@ -187,6 +206,57 @@ struct Definition< ::ramp_msgs::Obstacle_<ContainerAllocator> >
 "float64 y\n"
 "float64 z\n"
 "================================================================================\n"
+"MSG: nav_msgs/Odometry\n"
+"# This represents an estimate of a position and velocity in free space.  \n"
+"# The pose in this message should be specified in the coordinate frame given by header.frame_id.\n"
+"# The twist in this message should be specified in the coordinate frame given by the child_frame_id\n"
+"Header header\n"
+"string child_frame_id\n"
+"geometry_msgs/PoseWithCovariance pose\n"
+"geometry_msgs/TwistWithCovariance twist\n"
+"\n"
+"================================================================================\n"
+"MSG: std_msgs/Header\n"
+"# Standard metadata for higher-level stamped data types.\n"
+"# This is generally used to communicate timestamped data \n"
+"# in a particular coordinate frame.\n"
+"# \n"
+"# sequence ID: consecutively increasing ID \n"
+"uint32 seq\n"
+"#Two-integer timestamp that is expressed as:\n"
+"# * stamp.sec: seconds (stamp_secs) since epoch (in Python the variable is called 'secs')\n"
+"# * stamp.nsec: nanoseconds since stamp_secs (in Python the variable is called 'nsecs')\n"
+"# time-handling sugar is provided by the client library\n"
+"time stamp\n"
+"#Frame this data is associated with\n"
+"string frame_id\n"
+"\n"
+"================================================================================\n"
+"MSG: geometry_msgs/PoseWithCovariance\n"
+"# This represents a pose in free space with uncertainty.\n"
+"\n"
+"Pose pose\n"
+"\n"
+"# Row-major representation of the 6x6 covariance matrix\n"
+"# The orientation parameters use a fixed-axis representation.\n"
+"# In order, the parameters are:\n"
+"# (x, y, z, rotation about X axis, rotation about Y axis, rotation about Z axis)\n"
+"float64[36] covariance\n"
+"\n"
+"================================================================================\n"
+"MSG: geometry_msgs/Pose\n"
+"# A representation of pose in free space, composed of position and orientation. \n"
+"Point position\n"
+"Quaternion orientation\n"
+"\n"
+"================================================================================\n"
+"MSG: geometry_msgs/Point\n"
+"# This contains the position of a point in free space\n"
+"float64 x\n"
+"float64 y\n"
+"float64 z\n"
+"\n"
+"================================================================================\n"
 "MSG: geometry_msgs/Quaternion\n"
 "# This represents an orientation in free space in quaternion form.\n"
 "\n"
@@ -194,6 +264,31 @@ struct Definition< ::ramp_msgs::Obstacle_<ContainerAllocator> >
 "float64 y\n"
 "float64 z\n"
 "float64 w\n"
+"\n"
+"================================================================================\n"
+"MSG: geometry_msgs/TwistWithCovariance\n"
+"# This expresses velocity in free space with uncertainty.\n"
+"\n"
+"Twist twist\n"
+"\n"
+"# Row-major representation of the 6x6 covariance matrix\n"
+"# The orientation parameters use a fixed-axis representation.\n"
+"# In order, the parameters are:\n"
+"# (x, y, z, rotation about X axis, rotation about Y axis, rotation about Z axis)\n"
+"float64[36] covariance\n"
+"\n"
+"================================================================================\n"
+"MSG: geometry_msgs/Twist\n"
+"# This expresses velocity in free space broken into its linear and angular parts.\n"
+"Vector3  linear\n"
+"Vector3  angular\n"
+"\n"
+"================================================================================\n"
+"MSG: geometry_msgs/Transform\n"
+"# This represents the transform between two coordinate frames in free space.\n"
+"\n"
+"Vector3 translation\n"
+"Quaternion rotation\n"
 ;
   }
 
@@ -213,6 +308,8 @@ namespace serialization
     template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
     {
       stream.next(m.ob_ms);
+      stream.next(m.cirGroup);
+      stream.next(m.odom);
       stream.next(m.T_w_odom);
     }
 
@@ -235,6 +332,12 @@ struct Printer< ::ramp_msgs::Obstacle_<ContainerAllocator> >
     s << indent << "ob_ms: ";
     s << std::endl;
     Printer< ::ramp_msgs::MotionState_<ContainerAllocator> >::stream(s, indent + "  ", v.ob_ms);
+    s << indent << "cirGroup: ";
+    s << std::endl;
+    Printer< ::ramp_msgs::CircleGroup_<ContainerAllocator> >::stream(s, indent + "  ", v.cirGroup);
+    s << indent << "odom: ";
+    s << std::endl;
+    Printer< ::nav_msgs::Odometry_<ContainerAllocator> >::stream(s, indent + "  ", v.odom);
     s << indent << "T_w_odom: ";
     s << std::endl;
     Printer< ::geometry_msgs::Transform_<ContainerAllocator> >::stream(s, indent + "  ", v.T_w_odom);

@@ -40,9 +40,12 @@ endif()
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ramp_msgs/msg" TYPE FILE FILES
     "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/BezierCurve.msg"
+    "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/CircleGroup.msg"
+    "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/Circle.msg"
     "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/EvaluationRequest.msg"
     "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/EvaluationResponse.msg"
     "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/KnotPoint.msg"
+    "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/HilbertMap.msg"
     "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/MotionState.msg"
     "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/Path.msg"
     "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg/RampTrajectory.msg"

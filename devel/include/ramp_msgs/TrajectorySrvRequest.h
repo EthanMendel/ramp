@@ -123,12 +123,12 @@ struct MD5Sum< ::ramp_msgs::TrajectorySrvRequest_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "101e27bc6a9ab5f6be0769461d2fc9bd";
+    return "4482f86700b066be4ed8ea43c3afcfa6";
   }
 
   static const char* value(const ::ramp_msgs::TrajectorySrvRequest_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x101e27bc6a9ab5f6ULL;
-  static const uint64_t static_value2 = 0xbe0769461d2fc9bdULL;
+  static const uint64_t static_value1 = 0x4482f86700b066beULL;
+  static const uint64_t static_value2 = 0x4ed8ea43c3afcfa6ULL;
 };
 
 template<class ContainerAllocator>
@@ -157,6 +157,14 @@ struct Definition< ::ramp_msgs::TrajectorySrvRequest_<ContainerAllocator> >
 "bool print\n"
 "ramp_msgs/BezierCurve[] bezierCurves\n"
 "int8 segments\n"
+"float64 max_speed_linear\n"
+"float64 max_speed_angular\n"
+"\n"
+"# For system-level test generation...\n"
+"bool sl_traj\n"
+"float64 sl_final_speed\n"
+"duration sl_init_dur\n"
+"duration sl_final_dur\n"
 "\n"
 "================================================================================\n"
 "MSG: ramp_msgs/Path\n"

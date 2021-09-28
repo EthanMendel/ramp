@@ -1,7 +1,10 @@
 file(REMOVE_RECURSE
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/common-lisp/ros/ramp_msgs/msg/BezierCurve.lisp"
+  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/common-lisp/ros/ramp_msgs/msg/Circle.lisp"
+  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/common-lisp/ros/ramp_msgs/msg/CircleGroup.lisp"
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/common-lisp/ros/ramp_msgs/msg/EvaluationRequest.lisp"
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/common-lisp/ros/ramp_msgs/msg/EvaluationResponse.lisp"
+  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/common-lisp/ros/ramp_msgs/msg/HilbertMap.lisp"
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/common-lisp/ros/ramp_msgs/msg/KnotPoint.lisp"
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/common-lisp/ros/ramp_msgs/msg/MotionState.lisp"
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/common-lisp/ros/ramp_msgs/msg/Obstacle.lisp"

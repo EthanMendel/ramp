@@ -123,12 +123,12 @@ struct MD5Sum< ::ramp_msgs::EvaluationSrvRequest_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "fcf6b2aaca3f00a1a4d772744cce78ee";
+    return "c5f4358a97c363f83106d9ab74137f28";
   }
 
   static const char* value(const ::ramp_msgs::EvaluationSrvRequest_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0xfcf6b2aaca3f00a1ULL;
-  static const uint64_t static_value2 = 0xa4d772744cce78eeULL;
+  static const uint64_t static_value1 = 0xc5f4358a97c363f8ULL;
+  static const uint64_t static_value2 = 0x3106d9ab74137f28ULL;
 };
 
 template<class ContainerAllocator>
@@ -153,16 +153,18 @@ struct Definition< ::ramp_msgs::EvaluationSrvRequest_<ContainerAllocator> >
 "================================================================================\n"
 "MSG: ramp_msgs/EvaluationRequest\n"
 "RampTrajectory trajectory\n"
+"float64 robot_radius\n"
 "float64 currentTheta\n"
 "float64 theta_cc\n"
 "RampTrajectory[] obstacle_trjs\n"
+"CircleGroup[] obstacle_cir_groups\n"
 "bool imminent_collision\n"
-"float64 coll_dist\n"
 "float64 offset\n"
 "bool full_eval\n"
 "\n"
 "bool consider_trans\n"
 "bool trans_possible\n"
+"bool hmap_eval\n"
 "\n"
 "================================================================================\n"
 "MSG: ramp_msgs/RampTrajectory\n"
@@ -252,6 +254,29 @@ struct Definition< ::ramp_msgs::EvaluationSrvRequest_<ContainerAllocator> >
 "MSG: ramp_msgs/KnotPoint\n"
 "ramp_msgs/MotionState motionState\n"
 "uint32 stopTime\n"
+"\n"
+"================================================================================\n"
+"MSG: ramp_msgs/CircleGroup\n"
+"ramp_msgs/Circle fitCir\n"
+"ramp_msgs/Circle[] packedCirs\n"
+"\n"
+"================================================================================\n"
+"MSG: ramp_msgs/Circle\n"
+"geometry_msgs/Vector3 center\n"
+"float64 radius\n"
+"\n"
+"================================================================================\n"
+"MSG: geometry_msgs/Vector3\n"
+"# This represents a vector in free space. \n"
+"# It is only meant to represent a direction. Therefore, it does not\n"
+"# make sense to apply a translation to it (e.g., when applying a \n"
+"# generic rigid transformation to a Vector3, tf2 will only apply the\n"
+"# rotation). If you want your data to be translatable too, use the\n"
+"# geometry_msgs/Point message instead.\n"
+"\n"
+"float64 x\n"
+"float64 y\n"
+"float64 z\n"
 ;
   }
 

@@ -17,6 +17,7 @@
 
 #include <ramp_msgs/RampTrajectory.h>
 #include <ramp_msgs/RampTrajectory.h>
+#include <ramp_msgs/CircleGroup.h>
 
 namespace ramp_msgs
 {
@@ -27,27 +28,31 @@ struct EvaluationRequest_
 
   EvaluationRequest_()
     : trajectory()
+    , robot_radius(0.0)
     , currentTheta(0.0)
     , theta_cc(0.0)
     , obstacle_trjs()
+    , obstacle_cir_groups()
     , imminent_collision(false)
-    , coll_dist(0.0)
     , offset(0.0)
     , full_eval(false)
     , consider_trans(false)
-    , trans_possible(false)  {
+    , trans_possible(false)
+    , hmap_eval(false)  {
     }
   EvaluationRequest_(const ContainerAllocator& _alloc)
     : trajectory(_alloc)
+    , robot_radius(0.0)
     , currentTheta(0.0)
     , theta_cc(0.0)
     , obstacle_trjs(_alloc)
+    , obstacle_cir_groups(_alloc)
     , imminent_collision(false)
-    , coll_dist(0.0)
     , offset(0.0)
     , full_eval(false)
     , consider_trans(false)
-    , trans_possible(false)  {
+    , trans_possible(false)
+    , hmap_eval(false)  {
   (void)_alloc;
     }
 
@@ -55,6 +60,9 @@ struct EvaluationRequest_
 
    typedef  ::ramp_msgs::RampTrajectory_<ContainerAllocator>  _trajectory_type;
   _trajectory_type trajectory;
+
+   typedef double _robot_radius_type;
+  _robot_radius_type robot_radius;
 
    typedef double _currentTheta_type;
   _currentTheta_type currentTheta;
@@ -65,11 +73,11 @@ struct EvaluationRequest_
    typedef std::vector< ::ramp_msgs::RampTrajectory_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::ramp_msgs::RampTrajectory_<ContainerAllocator> >::other >  _obstacle_trjs_type;
   _obstacle_trjs_type obstacle_trjs;
 
+   typedef std::vector< ::ramp_msgs::CircleGroup_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::ramp_msgs::CircleGroup_<ContainerAllocator> >::other >  _obstacle_cir_groups_type;
+  _obstacle_cir_groups_type obstacle_cir_groups;
+
    typedef uint8_t _imminent_collision_type;
   _imminent_collision_type imminent_collision;
-
-   typedef double _coll_dist_type;
-  _coll_dist_type coll_dist;
 
    typedef double _offset_type;
   _offset_type offset;
@@ -82,6 +90,9 @@ struct EvaluationRequest_
 
    typedef uint8_t _trans_possible_type;
   _trans_possible_type trans_possible;
+
+   typedef uint8_t _hmap_eval_type;
+  _hmap_eval_type hmap_eval;
 
 
 
@@ -113,15 +124,17 @@ template<typename ContainerAllocator1, typename ContainerAllocator2>
 bool operator==(const ::ramp_msgs::EvaluationRequest_<ContainerAllocator1> & lhs, const ::ramp_msgs::EvaluationRequest_<ContainerAllocator2> & rhs)
 {
   return lhs.trajectory == rhs.trajectory &&
+    lhs.robot_radius == rhs.robot_radius &&
     lhs.currentTheta == rhs.currentTheta &&
     lhs.theta_cc == rhs.theta_cc &&
     lhs.obstacle_trjs == rhs.obstacle_trjs &&
+    lhs.obstacle_cir_groups == rhs.obstacle_cir_groups &&
     lhs.imminent_collision == rhs.imminent_collision &&
-    lhs.coll_dist == rhs.coll_dist &&
     lhs.offset == rhs.offset &&
     lhs.full_eval == rhs.full_eval &&
     lhs.consider_trans == rhs.consider_trans &&
-    lhs.trans_possible == rhs.trans_possible;
+    lhs.trans_possible == rhs.trans_possible &&
+    lhs.hmap_eval == rhs.hmap_eval;
 }
 
 template<typename ContainerAllocator1, typename ContainerAllocator2>
@@ -178,12 +191,12 @@ struct MD5Sum< ::ramp_msgs::EvaluationRequest_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "8964e17c705f63c522df77b43636a204";
+    return "40e525bfb7e4a2a45b79429a4d3f00db";
   }
 
   static const char* value(const ::ramp_msgs::EvaluationRequest_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x8964e17c705f63c5ULL;
-  static const uint64_t static_value2 = 0x22df77b43636a204ULL;
+  static const uint64_t static_value1 = 0x40e525bfb7e4a2a4ULL;
+  static const uint64_t static_value2 = 0x5b79429a4d3f00dbULL;
 };
 
 template<class ContainerAllocator>
@@ -203,16 +216,18 @@ struct Definition< ::ramp_msgs::EvaluationRequest_<ContainerAllocator> >
   static const char* value()
   {
     return "RampTrajectory trajectory\n"
+"float64 robot_radius\n"
 "float64 currentTheta\n"
 "float64 theta_cc\n"
 "RampTrajectory[] obstacle_trjs\n"
+"CircleGroup[] obstacle_cir_groups\n"
 "bool imminent_collision\n"
-"float64 coll_dist\n"
 "float64 offset\n"
 "bool full_eval\n"
 "\n"
 "bool consider_trans\n"
 "bool trans_possible\n"
+"bool hmap_eval\n"
 "\n"
 "================================================================================\n"
 "MSG: ramp_msgs/RampTrajectory\n"
@@ -302,6 +317,29 @@ struct Definition< ::ramp_msgs::EvaluationRequest_<ContainerAllocator> >
 "MSG: ramp_msgs/KnotPoint\n"
 "ramp_msgs/MotionState motionState\n"
 "uint32 stopTime\n"
+"\n"
+"================================================================================\n"
+"MSG: ramp_msgs/CircleGroup\n"
+"ramp_msgs/Circle fitCir\n"
+"ramp_msgs/Circle[] packedCirs\n"
+"\n"
+"================================================================================\n"
+"MSG: ramp_msgs/Circle\n"
+"geometry_msgs/Vector3 center\n"
+"float64 radius\n"
+"\n"
+"================================================================================\n"
+"MSG: geometry_msgs/Vector3\n"
+"# This represents a vector in free space. \n"
+"# It is only meant to represent a direction. Therefore, it does not\n"
+"# make sense to apply a translation to it (e.g., when applying a \n"
+"# generic rigid transformation to a Vector3, tf2 will only apply the\n"
+"# rotation). If you want your data to be translatable too, use the\n"
+"# geometry_msgs/Point message instead.\n"
+"\n"
+"float64 x\n"
+"float64 y\n"
+"float64 z\n"
 ;
   }
 
@@ -321,15 +359,17 @@ namespace serialization
     template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
     {
       stream.next(m.trajectory);
+      stream.next(m.robot_radius);
       stream.next(m.currentTheta);
       stream.next(m.theta_cc);
       stream.next(m.obstacle_trjs);
+      stream.next(m.obstacle_cir_groups);
       stream.next(m.imminent_collision);
-      stream.next(m.coll_dist);
       stream.next(m.offset);
       stream.next(m.full_eval);
       stream.next(m.consider_trans);
       stream.next(m.trans_possible);
+      stream.next(m.hmap_eval);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -351,6 +391,8 @@ struct Printer< ::ramp_msgs::EvaluationRequest_<ContainerAllocator> >
     s << indent << "trajectory: ";
     s << std::endl;
     Printer< ::ramp_msgs::RampTrajectory_<ContainerAllocator> >::stream(s, indent + "  ", v.trajectory);
+    s << indent << "robot_radius: ";
+    Printer<double>::stream(s, indent + "  ", v.robot_radius);
     s << indent << "currentTheta: ";
     Printer<double>::stream(s, indent + "  ", v.currentTheta);
     s << indent << "theta_cc: ";
@@ -363,10 +405,16 @@ struct Printer< ::ramp_msgs::EvaluationRequest_<ContainerAllocator> >
       s << indent;
       Printer< ::ramp_msgs::RampTrajectory_<ContainerAllocator> >::stream(s, indent + "    ", v.obstacle_trjs[i]);
     }
+    s << indent << "obstacle_cir_groups[]" << std::endl;
+    for (size_t i = 0; i < v.obstacle_cir_groups.size(); ++i)
+    {
+      s << indent << "  obstacle_cir_groups[" << i << "]: ";
+      s << std::endl;
+      s << indent;
+      Printer< ::ramp_msgs::CircleGroup_<ContainerAllocator> >::stream(s, indent + "    ", v.obstacle_cir_groups[i]);
+    }
     s << indent << "imminent_collision: ";
     Printer<uint8_t>::stream(s, indent + "  ", v.imminent_collision);
-    s << indent << "coll_dist: ";
-    Printer<double>::stream(s, indent + "  ", v.coll_dist);
     s << indent << "offset: ";
     Printer<double>::stream(s, indent + "  ", v.offset);
     s << indent << "full_eval: ";
@@ -375,6 +423,8 @@ struct Printer< ::ramp_msgs::EvaluationRequest_<ContainerAllocator> >
     Printer<uint8_t>::stream(s, indent + "  ", v.consider_trans);
     s << indent << "trans_possible: ";
     Printer<uint8_t>::stream(s, indent + "  ", v.trans_possible);
+    s << indent << "hmap_eval: ";
+    Printer<uint8_t>::stream(s, indent + "  ", v.hmap_eval);
   }
 };
 

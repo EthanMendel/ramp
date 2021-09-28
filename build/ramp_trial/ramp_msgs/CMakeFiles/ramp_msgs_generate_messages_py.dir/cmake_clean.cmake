@@ -1,7 +1,10 @@
 file(REMOVE_RECURSE
   "/home/emendel/Documents/IndepententStudy/ramp/devel/lib/python3/dist-packages/ramp_msgs/msg/_BezierCurve.py"
+  "/home/emendel/Documents/IndepententStudy/ramp/devel/lib/python3/dist-packages/ramp_msgs/msg/_Circle.py"
+  "/home/emendel/Documents/IndepententStudy/ramp/devel/lib/python3/dist-packages/ramp_msgs/msg/_CircleGroup.py"
   "/home/emendel/Documents/IndepententStudy/ramp/devel/lib/python3/dist-packages/ramp_msgs/msg/_EvaluationRequest.py"
   "/home/emendel/Documents/IndepententStudy/ramp/devel/lib/python3/dist-packages/ramp_msgs/msg/_EvaluationResponse.py"
+  "/home/emendel/Documents/IndepententStudy/ramp/devel/lib/python3/dist-packages/ramp_msgs/msg/_HilbertMap.py"
   "/home/emendel/Documents/IndepententStudy/ramp/devel/lib/python3/dist-packages/ramp_msgs/msg/_KnotPoint.py"
   "/home/emendel/Documents/IndepententStudy/ramp/devel/lib/python3/dist-packages/ramp_msgs/msg/_MotionState.py"
   "/home/emendel/Documents/IndepententStudy/ramp/devel/lib/python3/dist-packages/ramp_msgs/msg/_Obstacle.py"

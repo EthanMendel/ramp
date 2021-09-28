@@ -27,14 +27,16 @@ struct ModificationRequestRequest_
   ModificationRequestRequest_()
     : paths()
     , op()
-    , move_dist(0.0)
-    , move_dir(0.0)  {
+    , repair_dist(0.0)
+    , repair_dir(0.0)
+    , repair_ob_r(0.0)  {
     }
   ModificationRequestRequest_(const ContainerAllocator& _alloc)
     : paths(_alloc)
     , op(_alloc)
-    , move_dist(0.0)
-    , move_dir(0.0)  {
+    , repair_dist(0.0)
+    , repair_dir(0.0)
+    , repair_ob_r(0.0)  {
   (void)_alloc;
     }
 
@@ -46,11 +48,14 @@ struct ModificationRequestRequest_
    typedef std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other >  _op_type;
   _op_type op;
 
-   typedef double _move_dist_type;
-  _move_dist_type move_dist;
+   typedef double _repair_dist_type;
+  _repair_dist_type repair_dist;
 
-   typedef double _move_dir_type;
-  _move_dir_type move_dir;
+   typedef double _repair_dir_type;
+  _repair_dir_type repair_dir;
+
+   typedef double _repair_ob_r_type;
+  _repair_ob_r_type repair_ob_r;
 
 
 
@@ -83,8 +88,9 @@ bool operator==(const ::ramp_msgs::ModificationRequestRequest_<ContainerAllocato
 {
   return lhs.paths == rhs.paths &&
     lhs.op == rhs.op &&
-    lhs.move_dist == rhs.move_dist &&
-    lhs.move_dir == rhs.move_dir;
+    lhs.repair_dist == rhs.repair_dist &&
+    lhs.repair_dir == rhs.repair_dir &&
+    lhs.repair_ob_r == rhs.repair_ob_r;
 }
 
 template<typename ContainerAllocator1, typename ContainerAllocator2>
@@ -141,12 +147,12 @@ struct MD5Sum< ::ramp_msgs::ModificationRequestRequest_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "6a1d61389648b601b0bb8dc72c5e0625";
+    return "1b9149e06876118897e547ab93169683";
   }
 
   static const char* value(const ::ramp_msgs::ModificationRequestRequest_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x6a1d61389648b601ULL;
-  static const uint64_t static_value2 = 0xb0bb8dc72c5e0625ULL;
+  static const uint64_t static_value1 = 0x1b9149e068761188ULL;
+  static const uint64_t static_value2 = 0x97e547ab93169683ULL;
 };
 
 template<class ContainerAllocator>
@@ -167,8 +173,9 @@ struct Definition< ::ramp_msgs::ModificationRequestRequest_<ContainerAllocator> 
   {
     return "Path[] paths\n"
 "string op\n"
-"float64 move_dist\n"
-"float64 move_dir\n"
+"float64 repair_dist\n"
+"float64 repair_dir\n"
+"float64 repair_ob_r\n"
 "\n"
 "\n"
 "================================================================================\n"
@@ -209,8 +216,9 @@ namespace serialization
     {
       stream.next(m.paths);
       stream.next(m.op);
-      stream.next(m.move_dist);
-      stream.next(m.move_dir);
+      stream.next(m.repair_dist);
+      stream.next(m.repair_dir);
+      stream.next(m.repair_ob_r);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -239,10 +247,12 @@ struct Printer< ::ramp_msgs::ModificationRequestRequest_<ContainerAllocator> >
     }
     s << indent << "op: ";
     Printer<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > >::stream(s, indent + "  ", v.op);
-    s << indent << "move_dist: ";
-    Printer<double>::stream(s, indent + "  ", v.move_dist);
-    s << indent << "move_dir: ";
-    Printer<double>::stream(s, indent + "  ", v.move_dir);
+    s << indent << "repair_dist: ";
+    Printer<double>::stream(s, indent + "  ", v.repair_dist);
+    s << indent << "repair_dir: ";
+    Printer<double>::stream(s, indent + "  ", v.repair_dir);
+    s << indent << "repair_ob_r: ";
+    Printer<double>::stream(s, indent + "  ", v.repair_ob_r);
   }
 };
 

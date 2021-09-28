@@ -15,7 +15,6 @@
 #include <ros/builtin_message_traits.h>
 #include <ros/message_operations.h>
 
-#include <ramp_msgs/RampTrajectory.h>
 #include <ramp_msgs/TrajectoryResponse.h>
 
 namespace ramp_msgs
@@ -26,24 +25,14 @@ struct TrajectorySrvResponse_
   typedef TrajectorySrvResponse_<ContainerAllocator> Type;
 
   TrajectorySrvResponse_()
-    : trajectory()
-    , error(false)
-    , resps()  {
+    : resps()  {
     }
   TrajectorySrvResponse_(const ContainerAllocator& _alloc)
-    : trajectory(_alloc)
-    , error(false)
-    , resps(_alloc)  {
+    : resps(_alloc)  {
   (void)_alloc;
     }
 
 
-
-   typedef  ::ramp_msgs::RampTrajectory_<ContainerAllocator>  _trajectory_type;
-  _trajectory_type trajectory;
-
-   typedef uint8_t _error_type;
-  _error_type error;
 
    typedef std::vector< ::ramp_msgs::TrajectoryResponse_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::ramp_msgs::TrajectoryResponse_<ContainerAllocator> >::other >  _resps_type;
   _resps_type resps;
@@ -77,9 +66,7 @@ return s;
 template<typename ContainerAllocator1, typename ContainerAllocator2>
 bool operator==(const ::ramp_msgs::TrajectorySrvResponse_<ContainerAllocator1> & lhs, const ::ramp_msgs::TrajectorySrvResponse_<ContainerAllocator2> & rhs)
 {
-  return lhs.trajectory == rhs.trajectory &&
-    lhs.error == rhs.error &&
-    lhs.resps == rhs.resps;
+  return lhs.resps == rhs.resps;
 }
 
 template<typename ContainerAllocator1, typename ContainerAllocator2>
@@ -136,12 +123,12 @@ struct MD5Sum< ::ramp_msgs::TrajectorySrvResponse_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "9c1e8ebdfb3e8233fe73af09818604e7";
+    return "7c551a792aa4472a1be4db823364d34a";
   }
 
   static const char* value(const ::ramp_msgs::TrajectorySrvResponse_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x9c1e8ebdfb3e8233ULL;
-  static const uint64_t static_value2 = 0xfe73af09818604e7ULL;
+  static const uint64_t static_value1 = 0x7c551a792aa4472aULL;
+  static const uint64_t static_value2 = 0x1be4db823364d34aULL;
 };
 
 template<class ContainerAllocator>
@@ -161,11 +148,13 @@ struct Definition< ::ramp_msgs::TrajectorySrvResponse_<ContainerAllocator> >
   static const char* value()
   {
     return "\n"
-"RampTrajectory trajectory\n"
-"bool error\n"
-"\n"
 "TrajectoryResponse[] resps\n"
 "\n"
+"\n"
+"================================================================================\n"
+"MSG: ramp_msgs/TrajectoryResponse\n"
+"RampTrajectory trajectory\n"
+"bool error\n"
 "\n"
 "================================================================================\n"
 "MSG: ramp_msgs/RampTrajectory\n"
@@ -255,11 +244,6 @@ struct Definition< ::ramp_msgs::TrajectorySrvResponse_<ContainerAllocator> >
 "MSG: ramp_msgs/KnotPoint\n"
 "ramp_msgs/MotionState motionState\n"
 "uint32 stopTime\n"
-"\n"
-"================================================================================\n"
-"MSG: ramp_msgs/TrajectoryResponse\n"
-"RampTrajectory trajectory\n"
-"bool error\n"
 ;
   }
 
@@ -278,8 +262,6 @@ namespace serialization
   {
     template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
     {
-      stream.next(m.trajectory);
-      stream.next(m.error);
       stream.next(m.resps);
     }
 
@@ -299,11 +281,6 @@ struct Printer< ::ramp_msgs::TrajectorySrvResponse_<ContainerAllocator> >
 {
   template<typename Stream> static void stream(Stream& s, const std::string& indent, const ::ramp_msgs::TrajectorySrvResponse_<ContainerAllocator>& v)
   {
-    s << indent << "trajectory: ";
-    s << std::endl;
-    Printer< ::ramp_msgs::RampTrajectory_<ContainerAllocator> >::stream(s, indent + "  ", v.trajectory);
-    s << indent << "error: ";
-    Printer<uint8_t>::stream(s, indent + "  ", v.error);
     s << indent << "resps[]" << std::endl;
     for (size_t i = 0; i < v.resps.size(); ++i)
     {
