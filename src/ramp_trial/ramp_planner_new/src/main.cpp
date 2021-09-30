@@ -6,6 +6,8 @@ Utility utility;
 
 int                 id;
 MotionState         start, goal;
+Path                straightLinePath;
+RvizHandler         pub_rviz;
 std::vector<Range>  ranges;
 double              radius;
 double              max_speed_linear;
@@ -69,6 +71,13 @@ void initStartGoal(const std::vector<float> s, const std::vector<float> g) {
     start.msg_.jerks.push_back(0);
     goal.msg_.jerks.push_back(0);
   }
+}
+
+void makeStraightPath(const MotionState s, const MotionState g){
+  Path p(s,g);
+  for(unsigned int i=1;i<p.msg_.points.size();i++){
+      straightLinePath.msg_.points.push_back(p.msg_.points.at(i))
+  }  
 }
 
  /** loads all ros parameters from .yaml 
@@ -278,10 +287,35 @@ void pubStartGoalMarkers(){
     ROS_INFO("Rviz started");
   }
 
-  pub_rviz.publish(result);
-  pub_rviz.publish(result);
+  pub_rviz.sendMarkerArray(result);
+  pub_rviz.sendMarkerArray(result);
   
   ROS_INFO("Exiting pubStartGoalMarkers");
+}
+
+void pubPath(){
+  ROS_INFO("In pubPath");
+
+  ramp_msgs::Path p_msg = straightLinePath.buildPathMsg();
+
+  ROS_INFO("Waiting for rviz to start...");
+  ros::Rate r(100);
+  ros::Time tStart = ros::Time::now();
+  ros::Duration dWait(10);
+  while(pub_rviz.getNumSubscribers() == 0 && (ros::Time::now() - tStart) < dWait){
+    ros::spinOnce();
+    r.sleep();
+  }
+  if(pub_rviz.getNumSubscribers() == 0){
+    ROS_WARN("Could not get subscriber for \"visualization_marker_array\"");
+  }else{
+    ROS_INFO("Rviz started");
+  }
+
+  pub_rviz.sendPath(p_msg);
+  pub_rviz.sendPath(p_msg);
+  
+  ROS_INFO("Exiting pubPath");
 }
 
 int main(int argc, char** argv) {
@@ -297,7 +331,7 @@ int main(int argc, char** argv) {
   loadParameters(handle);
   ROS_INFO("Done loading rosparams");
   
-  pub_rviz = handle.advertise<visualization_msgs::MarkerArray>("visualization_marker_array", 10);
+  pub_rviz(handle);
   
   ros::Duration d(0.5);
   d.sleep();
