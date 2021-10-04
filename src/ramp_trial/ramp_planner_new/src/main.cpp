@@ -7,7 +7,6 @@ Utility utility;
 int                 id;
 MotionState         start, goal;
 Path                straightLinePath;
-RvizHandler         pub_rviz;
 std::vector<Range>  ranges;
 double              radius;
 double              max_speed_linear;
@@ -36,7 +35,6 @@ std::string         global_frame;
 std::string         update_topic;
 
 float costmap_width, costmap_height, costmap_origin_x, costmap_origin_y;
-ros::Publisher pub_rviz;
 
 bool use_start_param;
 bool start_planner;
@@ -75,8 +73,9 @@ void initStartGoal(const std::vector<float> s, const std::vector<float> g) {
 
 void makeStraightPath(const MotionState s, const MotionState g){
   Path p(s,g);
+  std::cout<<p.toString();
   for(unsigned int i=1;i<p.msg_.points.size();i++){
-      straightLinePath.msg_.points.push_back(p.msg_.points.at(i))
+      straightLinePath.msg_.points.push_back(p.msg_.points.at(i));
   }  
 }
 
@@ -201,7 +200,7 @@ void loadParameters(const ros::NodeHandle handle){
   std::cout<<"\n---------------------------------------";
 }
 
-void pubStartGoalMarkers(){
+void pubStartGoalMarkers(RvizHandler pub_rviz){
   ROS_INFO("In pubStartGoalMarkers");
   visualization_msgs::MarkerArray result;
 
@@ -293,10 +292,57 @@ void pubStartGoalMarkers(){
   ROS_INFO("Exiting pubStartGoalMarkers");
 }
 
-void pubPath(){
+void pubPath(RvizHandler pub_rviz){
   ROS_INFO("In pubPath");
 
-  ramp_msgs::Path p_msg = straightLinePath.buildPathMsg();
+    visualization_msgs::MarkerArray result;
+
+    for(unsigned int i=0;i<straightLinePath.msg_.points.size();i++) {
+      ROS_INFO("path point" + (i+1));
+      //build the motion state msg
+      ramp_msgs::KnotPoint mp = straightLinePath.msg_.points[i];
+      // markers for both positions
+      visualization_msgs::Marker mp_marker;
+
+      mp_marker.header.stamp = ros::Time::now();
+      mp_marker.id = 10000;
+
+      mp_marker.header.frame_id = global_frame;
+
+      mp_marker.ns = "basic_shapes";
+
+      mp_marker.type = visualization_msgs::Marker::SPHERE;
+
+      mp_marker.action = visualization_msgs::Marker::ADD;
+      
+      // set positions
+      mp_marker.pose.position.x = mp.motionState.positions[0];
+      mp_marker.pose.position.y = mp.motionState.positions[1];
+      mp_marker.pose.position.z = 0.01;
+      
+      // set orientations
+      mp_marker.pose.orientation.x = 0.0;
+      mp_marker.pose.orientation.y = 0.0;
+      mp_marker.pose.orientation.z = 0.0;
+      mp_marker.pose.orientation.w = 1.0;
+    
+      // set radii
+      mp_marker.scale.x = 0.1;
+      mp_marker.scale.y = 0.1;
+      mp_marker.scale.z = 0.02;
+    
+      // set colors
+      mp_marker.color.r = 0;
+      mp_marker.color.g = 1;
+      mp_marker.color.b = 0;
+      mp_marker.color.a = 1;
+    
+      // set lifetimes
+      mp_marker.lifetime = ros::Duration(120.0);
+
+      // create marker array and publish
+      result.markers.push_back(mp_marker);
+    }
 
   ROS_INFO("Waiting for rviz to start...");
   ros::Rate r(100);
@@ -312,16 +358,17 @@ void pubPath(){
     ROS_INFO("Rviz started");
   }
 
-  pub_rviz.sendPath(p_msg);
-  pub_rviz.sendPath(p_msg);
+  pub_rviz.sendMarkerArray(result);
+  pub_rviz.sendMarkerArray(result);
   
   ROS_INFO("Exiting pubPath");
 }
 
 int main(int argc, char** argv) {
+  std::cout<<"\nstarting main\n";
   srand( time(0));
 
-  ros::init(argc, argv, "ramp_planner");
+  ros::init(argc, argv, "ramp_planner_new");
   ros::NodeHandle handle;
 
   ros::param::set("ramp/cc_started", false);
@@ -331,7 +378,7 @@ int main(int argc, char** argv) {
   loadParameters(handle);
   ROS_INFO("Done loading rosparams");
   
-  pub_rviz(handle);
+  RvizHandler pub_rviz(handle);
   
   ros::Duration d(0.5);
   d.sleep();
@@ -349,7 +396,9 @@ int main(int argc, char** argv) {
    * all parameters are loaded
    */
 
-  pubStartGoalMarkers();
+  pubStartGoalMarkers(pub_rviz);
+  makeStraightPath(start,goal);
+  pubPath(pub_rviz);
   ROS_INFO("Done with pubStartGoalMarkers");
  
   ros::Rate r(20);

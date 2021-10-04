@@ -594,6 +594,9 @@ ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/range.cpp.o: /op
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/range.cpp.o: /opt/ros/noetic/include/ros/types.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/range.cpp.o: /opt/ros/noetic/include/rosconsole/macros_generated.h
 
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/KnotPoint.h
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/MotionState.h
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/Path.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/rviz_handler.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/rviz_handler.cpp
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp.o: /opt/ros/noetic/include/geometry_msgs/Point.h

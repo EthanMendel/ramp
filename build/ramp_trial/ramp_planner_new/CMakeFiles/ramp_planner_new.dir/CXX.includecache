@@ -573,6 +573,8 @@ ros/ros.h
 /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/ros/ros.h
 visualization_msgs/MarkerArray.h
 -
+ramp_msgs/Path.h
+-
 
 /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/trajectory_request_handler.h
 ros/ros.h
