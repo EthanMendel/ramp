@@ -102,7 +102,7 @@ void makeStraightPathSlope(){
   findCoefs();
   double x = start.msg_.positions.at(0);
   double inc = (goal.msg_.positions.at(0) - x)/10.0;
-  for(unsigned int i=0;i<10;i++){
+  for(unsigned int i=0;i<11;i++){
     MotionState ms;
     ms.msg_.positions.push_back(x+(i*inc));
     ms.msg_.positions.push_back(M*(x+(i*inc))+B);
@@ -332,9 +332,7 @@ void pubPath(RvizHandler pub_rviz){
 
     visualization_msgs::MarkerArray result;
 
-    for(unsigned int i=0;i<straightLinePath.msg_.points.size();i++) {
-      //build the motion state msg
-      ramp_msgs::KnotPoint mp = straightLinePath.msg_.points[i];
+    for(unsigned int i=0;i<straightLinePath.msg_.points.size()-1;i++) {
       // markers for both positions
       visualization_msgs::Marker mp_marker;
 
@@ -343,16 +341,25 @@ void pubPath(RvizHandler pub_rviz){
 
       mp_marker.header.frame_id = global_frame;
 
-      mp_marker.ns = "basic_shapes";
+      mp_marker.ns = "points_and_lines";
 
-      mp_marker.type = visualization_msgs::Marker::SPHERE;
+      mp_marker.type = visualization_msgs::Marker::LINE_STRIP;
 
       mp_marker.action = visualization_msgs::Marker::ADD;
       
-      // set positions
-      mp_marker.pose.position.x = mp.motionState.positions[0];
-      mp_marker.pose.position.y = mp.motionState.positions[1];
-      mp_marker.pose.position.z = 0.01;
+      // first point to create line
+      geometry_msgs::Point first;
+      first.x = straightLinePath.msg_.points[i].motionState.positions[0];
+      first.y = straightLinePath.msg_.points[i].motionState.positions[1];
+      first.z = 0.01;
+      mp_marker.points.push_back(first);
+
+      // set next point to create line
+      geometry_msgs::Point next;
+      next.x = straightLinePath.msg_.points[i+1].motionState.positions[0];
+      next.y = straightLinePath.msg_.points[i+1].motionState.positions[1];
+      next.z = 0.01;
+      mp_marker.points.push_back(next);
       
       // set orientations
       mp_marker.pose.orientation.x = 0.0;
