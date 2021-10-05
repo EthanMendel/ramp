@@ -84,17 +84,27 @@ void makeStraightPathManual(const MotionState s, const MotionState g){
   }  
 }
 
-void makeStraightPathSlope(const MotionState s, const MotionState g){
-  Path p(s,g);
+void makeStraightPathSlope(){
+  findCoefs();
   for(unsigned int i=0;i<10;i++){
-    // straightLinePath.msg_.points.push_back(M*i+B);
+    MotionState ms;
+    ms.msg_.positions.push_back(M*i+B);
+    ms.msg_.velocities.push_back(0);
+    ms.msg_.accelerations.push_back(0);
+    ms.msg_.jerks.push_back(0);
+
+    straightLinePath.msg_.points.push_back(ms);
   }
 }
 
-void publishPath(){
-  M = start.msg_.positions[1] / start.msg_.positions[0];
-  B = -(M*start.msg_.positions[0] - start.msg_.positions[1]);
-  //DO SOMETHING WITH THESE?
+void findCoefs(){
+  if(start.msg_.positions.size() > 0 && start.msg_.positions.size() > 0){
+    M = start.msg_.positions[1] / start.msg_.positions[0];
+    B = -(M*start.msg_.positions[0] - start.msg_.positions[1]);
+  }else{
+    M = 0;
+    B = 0;
+  }
 }
 
  /** loads all ros parameters from .yaml 
