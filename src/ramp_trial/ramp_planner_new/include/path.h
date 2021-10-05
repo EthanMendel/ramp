@@ -18,6 +18,9 @@ class Path {
     KnotPoint start_;
     KnotPoint goal_;
 
+    double M;
+    double B;
+
     ramp_msgs::Path msg_;
 
     Utility utility_;
@@ -33,6 +36,8 @@ class Path {
     const unsigned int size() const;
     const ramp_msgs::Path buildPathMsg() const; 
     const std::string toString() const;
+    void findLinearCoefs();
+    void makeStraightPath();
 };
 
 #endif

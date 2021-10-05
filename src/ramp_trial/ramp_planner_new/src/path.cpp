@@ -112,3 +112,33 @@ const std::string Path::toString() const {
   }
   return result.str();
 }
+
+void Path::findLinearCoefs(){
+  std::cout<<"size of path: "<<msg_.points.size();
+  if(msg_.points.size() >= 2){
+    std::cout<<"findng M and B\n";
+    M = (msg_.points.at(0).motionState.positions.at(1) - msg_.points.at(msg_.points.size() - 1).motionState.positions.at(1)) / 
+        (msg_.points.at(0).motionState.positions.at(0) - msg_.points.at(msg_.points.size() - 1).motionState.positions.at(0));
+    B = -(M*msg_.points.at(1).motionState.positions.at(0) - msg_.points.at(1).motionState.positions.at(1));
+  }else{
+    M = 0;
+    B = 0;
+  }
+  std::cout<<"M: "<<M<<"\nB: "<<B<<"\n";
+}
+
+void Path::makeStraightPath(){
+  findLinearCoefs();
+  double x = msg_.points.at(0).motionState.positions.at(0);
+  double inc = (msg_.points.at(msg_.points.size() - 1).motionState.positions.at(0) - x)/10.0;
+  for(unsigned int i=0;i<11;i++){
+    MotionState ms;
+    ms.msg_.positions.push_back(x+(i*inc));
+    ms.msg_.positions.push_back(M*(x+(i*inc))+B);
+    ms.msg_.velocities.push_back(0);
+    ms.msg_.accelerations.push_back(0);
+    ms.msg_.jerks.push_back(0);
+    KnotPoint kp(ms);
+    msg_.points.push_back(kp.buildKnotPointMsg());
+  }
+}
