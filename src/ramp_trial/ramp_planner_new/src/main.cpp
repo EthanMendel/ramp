@@ -11,6 +11,8 @@ std::vector<Range>  ranges;
 double              radius;
 double              max_speed_linear;
 double              max_speed_angular;
+double              M;
+double              B;
 int                 population_size;
 int                 num_ppcs;
 bool                sensingBeforeCC;
@@ -71,12 +73,28 @@ void initStartGoal(const std::vector<float> s, const std::vector<float> g) {
   }
 }
 
-void makeStraightPath(const MotionState s, const MotionState g){
+void makeStraightPathManual(const MotionState s, const MotionState g){
   Path p(s,g);
-  std::cout<<p.toString();
-  for(unsigned int i=1;i<p.msg_.points.size();i++){
+  MotionState mid = g.add(s);
+  mid = mid.abs();
+  mid = mid.divide(2);
+  p.addBeforeGoal(mid);
+  for(unsigned int i=0;i<p.msg_.points.size();i++){
       straightLinePath.msg_.points.push_back(p.msg_.points.at(i));
   }  
+}
+
+void makeStraightPathSlope(const MotionState s, const MotionState g){
+  Path p(s,g);
+  for(unsigned int i=0;i<10;i++){
+    // straightLinePath.msg_.points.push_back(M*i+B);
+  }
+}
+
+void publishPath(){
+  M = start.msg_.positions[1] / start.msg_.positions[0];
+  B = -(M*start.msg_.positions[0] - start.msg_.positions[1]);
+  //DO SOMETHING WITH THESE?
 }
 
  /** loads all ros parameters from .yaml 
@@ -305,13 +323,13 @@ void pubPath(RvizHandler pub_rviz){
       visualization_msgs::Marker mp_marker;
 
       mp_marker.header.stamp = ros::Time::now();
-      mp_marker.id = 10000;
+      mp_marker.id = 10002 + i;
 
       mp_marker.header.frame_id = global_frame;
 
       mp_marker.ns = "basic_shapes";
 
-      mp_marker.type = visualization_msgs::Marker::SPHERE;
+      mp_marker.type = visualization_msgs::Marker::LINE_STRIP;
 
       mp_marker.action = visualization_msgs::Marker::ADD;
       
@@ -397,7 +415,7 @@ int main(int argc, char** argv) {
    */
 
   pubStartGoalMarkers(pub_rviz);
-  makeStraightPath(start,goal);
+  makeStraightPathManual(start,goal);
   pubPath(pub_rviz);
   ROS_INFO("Done with pubStartGoalMarkers");
  
