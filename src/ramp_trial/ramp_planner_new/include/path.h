@@ -18,8 +18,8 @@ class Path {
     KnotPoint start_;
     KnotPoint goal_;
 
-    double M;
-    double B;
+    unsigned int order;
+    std::vector<double> coefs;
 
     ramp_msgs::Path msg_;
 
