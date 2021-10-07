@@ -38,6 +38,7 @@ class Path {
     const std::string toString() const;
     void findLinearCoefs();
     void makeStraightPath();
+    void findCubicCoefs();
 };
 
 #endif

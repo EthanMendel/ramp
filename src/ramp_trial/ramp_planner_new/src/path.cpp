@@ -145,3 +145,56 @@ void Path::makeStraightPath(){
     msg_.points.push_back(kp.buildKnotPointMsg());
   }
 }
+
+/**
+ * y = ax^3 + d     p1 = (m,n)    p2 = (u,v)
+ * a = (y - d) / x^3  &  d = y - ax^3
+ * 
+ * a = (n - d) / m^3  &  d = v - au^3
+ * 
+ * a = [n - (v - au^3)] / m^3
+ * am^3 = n - v + au^3
+ * am^3 - au^3 = n - v
+ * a(m^3 - u^3) = n - v
+ * 
+ * a = (n - v) / (m^3 - u^3)
+ * */
+void Path::findCubicCoefs(){
+  order = 3;
+  coefs.clear();
+  if(msg_.points.size() >= 2){
+    double m = msg_.points.at(0).motionState.positions.at(0);
+    double n = msg_.points.at(0).motionState.positions.at(1);
+    double u = msg_.points.at(msg_.points.size() - 1).motionState.positions.at(0);
+    double v = msg_.points.at(msg_.points.size() - 1).motionState.positions.at(1);
+    coefs.push_back((n - v) / (pow(m,3) - pow(u,3)));
+    coefs.push_back(0);
+    coefs.push_back(0);
+    coefs.push_back(v - coefs.at(0) * pow(u,3));
+  }else{
+    coefs.push_back(0);
+    coefs.push_back(0);
+    coefs.push_back(0);
+    coefs.push_back(0);
+  }
+  std::cout<<"A: "<<coefs.at(0)<<"\nB: "<<coefs.at(1)<<"\nC: "<<coefs.at(2)<<"\nD: "<<coefs.at(3)<<"\n";
+}
+
+void Path::makeCubicPath(){
+  findCubicCoefs();
+  if(order!=3){
+    return;
+  }
+  double x = msg_.points.at(0).motionState.positions.at(0);
+  double inc = (msg_.points.at(msg_.points.size() - 1).motionState.positions.at(0) - x)/10.0;
+  for(unsigned int i=0;i<11;i++){
+    MotionState ms;
+    ms.msg_.positions.push_back(x+(i*inc));
+    ms.msg_.positions.push_back(coefs.at(0)*pow(x+(i*inc),3))+coefs.at(1)*pow(x+(i*inc),2));
+    ms.msg_.velocities.push_back(0);
+    ms.msg_.accelerations.push_back(0);
+    ms.msg_.jerks.push_back(0);
+    KnotPoint kp(ms);
+    msg_.points.push_back(kp.buildKnotPointMsg());
+  }
+}
