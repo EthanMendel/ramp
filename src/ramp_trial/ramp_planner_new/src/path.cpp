@@ -119,7 +119,7 @@ void Path::findLinearCoefs(){
   if(msg_.points.size() >= 2){
     coefs.push_back((msg_.points.at(0).motionState.positions.at(1) - msg_.points.at(msg_.points.size() - 1).motionState.positions.at(1)) / 
                     (msg_.points.at(0).motionState.positions.at(0) - msg_.points.at(msg_.points.size() - 1).motionState.positions.at(0)));
-    coefs.push_back(-(M*msg_.points.at(1).motionState.positions.at(0) - msg_.points.at(1).motionState.positions.at(1)));
+    coefs.push_back(-(coefs.at(0)*msg_.points.at(1).motionState.positions.at(0) - msg_.points.at(1).motionState.positions.at(1)));
   }else{
     coefs.push_back(0);
     coefs.push_back(0);
@@ -129,7 +129,7 @@ void Path::findLinearCoefs(){
 
 void Path::makeStraightPath(){
   findLinearCoefs();
-  if(order!=1){
+  if(order!=1 && coefs.size() != 2){
     return;
   }
   double x = msg_.points.at(0).motionState.positions.at(0);
@@ -180,9 +180,33 @@ void Path::findCubicCoefs(){
   std::cout<<"A: "<<coefs.at(0)<<"\nB: "<<coefs.at(1)<<"\nC: "<<coefs.at(2)<<"\nD: "<<coefs.at(3)<<"\n";
 }
 
+//logic from https://www.geeksforgeeks.org/form-the-cubic-equation-from-the-given-roots/
+void Path::findCubicCoefs2(){
+  order = 3;
+  coefs.clear();
+  if(msg_.points.size() >= 2){
+    double h1 = msg_.points.at(0).motionState.positions.at(0);
+    double h3 = msg_.points.at(msg_.points.size() -1).motionState.positions.at(0);
+    double h2 = (h1+h3)/2.0;
+    double X = (h1 + h2 + h3);
+    double Y = (h1 * h2) + (h2 * h3) + (h3 * h1);
+    double Z = h1 * h2 * h3;
+    coefs.push_back(1);
+    coefs.push_back(-1 * X);
+    coefs.push_back(Y);
+    coefs.push_back(-1 * Z);
+  }else{
+    coefs.push_back(0);
+    coefs.push_back(0);
+    coefs.push_back(0);
+    coefs.push_back(0);
+  }
+  std::cout<<"A: "<<coefs.at(0)<<"\nB: "<<coefs.at(1)<<"\nC: "<<coefs.at(2)<<"\nD: "<<coefs.at(3)<<"\n";
+}
+
 void Path::makeCubicPath(){
-  findCubicCoefs();
-  if(order!=3){
+  findCubicCoefs2();
+  if(order!=3 && coefs.size() != 4){
     return;
   }
   double x = msg_.points.at(0).motionState.positions.at(0);
@@ -190,11 +214,14 @@ void Path::makeCubicPath(){
   for(unsigned int i=0;i<11;i++){
     MotionState ms;
     ms.msg_.positions.push_back(x+(i*inc));
-    ms.msg_.positions.push_back(coefs.at(0)*pow(x+(i*inc),3))+coefs.at(1)*pow(x+(i*inc),2));
+    ms.msg_.positions.push_back(coefs.at(0)*pow(x+(i*inc),3)+coefs.at(1)*pow(x+(i*inc),2)+
+                                coefs.at(2)*(x+(i*inc)) + coefs.at(3));
     ms.msg_.velocities.push_back(0);
     ms.msg_.accelerations.push_back(0);
     ms.msg_.jerks.push_back(0);
+    // std::cout<<"point #"<<i+1<<"\t("<<ms.msg_.positions.at(0)<<",\t"<<ms.msg_.positions.at(1)<<")\n";
     KnotPoint kp(ms);
     msg_.points.push_back(kp.buildKnotPointMsg());
   }
+  std::cout<<"Cubic path has "<<msg_.points.size()<<" points\n";
 }

@@ -398,9 +398,9 @@ int main(int argc, char** argv) {
    * all parameters are loaded
    */
 
-  pubStartGoalMarkers(pub_rviz);
-  // makeStraightPathManual(start,goal);
-  straightLinePath.makeStraightPath();
+  pubStartGoalMarkers(pub_rviz);//red-start, blue-goal
+  // straightLinePath.makeStraightPath();
+  straightLinePath.makeCubicPath();
   pubPath(pub_rviz);
   ROS_INFO("Done with pubStartGoalMarkers");
  
