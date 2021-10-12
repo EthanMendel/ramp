@@ -147,31 +147,18 @@ void Path::makeStraightPath(){
   }
 }
 
-/**
- * y = ax^3 + d     p1 = (m,n)    p2 = (u,v)
- * a = (y - d) / x^3  &  d = y - ax^3
- * 
- * a = (n - d) / m^3  &  d = v - au^3
- * 
- * a = [n - (v - au^3)] / m^3
- * am^3 = n - v + au^3
- * am^3 - au^3 = n - v
- * a(m^3 - u^3) = n - v
- * 
- * a = (n - v) / (m^3 - u^3)
- * */
-void Path::findCubicCoefs(){
+//from ITCS 5151/8151 (Robotics) 2003, Jing Xiao Handout#3
+void Path::findCubicCoefs(const unsigned int T){
   order = 3;
   coefs.clear();
   if(msg_.points.size() >= 2){
-    double m = msg_.points.at(0).motionState.positions.at(0);
-    double n = msg_.points.at(0).motionState.positions.at(1);
-    double u = msg_.points.at(msg_.points.size() - 1).motionState.positions.at(0);
-    double v = msg_.points.at(msg_.points.size() - 1).motionState.positions.at(1);
-    coefs.push_back((n - v) / (pow(m,3) - pow(u,3)));
-    coefs.push_back(0);
-    coefs.push_back(0);
-    coefs.push_back(v - coefs.at(0) * pow(u,3));
+    MotionState start = msg_.points.at(0).motionState;
+    MotionState goal = msg_.points.at(msg_.points.size() - 1).motionState;
+
+    coefs.push_back( (-2/pow(T,3))*(goal.msg_.positions.at(0) - start.msg_.positions.at(0)) + (1/pow(T,2))*(start.msg_.velocities.at(0)-goal.msg_.velocities.at(0)) );
+    coefs.push_back( ( 3/pow(T,2))*(goal.msg_.positions.at(0) - start.msg_.positions.at(0)) - (2/T)*start.msg_.velocities.at(0) - (1/T)*goal.msg_.velocities.at(0) );
+    coefs.push_back( start.msg_.velocities.at(0) );
+    coefs.push_back( start.msg_.positions.at(0) );
   }else{
     coefs.push_back(0);
     coefs.push_back(0);
@@ -181,129 +168,22 @@ void Path::findCubicCoefs(){
   std::cout<<"A: "<<coefs.at(0)<<"\nB: "<<coefs.at(1)<<"\nC: "<<coefs.at(2)<<"\nD: "<<coefs.at(3)<<"\n";
 }
 
-//logic from https://www.geeksforgeeks.org/form-the-cubic-equation-from-the-given-roots/
-//NOTE: this method assumes that the start and goal are zeros and form a straight line path
-//->this cubic uses the start-goal-straight-line as the x-axis
-//MEANING->using this method, the linear coefs will be needed to convert to the actual coorisponding y point
-//         that should be used
-void Path::findCubicCoefs2(){
-  order = 3;
-  coefs.clear();
-  if(msg_.points.size() >= 2){
-    double h1 = msg_.points.at(0).motionState.positions.at(0);
-    double h3 = msg_.points.at(msg_.points.size() -1).motionState.positions.at(0);
-    double h2 = (h1+h3)/2.0;
-    double X = (h1 + h2 + h3);
-    double Y = (h1 * h2) + (h2 * h3) + (h3 * h1);
-    double Z = h1 * h2 * h3;
-    coefs.push_back(1);
-    coefs.push_back(-1 * X);
-    coefs.push_back(Y);
-    coefs.push_back(-1 * Z);
-  }else{
-    coefs.push_back(0);
-    coefs.push_back(0);
-    coefs.push_back(0);
-    coefs.push_back(0);
-  }
-  std::cout<<"A: "<<coefs.at(0)<<"\nB: "<<coefs.at(1)<<"\nC: "<<coefs.at(2)<<"\nD: "<<coefs.at(3)<<"\n";
-}
-
-void Path::findCubicCoefs3(){
-  order = 3;
-  coefs.clear();
-  if(msg_.points.size() >= 4){
-    // Input values
-    // **************************************************************
-    size_t k = 2;                                    // Polynomial order
-    bool fixedinter = false;                         // Fixed the intercept (coefficient A0)
-    int wtype = 0;                                   // Weight: 0 = none (default), 1 = sigma, 2 = 1/sigma^2
-    double fixedinterval = 0.;                       // The fixed intercept value (if applicable)
-    double alphaval = 0.05;                          // Critical apha value
-    std::vector<double> x;
-    std::vector<double> y;
-    for(unsigned int i=0;i<msg_.points.size();i++){
-      x.push_back(msg_.points.at(i).motionState.positions.at(0));
-      y.push_back(msg_.points.at(i).motionState.positions.at(1));
-    }
-    // Definition of other variables
-    // **************************************************************
-    size_t n = 0;                                    // Number of data points (adjusted later)
-    size_t nstar = 0;                                // equal to n (fixed intercept) or (n-1) not fixed
-    double coefbeta[k+1];                            // Coefficients of the polynomial
-    double serbeta[k+1];                             // Standard error on coefficients
-    double tstudentval = 0.;                         // Student t value
-    double SE = 0.;                                  // Standard error
-    double **XTWXInv;                                // Matrix XTWX Inverse [k+1,k+1]
-    double **Weights;                                // Matrix Weights [n,n]
-    // Initialize values
-    // **************************************************************
-    n = sizeof(x)/sizeof(double);
-    nstar = n-1;
-    XTWXInv = Make2DArray(k+1,k+1);
-    Weights = Make2DArray(n,n);
-    // Build the weight matrix
-    // **************************************************************
-    CalculateWeights(double err[], Weights, n, wtype);
-    PolyFit(x,y,n,k,fixedinter,fixedinterval,coefbeta,Weights,XTWXInv);
-
-
-  }else{
-    coefs.push_back(0);
-    coefs.push_back(0);
-    coefs.push_back(0);
-    coefs.push_back(0);
-  }
-  std::cout<<"A: "<<coefs.at(0)<<"\nB: "<<coefs.at(1)<<"\nC: "<<coefs.at(2)<<"\nD: "<<coefs.at(3)<<"\n";
-}
-
-void Path::makeCubicPath(const unsigned int rep){
-  switch(rep){
-    case 1:
-      findCubicCoefs();
-      break;
-    case 2:
-      findCubicCoefs2();
-      break;
-    case 3:
-      findCubicCoefs3();
-      break;
-    default:
-      std::cout<<"not one of the 3 cubic representations chosen"<<std::endl;
-  }
+void Path::makeCubicPath(const unsigned int T){
+  findCubicCoefs(T);
   if(order!=3 && coefs.size() != 4){
     return;
   }
   double x = msg_.points.at(0).motionState.positions.at(0);
-  double inc = (msg_.points.at(msg_.points.size() - 1).motionState.positions.at(0) - x)/10.0;
-  for(unsigned int i=0;i<11;i++){
+  double inc = (msg_.points.at(msg_.points.size() - 1).motionState.positions.at(0) - x)/T;
+  for(unsigned int i=0;i<T+1;i++){
+    double adjustedX = x+(i*inc);
     MotionState ms;
-    if(rep==2){
-      double M = ((msg_.points.at(0).motionState.positions.at(1) - msg_.points.at(msg_.points.size() - 1).motionState.positions.at(1)) / 
-            (msg_.points.at(0).motionState.positions.at(0) - msg_.points.at(msg_.points.size() - 1).motionState.positions.at(0)));
-      double B = -(coefs.at(0)*msg_.points.at(1).motionState.positions.at(0) - msg_.points.at(1).motionState.positions.at(1));
-
-      double xP = x+(i*inc);
-      double yP = coefs.at(0)*pow(x+(i*inc),3)+coefs.at(1)*pow(x+(i*inc),2)+
-                    coefs.at(2)*(x+(i*inc)) + coefs.at(3);
-      double zP = sqrt( pow(xP,2)+pow(yP,2) );
-      double YP = acos( (pow(xP,2)+pow(zP,2)-pow(yP,2)) / (2*xP*zP) );
-      double D = PI - YP;
-      double c = sqrt( pow(msg_.points.at(0).motionState.positions.at(0)-0,2) + pow(msg_.points.at(0).motionState.positions.at(1)-B,2) );
-      double d = -cos(D) * 2 * c * zP + (pow(c,2) + pow(zP,2));
-      double S = c + zP + d;
-      double h = 2*sqrt( S*(S-c)*(S-zP)*(S-d) ) / d;
-
-      ms.msg_.positions.push_back(d);
-      ms.msg_.positions.push_back(msg_.points.at(0).motionState.positions.at(1) + h);
-    }else{
-      ms.msg_.positions.push_back(x+(i*inc));
-      ms.msg_.positions.push_back(coefs.at(0)*pow(x+(i*inc),3)+coefs.at(1)*pow(x+(i*inc),2)+
-                                  coefs.at(2)*(x+(i*inc)) + coefs.at(3));
-    }
-    ms.msg_.velocities.push_back(0);
-    ms.msg_.accelerations.push_back(0);
-    ms.msg_.jerks.push_back(0);
+    ms.msg_.positions.push_back(adjustedX);
+    ms.msg_.positions.push_back(coefs.at(0)*pow(adjustedX,3) + coefs.at(1)*pow(adjustedX,2) +
+                                coefs.at(2)*(adjustedX) + coefs.at(3));
+    ms.msg_.velocities.push_back(3*coefs.at(0)*pow(adjustedX,2) + 2*coefs.at(1)*(adjustedX) + coefs.at(2));
+    ms.msg_.accelerations.push_back(6*coefs.at(0)*(adjustedX) + 2*coefs.at(1));
+    ms.msg_.jerks.push_back(6*coefs.at(0));
     // std::cout<<"point #"<<i+1<<"\t("<<ms.msg_.positions.at(0)<<",\t"<<ms.msg_.positions.at(1)<<")\n";
     KnotPoint kp(ms);
     msg_.points.push_back(kp.buildKnotPointMsg());
