@@ -1,5 +1,4 @@
 #include "../include/path.h"
-#include "Polyfit.cpp"
 
 Path::Path() {}
 
