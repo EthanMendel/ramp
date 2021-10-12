@@ -41,6 +41,7 @@ class Path {
     void findCubicCoefs();
     void makeCubicPath();
     void findCubicCoefs2();
+    void findCubicCoefs3();
 };
 
 #endif

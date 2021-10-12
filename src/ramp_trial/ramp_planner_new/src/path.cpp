@@ -1,4 +1,5 @@
 #include "../include/path.h"
+#include "Polyfit.cpp"
 
 Path::Path() {}
 
@@ -181,6 +182,10 @@ void Path::findCubicCoefs(){
 }
 
 //logic from https://www.geeksforgeeks.org/form-the-cubic-equation-from-the-given-roots/
+//NOTE: this method assumes that the start and goal are zeros and form a straight line path
+//->this cubic uses the start-goal-straight-line as the x-axis
+//MEANING->using this method, the linear coefs will be needed to convert to the actual coorisponding y point
+//         that should be used
 void Path::findCubicCoefs2(){
   order = 3;
   coefs.clear();
@@ -195,6 +200,54 @@ void Path::findCubicCoefs2(){
     coefs.push_back(-1 * X);
     coefs.push_back(Y);
     coefs.push_back(-1 * Z);
+  }else{
+    coefs.push_back(0);
+    coefs.push_back(0);
+    coefs.push_back(0);
+    coefs.push_back(0);
+  }
+  std::cout<<"A: "<<coefs.at(0)<<"\nB: "<<coefs.at(1)<<"\nC: "<<coefs.at(2)<<"\nD: "<<coefs.at(3)<<"\n";
+}
+
+void Path::findCubicCoefs3(){
+  order = 3;
+  coefs.clear();
+  if(msg_.points.size() >= 4){
+    // Input values
+    // **************************************************************
+    size_t k = 2;                                    // Polynomial order
+    bool fixedinter = false;                         // Fixed the intercept (coefficient A0)
+    int wtype = 0;                                   // Weight: 0 = none (default), 1 = sigma, 2 = 1/sigma^2
+    double fixedinterval = 0.;                       // The fixed intercept value (if applicable)
+    double alphaval = 0.05;                          // Critical apha value
+    std::vector<double> x;
+    std::vector<double> y;
+    for(unsigned int i=0;i<msg_.points.size();i++){
+      x.push_back(msg_.points.at(i).motionState.positions.at(0));
+      y.push_back(msg_.points.at(i).motionState.positions.at(1));
+    }
+    // Definition of other variables
+    // **************************************************************
+    size_t n = 0;                                    // Number of data points (adjusted later)
+    size_t nstar = 0;                                // equal to n (fixed intercept) or (n-1) not fixed
+    double coefbeta[k+1];                            // Coefficients of the polynomial
+    double serbeta[k+1];                             // Standard error on coefficients
+    double tstudentval = 0.;                         // Student t value
+    double SE = 0.;                                  // Standard error
+    double **XTWXInv;                                // Matrix XTWX Inverse [k+1,k+1]
+    double **Weights;                                // Matrix Weights [n,n]
+    // Initialize values
+    // **************************************************************
+    n = sizeof(x)/sizeof(double);
+    nstar = n-1;
+    XTWXInv = Make2DArray(k+1,k+1);
+    Weights = Make2DArray(n,n);
+    // Build the weight matrix
+    // **************************************************************
+    CalculateWeights(double err[], Weights, n, wtype);
+    PolyFit(x,y,n,k,fixedinter,fixedinterval,coefbeta,Weights,XTWXInv);
+
+
   }else{
     coefs.push_back(0);
     coefs.push_back(0);
