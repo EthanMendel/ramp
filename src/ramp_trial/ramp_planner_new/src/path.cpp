@@ -257,8 +257,20 @@ void Path::findCubicCoefs3(){
   std::cout<<"A: "<<coefs.at(0)<<"\nB: "<<coefs.at(1)<<"\nC: "<<coefs.at(2)<<"\nD: "<<coefs.at(3)<<"\n";
 }
 
-void Path::makeCubicPath(){
-  findCubicCoefs2();
+void Path::makeCubicPath(const unsigned int rep){
+  switch(rep){
+    case 1:
+      findCubicCoefs();
+      break;
+    case 2:
+      findCubicCoefs2();
+      break;
+    case 3:
+      findCubicCoefs3();
+      break;
+    default:
+      std::cout<<"not one of the 3 cubic representations chosen"<<std::endl;
+  }
   if(order!=3 && coefs.size() != 4){
     return;
   }
@@ -266,9 +278,29 @@ void Path::makeCubicPath(){
   double inc = (msg_.points.at(msg_.points.size() - 1).motionState.positions.at(0) - x)/10.0;
   for(unsigned int i=0;i<11;i++){
     MotionState ms;
-    ms.msg_.positions.push_back(x+(i*inc));
-    ms.msg_.positions.push_back(coefs.at(0)*pow(x+(i*inc),3)+coefs.at(1)*pow(x+(i*inc),2)+
-                                coefs.at(2)*(x+(i*inc)) + coefs.at(3));
+    if(rep==2){
+      double M = ((msg_.points.at(0).motionState.positions.at(1) - msg_.points.at(msg_.points.size() - 1).motionState.positions.at(1)) / 
+            (msg_.points.at(0).motionState.positions.at(0) - msg_.points.at(msg_.points.size() - 1).motionState.positions.at(0)));
+      double B = -(coefs.at(0)*msg_.points.at(1).motionState.positions.at(0) - msg_.points.at(1).motionState.positions.at(1));
+
+      double xP = x+(i*inc);
+      double yP = coefs.at(0)*pow(x+(i*inc),3)+coefs.at(1)*pow(x+(i*inc),2)+
+                    coefs.at(2)*(x+(i*inc)) + coefs.at(3);
+      double zP = sqrt( pow(xP,2)+pow(yP,2) );
+      double YP = acos( (pow(xP,2)+pow(zP,2)-pow(yP,2)) / (2*xP*zP) );
+      double D = PI - YP;
+      double c = sqrt( pow(msg_.points.at(0).motionState.positions.at(0)-0,2) + pow(msg_.points.at(0).motionState.positions.at(1)-B,2) );
+      double d = -cos(D) * 2 * c * zP + (pow(c,2) + pow(zP,2));
+      double S = c + zP + d;
+      double h = 2*sqrt( S*(S-c)*(S-zP)*(S-d) ) / d;
+
+      ms.msg_.positions.push_back(d);
+      ms.msg_.positions.push_back(msg_.points.at(0).motionState.positions.at(1) + h);
+    }else{
+      ms.msg_.positions.push_back(x+(i*inc));
+      ms.msg_.positions.push_back(coefs.at(0)*pow(x+(i*inc),3)+coefs.at(1)*pow(x+(i*inc),2)+
+                                  coefs.at(2)*(x+(i*inc)) + coefs.at(3));
+    }
     ms.msg_.velocities.push_back(0);
     ms.msg_.accelerations.push_back(0);
     ms.msg_.jerks.push_back(0);

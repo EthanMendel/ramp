@@ -400,7 +400,7 @@ int main(int argc, char** argv) {
 
   pubStartGoalMarkers(pub_rviz);//red-start, blue-goal
   // straightLinePath.makeStraightPath();
-  straightLinePath.makeCubicPath();
+  straightLinePath.makeCubicPath(2);
   pubPath(pub_rviz);
   ROS_INFO("Done with pubStartGoalMarkers");
  
