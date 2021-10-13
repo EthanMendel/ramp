@@ -194,7 +194,7 @@ void Path::makeCubicPath(const unsigned int T){
   std::vector<double> incs = {xInc,yInc,zInc};
 
 
-  for(unsigned int t=0;i<T+1;i++){
+  for(unsigned int t=0;t<T+1;t++){
     MotionState ms;
     for(unsigned int j=0;j<coefs.size();j++){
       ms.msg_.positions.push_back(coefs.at(j).at(0)*pow(t,3) + coefs.at(j).at(1)*pow(t,2) +
@@ -206,7 +206,7 @@ void Path::makeCubicPath(const unsigned int T){
       
       ms.msg_.jerks.push_back(6*coefs.at(j).at(0));
     }
-    std::cout<<"point #"<<i+1<<"\t("<<ms.msg_.positions.at(0)<<",\t"<<ms.msg_.positions.at(1)<<",\t"<<ms.msg_.positions.at(2)<<")\n";
+    std::cout<<"point #"<<t+1<<"\t("<<ms.msg_.positions.at(0)<<",\t"<<ms.msg_.positions.at(1)<<",\t"<<ms.msg_.positions.at(2)<<")\n";
     addBeforeGoal(ms);
   }
   std::cout<<"Cubic path has "<<msg_.points.size()<<" points\n";
