@@ -201,24 +201,29 @@ void pubStartGoalMarkers(RvizHandler pub_rviz){
   visualization_msgs::MarkerArray result;
 
   // markers for both positions
-  visualization_msgs::Marker start_marker, goal_marker;
+  visualization_msgs::Marker start_marker, goal_marker,origin_marker;
 
   start_marker.header.stamp = ros::Time::now();
   goal_marker.header.stamp = ros::Time::now();
   start_marker.id = 10000;
   goal_marker.id = 10001;
+  origin_marker.id = 10002;
 
   start_marker.header.frame_id = global_frame;
   goal_marker.header.frame_id = global_frame;
+  origin_marker.header.frame_id = global_frame;
 
   start_marker.ns = "basic_shapes";
   goal_marker.ns = "basic_shapes";
+  origin_marker.ns = "basic_shapes";
 
   start_marker.type = visualization_msgs::Marker::SPHERE;
   goal_marker.type = visualization_msgs::Marker::SPHERE;
+  origin_marker.type = visualization_msgs::Marker::SPHERE;
 
   start_marker.action = visualization_msgs::Marker::ADD;
   goal_marker.action = visualization_msgs::Marker::ADD;
+  origin_marker.action = visualization_msgs::Marker::ADD;
   
   // set positions
   start_marker.pose.position.x = start.msg_.positions[0];
@@ -228,6 +233,11 @@ void pubStartGoalMarkers(RvizHandler pub_rviz){
   goal_marker.pose.position.x = goal.msg_.positions[0];
   goal_marker.pose.position.y = goal.msg_.positions[1];
   goal_marker.pose.position.z = 0.01;
+
+  origin_marker.pose.position.x = 0;
+  origin_marker.pose.position.y = 0;
+  origin_marker.pose.position.z = 0.01;
+
 
   // set orientations
   start_marker.pose.orientation.x = 0.0;
@@ -240,6 +250,12 @@ void pubStartGoalMarkers(RvizHandler pub_rviz){
   goal_marker.pose.orientation.z = 0.0;
   goal_marker.pose.orientation.w = 1.0;
 
+  origin_marker.pose.orientation.x = 0.0;
+  origin_marker.pose.orientation.y = 0.0;
+  origin_marker.pose.orientation.z = 0.0;
+  origin_marker.pose.orientation.w = 1.0;
+
+
   // set radii
   start_marker.scale.x = 0.5;
   start_marker.scale.y = 0.5;
@@ -248,6 +264,10 @@ void pubStartGoalMarkers(RvizHandler pub_rviz){
   goal_marker.scale.x = 0.5;
   goal_marker.scale.y = 0.5;
   goal_marker.scale.z = 0.1;
+
+  origin_marker.scale.x = 0.5;
+  origin_marker.scale.y = 0.5;
+  origin_marker.scale.z = 0.1;
 
   // set colors
   start_marker.color.r = 1;
@@ -260,13 +280,20 @@ void pubStartGoalMarkers(RvizHandler pub_rviz){
   goal_marker.color.b = 1;
   goal_marker.color.a = 1;
 
+  origin_marker.color.r = 0;
+  origin_marker.color.g = 1;
+  origin_marker.color.b = 0;
+  origin_marker.color.a = 1;
+
   // set lifetimes
   start_marker.lifetime = ros::Duration(120.0);
   goal_marker.lifetime = ros::Duration(120.0);
+  origin_marker.lifetime = ros::Duration(120.0);
 
   // create marker array and publish
   result.markers.push_back(start_marker);
   result.markers.push_back(goal_marker);
+  result.markers.push_back(origin_marker);
 
   ROS_INFO("Waiting for rviz to start...");
   ros::Rate r(100);
@@ -334,9 +361,24 @@ void pubPath(RvizHandler pub_rviz){
       mp_marker.scale.z = 0.02;
     
       // set colors
-      mp_marker.color.r = 0;
-      mp_marker.color.g = 1;
-      mp_marker.color.b = 0;
+      //    different colors help visualize the order of the path
+      switch(i%3){
+        case 0:
+          mp_marker.color.r = 1;
+          mp_marker.color.g = 0;
+          mp_marker.color.b = 0;
+          break;
+        case 1:
+          mp_marker.color.r = 0;
+          mp_marker.color.g = 1;
+          mp_marker.color.b = 0;
+          break;
+        case 2:
+          mp_marker.color.r = 0;
+          mp_marker.color.g = 0;
+          mp_marker.color.b = 1;
+          break;
+      }
       mp_marker.color.a = 1;
     
       // set lifetimes
