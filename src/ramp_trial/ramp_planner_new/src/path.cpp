@@ -167,7 +167,7 @@ void Path::findCubicCoefs(const unsigned int T){
     std::cout<<"goal: \t"<<goal.toString()<<std::endl;
     for(unsigned int i = 0;i<start.msg_.positions.size();i++){
       std::vector<double> hold;
-      hold.push_back( (-2/pow(T,3))*(goal.msg_.positions.at(i) - start.msg_.positions.at(i)) + (1/pow(T,2))*(start.msg_.velocities.at(i)-goal.msg_.velocities.at(i)) );
+      hold.push_back( (-2/pow(T,3))*(goal.msg_.positions.at(i) - start.msg_.positions.at(i)) + (1/pow(T,2))*(start.msg_.velocities.at(i) + goal.msg_.velocities.at(i)) );
       hold.push_back( ( 3/pow(T,2))*(goal.msg_.positions.at(i) - start.msg_.positions.at(i)) - (2/T)*start.msg_.velocities.at(i) - (1/T)*goal.msg_.velocities.at(i) );
       hold.push_back( start.msg_.velocities.at(i) );
       hold.push_back( start.msg_.positions.at(i) );
@@ -192,11 +192,11 @@ void Path::makeCubicPath(const unsigned int T){
   double yInc = (msg_.points.at(msg_.points.size() - 1).motionState.positions.at(1) - x)/T;
   double zInc = (msg_.points.at(msg_.points.size() - 1).motionState.positions.at(2) - x)/T;
   std::vector<double> incs = {xInc,yInc,zInc};
-  for(unsigned int i=0;i<T+1;i++){
-    // double adjustedX = x+(i*inc);
+
+
+  for(unsigned int t=0;i<T+1;i++){
     MotionState ms;
     for(unsigned int j=0;j<coefs.size();j++){
-      double t = starts.at(j) + (i*incs.at(j));
       ms.msg_.positions.push_back(coefs.at(j).at(0)*pow(t,3) + coefs.at(j).at(1)*pow(t,2) +
                                   coefs.at(j).at(2)*(t) + coefs.at(j).at(3));
       
@@ -207,8 +207,7 @@ void Path::makeCubicPath(const unsigned int T){
       ms.msg_.jerks.push_back(6*coefs.at(j).at(0));
     }
     std::cout<<"point #"<<i+1<<"\t("<<ms.msg_.positions.at(0)<<",\t"<<ms.msg_.positions.at(1)<<",\t"<<ms.msg_.positions.at(2)<<")\n";
-    KnotPoint kp(ms);
-    msg_.points.push_back(kp.buildKnotPointMsg());
+    addBeforeGoal(ms);
   }
   std::cout<<"Cubic path has "<<msg_.points.size()<<" points\n";
 }

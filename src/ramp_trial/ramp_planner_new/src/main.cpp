@@ -325,7 +325,7 @@ void pubPath(RvizHandler pub_rviz){
       visualization_msgs::Marker mp_marker;
 
       mp_marker.header.stamp = ros::Time::now();
-      mp_marker.id = 10002 + i;
+      mp_marker.id = 20000 + i;
 
       mp_marker.header.frame_id = global_frame;
 
@@ -348,6 +348,9 @@ void pubPath(RvizHandler pub_rviz){
       next.y = straightLinePath.msg_.points[i+1].motionState.positions[1];
       next.z = 0.01;
       mp_marker.points.push_back(next);
+
+      std::cout<<"segment "<<i+1<<" from ("<<first.x<<", "<<first.y<<", "<<first.z<<
+      ") to ("<<next.x<<", "<<next.y<<", "<<next.z<<")"<<std::endl;
       
       // set orientations
       mp_marker.pose.orientation.x = 0.0;
