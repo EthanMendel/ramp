@@ -113,23 +113,30 @@ const std::string Path::toString() const {
   return result.str();
 }
 
+//coefs CHANGES NEED TO BE LOOKED AT
 void Path::findLinearCoefs(){
   order = 1;
+  for(auto c : coefs){
+    c.clear();
+  }
   coefs.clear();
   if(msg_.points.size() >= 2){
-    coefs.push_back((msg_.points.at(0).motionState.positions.at(1) - msg_.points.at(msg_.points.size() - 1).motionState.positions.at(1)) / 
+    std::vector<double> hold;
+    hold.push_back((msg_.points.at(0).motionState.positions.at(1) - msg_.points.at(msg_.points.size() - 1).motionState.positions.at(1)) / 
                     (msg_.points.at(0).motionState.positions.at(0) - msg_.points.at(msg_.points.size() - 1).motionState.positions.at(0)));
-    coefs.push_back(-(coefs.at(0)*msg_.points.at(1).motionState.positions.at(0) - msg_.points.at(1).motionState.positions.at(1)));
+    hold.push_back(-(hold.at(0)*msg_.points.at(1).motionState.positions.at(0) - msg_.points.at(1).motionState.positions.at(1)));
+    coefs.push_back(hold);
   }else{
-    coefs.push_back(0);
-    coefs.push_back(0);
+    coefs.at(0).push_back(0);
+    coefs.at(0).push_back(0);
   }
-  std::cout<<"M: "<<coefs.at(0)<<"\nB: "<<coefs.at(1)<<"\n";
+  std::cout<<"M: "<<coefs.at(0).at(0)<<"\nB: "<<coefs.at(0).at(1)<<"\n";
 }
 
+//coefs CHANGES NEED TO BE LOOKED AT
 void Path::makeStraightPath(){
   findLinearCoefs();
-  if(order!=1 && coefs.size() != 2){
+  if(order!=1 && coefs.at(0).size() != 2){
     return;
   }
   double x = msg_.points.at(0).motionState.positions.at(0);
@@ -137,7 +144,7 @@ void Path::makeStraightPath(){
   for(unsigned int i=0;i<11;i++){
     MotionState ms;
     ms.msg_.positions.push_back(x+(i*inc));
-    ms.msg_.positions.push_back(coefs.at(0)*(x+(i*inc))+coefs.at(1));
+    ms.msg_.positions.push_back(coefs.at(0).at(0)*(x+(i*inc))+coefs.at(0).at(1));
     ms.msg_.velocities.push_back(0);
     ms.msg_.accelerations.push_back(0);
     ms.msg_.jerks.push_back(0);
@@ -149,22 +156,27 @@ void Path::makeStraightPath(){
 //from ITCS 5151/8151 (Robotics) 2003, Jing Xiao Handout#3
 void Path::findCubicCoefs(const unsigned int T){
   order = 3;
+  for(auto c : coefs){
+    c.clear();
+  }
   coefs.clear();
   if(msg_.points.size() >= 2){
     MotionState start = msg_.points.at(0).motionState;
     MotionState goal = msg_.points.at(msg_.points.size() - 1).motionState;
-
-    coefs.push_back( (-2/pow(T,3))*(goal.msg_.positions.at(0) - start.msg_.positions.at(0)) + (1/pow(T,2))*(start.msg_.velocities.at(0)-goal.msg_.velocities.at(0)) );
-    coefs.push_back( ( 3/pow(T,2))*(goal.msg_.positions.at(0) - start.msg_.positions.at(0)) - (2/T)*start.msg_.velocities.at(0) - (1/T)*goal.msg_.velocities.at(0) );
-    coefs.push_back( start.msg_.velocities.at(0) );
-    coefs.push_back( start.msg_.positions.at(0) );
+    std::cout<<"start: \t"<<start.toString()<<std::endl;
+    std::cout<<"goal: \t"<<goal.toString()<<std::endl;
+    for(unsigned int i = 0;i<start.msg_.positions.size();i++){
+      std::vector<double> hold;
+      hold.push_back( (-2/pow(T,3))*(goal.msg_.positions.at(i) - start.msg_.positions.at(i)) + (1/pow(T,2))*(start.msg_.velocities.at(i)-goal.msg_.velocities.at(i)) );
+      hold.push_back( ( 3/pow(T,2))*(goal.msg_.positions.at(i) - start.msg_.positions.at(i)) - (2/T)*start.msg_.velocities.at(i) - (1/T)*goal.msg_.velocities.at(i) );
+      hold.push_back( start.msg_.velocities.at(i) );
+      hold.push_back( start.msg_.positions.at(i) );
+      coefs.push_back(hold);
+      std::cout<<"A: "<<coefs.at(i).at(0)<<"\tB: "<<coefs.at(i).at(1)<<"\tC: "<<coefs.at(i).at(2)<<"\tD: "<<coefs.at(i).at(3)<<"\t\n";
+    }
   }else{
-    coefs.push_back(0);
-    coefs.push_back(0);
-    coefs.push_back(0);
-    coefs.push_back(0);
+    //HOW TO DO WITHOUT KNOWING SIZES
   }
-  std::cout<<"A: "<<coefs.at(0)<<"\nB: "<<coefs.at(1)<<"\nC: "<<coefs.at(2)<<"\nD: "<<coefs.at(3)<<"\n";
 }
 
 void Path::makeCubicPath(const unsigned int T){
@@ -173,17 +185,28 @@ void Path::makeCubicPath(const unsigned int T){
     return;
   }
   double x = msg_.points.at(0).motionState.positions.at(0);
-  double inc = (msg_.points.at(msg_.points.size() - 1).motionState.positions.at(0) - x)/T;
+  double y = msg_.points.at(0).motionState.positions.at(1);
+  double z = msg_.points.at(0).motionState.positions.at(2);
+  std::vector<double> starts = {x,y,z};
+  double xInc = (msg_.points.at(msg_.points.size() - 1).motionState.positions.at(0) - x)/T;
+  double yInc = (msg_.points.at(msg_.points.size() - 1).motionState.positions.at(1) - x)/T;
+  double zInc = (msg_.points.at(msg_.points.size() - 1).motionState.positions.at(2) - x)/T;
+  std::vector<double> incs = {xInc,yInc,zInc};
   for(unsigned int i=0;i<T+1;i++){
-    double adjustedX = x+(i*inc);
+    // double adjustedX = x+(i*inc);
     MotionState ms;
-    ms.msg_.positions.push_back(adjustedX);
-    ms.msg_.positions.push_back(coefs.at(0)*pow(adjustedX,3) + coefs.at(1)*pow(adjustedX,2) +
-                                coefs.at(2)*(adjustedX) + coefs.at(3));
-    ms.msg_.velocities.push_back(3*coefs.at(0)*pow(adjustedX,2) + 2*coefs.at(1)*(adjustedX) + coefs.at(2));
-    ms.msg_.accelerations.push_back(6*coefs.at(0)*(adjustedX) + 2*coefs.at(1));
-    ms.msg_.jerks.push_back(6*coefs.at(0));
-    // std::cout<<"point #"<<i+1<<"\t("<<ms.msg_.positions.at(0)<<",\t"<<ms.msg_.positions.at(1)<<")\n";
+    for(unsigned int j=0;j<coefs.size();j++){
+      double t = starts.at(j) + (i*incs.at(j));
+      ms.msg_.positions.push_back(coefs.at(j).at(0)*pow(t,3) + coefs.at(j).at(1)*pow(t,2) +
+                                  coefs.at(j).at(2)*(t) + coefs.at(j).at(3));
+      
+      ms.msg_.velocities.push_back(3*coefs.at(j).at(0)*pow(t,2) + 2*coefs.at(j).at(1)*(t) + coefs.at(j).at(2));
+      
+      ms.msg_.accelerations.push_back(6*coefs.at(j).at(0)*(t) + 2*coefs.at(j).at(1));
+      
+      ms.msg_.jerks.push_back(6*coefs.at(j).at(0));
+    }
+    std::cout<<"point #"<<i+1<<"\t("<<ms.msg_.positions.at(0)<<",\t"<<ms.msg_.positions.at(1)<<",\t"<<ms.msg_.positions.at(2)<<")\n";
     KnotPoint kp(ms);
     msg_.points.push_back(kp.buildKnotPointMsg());
   }
