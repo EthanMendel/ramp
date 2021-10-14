@@ -317,7 +317,7 @@ void pubStartGoalMarkers(RvizHandler pub_rviz){
 
 void pubPath(RvizHandler pub_rviz){
   ROS_INFO("In pubPath");
-
+  pub_rviz.sendPath(straightLinePath.buildPathMsg());
     visualization_msgs::MarkerArray result;
 
     for(unsigned int i=0;i<straightLinePath.msg_.points.size()-1;i++) {
@@ -411,6 +411,25 @@ void pubPath(RvizHandler pub_rviz){
   ROS_INFO("Exiting pubPath");
 }
 
+void trajCallback(const ramp_msgs::Path path){
+  std::cout<<"got path in trajCallback"<<std::endl;
+  //proably shouldnt be sending all at one time?
+  //how to determin when to send the next one?
+  for(unsigned int i=0;i<path.points.size();i++){
+    geometry_msgs::Twist t;
+    t.linear.x = path.points.at(i).motionState.velocities.at(0);
+    t.linear.y = path.points.at(i).motionState.velocities.at(1);
+    t.linear.z = 0;
+    t.angular.x = 0;
+    t.angular.y = 0;
+    t.angular.z = 0;
+
+    // pub_rviz.sendTwist(t);
+    //publish to the robot somehow
+  }
+  std::cout<<"all twists sent"<<std::endl;
+}
+
 int main(int argc, char** argv) {
   std::cout<<"\nstarting main\n";
   srand( time(0));
@@ -442,7 +461,7 @@ int main(int argc, char** argv) {
   /*
    * all parameters are loaded
    */
-
+  ros::Subscriber trajListener  = handle.subscribe("trajChannel", 1, trajCallback);
   pubStartGoalMarkers(pub_rviz);//red-start, blue-goal
   // straightLinePath.makeStraightPath();
   straightLinePath.makeCubicPath(10);
