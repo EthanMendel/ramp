@@ -405,8 +405,8 @@ void pubPath(RvizHandler pub_rviz){
     ROS_INFO("Rviz started");
   }
 
-  pub_rviz.sendMarkerArray(result);
-  pub_rviz.sendMarkerArray(result);
+  pub_rviz.sendTrajectory(result);
+  pub_rviz.sendTrajectory(result);
   
   ROS_INFO("Exiting pubPath");
 }

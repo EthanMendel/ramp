@@ -10,11 +10,12 @@ class RvizHandler {
 
     unsigned int getNumSubscribers();
     void sendMarkerArray(const visualization_msgs::MarkerArray& ma);
+    void sendTrajectory(const visualization_msgs::MarkerArray& ma);
 
   private:
     ros::NodeHandle handle_;
     ros::Publisher pub_markerArray_;
-    ros::Publisher pub_path_;
+    ros::Publisher pub_trajectory;
 };
 
 #endif
