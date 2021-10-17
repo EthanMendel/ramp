@@ -8,4 +8,6 @@
 <!-- Planner -->
 <node name="ramp_planner_new" pkg="ramp_planner_new" type="ramp_planner_new" output="screen" /> 
 
+<node name="ramp_listener_new" pkg="ramp_planner_new" type="ramp_listener_new" output="screen" />
+
 </launch>

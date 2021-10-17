@@ -318,78 +318,78 @@ void pubStartGoalMarkers(RvizHandler pub_rviz){
 void pubPath(RvizHandler pub_rviz){
   ROS_INFO("In pubPath");
   pub_rviz.sendPath(straightLinePath.buildPathMsg());
-    visualization_msgs::MarkerArray result;
+  visualization_msgs::MarkerArray result;
 
-    for(unsigned int i=0;i<straightLinePath.msg_.points.size()-1;i++) {
-      // markers for both positions
-      visualization_msgs::Marker mp_marker;
+  for(unsigned int i=0;i<straightLinePath.msg_.points.size()-1;i++) {
+    // markers for both positions
+    visualization_msgs::Marker mp_marker;
 
-      mp_marker.header.stamp = ros::Time::now();
-      mp_marker.id = 20000 + i;
+    mp_marker.header.stamp = ros::Time::now();
+    mp_marker.id = 20000 + i;
 
-      mp_marker.header.frame_id = global_frame;
+    mp_marker.header.frame_id = global_frame;
 
-      mp_marker.ns = "points_and_lines";
+    mp_marker.ns = "points_and_lines";
 
-      mp_marker.type = visualization_msgs::Marker::LINE_STRIP;
+    mp_marker.type = visualization_msgs::Marker::LINE_STRIP;
 
-      mp_marker.action = visualization_msgs::Marker::ADD;
-      
-      // first point to create line
-      geometry_msgs::Point first;
-      first.x = straightLinePath.msg_.points[i].motionState.positions[0];
-      first.y = straightLinePath.msg_.points[i].motionState.positions[1];
-      first.z = 0.01;
-      mp_marker.points.push_back(first);
-
-      // set next point to create line
-      geometry_msgs::Point next;
-      next.x = straightLinePath.msg_.points[i+1].motionState.positions[0];
-      next.y = straightLinePath.msg_.points[i+1].motionState.positions[1];
-      next.z = 0.01;
-      mp_marker.points.push_back(next);
-
-      std::cout<<"segment "<<i+1<<" from ("<<first.x<<", "<<first.y<<", "<<first.z<<
-      ") to ("<<next.x<<", "<<next.y<<", "<<next.z<<")"<<std::endl;
-      
-      // set orientations
-      mp_marker.pose.orientation.x = 0.0;
-      mp_marker.pose.orientation.y = 0.0;
-      mp_marker.pose.orientation.z = 0.0;
-      mp_marker.pose.orientation.w = 1.0;
+    mp_marker.action = visualization_msgs::Marker::ADD;
     
-      // set radii
-      mp_marker.scale.x = 0.1;
-      mp_marker.scale.y = 0.1;
-      mp_marker.scale.z = 0.02;
-    
-      // set colors
-      //    different colors help visualize the order of the path
-      switch(i%3){
-        case 0:
-          mp_marker.color.r = 1;
-          mp_marker.color.g = 0;
-          mp_marker.color.b = 0;
-          break;
-        case 1:
-          mp_marker.color.r = 0;
-          mp_marker.color.g = 1;
-          mp_marker.color.b = 0;
-          break;
-        case 2:
-          mp_marker.color.r = 0;
-          mp_marker.color.g = 0;
-          mp_marker.color.b = 1;
-          break;
-      }
-      mp_marker.color.a = 1;
-    
-      // set lifetimes
-      mp_marker.lifetime = ros::Duration(120.0);
+    // first point to create line
+    geometry_msgs::Point first;
+    first.x = straightLinePath.msg_.points[i].motionState.positions[0];
+    first.y = straightLinePath.msg_.points[i].motionState.positions[1];
+    first.z = 0.01;
+    mp_marker.points.push_back(first);
 
-      // create marker array and publish
-      result.markers.push_back(mp_marker);
+    // set next point to create line
+    geometry_msgs::Point next;
+    next.x = straightLinePath.msg_.points[i+1].motionState.positions[0];
+    next.y = straightLinePath.msg_.points[i+1].motionState.positions[1];
+    next.z = 0.01;
+    mp_marker.points.push_back(next);
+
+    std::cout<<"segment "<<i+1<<" from ("<<first.x<<", "<<first.y<<", "<<first.z<<
+    ") to ("<<next.x<<", "<<next.y<<", "<<next.z<<")"<<std::endl;
+    
+    // set orientations
+    mp_marker.pose.orientation.x = 0.0;
+    mp_marker.pose.orientation.y = 0.0;
+    mp_marker.pose.orientation.z = 0.0;
+    mp_marker.pose.orientation.w = 1.0;
+  
+    // set radii
+    mp_marker.scale.x = 0.1;
+    mp_marker.scale.y = 0.1;
+    mp_marker.scale.z = 0.02;
+  
+    // set colors
+    //    different colors help visualize the order of the path
+    switch(i%3){
+      case 0:
+        mp_marker.color.r = 1;
+        mp_marker.color.g = 0;
+        mp_marker.color.b = 0;
+        break;
+      case 1:
+        mp_marker.color.r = 0;
+        mp_marker.color.g = 1;
+        mp_marker.color.b = 0;
+        break;
+      case 2:
+        mp_marker.color.r = 0;
+        mp_marker.color.g = 0;
+        mp_marker.color.b = 1;
+        break;
     }
+    mp_marker.color.a = 1;
+  
+    // set lifetimes
+    mp_marker.lifetime = ros::Duration(120.0);
+
+    // create marker array and publish
+    result.markers.push_back(mp_marker);
+  }
 
   ROS_INFO("Waiting for rviz to start...");
   ros::Rate r(100);
@@ -409,25 +409,6 @@ void pubPath(RvizHandler pub_rviz){
   pub_rviz.sendTrajectory(result);
   
   ROS_INFO("Exiting pubPath");
-}
-
-void trajCallback(const ramp_msgs::Path path){
-  std::cout<<"got path in trajCallback"<<std::endl;
-  //proably shouldnt be sending all at one time?
-  //how to determin when to send the next one?
-  for(unsigned int i=0;i<path.points.size();i++){
-    geometry_msgs::Twist t;
-    t.linear.x = path.points.at(i).motionState.velocities.at(0);
-    t.linear.y = path.points.at(i).motionState.velocities.at(1);
-    t.linear.z = 0;
-    t.angular.x = 0;
-    t.angular.y = 0;
-    t.angular.z = 0;
-
-    // pub_rviz.sendTwist(t);
-    //publish to the robot somehow
-  }
-  std::cout<<"all twists sent"<<std::endl;
 }
 
 int main(int argc, char** argv) {
@@ -461,7 +442,7 @@ int main(int argc, char** argv) {
   /*
    * all parameters are loaded
    */
-  ros::Subscriber trajListener  = handle.subscribe("trajChannel", 1, trajCallback);
+  initListener(argc, argv);
   pubStartGoalMarkers(pub_rviz);//red-start, blue-goal
   // straightLinePath.makeStraightPath();
   straightLinePath.makeCubicPath(10);
