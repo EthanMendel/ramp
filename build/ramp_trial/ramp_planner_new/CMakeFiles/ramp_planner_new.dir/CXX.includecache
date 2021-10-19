@@ -632,6 +632,10 @@ ros/console.h
 ros/package.h
 -
 
+/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/knot_point.cpp
+../include/knot_point.h
+/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/knot_point.h
+
 /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/main.cpp
 ros/ros.h
 /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/ros/ros.h
@@ -640,9 +644,25 @@ ros/ros.h
 visualization_msgs/MarkerArray.h
 -
 
+/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/motion_state.cpp
+../include/motion_state.h
+/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/motion_state.h
+
 /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/path.cpp
 ../include/path.h
 /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/path.h
+
+/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/range.cpp
+../include/range.h
+/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/range.h
+
+/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/rviz_handler.cpp
+../include/rviz_handler.h
+/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/rviz_handler.h
+
+/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/utility.cpp
+../include/utility.h
+/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/utility.h
 
 /opt/ros/noetic/include/geometry_msgs/Point.h
 string

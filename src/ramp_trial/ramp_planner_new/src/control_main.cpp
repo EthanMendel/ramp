@@ -1,5 +1,8 @@
 #include "ros/ros.h"
 #include "../include/planner.h"
+#include "../include/mobile_robot.h"
+
+MobileRobot robot;
 
 void trajCallback(const ramp_msgs::Path path){
   std::cout<<"got path in trajCallback"<<std::endl;

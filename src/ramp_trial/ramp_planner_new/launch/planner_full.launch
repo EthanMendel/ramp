@@ -6,7 +6,7 @@
 <rosparam file="$(find ramp_planner_new)/launch/config/robot_0.yaml" command="load" ns="robot_info/" />
 
 <!-- Planner -->
-<node name="ramp_listener_new" pkg="ramp_planner_new" type="ramp_listener_new" output="screen" />
+<node name="ramp_control_new" pkg="ramp_planner_new" type="ramp_control_new" output="screen" />
 
 <node name="ramp_planner_new" pkg="ramp_planner_new" type="ramp_planner_new" output="screen" /> 
 

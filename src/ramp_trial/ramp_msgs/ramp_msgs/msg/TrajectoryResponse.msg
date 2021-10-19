@@ -1,2 +1,0 @@
-RampTrajectory trajectory
-bool error

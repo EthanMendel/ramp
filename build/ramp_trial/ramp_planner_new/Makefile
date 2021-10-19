@@ -168,19 +168,19 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-ramp_trial/ramp_planner_new/CMakeFiles/ramp_listener_new.dir/rule:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner_new/CMakeFiles/ramp_listener_new.dir/rule
-.PHONY : ramp_trial/ramp_planner_new/CMakeFiles/ramp_listener_new.dir/rule
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/rule:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/rule
+.PHONY : ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/rule
 
 # Convenience name for target.
-ramp_listener_new: ramp_trial/ramp_planner_new/CMakeFiles/ramp_listener_new.dir/rule
+ramp_control_new: ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/rule
 
-.PHONY : ramp_listener_new
+.PHONY : ramp_control_new
 
 # fast build rule for target.
-ramp_listener_new/fast:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_listener_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_listener_new.dir/build
-.PHONY : ramp_listener_new/fast
+ramp_control_new/fast:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/build
+.PHONY : ramp_control_new/fast
 
 # Convenience name for target.
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/rule:
@@ -203,7 +203,7 @@ src/control_main.o: src/control_main.cpp.o
 
 # target to build an object file
 src/control_main.cpp.o:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_listener_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_listener_new.dir/src/control_main.cpp.o
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/control_main.cpp.o
 .PHONY : src/control_main.cpp.o
 
 src/control_main.i: src/control_main.cpp.i
@@ -212,7 +212,7 @@ src/control_main.i: src/control_main.cpp.i
 
 # target to preprocess a source file
 src/control_main.cpp.i:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_listener_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_listener_new.dir/src/control_main.cpp.i
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/control_main.cpp.i
 .PHONY : src/control_main.cpp.i
 
 src/control_main.s: src/control_main.cpp.s
@@ -221,7 +221,7 @@ src/control_main.s: src/control_main.cpp.s
 
 # target to generate assembly for a file
 src/control_main.cpp.s:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_listener_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_listener_new.dir/src/control_main.cpp.s
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/control_main.cpp.s
 .PHONY : src/control_main.cpp.s
 
 src/knot_point.o: src/knot_point.cpp.o
@@ -277,6 +277,33 @@ src/main.s: src/main.cpp.s
 src/main.cpp.s:
 	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
+
+src/mobile_robot.o: src/mobile_robot.cpp.o
+
+.PHONY : src/mobile_robot.o
+
+# target to build an object file
+src/mobile_robot.cpp.o:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o
+.PHONY : src/mobile_robot.cpp.o
+
+src/mobile_robot.i: src/mobile_robot.cpp.i
+
+.PHONY : src/mobile_robot.i
+
+# target to preprocess a source file
+src/mobile_robot.cpp.i:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.i
+.PHONY : src/mobile_robot.cpp.i
+
+src/mobile_robot.s: src/mobile_robot.cpp.s
+
+.PHONY : src/mobile_robot.s
+
+# target to generate assembly for a file
+src/mobile_robot.cpp.s:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.s
+.PHONY : src/mobile_robot.cpp.s
 
 src/motion_state.o: src/motion_state.cpp.o
 
@@ -424,7 +451,7 @@ help:
 	@echo "... install"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... ramp_listener_new"
+	@echo "... ramp_control_new"
 	@echo "... edit_cache"
 	@echo "... test"
 	@echo "... ramp_planner_new"
@@ -437,6 +464,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/mobile_robot.o"
+	@echo "... src/mobile_robot.i"
+	@echo "... src/mobile_robot.s"
 	@echo "... src/motion_state.o"
 	@echo "... src/motion_state.i"
 	@echo "... src/motion_state.s"
