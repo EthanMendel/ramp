@@ -4,21 +4,9 @@
 
 MobileRobot robot;
 
-void trajCallback(const ramp_msgs::Path path){
+void trajCallback(const ramp_planner_new::CubicRepresentation cubic){
   std::cout<<"got path in trajCallback"<<std::endl;
-  //proably shouldnt be sending all at one time?
-  //how to determin when to send the next one?
-  for(unsigned int i=0;i<path.points.size();i++){
-    geometry_msgs::Twist t;
-    t.linear.x = path.points.at(i).motionState.velocities.at(0);
-    t.linear.y = path.points.at(i).motionState.velocities.at(1);
-    t.linear.z = 0;
-    t.angular.x = 0;
-    t.angular.y = 0;
-    t.angular.z = 0;
-
-    robot.sendTwist(t);
-  }
+  //how to determin t value to use
   std::cout<<"all twists sent"<<std::endl;
 }
 
@@ -30,7 +18,7 @@ int main(int argc, char** argv) {
   ros::NodeHandle handle;
 
   robot.pub_twist_ = handle.advertise<geometry_msgs::Twist>(MobileRobot::TOPIC_STR_TWIST, 1000);
-  ros::Subscriber trajListener  = handle.subscribe("trajChannel", 1, trajCallback);
+  ros::Subscriber trajListener  = handle.subscribe("coef_channel", 1, trajCallback);
  
   ros::Rate r(20);
   ros::spin();

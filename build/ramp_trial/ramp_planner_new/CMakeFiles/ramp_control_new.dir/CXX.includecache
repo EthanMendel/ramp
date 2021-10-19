@@ -452,6 +452,40 @@ ros/message_operations.h
 ramp_msgs/TrajectoryResponse.h
 -
 
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/Coefficient.h
+string
+-
+vector
+-
+map
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
+
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/CubicRepresentation.h
+string
+-
+vector
+-
+map
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
+ramp_planner_new/Coefficient.h
+-
+
 /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/bezier_curve.h
 motion_state.h
 /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/motion_state.h
@@ -533,6 +567,8 @@ knot_point.h
 /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/knot_point.h
 ramp_msgs/Path.h
 /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/ramp_msgs/Path.h
+ramp_planner_new/CubicRepresentation.h
+/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/ramp_planner_new/CubicRepresentation.h
 
 /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/planner.h
 ros/ros.h
@@ -592,6 +628,8 @@ ros/ros.h
 visualization_msgs/MarkerArray.h
 -
 ramp_msgs/Path.h
+-
+ramp_planner_new/CubicRepresentation.h
 -
 geometry_msgs/Twist.h
 -
@@ -655,10 +693,6 @@ ros/ros.h
 /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/ros/ros.h
 ../include/planner.h
 /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/planner.h
-../include/mobile_robot.h
-/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/mobile_robot.h
-
-/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/mobile_robot.cpp
 ../include/mobile_robot.h
 /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/mobile_robot.h
 

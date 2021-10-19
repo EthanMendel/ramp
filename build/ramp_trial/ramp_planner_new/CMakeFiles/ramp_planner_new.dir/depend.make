@@ -161,6 +161,8 @@ ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/main.cpp.o: /hom
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/main.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectorySrv.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/main.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectorySrvRequest.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/main.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectorySrvResponse.h
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/main.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/Coefficient.h
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/main.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/CubicRepresentation.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/main.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/bezier_curve.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/main.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/control_handler.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/main.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/evaluation_request_handler.h
@@ -447,6 +449,8 @@ ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/path.cpp.o: /hom
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/path.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/Path.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/path.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/RampTrajectory.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/path.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/Range.h
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/path.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/Coefficient.h
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/path.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/CubicRepresentation.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/path.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/knot_point.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/path.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/motion_state.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/path.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/path.h
@@ -597,6 +601,8 @@ ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/range.cpp.o: /op
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/KnotPoint.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/MotionState.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/Path.h
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/Coefficient.h
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/CubicRepresentation.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/rviz_handler.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/rviz_handler.cpp
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp.o: /opt/ros/noetic/include/geometry_msgs/Point.h

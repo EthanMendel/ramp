@@ -26,6 +26,8 @@ ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/control_main.cpp
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/control_main.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectorySrv.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/control_main.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectorySrvRequest.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/control_main.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectorySrvResponse.h
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/control_main.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/Coefficient.h
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/control_main.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/CubicRepresentation.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/control_main.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/bezier_curve.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/control_main.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/control_handler.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/control_main.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/evaluation_request_handler.h
@@ -168,11 +170,6 @@ ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/control_main.cpp
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/control_main.cpp.o: /opt/ros/noetic/include/xmlrpcpp/XmlRpcDecl.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/control_main.cpp.o: /opt/ros/noetic/include/xmlrpcpp/XmlRpcValue.h
 
-ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/BezierCurve.h
-ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/KnotPoint.h
-ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/MotionState.h
-ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/Path.h
-ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/RampTrajectory.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/mobile_robot.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/mobile_robot.cpp
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /opt/ros/noetic/include/geometry_msgs/Point.h
@@ -255,8 +252,6 @@ ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /opt/ros/noetic/include/tf/LinearMath/Transform.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /opt/ros/noetic/include/tf/LinearMath/Vector3.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /opt/ros/noetic/include/tf/transform_datatypes.h
-ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /opt/ros/noetic/include/trajectory_msgs/JointTrajectory.h
-ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /opt/ros/noetic/include/trajectory_msgs/JointTrajectoryPoint.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /opt/ros/noetic/include/xmlrpcpp/XmlRpcDecl.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /opt/ros/noetic/include/xmlrpcpp/XmlRpcValue.h
 

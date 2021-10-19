@@ -56,18 +56,6 @@ CMAKE_BINARY_DIR = /home/emendel/Documents/IndepententStudy/ramp/build
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
-
-# Special rule for the target install/strip
-install/strip/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip/fast
-
 # Special rule for the target install/local
 install/local: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
@@ -123,6 +111,18 @@ edit_cache:
 edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
+
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
 
 # Special rule for the target test
 test:
@@ -196,6 +196,201 @@ ramp_planner_new: ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/ru
 ramp_planner_new/fast:
 	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build
 .PHONY : ramp_planner_new/fast
+
+# Convenience name for target.
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages.dir/rule:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages.dir/rule
+.PHONY : ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages.dir/rule
+
+# Convenience name for target.
+ramp_planner_new_generate_messages: ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages.dir/rule
+
+.PHONY : ramp_planner_new_generate_messages
+
+# fast build rule for target.
+ramp_planner_new_generate_messages/fast:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages.dir/build
+.PHONY : ramp_planner_new_generate_messages/fast
+
+# Convenience name for target.
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages_py.dir/rule:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages_py.dir/rule
+.PHONY : ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages_py.dir/rule
+
+# Convenience name for target.
+ramp_planner_new_generate_messages_py: ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages_py.dir/rule
+
+.PHONY : ramp_planner_new_generate_messages_py
+
+# fast build rule for target.
+ramp_planner_new_generate_messages_py/fast:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages_py.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages_py.dir/build
+.PHONY : ramp_planner_new_generate_messages_py/fast
+
+# Convenience name for target.
+ramp_trial/ramp_planner_new/CMakeFiles/_ramp_planner_new_generate_messages_check_deps_CubicRepresentation.dir/rule:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner_new/CMakeFiles/_ramp_planner_new_generate_messages_check_deps_CubicRepresentation.dir/rule
+.PHONY : ramp_trial/ramp_planner_new/CMakeFiles/_ramp_planner_new_generate_messages_check_deps_CubicRepresentation.dir/rule
+
+# Convenience name for target.
+_ramp_planner_new_generate_messages_check_deps_CubicRepresentation: ramp_trial/ramp_planner_new/CMakeFiles/_ramp_planner_new_generate_messages_check_deps_CubicRepresentation.dir/rule
+
+.PHONY : _ramp_planner_new_generate_messages_check_deps_CubicRepresentation
+
+# fast build rule for target.
+_ramp_planner_new_generate_messages_check_deps_CubicRepresentation/fast:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/_ramp_planner_new_generate_messages_check_deps_CubicRepresentation.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/_ramp_planner_new_generate_messages_check_deps_CubicRepresentation.dir/build
+.PHONY : _ramp_planner_new_generate_messages_check_deps_CubicRepresentation/fast
+
+# Convenience name for target.
+ramp_trial/ramp_planner_new/CMakeFiles/_ramp_planner_new_generate_messages_check_deps_Coefficient.dir/rule:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner_new/CMakeFiles/_ramp_planner_new_generate_messages_check_deps_Coefficient.dir/rule
+.PHONY : ramp_trial/ramp_planner_new/CMakeFiles/_ramp_planner_new_generate_messages_check_deps_Coefficient.dir/rule
+
+# Convenience name for target.
+_ramp_planner_new_generate_messages_check_deps_Coefficient: ramp_trial/ramp_planner_new/CMakeFiles/_ramp_planner_new_generate_messages_check_deps_Coefficient.dir/rule
+
+.PHONY : _ramp_planner_new_generate_messages_check_deps_Coefficient
+
+# fast build rule for target.
+_ramp_planner_new_generate_messages_check_deps_Coefficient/fast:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/_ramp_planner_new_generate_messages_check_deps_Coefficient.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/_ramp_planner_new_generate_messages_check_deps_Coefficient.dir/build
+.PHONY : _ramp_planner_new_generate_messages_check_deps_Coefficient/fast
+
+# Convenience name for target.
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_genlisp.dir/rule:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_genlisp.dir/rule
+.PHONY : ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_genlisp.dir/rule
+
+# Convenience name for target.
+ramp_planner_new_genlisp: ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_genlisp.dir/rule
+
+.PHONY : ramp_planner_new_genlisp
+
+# fast build rule for target.
+ramp_planner_new_genlisp/fast:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_genlisp.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_genlisp.dir/build
+.PHONY : ramp_planner_new_genlisp/fast
+
+# Convenience name for target.
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages_eus.dir/rule:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages_eus.dir/rule
+.PHONY : ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+ramp_planner_new_generate_messages_eus: ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages_eus.dir/rule
+
+.PHONY : ramp_planner_new_generate_messages_eus
+
+# fast build rule for target.
+ramp_planner_new_generate_messages_eus/fast:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages_eus.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages_eus.dir/build
+.PHONY : ramp_planner_new_generate_messages_eus/fast
+
+# Convenience name for target.
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_geneus.dir/rule:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_geneus.dir/rule
+.PHONY : ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_geneus.dir/rule
+
+# Convenience name for target.
+ramp_planner_new_geneus: ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_geneus.dir/rule
+
+.PHONY : ramp_planner_new_geneus
+
+# fast build rule for target.
+ramp_planner_new_geneus/fast:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_geneus.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_geneus.dir/build
+.PHONY : ramp_planner_new_geneus/fast
+
+# Convenience name for target.
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_gencpp.dir/rule:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_gencpp.dir/rule
+.PHONY : ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_gencpp.dir/rule
+
+# Convenience name for target.
+ramp_planner_new_gencpp: ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_gencpp.dir/rule
+
+.PHONY : ramp_planner_new_gencpp
+
+# fast build rule for target.
+ramp_planner_new_gencpp/fast:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_gencpp.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_gencpp.dir/build
+.PHONY : ramp_planner_new_gencpp/fast
+
+# Convenience name for target.
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages_lisp.dir/rule:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages_lisp.dir/rule
+.PHONY : ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+ramp_planner_new_generate_messages_lisp: ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages_lisp.dir/rule
+
+.PHONY : ramp_planner_new_generate_messages_lisp
+
+# fast build rule for target.
+ramp_planner_new_generate_messages_lisp/fast:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages_lisp.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages_lisp.dir/build
+.PHONY : ramp_planner_new_generate_messages_lisp/fast
+
+# Convenience name for target.
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages_nodejs.dir/rule:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages_nodejs.dir/rule
+.PHONY : ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+ramp_planner_new_generate_messages_nodejs: ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages_nodejs.dir/rule
+
+.PHONY : ramp_planner_new_generate_messages_nodejs
+
+# fast build rule for target.
+ramp_planner_new_generate_messages_nodejs/fast:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages_nodejs.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages_nodejs.dir/build
+.PHONY : ramp_planner_new_generate_messages_nodejs/fast
+
+# Convenience name for target.
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_genpy.dir/rule:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_genpy.dir/rule
+.PHONY : ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_genpy.dir/rule
+
+# Convenience name for target.
+ramp_planner_new_genpy: ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_genpy.dir/rule
+
+.PHONY : ramp_planner_new_genpy
+
+# fast build rule for target.
+ramp_planner_new_genpy/fast:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_genpy.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_genpy.dir/build
+.PHONY : ramp_planner_new_genpy/fast
+
+# Convenience name for target.
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages_cpp.dir/rule:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages_cpp.dir/rule
+.PHONY : ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+ramp_planner_new_generate_messages_cpp: ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages_cpp.dir/rule
+
+.PHONY : ramp_planner_new_generate_messages_cpp
+
+# fast build rule for target.
+ramp_planner_new_generate_messages_cpp/fast:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages_cpp.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages_cpp.dir/build
+.PHONY : ramp_planner_new_generate_messages_cpp/fast
+
+# Convenience name for target.
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_gennodejs.dir/rule:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_gennodejs.dir/rule
+.PHONY : ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_gennodejs.dir/rule
+
+# Convenience name for target.
+ramp_planner_new_gennodejs: ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_gennodejs.dir/rule
+
+.PHONY : ramp_planner_new_gennodejs
+
+# fast build rule for target.
+ramp_planner_new_gennodejs/fast:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_gennodejs.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_gennodejs.dir/build
+.PHONY : ramp_planner_new_gennodejs/fast
 
 src/control_main.o: src/control_main.cpp.o
 
@@ -446,15 +641,28 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... install/strip"
 	@echo "... install/local"
 	@echo "... install"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... ramp_control_new"
 	@echo "... edit_cache"
-	@echo "... test"
+	@echo "... ramp_control_new"
 	@echo "... ramp_planner_new"
+	@echo "... ramp_planner_new_generate_messages"
+	@echo "... ramp_planner_new_generate_messages_py"
+	@echo "... install/strip"
+	@echo "... _ramp_planner_new_generate_messages_check_deps_CubicRepresentation"
+	@echo "... _ramp_planner_new_generate_messages_check_deps_Coefficient"
+	@echo "... ramp_planner_new_genlisp"
+	@echo "... ramp_planner_new_generate_messages_eus"
+	@echo "... ramp_planner_new_geneus"
+	@echo "... ramp_planner_new_gencpp"
+	@echo "... ramp_planner_new_generate_messages_lisp"
+	@echo "... ramp_planner_new_generate_messages_nodejs"
+	@echo "... ramp_planner_new_genpy"
+	@echo "... test"
+	@echo "... ramp_planner_new_generate_messages_cpp"
+	@echo "... ramp_planner_new_gennodejs"
 	@echo "... src/control_main.o"
 	@echo "... src/control_main.i"
 	@echo "... src/control_main.s"

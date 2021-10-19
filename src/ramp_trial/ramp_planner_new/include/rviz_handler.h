@@ -3,6 +3,7 @@
 #include "ros/ros.h"
 #include <visualization_msgs/MarkerArray.h>
 #include <ramp_msgs/Path.h>
+#include <ramp_planner_new/CubicRepresentation.h>
 #include <geometry_msgs/Twist.h>
 
 class RvizHandler {
@@ -11,13 +12,13 @@ class RvizHandler {
 
     unsigned int getNumSubscribers();
     void sendMarkerArray(const visualization_msgs::MarkerArray& ma);
-    void sendPath(const ramp_msgs::Path& p);
+    void sendCoefs(const ramp_planner_new::CubicRepresentation& c);
     void sendTwist(const geometry_msgs::Twist& t);
 
   private:
     ros::NodeHandle handle_;
     ros::Publisher pub_markerArray_;
-    ros::Publisher pub_path_;
+    ros::Publisher pub_coefs_;
     ros::Publisher pub_twist_;
 };
 

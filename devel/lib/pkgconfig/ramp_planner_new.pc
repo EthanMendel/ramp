@@ -3,6 +3,6 @@ prefix=/home/emendel/Documents/IndepententStudy/ramp/devel
 Name: ramp_planner_new
 Description: Description of ramp_planner_new
 Version: 0.0.0
-Cflags: 
+Cflags: -I/home/emendel/Documents/IndepententStudy/ramp/devel/include
 Libs: -L${prefix}/lib 
-Requires: 
+Requires: geometry_msgs message_runtime ramp_msgs roscpp roslib

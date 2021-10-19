@@ -317,7 +317,7 @@ void pubStartGoalMarkers(RvizHandler pub_rviz){
 
 void pubPath(RvizHandler pub_rviz){
   ROS_INFO("In pubPath");
-  pub_rviz.sendPath(straightLinePath.buildPathMsg());
+  pub_rviz.sendCoefs(straightLinePath.buildCubicMsg());
   visualization_msgs::MarkerArray result;
 
   for(unsigned int i=0;i<straightLinePath.msg_.points.size()-1;i++) {

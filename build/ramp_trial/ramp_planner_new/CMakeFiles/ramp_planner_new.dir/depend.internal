@@ -162,6 +162,8 @@ ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/main.cpp.o
  /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectorySrv.h
  /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectorySrvRequest.h
  /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectorySrvResponse.h
+ /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/Coefficient.h
+ /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/CubicRepresentation.h
  /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/bezier_curve.h
  /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/control_handler.h
  /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/evaluation_request_handler.h
@@ -448,6 +450,8 @@ ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/path.cpp.o
  /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/Path.h
  /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/RampTrajectory.h
  /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/Range.h
+ /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/Coefficient.h
+ /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/CubicRepresentation.h
  /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/knot_point.h
  /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/motion_state.h
  /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/path.h
@@ -598,6 +602,8 @@ ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp
  /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/KnotPoint.h
  /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/MotionState.h
  /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/Path.h
+ /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/Coefficient.h
+ /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/CubicRepresentation.h
  /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/rviz_handler.h
  /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/rviz_handler.cpp
  /opt/ros/noetic/include/geometry_msgs/Point.h

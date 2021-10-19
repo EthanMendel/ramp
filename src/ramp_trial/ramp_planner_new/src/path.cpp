@@ -105,6 +105,21 @@ const ramp_msgs::Path Path::buildPathMsg() const {
   return result;
 }
 
+const ramp_planner_new::CubicRepresentation Path::buildCubicMsg() const {
+  ramp_planner_new::CubicRepresentation result;
+  result.order = coefs.at(0).size();
+  result.numDOF = coefs.size();
+  for(unsigned int i=0;i<coefs.size();i++){
+    ramp_planner_new::Coefficient c;
+    for(unsigned int j=0;j<coefs.at(i).size();j++){
+      c.values.push_back(coefs.at(i).at(j));
+    }
+    result.coefficients.push_back(c);
+  }
+  result.time=0;//change this somehow
+  return result;
+}
+
 const std::string Path::toString() const {
   std::ostringstream result;
   for(unsigned int i=0;i<msg_.points.size();i++) {
