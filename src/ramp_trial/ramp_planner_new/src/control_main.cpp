@@ -17,8 +17,7 @@ void trajCallback(const ramp_msgs::Path path){
     t.angular.y = 0;
     t.angular.z = 0;
 
-    // pub_rviz.sendTwist(t);
-    //publish to the robot somehow
+    robot.sendTwist(t);
   }
   std::cout<<"all twists sent"<<std::endl;
 }
@@ -30,6 +29,7 @@ int main(int argc, char** argv) {
   ros::init(argc, argv, "ramp_listener_new");
   ros::NodeHandle handle;
 
+  robot.pub_twist_ = handle.advertise<geometry_msgs::Twist>(MobileRobot::TOPIC_STR_TWIST, 1000);
   ros::Subscriber trajListener  = handle.subscribe("trajChannel", 1, trajCallback);
  
   ros::Rate r(20);
