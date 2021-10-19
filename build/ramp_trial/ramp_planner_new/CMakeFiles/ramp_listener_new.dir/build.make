@@ -57,27 +57,27 @@ include ramp_trial/ramp_planner_new/CMakeFiles/ramp_listener_new.dir/progress.ma
 # Include the compile flags for this target's objects.
 include ramp_trial/ramp_planner_new/CMakeFiles/ramp_listener_new.dir/flags.make
 
-ramp_trial/ramp_planner_new/CMakeFiles/ramp_listener_new.dir/src/listener_main.cpp.o: ramp_trial/ramp_planner_new/CMakeFiles/ramp_listener_new.dir/flags.make
-ramp_trial/ramp_planner_new/CMakeFiles/ramp_listener_new.dir/src/listener_main.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/listener_main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object ramp_trial/ramp_planner_new/CMakeFiles/ramp_listener_new.dir/src/listener_main.cpp.o"
-	cd /home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/ramp_planner_new && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ramp_listener_new.dir/src/listener_main.cpp.o -c /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/listener_main.cpp
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_listener_new.dir/src/control_main.cpp.o: ramp_trial/ramp_planner_new/CMakeFiles/ramp_listener_new.dir/flags.make
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_listener_new.dir/src/control_main.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/control_main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object ramp_trial/ramp_planner_new/CMakeFiles/ramp_listener_new.dir/src/control_main.cpp.o"
+	cd /home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/ramp_planner_new && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ramp_listener_new.dir/src/control_main.cpp.o -c /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/control_main.cpp
 
-ramp_trial/ramp_planner_new/CMakeFiles/ramp_listener_new.dir/src/listener_main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ramp_listener_new.dir/src/listener_main.cpp.i"
-	cd /home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/ramp_planner_new && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/listener_main.cpp > CMakeFiles/ramp_listener_new.dir/src/listener_main.cpp.i
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_listener_new.dir/src/control_main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ramp_listener_new.dir/src/control_main.cpp.i"
+	cd /home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/ramp_planner_new && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/control_main.cpp > CMakeFiles/ramp_listener_new.dir/src/control_main.cpp.i
 
-ramp_trial/ramp_planner_new/CMakeFiles/ramp_listener_new.dir/src/listener_main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ramp_listener_new.dir/src/listener_main.cpp.s"
-	cd /home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/ramp_planner_new && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/listener_main.cpp -o CMakeFiles/ramp_listener_new.dir/src/listener_main.cpp.s
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_listener_new.dir/src/control_main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ramp_listener_new.dir/src/control_main.cpp.s"
+	cd /home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/ramp_planner_new && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/control_main.cpp -o CMakeFiles/ramp_listener_new.dir/src/control_main.cpp.s
 
 # Object files for target ramp_listener_new
 ramp_listener_new_OBJECTS = \
-"CMakeFiles/ramp_listener_new.dir/src/listener_main.cpp.o"
+"CMakeFiles/ramp_listener_new.dir/src/control_main.cpp.o"
 
 # External object files for target ramp_listener_new
 ramp_listener_new_EXTERNAL_OBJECTS =
 
-/home/emendel/Documents/IndepententStudy/ramp/devel/lib/ramp_planner_new/ramp_listener_new: ramp_trial/ramp_planner_new/CMakeFiles/ramp_listener_new.dir/src/listener_main.cpp.o
+/home/emendel/Documents/IndepententStudy/ramp/devel/lib/ramp_planner_new/ramp_listener_new: ramp_trial/ramp_planner_new/CMakeFiles/ramp_listener_new.dir/src/control_main.cpp.o
 /home/emendel/Documents/IndepententStudy/ramp/devel/lib/ramp_planner_new/ramp_listener_new: ramp_trial/ramp_planner_new/CMakeFiles/ramp_listener_new.dir/build.make
 /home/emendel/Documents/IndepententStudy/ramp/devel/lib/ramp_planner_new/ramp_listener_new: /opt/ros/noetic/lib/libroscpp.so
 /home/emendel/Documents/IndepententStudy/ramp/devel/lib/ramp_planner_new/ramp_listener_new: /usr/lib/x86_64-linux-gnu/libpthread.so

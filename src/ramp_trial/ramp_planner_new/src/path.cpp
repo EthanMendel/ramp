@@ -154,6 +154,7 @@ void Path::makeStraightPath(){
 }
 
 //from ITCS 5151/8151 (Robotics) 2003, Jing Xiao Handout#3
+//REQUIRES START AND GOAL NODES
 void Path::findCubicCoefs(const unsigned int T){
   order = 3;
   for(auto c : coefs){
@@ -206,7 +207,7 @@ void Path::makeCubicPath(const unsigned int T){
       
       ms.msg_.jerks.push_back(6*coefs.at(j).at(0));
     }
-    std::cout<<"point #"<<t+1<<"\t("<<ms.msg_.positions.at(0)<<",\t"<<ms.msg_.positions.at(1)<<",\t"<<ms.msg_.positions.at(2)<<")\n";
+    // std::cout<<"point #"<<t+1<<"\t("<<ms.msg_.positions.at(0)<<",\t"<<ms.msg_.positions.at(1)<<",\t"<<ms.msg_.positions.at(2)<<")\n";
     addBeforeGoal(ms);
   }
   std::cout<<"Cubic path has "<<msg_.points.size()<<" points\n";
