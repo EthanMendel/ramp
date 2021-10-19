@@ -405,8 +405,8 @@ void pubPath(RvizHandler pub_rviz){
     ROS_INFO("Rviz started");
   }
 
-  pub_rviz.sendTrajectory(result);
-  pub_rviz.sendTrajectory(result);
+  pub_rviz.sendMarkerArray(result);
+  pub_rviz.sendMarkerArray(result);
   
   ROS_INFO("Exiting pubPath");
 }
@@ -442,7 +442,6 @@ int main(int argc, char** argv) {
   /*
    * all parameters are loaded
    */
-  initListener(argc, argv);
   pubStartGoalMarkers(pub_rviz);//red-start, blue-goal
   // straightLinePath.makeStraightPath();
   straightLinePath.makeCubicPath(10);

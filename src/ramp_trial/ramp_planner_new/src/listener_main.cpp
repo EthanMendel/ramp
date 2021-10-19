@@ -20,7 +20,7 @@ void trajCallback(const ramp_msgs::Path path){
   std::cout<<"all twists sent"<<std::endl;
 }
 
-void initListener(int argc, char** argv) {
+int main(int argc, char** argv) {
   std::cout<<"\nstarting listener\n";
   srand( time(0));
 
