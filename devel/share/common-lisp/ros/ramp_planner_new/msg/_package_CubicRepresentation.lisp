@@ -5,6 +5,6 @@
           NUMDOF
           COEFFICIENTS-VAL
           COEFFICIENTS
-          TIME-VAL
-          TIME
+          RESOLUTION-VAL
+          RESOLUTION
 ))

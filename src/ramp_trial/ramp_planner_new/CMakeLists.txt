@@ -133,7 +133,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(${PROJECT_NAME} src/main.cpp src/knot_point.cpp src/motion_state.cpp src/path.cpp src/range.cpp src/rviz_handler.cpp src/utility.cpp)
+add_executable(${PROJECT_NAME} src/planner_main.cpp src/knot_point.cpp src/motion_state.cpp src/path.cpp src/range.cpp src/rviz_handler.cpp src/utility.cpp)
 
 add_executable(ramp_control_new src/control_main.cpp src/mobile_robot)
 target_link_libraries(ramp_control_new ${catkin_LIBRARIES})

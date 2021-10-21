@@ -446,33 +446,6 @@ src/knot_point.cpp.s:
 	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/knot_point.cpp.s
 .PHONY : src/knot_point.cpp.s
 
-src/main.o: src/main.cpp.o
-
-.PHONY : src/main.o
-
-# target to build an object file
-src/main.cpp.o:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/main.cpp.o
-.PHONY : src/main.cpp.o
-
-src/main.i: src/main.cpp.i
-
-.PHONY : src/main.i
-
-# target to preprocess a source file
-src/main.cpp.i:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/main.cpp.i
-.PHONY : src/main.cpp.i
-
-src/main.s: src/main.cpp.s
-
-.PHONY : src/main.s
-
-# target to generate assembly for a file
-src/main.cpp.s:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/main.cpp.s
-.PHONY : src/main.cpp.s
-
 src/mobile_robot.o: src/mobile_robot.cpp.o
 
 .PHONY : src/mobile_robot.o
@@ -553,6 +526,33 @@ src/path.s: src/path.cpp.s
 src/path.cpp.s:
 	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/path.cpp.s
 .PHONY : src/path.cpp.s
+
+src/planner_main.o: src/planner_main.cpp.o
+
+.PHONY : src/planner_main.o
+
+# target to build an object file
+src/planner_main.cpp.o:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/planner_main.cpp.o
+.PHONY : src/planner_main.cpp.o
+
+src/planner_main.i: src/planner_main.cpp.i
+
+.PHONY : src/planner_main.i
+
+# target to preprocess a source file
+src/planner_main.cpp.i:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/planner_main.cpp.i
+.PHONY : src/planner_main.cpp.i
+
+src/planner_main.s: src/planner_main.cpp.s
+
+.PHONY : src/planner_main.s
+
+# target to generate assembly for a file
+src/planner_main.cpp.s:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/planner_main.cpp.s
+.PHONY : src/planner_main.cpp.s
 
 src/range.o: src/range.cpp.o
 
@@ -669,9 +669,6 @@ help:
 	@echo "... src/knot_point.o"
 	@echo "... src/knot_point.i"
 	@echo "... src/knot_point.s"
-	@echo "... src/main.o"
-	@echo "... src/main.i"
-	@echo "... src/main.s"
 	@echo "... src/mobile_robot.o"
 	@echo "... src/mobile_robot.i"
 	@echo "... src/mobile_robot.s"
@@ -681,6 +678,9 @@ help:
 	@echo "... src/path.o"
 	@echo "... src/path.i"
 	@echo "... src/path.s"
+	@echo "... src/planner_main.o"
+	@echo "... src/planner_main.i"
+	@echo "... src/planner_main.s"
 	@echo "... src/range.o"
 	@echo "... src/range.i"
 	@echo "... src/range.s"

@@ -14,7 +14,7 @@
 
 (defclass ramp_planner_new::CubicRepresentation
   :super ros::object
-  :slots (_order _numDOF _coefficients _time ))
+  :slots (_order _numDOF _coefficients _resolution ))
 
 (defmethod ramp_planner_new::CubicRepresentation
   (:init
@@ -22,13 +22,13 @@
     ((:order __order) 0)
     ((:numDOF __numDOF) 0)
     ((:coefficients __coefficients) ())
-    ((:time __time) 0)
+    ((:resolution __resolution) 0.0)
     )
    (send-super :init)
    (setq _order (round __order))
    (setq _numDOF (round __numDOF))
    (setq _coefficients __coefficients)
-   (setq _time (round __time))
+   (setq _resolution (float __resolution))
    self)
   (:order
    (&optional __order)
@@ -43,9 +43,9 @@
      (progn
        (if __coefficients (setq _coefficients (car __coefficients)))
        _coefficients)))
-  (:time
-   (&optional __time)
-   (if __time (setq _time __time)) _time)
+  (:resolution
+   (&optional __resolution)
+   (if __resolution (setq _resolution __resolution)) _resolution)
   (:serialization-length
    ()
    (+
@@ -55,8 +55,8 @@
     4
     ;; ramp_planner_new/Coefficient[] _coefficients
     (apply #'+ (send-all _coefficients :serialization-length)) 4
-    ;; uint32 _time
-    4
+    ;; float64 _resolution
+    8
     ))
   (:serialize
    (&optional strm)
@@ -71,8 +71,8 @@
      (dolist (elem _coefficients)
        (send elem :serialize s)
        )
-     ;; uint32 _time
-       (write-long _time s)
+     ;; float64 _resolution
+       (sys::poke _resolution (send s :buffer) (send s :count) :double) (incf (stream-count s) 8)
      ;;
      (if (null strm) (get-output-stream-string s))))
   (:deserialize
@@ -88,19 +88,19 @@
      (dolist (elem- _coefficients)
      (send elem- :deserialize buf ptr-) (incf ptr- (send elem- :serialization-length))
      ))
-   ;; uint32 _time
-     (setq _time (sys::peek buf ptr- :integer)) (incf ptr- 4)
+   ;; float64 _resolution
+     (setq _resolution (sys::peek buf ptr- :double)) (incf ptr- 8)
    ;;
    self)
   )
 
-(setf (get ramp_planner_new::CubicRepresentation :md5sum-) "0cd6931c932c0dea333d5e01e429443f")
+(setf (get ramp_planner_new::CubicRepresentation :md5sum-) "7d9f47ffad2b610ef10ede454a7dfa31")
 (setf (get ramp_planner_new::CubicRepresentation :datatype-) "ramp_planner_new/CubicRepresentation")
 (setf (get ramp_planner_new::CubicRepresentation :definition-)
       "uint32 order
 uint32 numDOF
 ramp_planner_new/Coefficient[] coefficients
-uint32 time
+float64 resolution
 ================================================================================
 MSG: ramp_planner_new/Coefficient
 float64[] values
@@ -108,6 +108,6 @@ float64[] values
 
 
 
-(provide :ramp_planner_new/CubicRepresentation "0cd6931c932c0dea333d5e01e429443f")
+(provide :ramp_planner_new/CubicRepresentation "7d9f47ffad2b610ef10ede454a7dfa31")
 
 

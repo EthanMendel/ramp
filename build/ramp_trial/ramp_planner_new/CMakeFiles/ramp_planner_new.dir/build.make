@@ -57,18 +57,18 @@ include ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/progress.mak
 # Include the compile flags for this target's objects.
 include ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/flags.make
 
-ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/main.cpp.o: ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/flags.make
-ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/main.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/main.cpp.o"
-	cd /home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/ramp_planner_new && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ramp_planner_new.dir/src/main.cpp.o -c /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/main.cpp
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/planner_main.cpp.o: ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/flags.make
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/planner_main.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/planner_main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/planner_main.cpp.o"
+	cd /home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/ramp_planner_new && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ramp_planner_new.dir/src/planner_main.cpp.o -c /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/planner_main.cpp
 
-ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ramp_planner_new.dir/src/main.cpp.i"
-	cd /home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/ramp_planner_new && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/main.cpp > CMakeFiles/ramp_planner_new.dir/src/main.cpp.i
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/planner_main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ramp_planner_new.dir/src/planner_main.cpp.i"
+	cd /home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/ramp_planner_new && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/planner_main.cpp > CMakeFiles/ramp_planner_new.dir/src/planner_main.cpp.i
 
-ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ramp_planner_new.dir/src/main.cpp.s"
-	cd /home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/ramp_planner_new && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/main.cpp -o CMakeFiles/ramp_planner_new.dir/src/main.cpp.s
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/planner_main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ramp_planner_new.dir/src/planner_main.cpp.s"
+	cd /home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/ramp_planner_new && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/planner_main.cpp -o CMakeFiles/ramp_planner_new.dir/src/planner_main.cpp.s
 
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/knot_point.cpp.o: ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/flags.make
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/knot_point.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/knot_point.cpp
@@ -150,7 +150,7 @@ ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/utility.cpp.s: c
 
 # Object files for target ramp_planner_new
 ramp_planner_new_OBJECTS = \
-"CMakeFiles/ramp_planner_new.dir/src/main.cpp.o" \
+"CMakeFiles/ramp_planner_new.dir/src/planner_main.cpp.o" \
 "CMakeFiles/ramp_planner_new.dir/src/knot_point.cpp.o" \
 "CMakeFiles/ramp_planner_new.dir/src/motion_state.cpp.o" \
 "CMakeFiles/ramp_planner_new.dir/src/path.cpp.o" \
@@ -161,7 +161,7 @@ ramp_planner_new_OBJECTS = \
 # External object files for target ramp_planner_new
 ramp_planner_new_EXTERNAL_OBJECTS =
 
-/home/emendel/Documents/IndepententStudy/ramp/devel/lib/ramp_planner_new/ramp_planner_new: ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/main.cpp.o
+/home/emendel/Documents/IndepententStudy/ramp/devel/lib/ramp_planner_new/ramp_planner_new: ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/planner_main.cpp.o
 /home/emendel/Documents/IndepententStudy/ramp/devel/lib/ramp_planner_new/ramp_planner_new: ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/knot_point.cpp.o
 /home/emendel/Documents/IndepententStudy/ramp/devel/lib/ramp_planner_new/ramp_planner_new: ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/motion_state.cpp.o
 /home/emendel/Documents/IndepententStudy/ramp/devel/lib/ramp_planner_new/ramp_planner_new: ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/path.cpp.o

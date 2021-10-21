@@ -4,6 +4,24 @@
 
 MobileRobot robot;
 
+/** Initialize the MobileRobot's publishers and subscibers*/
+void init_advertisers_subscribers(MobileRobot& robot, ros::NodeHandle& handle, bool simulation) 
+{
+  // Publishers
+  robot.pub_twist_ = handle.advertise<geometry_msgs::Twist>(MobileRobot::TOPIC_STR_TWIST, 1000);
+  robot.pub_update_ = handle.advertise<ramp_msgs::MotionState>(MobileRobot::TOPIC_STR_UPDATE, 1000);
+
+  if(simulation) {
+    robot.pub_cmd_vel_ = handle.advertise<geometry_msgs::Twist>(MobileRobot::TOPIC_STR_SIM, 10);
+  }
+  // Subscribers
+  robot.sub_odometry_ = handle.subscribe(MobileRobot::TOPIC_STR_ODOMETRY, 1, &MobileRobot::odomCb, &robot);
+  robot.sub_imminent_collision_ = handle.subscribe(MobileRobot::TOPIC_STR_IC, 1, &MobileRobot::imminentCollisionCb, &robot);
+  // Timers
+  // 15 Hz seems to be the fastest possible while avoiding nan errors
+  robot.timer_ = handle.createTimer(ros::Duration(1.f / 30.f), &MobileRobot::updateCallback, &robot);
+} // End init_advertisers_subscribers
+
 void trajCallback(const ramp_planner_new::CubicRepresentation cubic){
   std::cout<<"got path in trajCallback"<<std::endl;
   //how to determin t value to use
@@ -14,17 +32,26 @@ int main(int argc, char** argv) {
   std::cout<<"\nstarting listener\n";
   srand( time(0));
 
-  ros::init(argc, argv, "ramp_listener_new");
+  ros::init(argc, argv, "ramp_controller_new");
   ros::NodeHandle handle;
+  ros::NodeHandle handle_local("~");
 
-  robot.pub_twist_ = handle.advertise<geometry_msgs::Twist>(MobileRobot::TOPIC_STR_TWIST, 1000);
   ros::Subscriber trajListener  = handle.subscribe("coef_channel", 1, trajCallback);
- 
-  ros::Rate r(20);
-  ros::spin();
-  r.sleep();
+  setvbuf(stdout, NULL, _IOLBF, 4096);
 
-  printf("\n\nExiting Normally\n");
-  ros::shutdown();
-  return 0;
-}
+  bool sim = true;
+
+  init_advertisers_subscribers(robot,handle,sim);
+
+  ros::Rate r(1000);
+  while(ros::ok()) 
+  {
+    robot.moveOnTrajectory();
+    r.sleep();
+    ros::spinOnce();
+  }
+
+  fflush(stdout);
+
+  std::cout<<"\nExiting Normally\n";
+  return 0;}

@@ -116,7 +116,7 @@ const ramp_planner_new::CubicRepresentation Path::buildCubicMsg() const {
     }
     result.coefficients.push_back(c);
   }
-  result.time=0;//change this somehow
+  result.resolution=10;//change this somehow
   return result;
 }
 
@@ -170,7 +170,7 @@ void Path::makeStraightPath(){
 
 //from ITCS 5151/8151 (Robotics) 2003, Jing Xiao Handout#3
 //REQUIRES START AND GOAL NODES
-void Path::findCubicCoefs(const unsigned int T){
+void Path::findCubicCoefs(const double T){
   order = 3;
   for(auto c : coefs){
     c.clear();
@@ -195,7 +195,7 @@ void Path::findCubicCoefs(const unsigned int T){
   }
 }
 
-void Path::makeCubicPath(const unsigned int T){
+void Path::makeCubicPath(const double T){
   findCubicCoefs(T);
   if(order!=3 && coefs.size() != 4){
     return;

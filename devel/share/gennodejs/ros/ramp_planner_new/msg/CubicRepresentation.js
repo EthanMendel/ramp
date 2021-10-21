@@ -22,7 +22,7 @@ class CubicRepresentation {
       this.order = null;
       this.numDOF = null;
       this.coefficients = null;
-      this.time = null;
+      this.resolution = null;
     }
     else {
       if (initObj.hasOwnProperty('order')) {
@@ -43,11 +43,11 @@ class CubicRepresentation {
       else {
         this.coefficients = [];
       }
-      if (initObj.hasOwnProperty('time')) {
-        this.time = initObj.time
+      if (initObj.hasOwnProperty('resolution')) {
+        this.resolution = initObj.resolution
       }
       else {
-        this.time = 0;
+        this.resolution = 0.0;
       }
     }
   }
@@ -64,8 +64,8 @@ class CubicRepresentation {
     obj.coefficients.forEach((val) => {
       bufferOffset = Coefficient.serialize(val, buffer, bufferOffset);
     });
-    // Serialize message field [time]
-    bufferOffset = _serializer.uint32(obj.time, buffer, bufferOffset);
+    // Serialize message field [resolution]
+    bufferOffset = _serializer.float64(obj.resolution, buffer, bufferOffset);
     return bufferOffset;
   }
 
@@ -84,8 +84,8 @@ class CubicRepresentation {
     for (let i = 0; i < len; ++i) {
       data.coefficients[i] = Coefficient.deserialize(buffer, bufferOffset)
     }
-    // Deserialize message field [time]
-    data.time = _deserializer.uint32(buffer, bufferOffset);
+    // Deserialize message field [resolution]
+    data.resolution = _deserializer.float64(buffer, bufferOffset);
     return data;
   }
 
@@ -94,7 +94,7 @@ class CubicRepresentation {
     object.coefficients.forEach((val) => {
       length += Coefficient.getMessageSize(val);
     });
-    return length + 16;
+    return length + 20;
   }
 
   static datatype() {
@@ -104,7 +104,7 @@ class CubicRepresentation {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '0cd6931c932c0dea333d5e01e429443f';
+    return '7d9f47ffad2b610ef10ede454a7dfa31';
   }
 
   static messageDefinition() {
@@ -113,7 +113,7 @@ class CubicRepresentation {
     uint32 order
     uint32 numDOF
     ramp_planner_new/Coefficient[] coefficients
-    uint32 time
+    float64 resolution
     ================================================================================
     MSG: ramp_planner_new/Coefficient
     float64[] values
@@ -150,11 +150,11 @@ class CubicRepresentation {
       resolved.coefficients = []
     }
 
-    if (msg.time !== undefined) {
-      resolved.time = msg.time;
+    if (msg.resolution !== undefined) {
+      resolved.resolution = msg.resolution;
     }
     else {
-      resolved.time = 0
+      resolved.resolution = 0.0
     }
 
     return resolved;

@@ -5,11 +5,10 @@ const std::string MobileRobot::TOPIC_STR_ODOMETRY="odometry";
 const std::string MobileRobot::TOPIC_STR_UPDATE="update";
 const std::string MobileRobot::TOPIC_STR_TWIST="twist";
 const std::string MobileRobot::TOPIC_STR_IC="imminent_collision";
+const std::string MobileRobot::TOPIC_STR_SIM="cmd_vel";
 const float BASE_WIDTH=0.2413;
 
 const float timeNeededToTurn = 2.5; 
-
-
 
 MobileRobot::MobileRobot() : restart_(false), num_(0), num_traveled_(0), k_dof_(3)  
 { 
@@ -77,8 +76,6 @@ void MobileRobot::imminentCollisionCb(const std_msgs::Bool msg)
   imminent_coll_ = msg.data;
 }
 
-
-
 /** This method is on a timer to publish the robot's latest configuration */
 void MobileRobot::updateCallback(const ros::TimerEvent& e) {
   //ROS_INFO("Publishing latest MotionState");
@@ -90,6 +87,27 @@ void MobileRobot::updateCallback(const ros::TimerEvent& e) {
       //ROS_INFO("Motion state: %s", utility_.toString(motion_state_).c_str());
   }
 } // End updatePublishTimer
+
+/** This method updates the MobileRobot's trajectory
+ *   It calls calculateSpeedsAndTimes to update the robot's vectors needed to move */
+void MobileRobot::updateTrajectory(const ramp_planner_new::CubicRepresentation& msg) 
+{
+  ros::Time now = ros::Time::now();
+  // Update vectors for speeds and times
+  if((now.toSec() - t_prev_traj_.toSec()) >= 1/msg.resolution)
+  {
+    t_prev_traj_ = now;
+    num_traveled_ += 1;
+    if(num_traveled_ == msg.resolution){
+      num_ += 1;
+    }
+    twist_ = calculateVelocities(num_);
+  }
+} // End updateTrajectory
+
+geometry_msgs::Twist MobileRobot::calculateVelocities(int t){
+
+}
 
 void MobileRobot::sendTwist() const 
 {
@@ -111,10 +129,10 @@ void MobileRobot::sendTwist(const geometry_msgs::Twist t) const
   pub_twist_.publish(t); 
 
   // If we have the simulation up, publish to cmd_vel
-  if(sim_) 
-  {
+  // if(sim_) 
+  // {
     pub_cmd_vel_.publish(t);
-  }
+  // }
 }
 
 
@@ -155,8 +173,6 @@ void MobileRobot::printVectors() const
   std::cout<<orientations_.at(orientations_.size()-1)<<"]";
 } // End printVectors
 
-
-
 /** Returns true if there is imminent collision */
 const bool MobileRobot::checkImminentCollision()  
 {
@@ -169,11 +185,6 @@ const bool MobileRobot::checkImminentCollision()
   //ROS_INFO("Imminent Collision: %s", result ? "True" : "False");
   return result;
 } // End checkImminentCollision
-
-
-
-
-
 
 /** This method moves the robot along trajectory_ */
 void MobileRobot::moveOnTrajectory() 

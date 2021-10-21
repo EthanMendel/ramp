@@ -9,18 +9,18 @@ import struct
 import ramp_planner_new.msg
 
 class CubicRepresentation(genpy.Message):
-  _md5sum = "0cd6931c932c0dea333d5e01e429443f"
+  _md5sum = "7d9f47ffad2b610ef10ede454a7dfa31"
   _type = "ramp_planner_new/CubicRepresentation"
   _has_header = False  # flag to mark the presence of a Header object
   _full_text = """uint32 order
 uint32 numDOF
 ramp_planner_new/Coefficient[] coefficients
-uint32 time
+float64 resolution
 ================================================================================
 MSG: ramp_planner_new/Coefficient
 float64[] values"""
-  __slots__ = ['order','numDOF','coefficients','time']
-  _slot_types = ['uint32','uint32','ramp_planner_new/Coefficient[]','uint32']
+  __slots__ = ['order','numDOF','coefficients','resolution']
+  _slot_types = ['uint32','uint32','ramp_planner_new/Coefficient[]','float64']
 
   def __init__(self, *args, **kwds):
     """
@@ -30,7 +30,7 @@ float64[] values"""
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       order,numDOF,coefficients,time
+       order,numDOF,coefficients,resolution
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -45,13 +45,13 @@ float64[] values"""
         self.numDOF = 0
       if self.coefficients is None:
         self.coefficients = []
-      if self.time is None:
-        self.time = 0
+      if self.resolution is None:
+        self.resolution = 0.
     else:
       self.order = 0
       self.numDOF = 0
       self.coefficients = []
-      self.time = 0
+      self.resolution = 0.
 
   def _get_types(self):
     """
@@ -74,8 +74,8 @@ float64[] values"""
         buff.write(_struct_I.pack(length))
         pattern = '<%sd'%length
         buff.write(struct.Struct(pattern).pack(*val1.values))
-      _x = self.time
-      buff.write(_get_struct_I().pack(_x))
+      _x = self.resolution
+      buff.write(_get_struct_d().pack(_x))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -110,8 +110,8 @@ float64[] values"""
         val1.values = s.unpack(str[start:end])
         self.coefficients.append(val1)
       start = end
-      end += 4
-      (self.time,) = _get_struct_I().unpack(str[start:end])
+      end += 8
+      (self.resolution,) = _get_struct_d().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -133,8 +133,8 @@ float64[] values"""
         buff.write(_struct_I.pack(length))
         pattern = '<%sd'%length
         buff.write(val1.values.tostring())
-      _x = self.time
-      buff.write(_get_struct_I().pack(_x))
+      _x = self.resolution
+      buff.write(_get_struct_d().pack(_x))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -170,8 +170,8 @@ float64[] values"""
         val1.values = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
         self.coefficients.append(val1)
       start = end
-      end += 4
-      (self.time,) = _get_struct_I().unpack(str[start:end])
+      end += 8
+      (self.resolution,) = _get_struct_d().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -186,3 +186,9 @@ def _get_struct_2I():
     if _struct_2I is None:
         _struct_2I = struct.Struct("<2I")
     return _struct_2I
+_struct_d = None
+def _get_struct_d():
+    global _struct_d
+    if _struct_d is None:
+        _struct_d = struct.Struct("<d")
+    return _struct_d

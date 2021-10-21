@@ -28,13 +28,13 @@ struct CubicRepresentation_
     : order(0)
     , numDOF(0)
     , coefficients()
-    , time(0)  {
+    , resolution(0.0)  {
     }
   CubicRepresentation_(const ContainerAllocator& _alloc)
     : order(0)
     , numDOF(0)
     , coefficients(_alloc)
-    , time(0)  {
+    , resolution(0.0)  {
   (void)_alloc;
     }
 
@@ -49,8 +49,8 @@ struct CubicRepresentation_
    typedef std::vector< ::ramp_planner_new::Coefficient_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::ramp_planner_new::Coefficient_<ContainerAllocator> >::other >  _coefficients_type;
   _coefficients_type coefficients;
 
-   typedef uint32_t _time_type;
-  _time_type time;
+   typedef double _resolution_type;
+  _resolution_type resolution;
 
 
 
@@ -84,7 +84,7 @@ bool operator==(const ::ramp_planner_new::CubicRepresentation_<ContainerAllocato
   return lhs.order == rhs.order &&
     lhs.numDOF == rhs.numDOF &&
     lhs.coefficients == rhs.coefficients &&
-    lhs.time == rhs.time;
+    lhs.resolution == rhs.resolution;
 }
 
 template<typename ContainerAllocator1, typename ContainerAllocator2>
@@ -141,12 +141,12 @@ struct MD5Sum< ::ramp_planner_new::CubicRepresentation_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "0cd6931c932c0dea333d5e01e429443f";
+    return "7d9f47ffad2b610ef10ede454a7dfa31";
   }
 
   static const char* value(const ::ramp_planner_new::CubicRepresentation_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x0cd6931c932c0deaULL;
-  static const uint64_t static_value2 = 0x333d5e01e429443fULL;
+  static const uint64_t static_value1 = 0x7d9f47ffad2b610eULL;
+  static const uint64_t static_value2 = 0xf10ede454a7dfa31ULL;
 };
 
 template<class ContainerAllocator>
@@ -168,7 +168,7 @@ struct Definition< ::ramp_planner_new::CubicRepresentation_<ContainerAllocator> 
     return "uint32 order\n"
 "uint32 numDOF\n"
 "ramp_planner_new/Coefficient[] coefficients\n"
-"uint32 time\n"
+"float64 resolution\n"
 "================================================================================\n"
 "MSG: ramp_planner_new/Coefficient\n"
 "float64[] values\n"
@@ -193,7 +193,7 @@ namespace serialization
       stream.next(m.order);
       stream.next(m.numDOF);
       stream.next(m.coefficients);
-      stream.next(m.time);
+      stream.next(m.resolution);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -224,8 +224,8 @@ struct Printer< ::ramp_planner_new::CubicRepresentation_<ContainerAllocator> >
       s << indent;
       Printer< ::ramp_planner_new::Coefficient_<ContainerAllocator> >::stream(s, indent + "    ", v.coefficients[i]);
     }
-    s << indent << "time: ";
-    Printer<uint32_t>::stream(s, indent + "  ", v.time);
+    s << indent << "resolution: ";
+    Printer<double>::stream(s, indent + "  ", v.resolution);
   }
 };
 
