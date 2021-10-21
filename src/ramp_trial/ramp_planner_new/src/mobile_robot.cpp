@@ -94,19 +94,35 @@ void MobileRobot::updateTrajectory(const ramp_planner_new::CubicRepresentation& 
 {
   ros::Time now = ros::Time::now();
   // Update vectors for speeds and times
-  if((now.toSec() - t_prev_traj_.toSec()) >= 1/msg.resolution)
+  // std::cout<<"updating trajector.."<<std::endl;
+  if((now.toSec() - t_prev_traj_.toSec()) >= 1/msg.resolution && seg_step_ < msg.resolution)
   {
     t_prev_traj_ = now;
-    num_traveled_ += 1;
-    if(num_traveled_ == msg.resolution){
-      num_ += 1;
+    time_step_ = time_step_ + 1;
+    if(time_step_ == msg.resolution){
+      time_step_ = 0;
+      seg_step_ = seg_step_ + 1;
     }
-    twist_ = calculateVelocities(num_);
+    std::cout<<"\ttime_step_:"<<time_step_<<std::endl;
+    std::cout<<"\tseg_step_:"<<seg_step_<<std::endl;
+    twist_ = calculateVelocities(msg.coefficients, seg_step_);
+    sendTwist();
+    // sendTwist();
+    // sendTwist();
   }
 } // End updateTrajectory
 
-geometry_msgs::Twist MobileRobot::calculateVelocities(int t){
+geometry_msgs::Twist MobileRobot::calculateVelocities(const std::vector<ramp_planner_new::Coefficient> coefs, int t){
+  geometry_msgs::Twist twist;
 
+  twist.linear.x = 3*coefs.at(0).values.at(0)*pow(t,2) + 2*coefs.at(0).values.at(1)*(t) + coefs.at(0).values.at(2);
+  twist.linear.y = 3*coefs.at(1).values.at(0)*pow(t,2) + 2*coefs.at(1).values.at(1)*(t) + coefs.at(1).values.at(2);
+  twist.linear.z = 3*coefs.at(2).values.at(0)*pow(t,2) + 2*coefs.at(2).values.at(1)*(t) + coefs.at(2).values.at(2);
+  twist.angular.x = 0;
+  twist.angular.y = 0;
+  twist.angular.z = 0;
+
+  return twist;
 }
 
 void MobileRobot::sendTwist() const 

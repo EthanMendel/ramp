@@ -317,7 +317,6 @@ void pubStartGoalMarkers(RvizHandler pub_rviz){
 
 void pubPath(RvizHandler pub_rviz){
   ROS_INFO("In pubPath");
-  pub_rviz.sendCoefs(straightLinePath.buildCubicMsg());
   visualization_msgs::MarkerArray result;
 
   for(unsigned int i=0;i<straightLinePath.msg_.points.size()-1;i++) {
@@ -448,11 +447,16 @@ int main(int argc, char** argv) {
   pubPath(pub_rviz);
   ROS_INFO("Done with pubStartGoalMarkers");
  
-  ros::Rate r(20);
-  ros::spin();
-  r.sleep();
+  ros::Rate r(1000);
+  while(ros::ok()) 
+  {
+    pub_rviz.sendCoefs(straightLinePath.buildCubicMsg());
+    r.sleep();
+    ros::spinOnce();
+  }
 
-  printf("\n\nExiting Normally\n");
-  ros::shutdown();
+  fflush(stdout);
+
+  std::cout<<"\nExiting Normally\n";
   return 0;
 }

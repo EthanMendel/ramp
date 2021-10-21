@@ -23,9 +23,7 @@ void init_advertisers_subscribers(MobileRobot& robot, ros::NodeHandle& handle, b
 } // End init_advertisers_subscribers
 
 void trajCallback(const ramp_planner_new::CubicRepresentation cubic){
-  std::cout<<"got path in trajCallback"<<std::endl;
-  //how to determin t value to use
-  std::cout<<"all twists sent"<<std::endl;
+  robot.updateTrajectory(cubic);
 }
 
 int main(int argc, char** argv) {
@@ -54,4 +52,5 @@ int main(int argc, char** argv) {
   fflush(stdout);
 
   std::cout<<"\nExiting Normally\n";
-  return 0;}
+  return 0;
+}

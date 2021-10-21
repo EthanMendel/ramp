@@ -8,6 +8,7 @@
 #include "ramp_msgs/MotionState.h"
 #include "ramp_msgs/RampTrajectory.h"
 #include "ramp_planner_new/CubicRepresentation.h"
+#include "ramp_planner_new/Coefficient.h"
 #include "std_msgs/Bool.h"
 #include <math.h>
 
@@ -68,7 +69,7 @@ class MobileRobot
   void                        calculateSpeedsAndTime();
   void                        printVectors() const;
   const bool                  checkImminentCollision();
-  geometry_msgs::Twist        calculateVelocities(int t);
+  geometry_msgs::Twist        calculateVelocities(const std::vector<ramp_planner_new::Coefficient> coefs, int t);
 
 
 
@@ -77,6 +78,8 @@ class MobileRobot
   bool                      restart_;
   int                       num_;
   int                       num_traveled_;
+  int                       seg_step_;
+  int                       time_step_;
   const unsigned int        k_dof_;
   std::vector<ros::Time>    end_times; 
   std::vector<double>       speeds_linear_;
