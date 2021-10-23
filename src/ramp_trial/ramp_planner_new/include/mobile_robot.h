@@ -58,6 +58,7 @@ class MobileRobot
   static const std::string  TOPIC_STR_IC;
   static const std::string  TOPIC_STR_SIM;
   static const std::string  TOPIC_STR_SIM2;
+  static const double              TIME_DELTA
   static const int          ACCELERATION_CONSTANT = 50;
   
   std::vector<ros::Duration> t_points_;

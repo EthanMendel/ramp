@@ -7,6 +7,7 @@ const std::string MobileRobot::TOPIC_STR_TWIST="twist";
 const std::string MobileRobot::TOPIC_STR_IC="imminent_collision";
 const std::string MobileRobot::TOPIC_STR_SIM="cmd_vel";
 const std::string MobileRobot::TOPIC_STR_SIM2="/mobile_base/commands/velocity";
+const double TIME_DELTA = 1/10;
 const float BASE_WIDTH=0.2413;
 
 const float timeNeededToTurn = 2.5; 
@@ -96,16 +97,17 @@ void MobileRobot::updateTrajectory(const ramp_planner_new::CubicRepresentation& 
   ros::Time now = ros::Time::now();
   // Update vectors for speeds and times
   // std::cout<<"updating trajector.."<<std::endl;
-  if((now.toSec() - t_prev_traj_.toSec()) >= 1/msg.resolution && seg_step_ < msg.resolution)
+  if((now.toSec() - t_prev_traj_.toSec()) >= TIME_DELTA && seg_step_ < msg.resolution)
   {
     t_prev_traj_ = now;
     time_step_ = time_step_ + 1;
-    if(time_step_ == msg.resolution){
+    if(time_step_ == pow(TIME_DELTA,-1)){//every second should have a new t value
+                                         //to be more exact: 'could' calculate t based on delta from global start time
       time_step_ = 0;
       seg_step_ = seg_step_ + 1;
     }
-    std::cout<<"\ttime_step_:"<<time_step_<<std::endl;
-    std::cout<<"\tseg_step_:"<<seg_step_<<std::endl;
+    // std::cout<<"\ttime_step_:"<<time_step_<<std::endl;
+    // std::cout<<"\tseg_step_:"<<seg_step_<<std::endl;
     twist_ = calculateVelocities(msg.coefficients, seg_step_);
     sendTwist();
     // sendTwist();
