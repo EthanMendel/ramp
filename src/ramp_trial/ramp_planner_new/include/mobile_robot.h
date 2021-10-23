@@ -36,6 +36,7 @@ class MobileRobot
   ros::Publisher                    pub_phidget_motor_;
   ros::Publisher                    pub_twist_;
   ros::Publisher                    pub_cmd_vel_;
+  ros::Publisher                    pub_cmd_vel2_;
   ros::Publisher                    pub_update_;
   ros::Subscriber                   sub_odometry_;
   ros::Subscriber                   sub_imminent_collision_;
@@ -56,6 +57,7 @@ class MobileRobot
   static const std::string  TOPIC_STR_TWIST;
   static const std::string  TOPIC_STR_IC;
   static const std::string  TOPIC_STR_SIM;
+  static const std::string  TOPIC_STR_SIM2;
   static const int          ACCELERATION_CONSTANT = 50;
   
   std::vector<ros::Duration> t_points_;

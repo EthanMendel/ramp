@@ -6,6 +6,7 @@ const std::string MobileRobot::TOPIC_STR_UPDATE="update";
 const std::string MobileRobot::TOPIC_STR_TWIST="twist";
 const std::string MobileRobot::TOPIC_STR_IC="imminent_collision";
 const std::string MobileRobot::TOPIC_STR_SIM="cmd_vel";
+const std::string MobileRobot::TOPIC_STR_SIM2="/mobile_base/commands/velocity";
 const float BASE_WIDTH=0.2413;
 
 const float timeNeededToTurn = 2.5; 
@@ -134,6 +135,7 @@ void MobileRobot::sendTwist() const
   //if(sim_) 
   //{
     pub_cmd_vel_.publish(twist_);
+    pub_cmd_vel2_.publish(twist_);
   //}
   
   //ROS_INFO("Exiting MobileRobot::sendTwist()");
@@ -148,6 +150,7 @@ void MobileRobot::sendTwist(const geometry_msgs::Twist t) const
   // if(sim_) 
   // {
     pub_cmd_vel_.publish(t);
+    pub_cmd_vel2_.publish(t);
   // }
 }
 

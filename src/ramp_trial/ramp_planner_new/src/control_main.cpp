@@ -13,6 +13,7 @@ void init_advertisers_subscribers(MobileRobot& robot, ros::NodeHandle& handle, b
 
   if(simulation) {
     robot.pub_cmd_vel_ = handle.advertise<geometry_msgs::Twist>(MobileRobot::TOPIC_STR_SIM, 10);
+    robot.pub_cmd_vel2_ = handle.advertise<geometry_msgs::Twist>(MobileRobot::TOPIC_STR_SIM2, 10);
   }
   // Subscribers
   robot.sub_odometry_ = handle.subscribe(MobileRobot::TOPIC_STR_ODOMETRY, 1, &MobileRobot::odomCb, &robot);
