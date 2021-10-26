@@ -104,6 +104,7 @@ void MobileRobot::updateTrajectory(const ramp_planner_new::CubicRepresentation& 
                                          //to be more exact: 'could' calculate t based on delta from global start time
       time_step_ = 0;
       seg_step_ = seg_step_ + 1;
+      std::cout<<"Sending new Velocity for time segment "<<seg_step_<<std::endl;
     }
     // std::cout<<"\ttime_step_:"<<time_step_<<std::endl;
     // std::cout<<"\tseg_step_:"<<seg_step_<<std::endl;

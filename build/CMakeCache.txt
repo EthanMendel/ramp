@@ -1130,6 +1130,12 @@ turtlebot_capabilities_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStud
 turtlebot_capabilities_SOURCE_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/src/turtlebot/turtlebot_capabilities
 
 //Value Computed by CMake
+turtlebot_dashboard_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/build/turtlebot_interactions/turtlebot_dashboard
+
+//Value Computed by CMake
+turtlebot_dashboard_SOURCE_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/src/turtlebot_interactions/turtlebot_dashboard
+
+//Value Computed by CMake
 turtlebot_description_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/build/turtlebot/turtlebot_description
 
 //Value Computed by CMake
@@ -1140,6 +1146,24 @@ turtlebot_gazebo_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp
 
 //Value Computed by CMake
 turtlebot_gazebo_SOURCE_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/src/turtlebot/turtlebot_simulator/turtlebot_gazebo
+
+//Value Computed by CMake
+turtlebot_interactions_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/build/turtlebot_interactions/turtlebot_interactions
+
+//Value Computed by CMake
+turtlebot_interactions_SOURCE_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/src/turtlebot_interactions/turtlebot_interactions
+
+//Value Computed by CMake
+turtlebot_interactive_markers_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/build/turtlebot_interactions/turtlebot_interactive_markers
+
+//Value Computed by CMake
+turtlebot_interactive_markers_SOURCE_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/src/turtlebot_interactions/turtlebot_interactive_markers
+
+//Value Computed by CMake
+turtlebot_rviz_launchers_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/build/turtlebot_interactions/turtlebot_rviz_launchers
+
+//Value Computed by CMake
+turtlebot_rviz_launchers_SOURCE_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/src/turtlebot_interactions/turtlebot_rviz_launchers
 
 //Value Computed by CMake
 turtlebot_simulator_BINARY_DIR:STATIC=/home/emendel/Documents/IndepententStudy/ramp/build/turtlebot/turtlebot_simulator/turtlebot_simulator
