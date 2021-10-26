@@ -24,7 +24,7 @@ void init_advertisers_subscribers(MobileRobot& robot, ros::NodeHandle& handle, b
 } // End init_advertisers_subscribers
 
 void trajCallback(const ramp_planner_new::CubicRepresentation cubic){
-  robot.updateTrajectory(cubic);
+  robot.updateCubic(cubic);
 }
 
 int main(int argc, char** argv) {

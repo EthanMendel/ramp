@@ -5,7 +5,7 @@ const std::string MobileRobot::TOPIC_STR_ODOMETRY="odometry";
 const std::string MobileRobot::TOPIC_STR_UPDATE="update";
 const std::string MobileRobot::TOPIC_STR_TWIST="twist";
 const std::string MobileRobot::TOPIC_STR_IC="imminent_collision";
-const std::string MobileRobot::TOPIC_STR_SIM="cmd_vel";
+const std::string MobileRobot::TOPIC_STR_SIM="/cmd_vel";
 const std::string MobileRobot::TOPIC_STR_SIM2="/mobile_base/commands/velocity";
 const float BASE_WIDTH=0.2413;
 
@@ -89,30 +89,24 @@ void MobileRobot::updateCallback(const ros::TimerEvent& e) {
   }
 } // End updatePublishTimer
 
+void MobileRobot::updateCubic(const ramp_planner_new::CubicRepresentation& msg)
+{
+  if(msg != cubic_){
+    cubic_ = msg;
+  }
+}
+
 /** This method updates the MobileRobot's trajectory
  *   It calls calculateSpeedsAndTimes to update the robot's vectors needed to move */
-void MobileRobot::updateTrajectory(const ramp_planner_new::CubicRepresentation& msg) 
+void MobileRobot::setNextTwist() 
 {
   ros::Time now = ros::Time::now();
   // Update vectors for speeds and times
-  // std::cout<<"updating trajector.."<<std::endl;
-  if((now.toSec() - t_prev_traj_.toSec()) >= 1.0/SEND_RESELUTION && seg_step_ < msg.resolution)
-  {
-    t_prev_traj_ = now;
-    time_step_ = time_step_ + 1;
-    if(time_step_ >= SEND_RESELUTION){//every second should have a new t value
-                                         //to be more exact: 'could' calculate t based on delta from global start time
-      time_step_ = 0;
-      seg_step_ = seg_step_ + 1;
-      std::cout<<"Sending new Velocity for time segment "<<seg_step_<<std::endl;
-    }
     // std::cout<<"\ttime_step_:"<<time_step_<<std::endl;
     // std::cout<<"\tseg_step_:"<<seg_step_<<std::endl;
-    twist_ = calculateVelocities(msg.coefficients, seg_step_);
-    sendTwist();
+    twist_ = calculateVelocities(cubic_.coefficients, seg_step_);
     // sendTwist();
     // sendTwist();
-  }
 } // End updateTrajectory
 
 geometry_msgs::Twist MobileRobot::calculateVelocities(const std::vector<ramp_planner_new::Coefficient> coefs, int t){
@@ -219,101 +213,26 @@ void MobileRobot::moveOnTrajectory()
   double actual_theta, dist;
 
   // Execute the trajectory
-  while(ros::ok() && (num_traveled_+1) < num_) 
+  while(ros::ok() && seg_step_ < cubic_.resolution) 
   {
-    //ROS_INFO("num_traveled_: %i/%i", num_traveled_, num_);
-    //ROS_INFO("At state: %s", utility_.toString(motion_state_).c_str());
-    s = ros::Time::now();
-    restart_ = false;
- 
-
-    // Force a stop until there is no imminent collision
-    if(check_imminent_coll_)
+    while(ros::ok() && time_step_ < SEND_RESELUTION) 
     {
-      ros::Time t_startIC = ros::Time::now();
-      while(imminent_coll_ && ros::ok()) {
-        ROS_ERROR("Imminent Collision Exists, Stopping robot");
-        sendTwist(zero_twist_);
-        r_ic.sleep();
-        ros::spinOnce();
-      }
-      t_immiColl_ += ros::Time::now() - t_startIC;
-    }
-    //ROS_INFO("t_immiColl_: %f", t_immiColl_.toSec());
-
-    
-    // If a new trajectory was received, restart the outer while 
-    if(restart_) 
-    {
-      continue;
-    }
-
-    // Move to the next point
-    ros::Time g_time = end_times.at(num_traveled_) + t_immiColl_;
-    //ros::Time g_time = end_times.at(num_traveled_);
-    //ROS_INFO("now: %f g_time: %f", ros::Time::now().toSec(), g_time.toSec());
-    while(ros::ok() && ros::Time::now() < g_time) 
-    {
-      // If a new trajectory was received, restart the outer while 
-      if(restart_)
-      {
-        continue;
-      }
-      
-      twist_.linear.x   = speeds_linear_.at(num_traveled_);
-      twist_.angular.z  = speeds_angular_.at(num_traveled_);
- 
-      // When driving straight, adjust the angular speed 
-      // to maintain orientation
-      // TODO: Works with Bezier curve?
-      if(fabs(twist_.linear.x) > 0.0f && fabs(twist_.angular.z) < 0.0001f) 
-      {
-        //ROS_INFO("initial_theta_: %f motion_state_.positions.at(2): %f", initial_theta_, motion_state_.positions.at(2));
-//        actual_theta = utility_.displaceAngle(initial_theta_, motion_state_.positions.at(2));
-//        dist = utility_.findDistanceBetweenAngles(actual_theta, orientations_.at(num_traveled_));
-        //ROS_INFO("actual_theta: %f orientations[%i]: %f dist: %f", actual_theta, num_traveled_, orientations_.at(num_traveled_), dist);
-        twist_.angular.z = dist/2.f;
-      }
-
-      //ROS_INFO("twist.linear.x: %f twist.angular.z: %f", twist_.linear.x, twist_.angular.z);
-
+      ROS_INFO("num_traveled_: %i/%d", seg_step_, cubic_.resolution);
+      // ** Code that was used to maintain orientation ** //
       // Send the twist_message to move the robot
       sendTwist();
-      
+      time_step_++;
       // Sleep
       r.sleep();
-    
       // Spin to check for updates
       ros::spinOnce();
     } // end while (move to the next point)
-    
-    // If a new trajectory was received, restart the outer while 
-    if(restart_) 
-    {
-      continue;
-    }
-
     // Increment num_traveled
-    num_traveled_++;
-
+    time_step_ = 0;
+    seg_step_++;
+    setNextTwist(); 
     // Spin once to check for updates in the trajectory
     ros::spinOnce();
-
-    //t_points_.push_back(ros::Time::now() - s);
-    //ROS_INFO("Point took %f", (ros::Time::now() - s).toSec());
   } // end while
-
   // Check that we moved on a trajectory
-  if(num_traveled_ > 1)
-  {
-    // Stops the wheels
-    twist_.linear.x = 0;
-    twist_.angular.z = 0;
-    sendTwist();
-    sendTwist();
-
-    // Set num and num_traveled so we don't come back into this if-block each time
-    num_ = 0;
-    num_traveled_ = 0;
-  } // end if finished a trajectory
 } // End moveOnTrajectory

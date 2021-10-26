@@ -24,7 +24,8 @@ class MobileRobot
   void moveOnTrajectory();
   void moveOnTrajectoryRot(const ramp_msgs::RampTrajectory traj, bool simulation);
   void odomCb(const nav_msgs::Odometry& msg);
-  void updateTrajectory(const ramp_planner_new::CubicRepresentation& msg); 
+  void updateCubic(const ramp_planner_new::CubicRepresentation& msg); 
+  void setNextTwist(); 
   void imminentCollisionCb(const std_msgs::Bool msg); 
   void updateCallback(const ros::TimerEvent&);
   void sendTwist(const geometry_msgs::Twist twist) const;
@@ -43,6 +44,7 @@ class MobileRobot
   ramp_msgs::MotionState            motion_state_; 
   geometry_msgs::Twist              velocity_;
   ramp_msgs::RampTrajectory         trajectory_;
+  ramp_planner_new::CubicRepresentation cubic_;
   ros::Timer                        timer_;
   double                            initial_theta_;
 
