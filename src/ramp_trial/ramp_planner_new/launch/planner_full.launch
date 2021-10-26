@@ -2,8 +2,6 @@
 
     <include file="$(find ramp_planner_new)/launch/planner_parameters.launch" />
 
-    <include file="$(find ramp_planner_new)/launch/view_robot.launch"/>
-
     <include file="$(find ramp_planner_new)/launch/turtlebot.launch" />
 
     <!-- Robot info parameters -->

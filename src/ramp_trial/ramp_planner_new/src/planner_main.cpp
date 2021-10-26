@@ -445,7 +445,7 @@ int main(int argc, char** argv) {
   // straightLinePath.makeStraightPath();
   straightLinePath.makeCubicPath(10);
   pubPath(pub_rviz);
-  ROS_INFO("Done with pubStartGoalMarkers");
+  ROS_INFO("Done with publishing markers");
  
   ros::Rate r(1000);
   while(ros::ok()) 
