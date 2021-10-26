@@ -7,7 +7,6 @@ const std::string MobileRobot::TOPIC_STR_TWIST="twist";
 const std::string MobileRobot::TOPIC_STR_IC="imminent_collision";
 const std::string MobileRobot::TOPIC_STR_SIM="cmd_vel";
 const std::string MobileRobot::TOPIC_STR_SIM2="/mobile_base/commands/velocity";
-const double TIME_DELTA = 1/10;
 const float BASE_WIDTH=0.2413;
 
 const float timeNeededToTurn = 2.5; 

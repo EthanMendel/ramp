@@ -56,18 +56,6 @@ CMAKE_BINARY_DIR = /home/emendel/Documents/IndepententStudy/ramp/build
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
-
-# Special rule for the target install/strip
-install/strip/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip/fast
-
 # Special rule for the target install/local
 install/local: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
@@ -80,27 +68,27 @@ install/local/fast: preinstall/fast
 	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
 
-# Special rule for the target test
-test:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
-	/usr/bin/ctest --force-new-ctest-process $(ARGS)
-.PHONY : test
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install
 
-# Special rule for the target test
-test/fast: test
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
 
-.PHONY : test/fast
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
 
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
+.PHONY : list_install_components/fast
 
 # Special rule for the target rebuild_cache
 rebuild_cache:
@@ -113,27 +101,39 @@ rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
 
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
 
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
 
-.PHONY : list_install_components/fast
+.PHONY : edit_cache/fast
 
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
+	/usr/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
 
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
+# Special rule for the target test
+test/fast: test
+
+.PHONY : test/fast
+
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -168,94 +168,19 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/rule:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/rule
-.PHONY : yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/rule
+yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/yocs_cmd_vel_mux_nodelet.dir/rule:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/yocs_cmd_vel_mux_nodelet.dir/rule
+.PHONY : yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/yocs_cmd_vel_mux_nodelet.dir/rule
 
 # Convenience name for target.
-dynamic_reconfigure_generate_messages_cpp: yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/rule
+yocs_cmd_vel_mux_nodelet: yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/yocs_cmd_vel_mux_nodelet.dir/rule
 
-.PHONY : dynamic_reconfigure_generate_messages_cpp
+.PHONY : yocs_cmd_vel_mux_nodelet
 
 # fast build rule for target.
-dynamic_reconfigure_generate_messages_cpp/fast:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/build.make yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/build
-.PHONY : dynamic_reconfigure_generate_messages_cpp/fast
-
-# Convenience name for target.
-yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/rule:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/rule
-.PHONY : yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-dynamic_reconfigure_generate_messages_eus: yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/rule
-
-.PHONY : dynamic_reconfigure_generate_messages_eus
-
-# fast build rule for target.
-dynamic_reconfigure_generate_messages_eus/fast:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/build.make yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/build
-.PHONY : dynamic_reconfigure_generate_messages_eus/fast
-
-# Convenience name for target.
-yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/rule:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/rule
-.PHONY : yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/rule
-
-# Convenience name for target.
-dynamic_reconfigure_generate_messages_py: yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/rule
-
-.PHONY : dynamic_reconfigure_generate_messages_py
-
-# fast build rule for target.
-dynamic_reconfigure_generate_messages_py/fast:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/build.make yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/build
-.PHONY : dynamic_reconfigure_generate_messages_py/fast
-
-# Convenience name for target.
-yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/dynamic_reconfigure_gencfg.dir/rule:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/dynamic_reconfigure_gencfg.dir/rule
-.PHONY : yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/dynamic_reconfigure_gencfg.dir/rule
-
-# Convenience name for target.
-dynamic_reconfigure_gencfg: yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/dynamic_reconfigure_gencfg.dir/rule
-
-.PHONY : dynamic_reconfigure_gencfg
-
-# fast build rule for target.
-dynamic_reconfigure_gencfg/fast:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/dynamic_reconfigure_gencfg.dir/build.make yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/dynamic_reconfigure_gencfg.dir/build
-.PHONY : dynamic_reconfigure_gencfg/fast
-
-# Convenience name for target.
-yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/dynamic_reconfigure_generate_messages_nodejs.dir/rule:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/dynamic_reconfigure_generate_messages_nodejs.dir/rule
-.PHONY : yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/dynamic_reconfigure_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-dynamic_reconfigure_generate_messages_nodejs: yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/dynamic_reconfigure_generate_messages_nodejs.dir/rule
-
-.PHONY : dynamic_reconfigure_generate_messages_nodejs
-
-# fast build rule for target.
-dynamic_reconfigure_generate_messages_nodejs/fast:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/dynamic_reconfigure_generate_messages_nodejs.dir/build.make yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/dynamic_reconfigure_generate_messages_nodejs.dir/build
-.PHONY : dynamic_reconfigure_generate_messages_nodejs/fast
-
-# Convenience name for target.
-yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/rule:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/rule
-.PHONY : yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-dynamic_reconfigure_generate_messages_lisp: yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/rule
-
-.PHONY : dynamic_reconfigure_generate_messages_lisp
-
-# fast build rule for target.
-dynamic_reconfigure_generate_messages_lisp/fast:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/build.make yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/build
-.PHONY : dynamic_reconfigure_generate_messages_lisp/fast
+yocs_cmd_vel_mux_nodelet/fast:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/yocs_cmd_vel_mux_nodelet.dir/build.make yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/yocs_cmd_vel_mux_nodelet.dir/build
+.PHONY : yocs_cmd_vel_mux_nodelet/fast
 
 # Convenience name for target.
 yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/yocs_cmd_vel_mux_gencfg.dir/rule:
@@ -271,21 +196,6 @@ yocs_cmd_vel_mux_gencfg: yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/yocs_cmd_vel_mux_
 yocs_cmd_vel_mux_gencfg/fast:
 	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/yocs_cmd_vel_mux_gencfg.dir/build.make yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/yocs_cmd_vel_mux_gencfg.dir/build
 .PHONY : yocs_cmd_vel_mux_gencfg/fast
-
-# Convenience name for target.
-yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/yocs_cmd_vel_mux_nodelet.dir/rule:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/yocs_cmd_vel_mux_nodelet.dir/rule
-.PHONY : yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/yocs_cmd_vel_mux_nodelet.dir/rule
-
-# Convenience name for target.
-yocs_cmd_vel_mux_nodelet: yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/yocs_cmd_vel_mux_nodelet.dir/rule
-
-.PHONY : yocs_cmd_vel_mux_nodelet
-
-# fast build rule for target.
-yocs_cmd_vel_mux_nodelet/fast:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/yocs_cmd_vel_mux_nodelet.dir/build.make yujin_ocs/yocs_cmd_vel_mux/CMakeFiles/yocs_cmd_vel_mux_nodelet.dir/build
-.PHONY : yocs_cmd_vel_mux_nodelet/fast
 
 src/cmd_vel_mux_nodelet.o: src/cmd_vel_mux_nodelet.cpp.o
 
@@ -347,21 +257,15 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... install/strip"
 	@echo "... install/local"
-	@echo "... dynamic_reconfigure_generate_messages_cpp"
-	@echo "... dynamic_reconfigure_generate_messages_eus"
-	@echo "... dynamic_reconfigure_generate_messages_py"
-	@echo "... dynamic_reconfigure_gencfg"
-	@echo "... dynamic_reconfigure_generate_messages_nodejs"
-	@echo "... dynamic_reconfigure_generate_messages_lisp"
-	@echo "... test"
-	@echo "... edit_cache"
-	@echo "... rebuild_cache"
-	@echo "... yocs_cmd_vel_mux_gencfg"
-	@echo "... list_install_components"
-	@echo "... yocs_cmd_vel_mux_nodelet"
 	@echo "... install"
+	@echo "... list_install_components"
+	@echo "... rebuild_cache"
+	@echo "... edit_cache"
+	@echo "... test"
+	@echo "... install/strip"
+	@echo "... yocs_cmd_vel_mux_nodelet"
+	@echo "... yocs_cmd_vel_mux_gencfg"
 	@echo "... src/cmd_vel_mux_nodelet.o"
 	@echo "... src/cmd_vel_mux_nodelet.i"
 	@echo "... src/cmd_vel_mux_nodelet.s"

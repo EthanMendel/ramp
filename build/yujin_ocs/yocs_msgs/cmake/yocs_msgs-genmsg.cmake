@@ -29,22 +29,22 @@ add_custom_target(_yocs_msgs_generate_messages_check_deps_${_filename}
 
 get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Wall.msg" NAME_WE)
 add_custom_target(_yocs_msgs_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "yocs_msgs" "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Wall.msg" "geometry_msgs/Point:geometry_msgs/PoseWithCovarianceStamped:geometry_msgs/PoseWithCovariance:geometry_msgs/Pose:std_msgs/Header:geometry_msgs/Quaternion"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "yocs_msgs" "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Wall.msg" "geometry_msgs/PoseWithCovariance:std_msgs/Header:geometry_msgs/Point:geometry_msgs/Quaternion:geometry_msgs/Pose:geometry_msgs/PoseWithCovarianceStamped"
 )
 
 get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/WallList.msg" NAME_WE)
 add_custom_target(_yocs_msgs_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "yocs_msgs" "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/WallList.msg" "geometry_msgs/Point:geometry_msgs/PoseWithCovarianceStamped:geometry_msgs/PoseWithCovariance:yocs_msgs/Wall:geometry_msgs/Pose:std_msgs/Header:geometry_msgs/Quaternion"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "yocs_msgs" "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/WallList.msg" "yocs_msgs/Wall:geometry_msgs/PoseWithCovariance:std_msgs/Header:geometry_msgs/Point:geometry_msgs/Quaternion:geometry_msgs/Pose:geometry_msgs/PoseWithCovarianceStamped"
 )
 
 get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Column.msg" NAME_WE)
 add_custom_target(_yocs_msgs_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "yocs_msgs" "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Column.msg" "geometry_msgs/Point:geometry_msgs/PoseWithCovarianceStamped:geometry_msgs/PoseWithCovariance:geometry_msgs/Pose:std_msgs/Header:geometry_msgs/Quaternion"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "yocs_msgs" "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Column.msg" "geometry_msgs/PoseWithCovariance:std_msgs/Header:geometry_msgs/Point:geometry_msgs/Quaternion:geometry_msgs/Pose:geometry_msgs/PoseWithCovarianceStamped"
 )
 
 get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/ColumnList.msg" NAME_WE)
 add_custom_target(_yocs_msgs_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "yocs_msgs" "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/ColumnList.msg" "geometry_msgs/Point:geometry_msgs/PoseWithCovarianceStamped:geometry_msgs/PoseWithCovariance:geometry_msgs/Pose:yocs_msgs/Column:std_msgs/Header:geometry_msgs/Quaternion"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "yocs_msgs" "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/ColumnList.msg" "yocs_msgs/Column:geometry_msgs/PoseWithCovariance:std_msgs/Header:geometry_msgs/Point:geometry_msgs/Quaternion:geometry_msgs/Pose:geometry_msgs/PoseWithCovarianceStamped"
 )
 
 get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/MagicButton.msg" NAME_WE)
@@ -64,37 +64,37 @@ add_custom_target(_yocs_msgs_generate_messages_check_deps_${_filename}
 
 get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Table.msg" NAME_WE)
 add_custom_target(_yocs_msgs_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "yocs_msgs" "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Table.msg" "geometry_msgs/Point:geometry_msgs/PoseWithCovarianceStamped:geometry_msgs/PoseWithCovariance:geometry_msgs/Pose:std_msgs/Header:geometry_msgs/Quaternion"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "yocs_msgs" "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Table.msg" "geometry_msgs/PoseWithCovariance:std_msgs/Header:geometry_msgs/Point:geometry_msgs/Quaternion:geometry_msgs/Pose:geometry_msgs/PoseWithCovarianceStamped"
 )
 
 get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/TableList.msg" NAME_WE)
 add_custom_target(_yocs_msgs_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "yocs_msgs" "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/TableList.msg" "geometry_msgs/Point:geometry_msgs/PoseWithCovarianceStamped:geometry_msgs/PoseWithCovariance:geometry_msgs/Pose:std_msgs/Header:geometry_msgs/Quaternion:yocs_msgs/Table"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "yocs_msgs" "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/TableList.msg" "geometry_msgs/PoseWithCovariance:std_msgs/Header:geometry_msgs/Point:geometry_msgs/Quaternion:geometry_msgs/Pose:geometry_msgs/PoseWithCovarianceStamped:yocs_msgs/Table"
 )
 
 get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Trajectory.msg" NAME_WE)
 add_custom_target(_yocs_msgs_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "yocs_msgs" "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Trajectory.msg" "yocs_msgs/Waypoint:geometry_msgs/Point:geometry_msgs/Pose:std_msgs/Header:geometry_msgs/Quaternion"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "yocs_msgs" "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Trajectory.msg" "std_msgs/Header:geometry_msgs/Point:geometry_msgs/Quaternion:yocs_msgs/Waypoint:geometry_msgs/Pose"
 )
 
 get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/TrajectoryList.msg" NAME_WE)
 add_custom_target(_yocs_msgs_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "yocs_msgs" "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/TrajectoryList.msg" "yocs_msgs/Waypoint:geometry_msgs/Point:yocs_msgs/Trajectory:geometry_msgs/Pose:std_msgs/Header:geometry_msgs/Quaternion"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "yocs_msgs" "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/TrajectoryList.msg" "yocs_msgs/Waypoint:std_msgs/Header:geometry_msgs/Point:geometry_msgs/Quaternion:yocs_msgs/Trajectory:geometry_msgs/Pose"
 )
 
 get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg" NAME_WE)
 add_custom_target(_yocs_msgs_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "yocs_msgs" "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg" "geometry_msgs/Point:std_msgs/Header:geometry_msgs/Quaternion:geometry_msgs/Pose"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "yocs_msgs" "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg" "std_msgs/Header:geometry_msgs/Pose:geometry_msgs/Point:geometry_msgs/Quaternion"
 )
 
 get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/WaypointList.msg" NAME_WE)
 add_custom_target(_yocs_msgs_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "yocs_msgs" "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/WaypointList.msg" "yocs_msgs/Waypoint:geometry_msgs/Point:geometry_msgs/Pose:std_msgs/Header:geometry_msgs/Quaternion"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "yocs_msgs" "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/WaypointList.msg" "std_msgs/Header:geometry_msgs/Quaternion:geometry_msgs/Point:yocs_msgs/Waypoint:geometry_msgs/Pose"
 )
 
 get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToAction.msg" NAME_WE)
 add_custom_target(_yocs_msgs_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "yocs_msgs" "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToAction.msg" "yocs_msgs/NavigateToActionResult:yocs_msgs/NavigateToActionGoal:actionlib_msgs/GoalStatus:yocs_msgs/NavigateToActionFeedback:yocs_msgs/NavigateToFeedback:std_msgs/Header:actionlib_msgs/GoalID:yocs_msgs/NavigateToResult:yocs_msgs/NavigateToGoal"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "yocs_msgs" "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToAction.msg" "yocs_msgs/NavigateToActionGoal:yocs_msgs/NavigateToFeedback:std_msgs/Header:yocs_msgs/NavigateToActionResult:yocs_msgs/NavigateToGoal:actionlib_msgs/GoalStatus:yocs_msgs/NavigateToActionFeedback:yocs_msgs/NavigateToResult:actionlib_msgs/GoalID"
 )
 
 get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionGoal.msg" NAME_WE)
@@ -104,12 +104,12 @@ add_custom_target(_yocs_msgs_generate_messages_check_deps_${_filename}
 
 get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionResult.msg" NAME_WE)
 add_custom_target(_yocs_msgs_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "yocs_msgs" "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionResult.msg" "actionlib_msgs/GoalID:std_msgs/Header:actionlib_msgs/GoalStatus:yocs_msgs/NavigateToResult"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "yocs_msgs" "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionResult.msg" "std_msgs/Header:actionlib_msgs/GoalID:actionlib_msgs/GoalStatus:yocs_msgs/NavigateToResult"
 )
 
 get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionFeedback.msg" NAME_WE)
 add_custom_target(_yocs_msgs_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "yocs_msgs" "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionFeedback.msg" "actionlib_msgs/GoalID:std_msgs/Header:actionlib_msgs/GoalStatus:yocs_msgs/NavigateToFeedback"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "yocs_msgs" "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionFeedback.msg" "std_msgs/Header:yocs_msgs/NavigateToFeedback:actionlib_msgs/GoalID:actionlib_msgs/GoalStatus"
 )
 
 get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToGoal.msg" NAME_WE)
@@ -129,7 +129,7 @@ add_custom_target(_yocs_msgs_generate_messages_check_deps_${_filename}
 
 get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorAction.msg" NAME_WE)
 add_custom_target(_yocs_msgs_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "yocs_msgs" "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorAction.msg" "yocs_msgs/DockingInteractorResult:yocs_msgs/DockingInteractorGoal:yocs_msgs/DockingInteractorActionGoal:yocs_msgs/DockingInteractorActionResult:actionlib_msgs/GoalStatus:yocs_msgs/DockingInteractorActionFeedback:yocs_msgs/DockingInteractorFeedback:std_msgs/Header:actionlib_msgs/GoalID"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "yocs_msgs" "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorAction.msg" "yocs_msgs/DockingInteractorFeedback:yocs_msgs/DockingInteractorGoal:std_msgs/Header:yocs_msgs/DockingInteractorActionGoal:yocs_msgs/DockingInteractorResult:actionlib_msgs/GoalStatus:yocs_msgs/DockingInteractorActionResult:actionlib_msgs/GoalID:yocs_msgs/DockingInteractorActionFeedback"
 )
 
 get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionGoal.msg" NAME_WE)
@@ -139,12 +139,12 @@ add_custom_target(_yocs_msgs_generate_messages_check_deps_${_filename}
 
 get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionResult.msg" NAME_WE)
 add_custom_target(_yocs_msgs_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "yocs_msgs" "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionResult.msg" "yocs_msgs/DockingInteractorResult:actionlib_msgs/GoalID:std_msgs/Header:actionlib_msgs/GoalStatus"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "yocs_msgs" "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionResult.msg" "std_msgs/Header:actionlib_msgs/GoalID:yocs_msgs/DockingInteractorResult:actionlib_msgs/GoalStatus"
 )
 
 get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionFeedback.msg" NAME_WE)
 add_custom_target(_yocs_msgs_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "yocs_msgs" "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionFeedback.msg" "actionlib_msgs/GoalID:std_msgs/Header:actionlib_msgs/GoalStatus:yocs_msgs/DockingInteractorFeedback"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "yocs_msgs" "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionFeedback.msg" "std_msgs/Header:actionlib_msgs/GoalID:actionlib_msgs/GoalStatus:yocs_msgs/DockingInteractorFeedback"
 )
 
 get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorGoal.msg" NAME_WE)
@@ -164,7 +164,7 @@ add_custom_target(_yocs_msgs_generate_messages_check_deps_${_filename}
 
 get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeAction.msg" NAME_WE)
 add_custom_target(_yocs_msgs_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "yocs_msgs" "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeAction.msg" "yocs_msgs/LocalizeActionFeedback:actionlib_msgs/GoalID:yocs_msgs/LocalizeResult:yocs_msgs/LocalizeGoal:actionlib_msgs/GoalStatus:yocs_msgs/LocalizeActionGoal:yocs_msgs/LocalizeActionResult:std_msgs/Header:yocs_msgs/LocalizeFeedback"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "yocs_msgs" "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeAction.msg" "yocs_msgs/LocalizeGoal:yocs_msgs/LocalizeActionGoal:yocs_msgs/LocalizeFeedback:std_msgs/Header:yocs_msgs/LocalizeActionResult:actionlib_msgs/GoalStatus:yocs_msgs/LocalizeResult:actionlib_msgs/GoalID:yocs_msgs/LocalizeActionFeedback"
 )
 
 get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionGoal.msg" NAME_WE)
@@ -174,12 +174,12 @@ add_custom_target(_yocs_msgs_generate_messages_check_deps_${_filename}
 
 get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionResult.msg" NAME_WE)
 add_custom_target(_yocs_msgs_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "yocs_msgs" "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionResult.msg" "yocs_msgs/LocalizeResult:actionlib_msgs/GoalID:std_msgs/Header:actionlib_msgs/GoalStatus"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "yocs_msgs" "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionResult.msg" "std_msgs/Header:yocs_msgs/LocalizeResult:actionlib_msgs/GoalID:actionlib_msgs/GoalStatus"
 )
 
 get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionFeedback.msg" NAME_WE)
 add_custom_target(_yocs_msgs_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "yocs_msgs" "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionFeedback.msg" "actionlib_msgs/GoalID:std_msgs/Header:actionlib_msgs/GoalStatus:yocs_msgs/LocalizeFeedback"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "yocs_msgs" "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionFeedback.msg" "std_msgs/Header:actionlib_msgs/GoalID:actionlib_msgs/GoalStatus:yocs_msgs/LocalizeFeedback"
 )
 
 get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeGoal.msg" NAME_WE)
@@ -199,7 +199,7 @@ add_custom_target(_yocs_msgs_generate_messages_check_deps_${_filename}
 
 get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/srv/WaypointListService.srv" NAME_WE)
 add_custom_target(_yocs_msgs_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "yocs_msgs" "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/srv/WaypointListService.srv" "yocs_msgs/Waypoint:geometry_msgs/Point:geometry_msgs/Pose:yocs_msgs/WaypointList:std_msgs/Header:geometry_msgs/Quaternion"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "yocs_msgs" "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/srv/WaypointListService.srv" "yocs_msgs/WaypointList:std_msgs/Header:geometry_msgs/Point:geometry_msgs/Quaternion:yocs_msgs/Waypoint:geometry_msgs/Pose"
 )
 
 #
@@ -223,25 +223,25 @@ _generate_msg_cpp(yocs_msgs
 _generate_msg_cpp(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Wall.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_cpp(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/WallList.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Wall.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Wall.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_cpp(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Column.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_cpp(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/ColumnList.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Column.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Column.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_cpp(yocs_msgs
@@ -265,43 +265,43 @@ _generate_msg_cpp(yocs_msgs
 _generate_msg_cpp(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Table.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_cpp(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/TableList.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Table.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Table.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_cpp(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Trajectory.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_cpp(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/TrajectoryList.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Trajectory.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Trajectory.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_cpp(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_cpp(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/WaypointList.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_cpp(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToAction.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionResult.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionGoal.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionFeedback.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToFeedback.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToResult.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToGoal.msg"
+  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionGoal.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToFeedback.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionResult.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToGoal.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionFeedback.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_cpp(yocs_msgs
@@ -313,13 +313,13 @@ _generate_msg_cpp(yocs_msgs
 _generate_msg_cpp(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionResult.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToResult.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToResult.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_cpp(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionFeedback.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToFeedback.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToFeedback.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_cpp(yocs_msgs
@@ -343,7 +343,7 @@ _generate_msg_cpp(yocs_msgs
 _generate_msg_cpp(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorAction.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorResult.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorGoal.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionGoal.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionFeedback.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorFeedback.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg"
+  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorFeedback.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorGoal.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionGoal.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionFeedback.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_cpp(yocs_msgs
@@ -355,13 +355,13 @@ _generate_msg_cpp(yocs_msgs
 _generate_msg_cpp(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionResult.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_cpp(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionFeedback.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorFeedback.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorFeedback.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_cpp(yocs_msgs
@@ -385,7 +385,7 @@ _generate_msg_cpp(yocs_msgs
 _generate_msg_cpp(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeAction.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionFeedback.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeResult.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeGoal.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionGoal.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionResult.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeFeedback.msg"
+  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeGoal.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionGoal.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeFeedback.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionFeedback.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_cpp(yocs_msgs
@@ -397,13 +397,13 @@ _generate_msg_cpp(yocs_msgs
 _generate_msg_cpp(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionResult.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_cpp(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionFeedback.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeFeedback.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeFeedback.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_cpp(yocs_msgs
@@ -429,7 +429,7 @@ _generate_msg_cpp(yocs_msgs
 _generate_srv_cpp(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/srv/WaypointListService.srv"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/WaypointList.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/WaypointList.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/yocs_msgs
 )
 
@@ -544,25 +544,25 @@ _generate_msg_eus(yocs_msgs
 _generate_msg_eus(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Wall.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_eus(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/WallList.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Wall.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Wall.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_eus(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Column.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_eus(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/ColumnList.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Column.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Column.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_eus(yocs_msgs
@@ -586,43 +586,43 @@ _generate_msg_eus(yocs_msgs
 _generate_msg_eus(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Table.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_eus(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/TableList.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Table.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Table.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_eus(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Trajectory.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_eus(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/TrajectoryList.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Trajectory.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Trajectory.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_eus(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_eus(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/WaypointList.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_eus(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToAction.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionResult.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionGoal.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionFeedback.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToFeedback.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToResult.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToGoal.msg"
+  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionGoal.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToFeedback.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionResult.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToGoal.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionFeedback.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_eus(yocs_msgs
@@ -634,13 +634,13 @@ _generate_msg_eus(yocs_msgs
 _generate_msg_eus(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionResult.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToResult.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToResult.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_eus(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionFeedback.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToFeedback.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToFeedback.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_eus(yocs_msgs
@@ -664,7 +664,7 @@ _generate_msg_eus(yocs_msgs
 _generate_msg_eus(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorAction.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorResult.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorGoal.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionGoal.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionFeedback.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorFeedback.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg"
+  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorFeedback.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorGoal.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionGoal.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionFeedback.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_eus(yocs_msgs
@@ -676,13 +676,13 @@ _generate_msg_eus(yocs_msgs
 _generate_msg_eus(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionResult.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_eus(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionFeedback.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorFeedback.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorFeedback.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_eus(yocs_msgs
@@ -706,7 +706,7 @@ _generate_msg_eus(yocs_msgs
 _generate_msg_eus(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeAction.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionFeedback.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeResult.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeGoal.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionGoal.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionResult.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeFeedback.msg"
+  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeGoal.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionGoal.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeFeedback.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionFeedback.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_eus(yocs_msgs
@@ -718,13 +718,13 @@ _generate_msg_eus(yocs_msgs
 _generate_msg_eus(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionResult.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_eus(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionFeedback.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeFeedback.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeFeedback.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_eus(yocs_msgs
@@ -750,7 +750,7 @@ _generate_msg_eus(yocs_msgs
 _generate_srv_eus(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/srv/WaypointListService.srv"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/WaypointList.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/WaypointList.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/yocs_msgs
 )
 
@@ -865,25 +865,25 @@ _generate_msg_lisp(yocs_msgs
 _generate_msg_lisp(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Wall.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_lisp(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/WallList.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Wall.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Wall.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_lisp(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Column.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_lisp(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/ColumnList.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Column.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Column.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_lisp(yocs_msgs
@@ -907,43 +907,43 @@ _generate_msg_lisp(yocs_msgs
 _generate_msg_lisp(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Table.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_lisp(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/TableList.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Table.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Table.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_lisp(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Trajectory.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_lisp(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/TrajectoryList.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Trajectory.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Trajectory.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_lisp(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_lisp(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/WaypointList.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_lisp(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToAction.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionResult.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionGoal.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionFeedback.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToFeedback.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToResult.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToGoal.msg"
+  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionGoal.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToFeedback.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionResult.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToGoal.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionFeedback.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_lisp(yocs_msgs
@@ -955,13 +955,13 @@ _generate_msg_lisp(yocs_msgs
 _generate_msg_lisp(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionResult.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToResult.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToResult.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_lisp(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionFeedback.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToFeedback.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToFeedback.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_lisp(yocs_msgs
@@ -985,7 +985,7 @@ _generate_msg_lisp(yocs_msgs
 _generate_msg_lisp(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorAction.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorResult.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorGoal.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionGoal.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionFeedback.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorFeedback.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg"
+  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorFeedback.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorGoal.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionGoal.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionFeedback.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_lisp(yocs_msgs
@@ -997,13 +997,13 @@ _generate_msg_lisp(yocs_msgs
 _generate_msg_lisp(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionResult.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_lisp(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionFeedback.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorFeedback.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorFeedback.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_lisp(yocs_msgs
@@ -1027,7 +1027,7 @@ _generate_msg_lisp(yocs_msgs
 _generate_msg_lisp(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeAction.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionFeedback.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeResult.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeGoal.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionGoal.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionResult.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeFeedback.msg"
+  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeGoal.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionGoal.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeFeedback.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionFeedback.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_lisp(yocs_msgs
@@ -1039,13 +1039,13 @@ _generate_msg_lisp(yocs_msgs
 _generate_msg_lisp(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionResult.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_lisp(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionFeedback.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeFeedback.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeFeedback.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_lisp(yocs_msgs
@@ -1071,7 +1071,7 @@ _generate_msg_lisp(yocs_msgs
 _generate_srv_lisp(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/srv/WaypointListService.srv"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/WaypointList.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/WaypointList.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/yocs_msgs
 )
 
@@ -1186,25 +1186,25 @@ _generate_msg_nodejs(yocs_msgs
 _generate_msg_nodejs(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Wall.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_nodejs(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/WallList.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Wall.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Wall.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_nodejs(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Column.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_nodejs(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/ColumnList.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Column.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Column.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_nodejs(yocs_msgs
@@ -1228,43 +1228,43 @@ _generate_msg_nodejs(yocs_msgs
 _generate_msg_nodejs(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Table.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_nodejs(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/TableList.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Table.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Table.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_nodejs(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Trajectory.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_nodejs(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/TrajectoryList.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Trajectory.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Trajectory.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_nodejs(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_nodejs(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/WaypointList.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_nodejs(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToAction.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionResult.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionGoal.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionFeedback.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToFeedback.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToResult.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToGoal.msg"
+  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionGoal.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToFeedback.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionResult.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToGoal.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionFeedback.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_nodejs(yocs_msgs
@@ -1276,13 +1276,13 @@ _generate_msg_nodejs(yocs_msgs
 _generate_msg_nodejs(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionResult.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToResult.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToResult.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_nodejs(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionFeedback.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToFeedback.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToFeedback.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_nodejs(yocs_msgs
@@ -1306,7 +1306,7 @@ _generate_msg_nodejs(yocs_msgs
 _generate_msg_nodejs(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorAction.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorResult.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorGoal.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionGoal.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionFeedback.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorFeedback.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg"
+  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorFeedback.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorGoal.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionGoal.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionFeedback.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_nodejs(yocs_msgs
@@ -1318,13 +1318,13 @@ _generate_msg_nodejs(yocs_msgs
 _generate_msg_nodejs(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionResult.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_nodejs(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionFeedback.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorFeedback.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorFeedback.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_nodejs(yocs_msgs
@@ -1348,7 +1348,7 @@ _generate_msg_nodejs(yocs_msgs
 _generate_msg_nodejs(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeAction.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionFeedback.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeResult.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeGoal.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionGoal.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionResult.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeFeedback.msg"
+  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeGoal.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionGoal.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeFeedback.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionFeedback.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_nodejs(yocs_msgs
@@ -1360,13 +1360,13 @@ _generate_msg_nodejs(yocs_msgs
 _generate_msg_nodejs(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionResult.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_nodejs(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionFeedback.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeFeedback.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeFeedback.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_nodejs(yocs_msgs
@@ -1392,7 +1392,7 @@ _generate_msg_nodejs(yocs_msgs
 _generate_srv_nodejs(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/srv/WaypointListService.srv"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/WaypointList.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/WaypointList.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/yocs_msgs
 )
 
@@ -1507,25 +1507,25 @@ _generate_msg_py(yocs_msgs
 _generate_msg_py(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Wall.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_py(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/WallList.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Wall.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Wall.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_py(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Column.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_py(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/ColumnList.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Column.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Column.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_py(yocs_msgs
@@ -1549,43 +1549,43 @@ _generate_msg_py(yocs_msgs
 _generate_msg_py(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Table.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_py(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/TableList.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Table.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovarianceStamped.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Table.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_py(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Trajectory.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_py(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/TrajectoryList.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Trajectory.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Trajectory.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_py(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_py(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/WaypointList.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_py(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToAction.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionResult.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionGoal.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionFeedback.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToFeedback.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToResult.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToGoal.msg"
+  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionGoal.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToFeedback.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionResult.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToGoal.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionFeedback.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_py(yocs_msgs
@@ -1597,13 +1597,13 @@ _generate_msg_py(yocs_msgs
 _generate_msg_py(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionResult.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToResult.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToResult.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_py(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionFeedback.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToFeedback.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToFeedback.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_py(yocs_msgs
@@ -1627,7 +1627,7 @@ _generate_msg_py(yocs_msgs
 _generate_msg_py(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorAction.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorResult.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorGoal.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionGoal.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionFeedback.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorFeedback.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg"
+  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorFeedback.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorGoal.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionGoal.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionFeedback.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_py(yocs_msgs
@@ -1639,13 +1639,13 @@ _generate_msg_py(yocs_msgs
 _generate_msg_py(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionResult.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_py(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionFeedback.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorFeedback.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorFeedback.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_py(yocs_msgs
@@ -1669,7 +1669,7 @@ _generate_msg_py(yocs_msgs
 _generate_msg_py(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeAction.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionFeedback.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeResult.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeGoal.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionGoal.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionResult.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeFeedback.msg"
+  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeGoal.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionGoal.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeFeedback.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionFeedback.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_py(yocs_msgs
@@ -1681,13 +1681,13 @@ _generate_msg_py(yocs_msgs
 _generate_msg_py(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionResult.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeResult.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_py(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionFeedback.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeFeedback.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalID.msg;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg/GoalStatus.msg;/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeFeedback.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/yocs_msgs
 )
 _generate_msg_py(yocs_msgs
@@ -1713,7 +1713,7 @@ _generate_msg_py(yocs_msgs
 _generate_srv_py(yocs_msgs
   "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/srv/WaypointListService.srv"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/WaypointList.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/WaypointList.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/yocs_msgs
 )
 
