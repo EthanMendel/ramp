@@ -96,11 +96,11 @@ void MobileRobot::updateTrajectory(const ramp_planner_new::CubicRepresentation& 
   ros::Time now = ros::Time::now();
   // Update vectors for speeds and times
   // std::cout<<"updating trajector.."<<std::endl;
-  if((now.toSec() - t_prev_traj_.toSec()) >= TIME_DELTA && seg_step_ < msg.resolution)
+  if((now.toSec() - t_prev_traj_.toSec()) >= 1.0/SEND_RESELUTION && seg_step_ < msg.resolution)
   {
     t_prev_traj_ = now;
     time_step_ = time_step_ + 1;
-    if(time_step_ == pow(TIME_DELTA,-1)){//every second should have a new t value
+    if(time_step_ >= SEND_RESELUTION){//every second should have a new t value
                                          //to be more exact: 'could' calculate t based on delta from global start time
       time_step_ = 0;
       seg_step_ = seg_step_ + 1;
