@@ -155,7 +155,7 @@ void Path::findCubicCoefs(const double T){
   }
 }
 
-void Path::makeCubicPath(const double T){
+void Path::makeCubicPath(const std_msgs::Int8 T){
   findCubicCoefs(T);
   if(order!=3 && coefs.size() != 4){
     return;
