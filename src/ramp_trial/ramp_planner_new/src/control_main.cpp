@@ -1,6 +1,7 @@
 #include "ros/ros.h"
 #include "../include/planner.h"
 #include "../include/mobile_robot.h"
+#include <std_msgs/Int8.h>
 
 MobileRobot robot;
 
@@ -11,13 +12,14 @@ void init_advertisers_subscribers(MobileRobot& robot, ros::NodeHandle& handle, b
   robot.pub_twist_ = handle.advertise<geometry_msgs::Twist>(MobileRobot::TOPIC_STR_TWIST, 1000);
   robot.pub_update_ = handle.advertise<ramp_msgs::MotionState>(MobileRobot::TOPIC_STR_UPDATE, 1000);
 
-  if(simulation) {
-    robot.pub_cmd_vel_ = handle.advertise<geometry_msgs::Twist>(MobileRobot::TOPIC_STR_SIM, 10);
-    robot.pub_cmd_vel2_ = handle.advertise<geometry_msgs::Twist>(MobileRobot::TOPIC_STR_SIM2, 10);
-  }
+  robot.pub_cmd_vel_ = handle.advertise<geometry_msgs::Twist>(MobileRobot::TOPIC_STR_SIM, 10);
+  robot.pub_cmd_vel2_ = handle.advertise<geometry_msgs::Twist>(MobileRobot::TOPIC_STR_SIM2, 10);
+  
+  robot.pub_time_needed_ = handle.advertise<std_msgs::Int8>(MobileRobot::TOPIC_STR_TIME_NEEDED,1);
   // Subscribers
   robot.sub_odometry_ = handle.subscribe(MobileRobot::TOPIC_STR_ODOMETRY, 1, &MobileRobot::odomCb, &robot);
   robot.sub_imminent_collision_ = handle.subscribe(MobileRobot::TOPIC_STR_IC, 1, &MobileRobot::imminentCollisionCb, &robot);
+  robot.sub_start_goal_ = handle.subscribe("start_goal_channel", 1, &MobileRobot::getMinLinTime, &robot);
   // Timers
   // 15 Hz seems to be the fastest possible while avoiding nan errors
   robot.timer_ = handle.createTimer(ros::Duration(1.f / 30.f), &MobileRobot::updateCallback, &robot);

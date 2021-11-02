@@ -130,6 +130,7 @@ ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/control_main.cpp
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/control_main.cpp.o: /opt/ros/noetic/include/std_msgs/ColorRGBA.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/control_main.cpp.o: /opt/ros/noetic/include/std_msgs/Empty.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/control_main.cpp.o: /opt/ros/noetic/include/std_msgs/Header.h
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/control_main.cpp.o: /opt/ros/noetic/include/std_msgs/Int8.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/control_main.cpp.o: /opt/ros/noetic/include/tf/FrameGraph.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/control_main.cpp.o: /opt/ros/noetic/include/tf/FrameGraphRequest.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/control_main.cpp.o: /opt/ros/noetic/include/tf/FrameGraphResponse.h
@@ -250,7 +251,9 @@ ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /opt/ros/noetic/include/ros/wall_timer_options.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /opt/ros/noetic/include/rosconsole/macros_generated.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /opt/ros/noetic/include/std_msgs/Bool.h
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /opt/ros/noetic/include/std_msgs/ColorRGBA.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /opt/ros/noetic/include/std_msgs/Header.h
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /opt/ros/noetic/include/std_msgs/Int8.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /opt/ros/noetic/include/tf/LinearMath/Matrix3x3.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /opt/ros/noetic/include/tf/LinearMath/MinMax.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /opt/ros/noetic/include/tf/LinearMath/QuadWord.h
@@ -261,6 +264,8 @@ ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /opt/ros/noetic/include/tf/transform_datatypes.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /opt/ros/noetic/include/trajectory_msgs/JointTrajectory.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /opt/ros/noetic/include/trajectory_msgs/JointTrajectoryPoint.h
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /opt/ros/noetic/include/visualization_msgs/Marker.h
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /opt/ros/noetic/include/visualization_msgs/MarkerArray.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /opt/ros/noetic/include/xmlrpcpp/XmlRpcDecl.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /opt/ros/noetic/include/xmlrpcpp/XmlRpcValue.h
 

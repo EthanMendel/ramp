@@ -309,8 +309,8 @@ void pubStartGoalMarkers(RvizHandler pub_rviz){
     ROS_INFO("Rviz started");
   }
 
-  pub_rviz.sendMarkerArray(result);
-  pub_rviz.sendMarkerArray(result);
+  pub_rviz.sendStartGoal(result);
+  pub_rviz.sendStartGoal(result);
   
   ROS_INFO("Exiting pubStartGoalMarkers");
 }

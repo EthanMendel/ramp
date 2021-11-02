@@ -1,17 +1,19 @@
 #include "../include/mobile_robot.h"
+#include <std_msgs/Int8.h>
 
 const std::string MobileRobot::TOPIC_STR_PHIDGET_MOTOR="PhidgetMotor";
-const std::string MobileRobot::TOPIC_STR_ODOMETRY="odometry";
+const std::string MobileRobot::TOPIC_STR_ODOMETRY="odometry/filtered";
 const std::string MobileRobot::TOPIC_STR_UPDATE="update";
 const std::string MobileRobot::TOPIC_STR_TWIST="twist";
 const std::string MobileRobot::TOPIC_STR_IC="imminent_collision";
 const std::string MobileRobot::TOPIC_STR_SIM="/cmd_vel";
 const std::string MobileRobot::TOPIC_STR_SIM2="/mobile_base/commands/velocity";
+const std::string MobileRobot::TOPIC_STR_TIME_NEEDED="/time_needed";
 const float BASE_WIDTH=0.2413;
 
 const float timeNeededToTurn = 2.5; 
 
-MobileRobot::MobileRobot() : restart_(false), num_(0), num_traveled_(0), k_dof_(3)  
+MobileRobot::MobileRobot() : restart_(false), num_(0), num_traveled_(0), k_dof_(3), max_linear_vel_(0.33), max_angular_vel_(1.5708)  
 { 
   for(unsigned int i=0;i<k_dof_;i++)
   {
@@ -29,6 +31,30 @@ MobileRobot::MobileRobot() : restart_(false), num_(0), num_traveled_(0), k_dof_(
 }
 
 MobileRobot::~MobileRobot() {}
+
+//assuming straight line path from start to goal
+void MobileRobot::getMinLinTime(const visualization_msgs::MarkerArray& ma){
+  geometry_msgs::Pose start;
+  geometry_msgs::Pose goal;
+  for(unsigned int i=0;i<ma.markers.size();i++){
+    if (ma.markers.at(i).id == 10000){
+      start = ma.markers.at(i).pose;
+    }else if(ma.markers.at(i).id == 10001){
+      goal = ma.markers.at(i).pose;
+    }
+  }
+  double sx = start.position.x;
+  double sy = start.position.y;
+  double gx = goal.position.x;
+  double gy = goal.position.y;
+
+  double dist = sqrt(pow(sx-gx,2)+pow(sy-gy,2));
+  double time_needed = ceil(dist/max_linear_vel_);
+  std::cout<<"time needed for path: "<<time_needed<<"secs"<<std::endl;
+  std_msgs::Int8 msg;
+  msg.data = time_needed;
+  pub_time_needed_.publish(msg);
+}
 
 /* 
  * This is a callback for receiving odometry from the robot and sets the configuration of the robot 
@@ -100,13 +126,8 @@ void MobileRobot::updateCubic(const ramp_planner_new::CubicRepresentation& msg)
  *   It calls calculateSpeedsAndTimes to update the robot's vectors needed to move */
 void MobileRobot::setNextTwist() 
 {
-  ros::Time now = ros::Time::now();
   // Update vectors for speeds and times
-    // std::cout<<"\ttime_step_:"<<time_step_<<std::endl;
-    // std::cout<<"\tseg_step_:"<<seg_step_<<std::endl;
     twist_ = calculateVelocities(cubic_.coefficients, seg_step_);
-    // sendTwist();
-    // sendTwist();
 } // End updateTrajectory
 
 geometry_msgs::Twist MobileRobot::calculateVelocities(const std::vector<ramp_planner_new::Coefficient> coefs, int t){
@@ -217,7 +238,7 @@ void MobileRobot::moveOnTrajectory()
   {
     while(ros::ok() && time_step_ < SEND_RESELUTION) 
     {
-      ROS_INFO("num_traveled_: %i/%d", seg_step_, cubic_.resolution);
+      std::cout<<"\ttime_step_:"<<time_step_<<"\tseg_step_:"<<seg_step_<<std::endl;
       // ** Code that was used to maintain orientation ** //
       // Send the twist_message to move the robot
       sendTwist();

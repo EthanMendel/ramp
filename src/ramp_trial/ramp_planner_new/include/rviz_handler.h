@@ -13,13 +13,13 @@ class RvizHandler {
     unsigned int getNumSubscribers();
     void sendMarkerArray(const visualization_msgs::MarkerArray& ma);
     void sendCoefs(const ramp_planner_new::CubicRepresentation& c);
-    void sendTwist(const geometry_msgs::Twist& t);
+    void sendStartGoal(const visualization_msgs::MarkerArray& ma);
 
   private:
     ros::NodeHandle handle_;
     ros::Publisher pub_markerArray_;
     ros::Publisher pub_coefs_;
-    ros::Publisher pub_twist_;
+    ros::Publisher pub_start_goal_;
 };
 
 #endif
