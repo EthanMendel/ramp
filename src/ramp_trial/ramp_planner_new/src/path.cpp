@@ -128,46 +128,6 @@ const std::string Path::toString() const {
   return result.str();
 }
 
-//coefs CHANGES NEED TO BE LOOKED AT
-void Path::findLinearCoefs(){
-  order = 1;
-  for(auto c : coefs){
-    c.clear();
-  }
-  coefs.clear();
-  if(msg_.points.size() >= 2){
-    std::vector<double> hold;
-    hold.push_back((msg_.points.at(0).motionState.positions.at(1) - msg_.points.at(msg_.points.size() - 1).motionState.positions.at(1)) / 
-                    (msg_.points.at(0).motionState.positions.at(0) - msg_.points.at(msg_.points.size() - 1).motionState.positions.at(0)));
-    hold.push_back(-(hold.at(0)*msg_.points.at(1).motionState.positions.at(0) - msg_.points.at(1).motionState.positions.at(1)));
-    coefs.push_back(hold);
-  }else{
-    coefs.at(0).push_back(0);
-    coefs.at(0).push_back(0);
-  }
-  std::cout<<"M: "<<coefs.at(0).at(0)<<"\nB: "<<coefs.at(0).at(1)<<"\n";
-}
-
-//coefs CHANGES NEED TO BE LOOKED AT
-void Path::makeStraightPath(){
-  findLinearCoefs();
-  if(order!=1 && coefs.at(0).size() != 2){
-    return;
-  }
-  double x = msg_.points.at(0).motionState.positions.at(0);
-  double inc = (msg_.points.at(msg_.points.size() - 1).motionState.positions.at(0) - x)/10.0;
-  for(unsigned int i=0;i<11;i++){
-    MotionState ms;
-    ms.msg_.positions.push_back(x+(i*inc));
-    ms.msg_.positions.push_back(coefs.at(0).at(0)*(x+(i*inc))+coefs.at(0).at(1));
-    ms.msg_.velocities.push_back(0);
-    ms.msg_.accelerations.push_back(0);
-    ms.msg_.jerks.push_back(0);
-    KnotPoint kp(ms);
-    msg_.points.push_back(kp.buildKnotPointMsg());
-  }
-}
-
 //from ITCS 5151/8151 (Robotics) 2003, Jing Xiao Handout#3
 //REQUIRES START AND GOAL NODES
 void Path::findCubicCoefs(const double T){
