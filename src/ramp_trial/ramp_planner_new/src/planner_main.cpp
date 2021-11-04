@@ -75,7 +75,7 @@ void initStartGoal(const std::vector<std::vector<float>> points) {
     KnotPoint pkp(point);
     straightLinePath.msg_.points.push_back(pkp.buildKnotPointMsg());
   }
-  std::cout<<"points at init:\n"<<straightLinePath.buildPathMsg()<<std::endl;
+  // std::cout<<"points at init:\n"<<straightLinePath.buildPathMsg()<<std::endl;
 }
 
  /** loads all ros parameters from .yaml 
@@ -281,8 +281,8 @@ void pubStartGoalMarkers(RvizHandler pub_rviz){
     ROS_INFO("Rviz started");
   }
 
-  pub_rviz.sendStartGoal(result);
-  pub_rviz.sendStartGoal(result);
+  pub_rviz.sendPathPoints(result);
+  pub_rviz.sendPathPoints(result);
   
   ROS_INFO("Exiting pubStartGoalMarkers");
 }

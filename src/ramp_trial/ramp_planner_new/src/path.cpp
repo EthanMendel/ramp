@@ -190,5 +190,5 @@ void Path::makeCubicPath(const double T){
     addBeforeGoal(ms);
   }
   std::cout<<"Cubic path has "<<msg_.points.size()<<" points\n";
-  std::cout<<"msg_:\n"<<buildPathMsg()<<std::endl;
+  // std::cout<<"msg_:\n"<<buildPathMsg()<<std::endl;
 }

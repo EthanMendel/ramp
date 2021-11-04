@@ -1754,6 +1754,19 @@ ramp_planner/fast:
 .PHONY : ramp_planner/fast
 
 #=============================================================================
+# Target rules for targets named ramp_control_buffer
+
+# Build rule for target.
+ramp_control_buffer: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ramp_control_buffer
+.PHONY : ramp_control_buffer
+
+# fast build rule for target.
+ramp_control_buffer/fast:
+	$(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_buffer.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_buffer.dir/build
+.PHONY : ramp_control_buffer/fast
+
+#=============================================================================
 # Target rules for targets named ramp_control_new
 
 # Build rule for target.
@@ -4865,6 +4878,7 @@ help:
 	@echo "... tf2_msgs_generate_messages_py"
 	@echo "... pub_map_odom"
 	@echo "... ramp_planner"
+	@echo "... ramp_control_buffer"
 	@echo "... ramp_control_new"
 	@echo "... ramp_planner_new"
 	@echo "... ramp_planner_new_generate_messages"

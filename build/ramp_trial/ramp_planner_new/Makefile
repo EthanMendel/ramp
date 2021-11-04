@@ -168,6 +168,21 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_buffer.dir/rule:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_buffer.dir/rule
+.PHONY : ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_buffer.dir/rule
+
+# Convenience name for target.
+ramp_control_buffer: ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_buffer.dir/rule
+
+.PHONY : ramp_control_buffer
+
+# fast build rule for target.
+ramp_control_buffer/fast:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_buffer.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_buffer.dir/build
+.PHONY : ramp_control_buffer/fast
+
+# Convenience name for target.
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/rule:
 	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/rule
 .PHONY : ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/rule
@@ -391,6 +406,33 @@ ramp_planner_new_gennodejs: ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_
 ramp_planner_new_gennodejs/fast:
 	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_gennodejs.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_gennodejs.dir/build
 .PHONY : ramp_planner_new_gennodejs/fast
+
+src/control_buffer_main.o: src/control_buffer_main.cpp.o
+
+.PHONY : src/control_buffer_main.o
+
+# target to build an object file
+src/control_buffer_main.cpp.o:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_buffer.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_buffer.dir/src/control_buffer_main.cpp.o
+.PHONY : src/control_buffer_main.cpp.o
+
+src/control_buffer_main.i: src/control_buffer_main.cpp.i
+
+.PHONY : src/control_buffer_main.i
+
+# target to preprocess a source file
+src/control_buffer_main.cpp.i:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_buffer.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_buffer.dir/src/control_buffer_main.cpp.i
+.PHONY : src/control_buffer_main.cpp.i
+
+src/control_buffer_main.s: src/control_buffer_main.cpp.s
+
+.PHONY : src/control_buffer_main.s
+
+# target to generate assembly for a file
+src/control_buffer_main.cpp.s:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_buffer.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_buffer.dir/src/control_buffer_main.cpp.s
+.PHONY : src/control_buffer_main.cpp.s
 
 src/control_main.o: src/control_main.cpp.o
 
@@ -644,6 +686,7 @@ help:
 	@echo "... install/local"
 	@echo "... install"
 	@echo "... list_install_components"
+	@echo "... ramp_control_buffer"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... ramp_control_new"
@@ -663,6 +706,9 @@ help:
 	@echo "... test"
 	@echo "... ramp_planner_new_generate_messages_cpp"
 	@echo "... ramp_planner_new_gennodejs"
+	@echo "... src/control_buffer_main.o"
+	@echo "... src/control_buffer_main.i"
+	@echo "... src/control_buffer_main.s"
 	@echo "... src/control_main.o"
 	@echo "... src/control_main.i"
 	@echo "... src/control_main.s"
