@@ -415,7 +415,7 @@ int main(int argc, char** argv) {
    * all parameters are loaded
    */
   pubStartGoalMarkers(pub_rviz);//red-start, blue-goal
-  straightLinePath.makeCubicPath(10);
+  straightLinePath.makeCubicPath(5);
   // handle.subscribe("/time_needed", 1, &Path::makeCubicPath, &straightLinePath);  
   pubPath(pub_rviz);
   ROS_INFO("Done with publishing markers");

@@ -22,6 +22,7 @@ class Path {
 
     unsigned int order;
     std::vector<std::vector<double>> coefs;
+    double usedT_;
 
     ramp_msgs::Path msg_;
 

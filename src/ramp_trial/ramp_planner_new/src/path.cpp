@@ -107,7 +107,7 @@ const ramp_msgs::Path Path::buildPathMsg() const {
 
 const ramp_planner_new::CubicRepresentation Path::buildCubicMsg() const {
   ramp_planner_new::CubicRepresentation result;
-  result.order = coefs.at(0).size();
+  result.order = coefs.at(0).size() - 1;
   result.numDOF = coefs.size();
   for(unsigned int i=0;i<coefs.size();i++){
     ramp_planner_new::Coefficient c;
@@ -116,7 +116,7 @@ const ramp_planner_new::CubicRepresentation Path::buildCubicMsg() const {
     }
     result.coefficients.push_back(c);
   }
-  result.resolution=10;//change this somehow
+  result.resolution=usedT_;
   return result;
 }
 
@@ -132,6 +132,7 @@ const std::string Path::toString() const {
 //REQUIRES START AND GOAL NODES
 void Path::findCubicCoefs(const double T){
   order = 3;
+  usedT_ = T;
   for(auto c : coefs){
     c.clear();
   }
