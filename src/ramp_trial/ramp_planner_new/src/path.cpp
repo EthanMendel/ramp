@@ -70,7 +70,7 @@ void Path::offsetPositions(const MotionState diff){
 
 void Path::addBeforeGoal(const KnotPoint kp) {
   if(msg_.points.size() > 0) {
-    msg_.points.insert(msg_.points.end()-1, kp.buildKnotPointMsg());
+    msg_.points.insert(msg_.points.end()-2, kp.buildKnotPointMsg());
   }else {
     msg_.points.push_back(kp.buildKnotPointMsg());
   }
@@ -137,8 +137,8 @@ void Path::findCubicCoefs(const double T){
   }
   coefs.clear();
   if(msg_.points.size() >= 2){
-    MotionState start = msg_.points.at(0).motionState;
-    MotionState goal = msg_.points.at(msg_.points.size() - 1).motionState;
+    MotionState start = msg_.points.at(0).motionState;//MAKE THESE DYNAMIC START AND GOALS
+    MotionState goal = msg_.points.at(1).motionState;
     std::cout<<"start: \t"<<start.toString()<<std::endl;
     std::cout<<"goal: \t"<<goal.toString()<<std::endl;
     for(unsigned int i = 0;i<start.msg_.positions.size();i++){
@@ -155,7 +155,9 @@ void Path::findCubicCoefs(const double T){
   }
 }
 
-void Path::makeCubicPath(const std_msgs::Int8 T){
+void Path::makeCubicPath(const double T){
+  ROS_INFO("making cubic path...");
+  // double T = intT.data; //add some extra cusion here if we want to
   findCubicCoefs(T);
   if(order!=3 && coefs.size() != 4){
     return;
@@ -170,7 +172,7 @@ void Path::makeCubicPath(const std_msgs::Int8 T){
   std::vector<double> incs = {xInc,yInc,zInc};
 
 
-  for(unsigned int t=0;t<T+1;t++){
+  for(unsigned int t=1;t<T;t++){
     MotionState ms;
     for(unsigned int j=0;j<coefs.size();j++){
       ms.msg_.positions.push_back(coefs.at(j).at(0)*pow(t,3) + coefs.at(j).at(1)*pow(t,2) +
@@ -183,7 +185,10 @@ void Path::makeCubicPath(const std_msgs::Int8 T){
       ms.msg_.jerks.push_back(6*coefs.at(j).at(0));
     }
     // std::cout<<"point #"<<t+1<<"\t("<<ms.msg_.positions.at(0)<<",\t"<<ms.msg_.positions.at(1)<<",\t"<<ms.msg_.positions.at(2)<<")\n";
+    // MANUALLY CHANGED TO -2 BECAUSE OF WAYPOINT
+    // MUST MAKE DYNAMIC
     addBeforeGoal(ms);
   }
   std::cout<<"Cubic path has "<<msg_.points.size()<<" points\n";
+  std::cout<<"msg_:\n"<<buildPathMsg()<<std::endl;
 }

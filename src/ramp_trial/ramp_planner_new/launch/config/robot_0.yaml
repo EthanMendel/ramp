@@ -17,4 +17,5 @@ max_speed_angular: 1.5708
 
 # relative to map
 start: [1.5, 0.0, 1.5708]
+waypoint: [2.0, 1.5, 0.0]
 goal:  [1.0, 3.5, 0.0]

@@ -3,6 +3,7 @@
 #include "knot_point.h"
 #include "ramp_msgs/Path.h"
 #include "ramp_planner_new/CubicRepresentation.h"
+#include <std_msgs/Int8.h>
 
 class Path {
   public:

@@ -37,9 +37,9 @@ void MobileRobot::getMinLinTime(const visualization_msgs::MarkerArray& ma){
   geometry_msgs::Pose start;
   geometry_msgs::Pose goal;
   for(unsigned int i=0;i<ma.markers.size();i++){
-    if (ma.markers.at(i).id == 10000){
+    if (ma.markers.at(i).id == 10001){
       start = ma.markers.at(i).pose;
-    }else if(ma.markers.at(i).id == 10001){
+    }else if(ma.markers.at(i).id == 10002){//MAKE DYNAMIC
       goal = ma.markers.at(i).pose;
     }
   }
