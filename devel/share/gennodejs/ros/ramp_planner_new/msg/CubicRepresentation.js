@@ -23,6 +23,7 @@ class CubicRepresentation {
       this.numDOF = null;
       this.coefficients = null;
       this.resolution = null;
+      this.active = null;
     }
     else {
       if (initObj.hasOwnProperty('order')) {
@@ -49,6 +50,12 @@ class CubicRepresentation {
       else {
         this.resolution = 0.0;
       }
+      if (initObj.hasOwnProperty('active')) {
+        this.active = initObj.active
+      }
+      else {
+        this.active = false;
+      }
     }
   }
 
@@ -66,6 +73,8 @@ class CubicRepresentation {
     });
     // Serialize message field [resolution]
     bufferOffset = _serializer.float64(obj.resolution, buffer, bufferOffset);
+    // Serialize message field [active]
+    bufferOffset = _serializer.bool(obj.active, buffer, bufferOffset);
     return bufferOffset;
   }
 
@@ -86,6 +95,8 @@ class CubicRepresentation {
     }
     // Deserialize message field [resolution]
     data.resolution = _deserializer.float64(buffer, bufferOffset);
+    // Deserialize message field [active]
+    data.active = _deserializer.bool(buffer, bufferOffset);
     return data;
   }
 
@@ -94,7 +105,7 @@ class CubicRepresentation {
     object.coefficients.forEach((val) => {
       length += Coefficient.getMessageSize(val);
     });
-    return length + 20;
+    return length + 21;
   }
 
   static datatype() {
@@ -104,7 +115,7 @@ class CubicRepresentation {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '7d9f47ffad2b610ef10ede454a7dfa31';
+    return 'c2d1d9a1b08eb916588f476cba8feed3';
   }
 
   static messageDefinition() {
@@ -114,6 +125,7 @@ class CubicRepresentation {
     uint32 numDOF
     ramp_planner_new/Coefficient[] coefficients
     float64 resolution
+    bool active
     ================================================================================
     MSG: ramp_planner_new/Coefficient
     float64[] values
@@ -155,6 +167,13 @@ class CubicRepresentation {
     }
     else {
       resolved.resolution = 0.0
+    }
+
+    if (msg.active !== undefined) {
+      resolved.active = msg.active;
+    }
+    else {
+      resolved.active = false
     }
 
     return resolved;

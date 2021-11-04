@@ -7,4 +7,6 @@
           COEFFICIENTS
           RESOLUTION-VAL
           RESOLUTION
+          ACTIVE-VAL
+          ACTIVE
 ))

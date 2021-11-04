@@ -232,28 +232,32 @@ void MobileRobot::moveOnTrajectory()
   ros::Time s;
 
   double actual_theta, dist;
-
-  // Execute the trajectory
-  while(ros::ok() && seg_step_ < cubic_.resolution) 
-  {
-    while(ros::ok() && time_step_ < SEND_RESELUTION) 
+  if(cubic_.active == 1){
+    // Execute the trajectory
+    std::cout<<"starting full path portion\n\t"<<cubic_<<std::endl;
+    while(ros::ok() && seg_step_ < cubic_.resolution) 
     {
-      std::cout<<"\ttime_step_:"<<time_step_<<"\tseg_step_:"<<seg_step_<<std::endl;
-      // ** Code that was used to maintain orientation ** //
-      // Send the twist_message to move the robot
-      sendTwist();
-      time_step_++;
-      // Sleep
-      r.sleep();
-      // Spin to check for updates
+      while(ros::ok() && time_step_ < SEND_RESELUTION) 
+      {
+        std::cout<<"\ttime_step_:"<<time_step_<<"\tseg_step_:"<<seg_step_<<std::endl;
+        // ** Code that was used to maintain orientation ** //
+        // Send the twist_message to move the robot
+        sendTwist();
+        time_step_++;
+        // Sleep
+        r.sleep();
+        // Spin to check for updates
+        ros::spinOnce();
+      } // end while (move to the next point)
+      // Increment num_traveled
+      time_step_ = 0;
+      seg_step_++;
+      setNextTwist(); 
+      // Spin once to check for updates in the trajectory
       ros::spinOnce();
-    } // end while (move to the next point)
-    // Increment num_traveled
-    time_step_ = 0;
-    seg_step_++;
-    setNextTwist(); 
-    // Spin once to check for updates in the trajectory
-    ros::spinOnce();
-  } // end while
-  // Check that we moved on a trajectory
+    } // end while
+    std::cout<<"finished full path portion\n\t"<<cubic_<<std::endl;
+    cubic_.active = 0;
+    // Check that we moved on a trajectory
+  }
 } // End moveOnTrajectory

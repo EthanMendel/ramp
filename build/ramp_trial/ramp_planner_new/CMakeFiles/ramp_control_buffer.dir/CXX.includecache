@@ -11,6 +11,8 @@ ros/ros.h
 /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/ros/ros.h
 visualization_msgs/MarkerArray.h
 /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/visualization_msgs/MarkerArray.h
+std_msgs/Bool.h
+-
 
 /opt/ros/noetic/include/geometry_msgs/Point.h
 string
@@ -727,6 +729,22 @@ ros/forwards.h
 /opt/ros/noetic/include/ros/ros/forwards.h
 
 /opt/ros/noetic/include/rosconsole/macros_generated.h
+
+/opt/ros/noetic/include/std_msgs/Bool.h
+string
+-
+vector
+-
+map
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
 
 /opt/ros/noetic/include/std_msgs/ColorRGBA.h
 string

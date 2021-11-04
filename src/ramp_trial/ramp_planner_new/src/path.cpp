@@ -117,6 +117,7 @@ const ramp_planner_new::CubicRepresentation Path::buildCubicMsg() const {
     result.coefficients.push_back(c);
   }
   result.resolution=usedT_;
+  result.active = true;
   return result;
 }
 

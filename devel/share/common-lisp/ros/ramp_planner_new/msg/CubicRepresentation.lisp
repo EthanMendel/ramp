@@ -26,7 +26,12 @@
     :reader resolution
     :initarg :resolution
     :type cl:float
-    :initform 0.0))
+    :initform 0.0)
+   (active
+    :reader active
+    :initarg :active
+    :type cl:boolean
+    :initform cl:nil))
 )
 
 (cl:defclass CubicRepresentation (<CubicRepresentation>)
@@ -56,6 +61,11 @@
 (cl:defmethod resolution-val ((m <CubicRepresentation>))
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader ramp_planner_new-msg:resolution-val is deprecated.  Use ramp_planner_new-msg:resolution instead.")
   (resolution m))
+
+(cl:ensure-generic-function 'active-val :lambda-list '(m))
+(cl:defmethod active-val ((m <CubicRepresentation>))
+  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader ramp_planner_new-msg:active-val is deprecated.  Use ramp_planner_new-msg:active instead.")
+  (active m))
 (cl:defmethod roslisp-msg-protocol:serialize ((msg <CubicRepresentation>) ostream)
   "Serializes a message object of type '<CubicRepresentation>"
   (cl:write-byte (cl:ldb (cl:byte 8 0) (cl:slot-value msg 'order)) ostream)
@@ -82,6 +92,7 @@
     (cl:write-byte (cl:ldb (cl:byte 8 40) bits) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 48) bits) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 56) bits) ostream))
+  (cl:write-byte (cl:ldb (cl:byte 8 0) (cl:if (cl:slot-value msg 'active) 1 0)) ostream)
 )
 (cl:defmethod roslisp-msg-protocol:deserialize ((msg <CubicRepresentation>) istream)
   "Deserializes a message object of type '<CubicRepresentation>"
@@ -113,6 +124,7 @@
       (cl:setf (cl:ldb (cl:byte 8 48) bits) (cl:read-byte istream))
       (cl:setf (cl:ldb (cl:byte 8 56) bits) (cl:read-byte istream))
     (cl:setf (cl:slot-value msg 'resolution) (roslisp-utils:decode-double-float-bits bits)))
+    (cl:setf (cl:slot-value msg 'active) (cl:not (cl:zerop (cl:read-byte istream))))
   msg
 )
 (cl:defmethod roslisp-msg-protocol:ros-datatype ((msg (cl:eql '<CubicRepresentation>)))
@@ -123,22 +135,23 @@
   "ramp_planner_new/CubicRepresentation")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<CubicRepresentation>)))
   "Returns md5sum for a message object of type '<CubicRepresentation>"
-  "7d9f47ffad2b610ef10ede454a7dfa31")
+  "c2d1d9a1b08eb916588f476cba8feed3")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'CubicRepresentation)))
   "Returns md5sum for a message object of type 'CubicRepresentation"
-  "7d9f47ffad2b610ef10ede454a7dfa31")
+  "c2d1d9a1b08eb916588f476cba8feed3")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<CubicRepresentation>)))
   "Returns full string definition for message of type '<CubicRepresentation>"
-  (cl:format cl:nil "uint32 order~%uint32 numDOF~%ramp_planner_new/Coefficient[] coefficients~%float64 resolution~%================================================================================~%MSG: ramp_planner_new/Coefficient~%float64[] values~%~%"))
+  (cl:format cl:nil "uint32 order~%uint32 numDOF~%ramp_planner_new/Coefficient[] coefficients~%float64 resolution~%bool active~%================================================================================~%MSG: ramp_planner_new/Coefficient~%float64[] values~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'CubicRepresentation)))
   "Returns full string definition for message of type 'CubicRepresentation"
-  (cl:format cl:nil "uint32 order~%uint32 numDOF~%ramp_planner_new/Coefficient[] coefficients~%float64 resolution~%================================================================================~%MSG: ramp_planner_new/Coefficient~%float64[] values~%~%"))
+  (cl:format cl:nil "uint32 order~%uint32 numDOF~%ramp_planner_new/Coefficient[] coefficients~%float64 resolution~%bool active~%================================================================================~%MSG: ramp_planner_new/Coefficient~%float64[] values~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <CubicRepresentation>))
   (cl:+ 0
      4
      4
      4 (cl:reduce #'cl:+ (cl:slot-value msg 'coefficients) :key #'(cl:lambda (ele) (cl:declare (cl:ignorable ele)) (cl:+ (roslisp-msg-protocol:serialization-length ele))))
      8
+     1
 ))
 (cl:defmethod roslisp-msg-protocol:ros-message-to-list ((msg <CubicRepresentation>))
   "Converts a ROS message object to a list"
@@ -147,4 +160,5 @@
     (cl:cons ':numDOF (numDOF msg))
     (cl:cons ':coefficients (coefficients msg))
     (cl:cons ':resolution (resolution msg))
+    (cl:cons ':active (active msg))
 ))

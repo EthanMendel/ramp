@@ -28,13 +28,15 @@ struct CubicRepresentation_
     : order(0)
     , numDOF(0)
     , coefficients()
-    , resolution(0.0)  {
+    , resolution(0.0)
+    , active(false)  {
     }
   CubicRepresentation_(const ContainerAllocator& _alloc)
     : order(0)
     , numDOF(0)
     , coefficients(_alloc)
-    , resolution(0.0)  {
+    , resolution(0.0)
+    , active(false)  {
   (void)_alloc;
     }
 
@@ -51,6 +53,9 @@ struct CubicRepresentation_
 
    typedef double _resolution_type;
   _resolution_type resolution;
+
+   typedef uint8_t _active_type;
+  _active_type active;
 
 
 
@@ -84,7 +89,8 @@ bool operator==(const ::ramp_planner_new::CubicRepresentation_<ContainerAllocato
   return lhs.order == rhs.order &&
     lhs.numDOF == rhs.numDOF &&
     lhs.coefficients == rhs.coefficients &&
-    lhs.resolution == rhs.resolution;
+    lhs.resolution == rhs.resolution &&
+    lhs.active == rhs.active;
 }
 
 template<typename ContainerAllocator1, typename ContainerAllocator2>
@@ -141,12 +147,12 @@ struct MD5Sum< ::ramp_planner_new::CubicRepresentation_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "7d9f47ffad2b610ef10ede454a7dfa31";
+    return "c2d1d9a1b08eb916588f476cba8feed3";
   }
 
   static const char* value(const ::ramp_planner_new::CubicRepresentation_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x7d9f47ffad2b610eULL;
-  static const uint64_t static_value2 = 0xf10ede454a7dfa31ULL;
+  static const uint64_t static_value1 = 0xc2d1d9a1b08eb916ULL;
+  static const uint64_t static_value2 = 0x588f476cba8feed3ULL;
 };
 
 template<class ContainerAllocator>
@@ -169,6 +175,7 @@ struct Definition< ::ramp_planner_new::CubicRepresentation_<ContainerAllocator> 
 "uint32 numDOF\n"
 "ramp_planner_new/Coefficient[] coefficients\n"
 "float64 resolution\n"
+"bool active\n"
 "================================================================================\n"
 "MSG: ramp_planner_new/Coefficient\n"
 "float64[] values\n"
@@ -194,6 +201,7 @@ namespace serialization
       stream.next(m.numDOF);
       stream.next(m.coefficients);
       stream.next(m.resolution);
+      stream.next(m.active);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -226,6 +234,8 @@ struct Printer< ::ramp_planner_new::CubicRepresentation_<ContainerAllocator> >
     }
     s << indent << "resolution: ";
     Printer<double>::stream(s, indent + "  ", v.resolution);
+    s << indent << "active: ";
+    Printer<uint8_t>::stream(s, indent + "  ", v.active);
   }
 };
 

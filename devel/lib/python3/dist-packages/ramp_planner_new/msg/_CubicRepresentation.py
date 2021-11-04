@@ -9,18 +9,19 @@ import struct
 import ramp_planner_new.msg
 
 class CubicRepresentation(genpy.Message):
-  _md5sum = "7d9f47ffad2b610ef10ede454a7dfa31"
+  _md5sum = "c2d1d9a1b08eb916588f476cba8feed3"
   _type = "ramp_planner_new/CubicRepresentation"
   _has_header = False  # flag to mark the presence of a Header object
   _full_text = """uint32 order
 uint32 numDOF
 ramp_planner_new/Coefficient[] coefficients
 float64 resolution
+bool active
 ================================================================================
 MSG: ramp_planner_new/Coefficient
 float64[] values"""
-  __slots__ = ['order','numDOF','coefficients','resolution']
-  _slot_types = ['uint32','uint32','ramp_planner_new/Coefficient[]','float64']
+  __slots__ = ['order','numDOF','coefficients','resolution','active']
+  _slot_types = ['uint32','uint32','ramp_planner_new/Coefficient[]','float64','bool']
 
   def __init__(self, *args, **kwds):
     """
@@ -30,7 +31,7 @@ float64[] values"""
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       order,numDOF,coefficients,resolution
+       order,numDOF,coefficients,resolution,active
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -47,11 +48,14 @@ float64[] values"""
         self.coefficients = []
       if self.resolution is None:
         self.resolution = 0.
+      if self.active is None:
+        self.active = False
     else:
       self.order = 0
       self.numDOF = 0
       self.coefficients = []
       self.resolution = 0.
+      self.active = False
 
   def _get_types(self):
     """
@@ -74,8 +78,8 @@ float64[] values"""
         buff.write(_struct_I.pack(length))
         pattern = '<%sd'%length
         buff.write(struct.Struct(pattern).pack(*val1.values))
-      _x = self.resolution
-      buff.write(_get_struct_d().pack(_x))
+      _x = self
+      buff.write(_get_struct_dB().pack(_x.resolution, _x.active))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -109,9 +113,11 @@ float64[] values"""
         end += s.size
         val1.values = s.unpack(str[start:end])
         self.coefficients.append(val1)
+      _x = self
       start = end
-      end += 8
-      (self.resolution,) = _get_struct_d().unpack(str[start:end])
+      end += 9
+      (_x.resolution, _x.active,) = _get_struct_dB().unpack(str[start:end])
+      self.active = bool(self.active)
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -133,8 +139,8 @@ float64[] values"""
         buff.write(_struct_I.pack(length))
         pattern = '<%sd'%length
         buff.write(val1.values.tostring())
-      _x = self.resolution
-      buff.write(_get_struct_d().pack(_x))
+      _x = self
+      buff.write(_get_struct_dB().pack(_x.resolution, _x.active))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -169,9 +175,11 @@ float64[] values"""
         end += s.size
         val1.values = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
         self.coefficients.append(val1)
+      _x = self
       start = end
-      end += 8
-      (self.resolution,) = _get_struct_d().unpack(str[start:end])
+      end += 9
+      (_x.resolution, _x.active,) = _get_struct_dB().unpack(str[start:end])
+      self.active = bool(self.active)
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -186,9 +194,9 @@ def _get_struct_2I():
     if _struct_2I is None:
         _struct_2I = struct.Struct("<2I")
     return _struct_2I
-_struct_d = None
-def _get_struct_d():
-    global _struct_d
-    if _struct_d is None:
-        _struct_d = struct.Struct("<d")
-    return _struct_d
+_struct_dB = None
+def _get_struct_dB():
+    global _struct_dB
+    if _struct_dB is None:
+        _struct_dB = struct.Struct("<dB")
+    return _struct_dB

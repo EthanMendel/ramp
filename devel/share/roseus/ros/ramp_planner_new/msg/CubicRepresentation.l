@@ -14,7 +14,7 @@
 
 (defclass ramp_planner_new::CubicRepresentation
   :super ros::object
-  :slots (_order _numDOF _coefficients _resolution ))
+  :slots (_order _numDOF _coefficients _resolution _active ))
 
 (defmethod ramp_planner_new::CubicRepresentation
   (:init
@@ -23,12 +23,14 @@
     ((:numDOF __numDOF) 0)
     ((:coefficients __coefficients) ())
     ((:resolution __resolution) 0.0)
+    ((:active __active) nil)
     )
    (send-super :init)
    (setq _order (round __order))
    (setq _numDOF (round __numDOF))
    (setq _coefficients __coefficients)
    (setq _resolution (float __resolution))
+   (setq _active __active)
    self)
   (:order
    (&optional __order)
@@ -46,6 +48,9 @@
   (:resolution
    (&optional __resolution)
    (if __resolution (setq _resolution __resolution)) _resolution)
+  (:active
+   (&optional (__active :null))
+   (if (not (eq __active :null)) (setq _active __active)) _active)
   (:serialization-length
    ()
    (+
@@ -57,6 +62,8 @@
     (apply #'+ (send-all _coefficients :serialization-length)) 4
     ;; float64 _resolution
     8
+    ;; bool _active
+    1
     ))
   (:serialize
    (&optional strm)
@@ -73,6 +80,8 @@
        )
      ;; float64 _resolution
        (sys::poke _resolution (send s :buffer) (send s :count) :double) (incf (stream-count s) 8)
+     ;; bool _active
+       (if _active (write-byte -1 s) (write-byte 0 s))
      ;;
      (if (null strm) (get-output-stream-string s))))
   (:deserialize
@@ -90,17 +99,20 @@
      ))
    ;; float64 _resolution
      (setq _resolution (sys::peek buf ptr- :double)) (incf ptr- 8)
+   ;; bool _active
+     (setq _active (not (= 0 (sys::peek buf ptr- :char)))) (incf ptr- 1)
    ;;
    self)
   )
 
-(setf (get ramp_planner_new::CubicRepresentation :md5sum-) "7d9f47ffad2b610ef10ede454a7dfa31")
+(setf (get ramp_planner_new::CubicRepresentation :md5sum-) "c2d1d9a1b08eb916588f476cba8feed3")
 (setf (get ramp_planner_new::CubicRepresentation :datatype-) "ramp_planner_new/CubicRepresentation")
 (setf (get ramp_planner_new::CubicRepresentation :definition-)
       "uint32 order
 uint32 numDOF
 ramp_planner_new/Coefficient[] coefficients
 float64 resolution
+bool active
 ================================================================================
 MSG: ramp_planner_new/Coefficient
 float64[] values
@@ -108,6 +120,6 @@ float64[] values
 
 
 
-(provide :ramp_planner_new/CubicRepresentation "7d9f47ffad2b610ef10ede454a7dfa31")
+(provide :ramp_planner_new/CubicRepresentation "c2d1d9a1b08eb916588f476cba8feed3")
 
 

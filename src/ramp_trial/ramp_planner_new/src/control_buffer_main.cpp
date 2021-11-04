@@ -1,5 +1,6 @@
 #include "ros/ros.h"
 #include "visualization_msgs/MarkerArray.h"
+#include <std_msgs/Bool.h>
 
 visualization_msgs::MarkerArray pathPoints;
 int curStartId = -1;
@@ -26,6 +27,11 @@ void pathPointsCallback(const visualization_msgs::MarkerArray ma){
     updateStartGoal();
 }
 
+void getNextPoint(const std_msgs::Bool b){
+    curStartId += 1;
+    updateStartGoal();
+}
+
 int main(int argc, char** argv) {
   std::cout<<"\nstarting listener\n";
   srand( time(0));
@@ -35,6 +41,7 @@ int main(int argc, char** argv) {
   ros::NodeHandle handle_local("~");
 
   ros::Subscriber pathPointsListener  = handle.subscribe("path_points_channel", 1, pathPointsCallback);
+  ros::Subscriber readyNextListener = handle.subscribe("ready_next", 1, getNextPoint);
   pub_path_points = handle.advertise<visualization_msgs::MarkerArray>("start_goal_channel",10);
   setvbuf(stdout, NULL, _IOLBF, 4096);
 
