@@ -256,7 +256,7 @@ void MobileRobot::moveOnTrajectory()
       // Spin once to check for updates in the trajectory
       ros::spinOnce();
     } // end while
-    std::cout<<"finished full path portion\n\t"<<cubic_<<std::endl;
+    std::cout<<"finished full path portion\n\t"<<std::endl;
     cubic_.active = 0;
     // Check that we moved on a trajectory
   }

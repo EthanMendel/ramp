@@ -415,15 +415,15 @@ int main(int argc, char** argv) {
    * all parameters are loaded
    */
   pubStartGoalMarkers(pub_rviz);//red-start, blue-goal
-  straightLinePath.makeCubicPath(5);
+  straightLinePath.makeCubicPath(10);
   // handle.subscribe("/time_needed", 1, &Path::makeCubicPath, &straightLinePath);  
   pubPath(pub_rviz);
   ROS_INFO("Done with publishing markers");
- 
+  pub_rviz.sendCoefs(straightLinePath.buildCubicMsg());
+
   ros::Rate r(1000);
   while(ros::ok()) 
   {
-    pub_rviz.sendCoefs(straightLinePath.buildCubicMsg());
     r.sleep();
     ros::spinOnce();
   }
