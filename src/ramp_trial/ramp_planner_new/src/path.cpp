@@ -105,8 +105,8 @@ const ramp_msgs::Path Path::buildPathMsg() const {
   return result;
 }
 
-const ramp_planner_new::CubicRepresentation Path::buildCubicMsg() const {
-  ramp_planner_new::CubicRepresentation result;
+const ramp_planner_new::TrajectoryRepresentation Path::buildCubicMsg() const {
+  ramp_planner_new::TrajectoryRepresentation result;
   if(coefs.size() > 0){
     result.order = coefs.at(0).size() - 1;
     result.numDOF = coefs.size();
@@ -119,6 +119,7 @@ const ramp_planner_new::CubicRepresentation Path::buildCubicMsg() const {
     }
     result.resolution=usedT_;
     result.active = true;
+    result.type = "cubic";
   }
   return result;
 }

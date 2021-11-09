@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.context.in
 
-messages_str = "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/Coefficient.msg;/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/CubicRepresentation.msg"
+messages_str = "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/Coefficient.msg;/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRepresentation.msg;/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRequest.msg"
 services_str = ""
 pkg_name = "ramp_planner_new"
 dependencies_str = "geometry_msgs;ramp_msgs"

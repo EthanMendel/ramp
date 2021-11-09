@@ -2,7 +2,7 @@
 #define PATH_H
 #include "knot_point.h"
 #include "ramp_msgs/Path.h"
-#include "ramp_planner_new/CubicRepresentation.h"
+#include "ramp_planner_new/TrajectoryRepresentation.h"
 #include <std_msgs/Int8.h>
 
 class Path {
@@ -38,7 +38,7 @@ class Path {
     void offsetPositions(const MotionState diff);
     const unsigned int size() const;
     const ramp_msgs::Path buildPathMsg() const; 
-    const ramp_planner_new::CubicRepresentation buildCubicMsg() const;
+    const ramp_planner_new::TrajectoryRepresentation buildCubicMsg() const;
     const std::string toString() const;
     void findLinearCoefs();
     void makeStraightPath();

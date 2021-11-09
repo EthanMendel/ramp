@@ -2,7 +2,7 @@
 
 RvizHandler::RvizHandler(const ros::NodeHandle h) : handle_(h) {
   pub_markerArray_ = handle_.advertise<visualization_msgs::MarkerArray>("visualization_marker_array", 10);
-  pub_coefs_ = handle_.advertise<ramp_planner_new::CubicRepresentation>("coef_channel", 10);
+  pub_coefs_ = handle_.advertise<ramp_planner_new::TrajectoryRepresentation>("coef_channel", 10);
   pub_path_points_ = handle_.advertise<visualization_msgs::MarkerArray>("path_points_channel",10);
 }
 
@@ -14,7 +14,7 @@ void RvizHandler::sendMarkerArray(const visualization_msgs::MarkerArray& ma){
   pub_markerArray_.publish(ma);
 }
 
-void RvizHandler::sendCoefs(const ramp_planner_new::CubicRepresentation& c){
+void RvizHandler::sendCoefs(const ramp_planner_new::TrajectoryRepresentation& c){
   pub_coefs_.publish(c);
 }
 

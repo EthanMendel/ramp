@@ -3,7 +3,7 @@
 #include "ros/ros.h"
 #include <visualization_msgs/MarkerArray.h>
 #include <ramp_msgs/Path.h>
-#include <ramp_planner_new/CubicRepresentation.h>
+#include <ramp_planner_new/TrajectoryRepresentation.h>
 #include <geometry_msgs/Twist.h>
 
 class RvizHandler {
@@ -12,7 +12,7 @@ class RvizHandler {
 
     unsigned int getNumSubscribers();
     void sendMarkerArray(const visualization_msgs::MarkerArray& ma);
-    void sendCoefs(const ramp_planner_new::CubicRepresentation& c);
+    void sendCoefs(const ramp_planner_new::TrajectoryRepresentation& c);
     void sendPathPoints(const visualization_msgs::MarkerArray& ma);
 
   private:

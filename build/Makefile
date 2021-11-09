@@ -1780,17 +1780,17 @@ ramp_control_new/fast:
 .PHONY : ramp_control_new/fast
 
 #=============================================================================
-# Target rules for targets named ramp_planner_new
+# Target rules for targets named ramp_planner_new_genpy
 
 # Build rule for target.
-ramp_planner_new: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ramp_planner_new
-.PHONY : ramp_planner_new
+ramp_planner_new_genpy: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ramp_planner_new_genpy
+.PHONY : ramp_planner_new_genpy
 
 # fast build rule for target.
-ramp_planner_new/fast:
-	$(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build
-.PHONY : ramp_planner_new/fast
+ramp_planner_new_genpy/fast:
+	$(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_genpy.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_genpy.dir/build
+.PHONY : ramp_planner_new_genpy/fast
 
 #=============================================================================
 # Target rules for targets named ramp_planner_new_generate_messages
@@ -1819,17 +1819,56 @@ ramp_planner_new_generate_messages_py/fast:
 .PHONY : ramp_planner_new_generate_messages_py/fast
 
 #=============================================================================
-# Target rules for targets named _ramp_planner_new_generate_messages_check_deps_CubicRepresentation
+# Target rules for targets named _ramp_planner_new_generate_messages_check_deps_TrajectoryRepresentation
 
 # Build rule for target.
-_ramp_planner_new_generate_messages_check_deps_CubicRepresentation: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 _ramp_planner_new_generate_messages_check_deps_CubicRepresentation
-.PHONY : _ramp_planner_new_generate_messages_check_deps_CubicRepresentation
+_ramp_planner_new_generate_messages_check_deps_TrajectoryRepresentation: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _ramp_planner_new_generate_messages_check_deps_TrajectoryRepresentation
+.PHONY : _ramp_planner_new_generate_messages_check_deps_TrajectoryRepresentation
 
 # fast build rule for target.
-_ramp_planner_new_generate_messages_check_deps_CubicRepresentation/fast:
-	$(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/_ramp_planner_new_generate_messages_check_deps_CubicRepresentation.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/_ramp_planner_new_generate_messages_check_deps_CubicRepresentation.dir/build
-.PHONY : _ramp_planner_new_generate_messages_check_deps_CubicRepresentation/fast
+_ramp_planner_new_generate_messages_check_deps_TrajectoryRepresentation/fast:
+	$(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/_ramp_planner_new_generate_messages_check_deps_TrajectoryRepresentation.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/_ramp_planner_new_generate_messages_check_deps_TrajectoryRepresentation.dir/build
+.PHONY : _ramp_planner_new_generate_messages_check_deps_TrajectoryRepresentation/fast
+
+#=============================================================================
+# Target rules for targets named ramp_planner_new
+
+# Build rule for target.
+ramp_planner_new: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ramp_planner_new
+.PHONY : ramp_planner_new
+
+# fast build rule for target.
+ramp_planner_new/fast:
+	$(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build
+.PHONY : ramp_planner_new/fast
+
+#=============================================================================
+# Target rules for targets named _ramp_planner_new_generate_messages_check_deps_TrajectoryRequest
+
+# Build rule for target.
+_ramp_planner_new_generate_messages_check_deps_TrajectoryRequest: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _ramp_planner_new_generate_messages_check_deps_TrajectoryRequest
+.PHONY : _ramp_planner_new_generate_messages_check_deps_TrajectoryRequest
+
+# fast build rule for target.
+_ramp_planner_new_generate_messages_check_deps_TrajectoryRequest/fast:
+	$(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/_ramp_planner_new_generate_messages_check_deps_TrajectoryRequest.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/_ramp_planner_new_generate_messages_check_deps_TrajectoryRequest.dir/build
+.PHONY : _ramp_planner_new_generate_messages_check_deps_TrajectoryRequest/fast
+
+#=============================================================================
+# Target rules for targets named ramp_planner_new_generate_messages_nodejs
+
+# Build rule for target.
+ramp_planner_new_generate_messages_nodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ramp_planner_new_generate_messages_nodejs
+.PHONY : ramp_planner_new_generate_messages_nodejs
+
+# fast build rule for target.
+ramp_planner_new_generate_messages_nodejs/fast:
+	$(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages_nodejs.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages_nodejs.dir/build
+.PHONY : ramp_planner_new_generate_messages_nodejs/fast
 
 #=============================================================================
 # Target rules for targets named _ramp_planner_new_generate_messages_check_deps_Coefficient
@@ -1908,32 +1947,6 @@ ramp_planner_new_generate_messages_lisp: cmake_check_build_system
 ramp_planner_new_generate_messages_lisp/fast:
 	$(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages_lisp.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages_lisp.dir/build
 .PHONY : ramp_planner_new_generate_messages_lisp/fast
-
-#=============================================================================
-# Target rules for targets named ramp_planner_new_generate_messages_nodejs
-
-# Build rule for target.
-ramp_planner_new_generate_messages_nodejs: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ramp_planner_new_generate_messages_nodejs
-.PHONY : ramp_planner_new_generate_messages_nodejs
-
-# fast build rule for target.
-ramp_planner_new_generate_messages_nodejs/fast:
-	$(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages_nodejs.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_generate_messages_nodejs.dir/build
-.PHONY : ramp_planner_new_generate_messages_nodejs/fast
-
-#=============================================================================
-# Target rules for targets named ramp_planner_new_genpy
-
-# Build rule for target.
-ramp_planner_new_genpy: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ramp_planner_new_genpy
-.PHONY : ramp_planner_new_genpy
-
-# fast build rule for target.
-ramp_planner_new_genpy/fast:
-	$(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_genpy.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new_genpy.dir/build
-.PHONY : ramp_planner_new_genpy/fast
 
 #=============================================================================
 # Target rules for targets named ramp_planner_new_generate_messages_cpp
@@ -4880,18 +4893,19 @@ help:
 	@echo "... ramp_planner"
 	@echo "... ramp_control_buffer"
 	@echo "... ramp_control_new"
-	@echo "... ramp_planner_new"
+	@echo "... ramp_planner_new_genpy"
 	@echo "... ramp_planner_new_generate_messages"
 	@echo "... ramp_planner_new_generate_messages_py"
-	@echo "... _ramp_planner_new_generate_messages_check_deps_CubicRepresentation"
+	@echo "... _ramp_planner_new_generate_messages_check_deps_TrajectoryRepresentation"
+	@echo "... ramp_planner_new"
+	@echo "... _ramp_planner_new_generate_messages_check_deps_TrajectoryRequest"
+	@echo "... ramp_planner_new_generate_messages_nodejs"
 	@echo "... _ramp_planner_new_generate_messages_check_deps_Coefficient"
 	@echo "... ramp_planner_new_genlisp"
 	@echo "... ramp_planner_new_generate_messages_eus"
 	@echo "... ramp_planner_new_geneus"
 	@echo "... ramp_planner_new_gencpp"
 	@echo "... ramp_planner_new_generate_messages_lisp"
-	@echo "... ramp_planner_new_generate_messages_nodejs"
-	@echo "... ramp_planner_new_genpy"
 	@echo "... ramp_planner_new_generate_messages_cpp"
 	@echo "... ramp_planner_new_gennodejs"
 	@echo "... nodelet_generate_messages_cpp"

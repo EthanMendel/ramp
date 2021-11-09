@@ -1,6 +1,7 @@
 file(REMOVE_RECURSE
   "/home/emendel/Documents/IndepententStudy/ramp/devel/lib/python3/dist-packages/ramp_planner_new/msg/_Coefficient.py"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/lib/python3/dist-packages/ramp_planner_new/msg/_CubicRepresentation.py"
+  "/home/emendel/Documents/IndepententStudy/ramp/devel/lib/python3/dist-packages/ramp_planner_new/msg/_TrajectoryRepresentation.py"
+  "/home/emendel/Documents/IndepententStudy/ramp/devel/lib/python3/dist-packages/ramp_planner_new/msg/_TrajectoryRequest.py"
   "/home/emendel/Documents/IndepententStudy/ramp/devel/lib/python3/dist-packages/ramp_planner_new/msg/__init__.py"
   "CMakeFiles/ramp_planner_new_generate_messages_py"
 )

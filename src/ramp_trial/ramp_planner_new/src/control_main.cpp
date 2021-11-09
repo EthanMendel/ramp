@@ -26,7 +26,7 @@ void init_advertisers_subscribers(MobileRobot& robot, ros::NodeHandle& handle, b
   robot.timer_ = handle.createTimer(ros::Duration(1.f / 30.f), &MobileRobot::updateCallback, &robot);
 } // End init_advertisers_subscribers
 
-void trajCallback(const ramp_planner_new::CubicRepresentation cubic){
+void trajCallback(const ramp_planner_new::TrajectoryRepresentation cubic){
   robot.updateCubic(cubic);
 }
 

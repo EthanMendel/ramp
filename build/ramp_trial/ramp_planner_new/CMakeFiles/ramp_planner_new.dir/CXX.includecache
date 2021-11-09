@@ -242,7 +242,7 @@ ros/builtin_message_traits.h
 ros/message_operations.h
 -
 
-/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/CubicRepresentation.h
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/TrajectoryRepresentation.h
 string
 -
 vector
@@ -279,8 +279,8 @@ knot_point.h
 /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/knot_point.h
 ramp_msgs/Path.h
 /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/ramp_msgs/Path.h
-ramp_planner_new/CubicRepresentation.h
-/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/ramp_planner_new/CubicRepresentation.h
+ramp_planner_new/TrajectoryRepresentation.h
+/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/ramp_planner_new/TrajectoryRepresentation.h
 std_msgs/Int8.h
 -
 

@@ -115,7 +115,7 @@ void MobileRobot::updateCallback(const ros::TimerEvent& e) {
   }
 } // End updatePublishTimer
 
-void MobileRobot::updateCubic(const ramp_planner_new::CubicRepresentation& msg)
+void MobileRobot::updateCubic(const ramp_planner_new::TrajectoryRepresentation& msg)
 {
   if(msg != cubic_){
     cubic_ = msg;

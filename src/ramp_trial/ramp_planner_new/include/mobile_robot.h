@@ -9,7 +9,7 @@
 #include "tf/transform_datatypes.h"
 #include "ramp_msgs/MotionState.h"
 #include "ramp_msgs/RampTrajectory.h"
-#include "ramp_planner_new/CubicRepresentation.h"
+#include "ramp_planner_new/TrajectoryRepresentation.h"
 #include "ramp_planner_new/Coefficient.h"
 #include "std_msgs/Bool.h"
 #include <math.h>
@@ -26,7 +26,7 @@ class MobileRobot
   void moveOnTrajectory();
   void moveOnTrajectoryRot(const ramp_msgs::RampTrajectory traj, bool simulation);
   void odomCb(const nav_msgs::Odometry& msg);
-  void updateCubic(const ramp_planner_new::CubicRepresentation& msg); 
+  void updateCubic(const ramp_planner_new::TrajectoryRepresentation& msg); 
   void setNextTwist(); 
   void imminentCollisionCb(const std_msgs::Bool msg); 
   void updateCallback(const ros::TimerEvent&);
@@ -50,7 +50,7 @@ class MobileRobot
   ramp_msgs::MotionState            motion_state_; 
   geometry_msgs::Twist              velocity_;
   ramp_msgs::RampTrajectory         trajectory_;
-  ramp_planner_new::CubicRepresentation cubic_;
+  ramp_planner_new::TrajectoryRepresentation cubic_;
   ros::Timer                        timer_;
   double                            initial_theta_;
 
