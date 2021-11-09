@@ -131,6 +131,37 @@ const std::string Path::toString() const {
   return result.str();
 }
 
+void Path::makeBezierPath(const double T){
+  ROS_INFO("making bezier path...");
+  if(msg_.points.size() >= 3){
+    std::cout<<"within if"<<std::endl;
+    MotionState p0 = msg_.points.at(0).motionState;//MAKE THESE DYNAMIC START AND GOALS
+    MotionState p1 = msg_.points.at(1).motionState;
+    MotionState p2 = msg_.points.at(2).motionState;
+
+    for(unsigned int t=T;t>0;t-=.1){
+      MotionState ms;
+      for(unsigned int j=0;j<p0.msg_.positions.size();j++){
+        ms.msg_.positions.push_back((p1.msg_.positions.at(j) + pow(1-t,2)*(p0.msg_.positions.at(j)-p1.msg_.positions.at(j)) +
+                                    pow(t,2)*(p2.msg_.positions.at(j) - p1.msg_.positions.at(j))) * T);
+        
+        ms.msg_.velocities.push_back((2*(1-t)*(p1.msg_.positions.at(j) - p0.msg_.positions.at(j)) + 
+                                    2*t*(p2.msg_.positions.at(j) - p1.msg_.positions.at(j))) * T);
+        
+        ms.msg_.accelerations.push_back(2*(p2.msg_.positions.at(j) - 2*p1.msg_.positions.at(j) + p0.msg_.positions.at(j)));
+        
+        // ms.msg_.jerks.push_back();
+      }
+      // std::cout<<"point #"<<t+1<<"\t("<<ms.msg_.positions.at(0)<<",\t"<<ms.msg_.positions.at(1)<<",\t"<<ms.msg_.positions.at(2)<<")\n";
+      // MANUALLY CHANGED TO -2 BECAUSE OF WAYPOINT
+      // MUST MAKE DYNAMIC
+      KnotPoint kp(ms);
+      msg_.points.push_back(kp.buildKnotPointMsg());
+    }
+  }
+  std::cout<<"Full path has "<<msg_.points.size()<<" points\n";
+}
+
 //from ITCS 5151/8151 (Robotics) 2003, Jing Xiao Handout#3
 //REQUIRES START AND GOAL NODES
 void Path::findCubicCoefs(const double T){

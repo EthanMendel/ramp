@@ -44,6 +44,8 @@ class Path {
     void makeStraightPath();
     void findCubicCoefs(const double T);
     void makeCubicPath(const double T);
+    void findBezierCoefs(const ramp_msgs::KnotPoint p0, const ramp_msgs::KnotPoint p1, const ramp_msgs::KnotPoint p2);
+    void makeBezierPath(const double T);
 };
 
 #endif
