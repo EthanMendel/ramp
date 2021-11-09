@@ -16,6 +16,7 @@ void init_advertisers_subscribers(MobileRobot& robot, ros::NodeHandle& handle, b
   robot.pub_cmd_vel2_ = handle.advertise<geometry_msgs::Twist>(MobileRobot::TOPIC_STR_SIM2, 10);
   
   robot.pub_time_needed_ = handle.advertise<std_msgs::Int8>(MobileRobot::TOPIC_STR_TIME_NEEDED,1);
+  robot.pub_ready_next_ = handle.advertise<std_msgs::Bool>("ready_next", 1);
   // Subscribers
   robot.sub_odometry_ = handle.subscribe(MobileRobot::TOPIC_STR_ODOMETRY, 1, &MobileRobot::odomCb, &robot);
   robot.sub_imminent_collision_ = handle.subscribe(MobileRobot::TOPIC_STR_IC, 1, &MobileRobot::imminentCollisionCb, &robot);

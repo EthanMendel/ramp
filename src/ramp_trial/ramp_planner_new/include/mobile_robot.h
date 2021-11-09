@@ -43,6 +43,7 @@ class MobileRobot
   ros::Publisher                    pub_cmd_vel2_;
   ros::Publisher                    pub_update_;
   ros::Publisher                    pub_time_needed_;
+  ros::Publisher                    pub_ready_next_;
   ros::Subscriber                   sub_odometry_;
   ros::Subscriber                   sub_imminent_collision_;
   ros::Subscriber                   sub_start_goal_;
