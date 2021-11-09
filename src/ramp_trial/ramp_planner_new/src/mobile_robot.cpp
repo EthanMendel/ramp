@@ -234,7 +234,7 @@ void MobileRobot::moveOnTrajectory()
   double actual_theta, dist;
   if(cubic_.active == 1){
     // Execute the trajectory
-    std::cout<<"starting full path portion\n\t"<<std::endl;
+    std::cout<<"starting full path portion"<<std::endl;
     while(ros::ok() && seg_step_ < cubic_.resolution) 
     {
       while(ros::ok() && time_step_ < SEND_RESELUTION) 
@@ -256,7 +256,7 @@ void MobileRobot::moveOnTrajectory()
       // Spin once to check for updates in the trajectory
       ros::spinOnce();
     } // end while
-    std::cout<<"finished full path portion\n\t"<<std::endl;
+    std::cout<<"finished full path portion"<<std::endl;
     cubic_.active = 0;
     std_msgs::Bool msg;
     msg.data = true;

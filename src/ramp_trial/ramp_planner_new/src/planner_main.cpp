@@ -290,7 +290,9 @@ void pubStartGoalMarkers(RvizHandler pub_rviz){
 void pubPath(RvizHandler pub_rviz){
   ROS_INFO("In pubPath");
   visualization_msgs::MarkerArray result;
-  while(straightLinePath.msg_.points.size()<=pathPoints.size());
+  while(straightLinePath.msg_.points.size()<=pathPoints.size()){
+    ros::spinOnce();
+  }
 
   for(unsigned int i=0;i<straightLinePath.msg_.points.size()-1;i++) {
     // markers for both positions

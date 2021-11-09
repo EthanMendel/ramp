@@ -107,17 +107,19 @@ const ramp_msgs::Path Path::buildPathMsg() const {
 
 const ramp_planner_new::CubicRepresentation Path::buildCubicMsg() const {
   ramp_planner_new::CubicRepresentation result;
-  result.order = coefs.at(0).size() - 1;
-  result.numDOF = coefs.size();
-  for(unsigned int i=0;i<coefs.size();i++){
-    ramp_planner_new::Coefficient c;
-    for(unsigned int j=0;j<coefs.at(i).size();j++){
-      c.values.push_back(coefs.at(i).at(j));
+  if(coefs.size() > 0){
+    result.order = coefs.at(0).size() - 1;
+    result.numDOF = coefs.size();
+    for(unsigned int i=0;i<coefs.size();i++){
+      ramp_planner_new::Coefficient c;
+      for(unsigned int j=0;j<coefs.at(i).size();j++){
+        c.values.push_back(coefs.at(i).at(j));
+      }
+      result.coefficients.push_back(c);
     }
-    result.coefficients.push_back(c);
+    result.resolution=usedT_;
+    result.active = true;
   }
-  result.resolution=usedT_;
-  result.active = true;
   return result;
 }
 
