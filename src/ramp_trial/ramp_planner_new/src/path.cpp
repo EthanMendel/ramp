@@ -119,7 +119,7 @@ const ramp_planner_new::TrajectoryRepresentation Path::buildCubicMsg() const {
     }
     result.resolution=usedT_;
     result.active = true;
-    result.type = "cubic";
+    result.type = type;
   }
   std::cout<<result<<std::endl;
   return result;
@@ -133,24 +133,47 @@ const std::string Path::toString() const {
   return result.str();
 }
 
+void Path::findBezierCoefs(MotionState p0, MotionState p1, MotionState p2){
+  order = 2;
+  for(auto c : coefs){
+    c.clear();
+  }
+  type = "bezier";
+  coefs.clear();
+    if(msg_.points.size() >= 2){
+    for(unsigned int i = 0;i<p0.msg_.positions.size();i++){
+      std::vector<double> hold;
+      hold.push_back(p1.msg_.positions.at(i));
+      hold.push_back(p0.msg_.positions.at(i) - p1.msg_.positions.at(i));//because of chain rule, multipley by -1 for first derivative
+      hold.push_back(p2.msg_.positions.at(i) - p1.msg_.positions.at(i));
+      coefs.push_back(hold);
+      std::cout<<"A: "<<coefs.at(i).at(0)<<"\tB: "<<coefs.at(i).at(1)<<"\tC: "<<coefs.at(i).at(2)<<"\t\n";
+    }
+  }else{
+    //HOW TO DO WITHOUT KNOWING SIZES
+  }
+}
+
 void Path::makeBezierPath(const double T){
   const double resolution = T/10.0;
+  usedT_ = resolution;
   ROS_INFO("making bezier path...");
   if(msg_.points.size() >= 3){
     MotionState p0 = msg_.points.at(0).motionState;//MAKE THESE DYNAMIC START AND GOALS
     MotionState p1 = msg_.points.at(1).motionState;
     MotionState p2 = msg_.points.at(2).motionState;
+    findBezierCoefs(p0,p1,p2);
 
     for(float t=0;t<=1;t+=resolution){
       MotionState ms;
       for(unsigned int j=0;j<p0.msg_.positions.size();j++){
-        ms.msg_.positions.push_back((p1.msg_.positions.at(j) + pow(1-t,2)*(p0.msg_.positions.at(j)-p1.msg_.positions.at(j)) +
-                                    pow(t,2)*(p2.msg_.positions.at(j) - p1.msg_.positions.at(j))));
+        ms.msg_.positions.push_back(coefs.at(j).at(0) + (pow(1-t,2)*(coefs.at(j).at(1))) +
+                                    (pow(t,2)*(coefs.at(j).at(2))));
         
-        ms.msg_.velocities.push_back((2*(1-t)*(p1.msg_.positions.at(j) - p0.msg_.positions.at(j)) + 
-                                    2*t*(p2.msg_.positions.at(j) - p1.msg_.positions.at(j))));
+        ms.msg_.velocities.push_back((-2*(1-t)*(coefs.at(j).at(1))) + 
+                                    (2*t*(coefs.at(j).at(2))));
         
-        ms.msg_.accelerations.push_back((2*(p2.msg_.positions.at(j) - 2*p1.msg_.positions.at(j) + p0.msg_.positions.at(j))));
+        ms.msg_.accelerations.push_back((2*coefs.at(j).at(1)) + (coefs.at(j).at(2)));
         
         // ms.msg_.jerks.push_back();
       }
@@ -169,6 +192,7 @@ void Path::makeBezierPath(const double T){
 void Path::findCubicCoefs(const double T){
   order = 3;
   usedT_ = T;
+  type = "cubic";
   for(auto c : coefs){
     c.clear();
   }

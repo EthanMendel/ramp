@@ -593,8 +593,6 @@ ramp_msgs/Path.h
 /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/ramp_msgs/Path.h
 ramp_planner_new/TrajectoryRepresentation.h
 /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/ramp_planner_new/TrajectoryRepresentation.h
-std_msgs/Int8.h
--
 
 /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/planner.h
 ros/ros.h
@@ -1859,22 +1857,6 @@ ros/message_operations.h
 -
 
 /opt/ros/noetic/include/std_msgs/Header.h
-string
--
-vector
--
-map
--
-ros/types.h
--
-ros/serialization.h
--
-ros/builtin_message_traits.h
--
-ros/message_operations.h
--
-
-/opt/ros/noetic/include/std_msgs/Int8.h
 string
 -
 vector

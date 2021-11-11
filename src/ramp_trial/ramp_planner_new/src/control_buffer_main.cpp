@@ -24,6 +24,27 @@ void pathPointsCallback(const visualization_msgs::MarkerArray ma){
     if(curStartId == -1){
         curStartId = ma.markers.at(0).id;
     }
+    if(pathPoints.markers.size() > 2){
+        geometry_msgs::Point p0,p1,p2;
+        for(unsigned int i=0;i<pathPoints.markers.size();i++){
+            if(pathPoints.markers.at(i).id == curStartId){
+                p0 = pathPoints.markers.at(i).pose.position;
+                p1 = pathPoints.markers.at(i + 1).pose.position;
+                p2 = pathPoints.markers.at(i + 2).pose.position;
+                break;
+            }
+        }
+        double D1 = sqrt(pow(p0.x - p1.x,2) + pow(p0.y - p1.y,2));
+        double D2 = sqrt(pow(p1.x - p2.x,2) + pow(p1.y - p2.y,2));
+        double D = std::min(D1,D2);
+        for(float d=.1;d<=D;d+=.1){
+
+        }
+
+        //find new control points
+        //find bezier based on control
+        //test that it's okay
+    }
     updateStartGoal();
 }
 

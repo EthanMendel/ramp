@@ -433,8 +433,8 @@ int main(int argc, char** argv) {
   // handle.subscribe("/time_needed", 1, getTrajectory);
   readyToPubPath = false;
   ramp_planner_new::TrajectoryRequest msg;
-  msg.timeNeeded = 5;
-  msg.type = "cubic";
+  msg.timeNeeded = 1;
+  msg.type = "bezier";
   getTrajectory(msg);
   ROS_INFO("Done with publishing markers");
 
