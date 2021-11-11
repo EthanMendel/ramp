@@ -28,6 +28,7 @@ ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/control_main.cpp
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/control_main.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectorySrvResponse.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/control_main.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/Coefficient.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/control_main.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/TrajectoryRepresentation.h
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/control_main.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/TrajectoryRequest.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/control_main.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/bezier_curve.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/control_main.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/control_handler.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/control_main.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/evaluation_request_handler.h
@@ -178,6 +179,7 @@ ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/RampTrajectory.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/Coefficient.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/TrajectoryRepresentation.h
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/TrajectoryRequest.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/mobile_robot.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/mobile_robot.cpp
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /opt/ros/noetic/include/geometry_msgs/Point.h
@@ -253,7 +255,6 @@ ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /opt/ros/noetic/include/std_msgs/Bool.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /opt/ros/noetic/include/std_msgs/ColorRGBA.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /opt/ros/noetic/include/std_msgs/Header.h
-ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /opt/ros/noetic/include/std_msgs/Int8.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /opt/ros/noetic/include/tf/LinearMath/Matrix3x3.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /opt/ros/noetic/include/tf/LinearMath/MinMax.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /opt/ros/noetic/include/tf/LinearMath/QuadWord.h

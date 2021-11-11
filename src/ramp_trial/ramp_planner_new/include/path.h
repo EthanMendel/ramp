@@ -15,6 +15,7 @@ class Path {
     Path(const std::vector<MotionState> all);
     Path(const ramp_msgs::Path p);
     ~Path();
+    void sendCoefs(const ramp_planner_new::TrajectoryRepresentation& c);
     
     // Data members
     KnotPoint start_;
@@ -25,6 +26,8 @@ class Path {
     double usedT_;
 
     ramp_msgs::Path msg_;
+    ros::Publisher pub_coefs_;
+
 
     Utility utility_;
     
@@ -45,7 +48,7 @@ class Path {
     void findCubicCoefs(const double T);
     void makeCubicPath(const double T);
     void findBezierCoefs(const ramp_msgs::KnotPoint p0, const ramp_msgs::KnotPoint p1, const ramp_msgs::KnotPoint p2);
-    void makeBezierPath(const double T);
+    void makeBezierPath(const double resolution);
 };
 
 #endif

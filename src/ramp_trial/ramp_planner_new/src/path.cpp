@@ -42,6 +42,10 @@ Path::Path(const ramp_msgs::Path p) {
 
 Path::~Path() {}
 
+void Path::sendCoefs(const ramp_planner_new::TrajectoryRepresentation& c){
+  pub_coefs_.publish(c);
+}
+
 const bool Path::equals(const Path& p, const double& epsilon) const {  
   if(size() != p.size()) {
     return false;
@@ -132,7 +136,8 @@ const std::string Path::toString() const {
   return result.str();
 }
 
-void Path::makeBezierPath(const double resolution){
+void Path::makeBezierPath(const double T){
+  const double resolution = T/10.0;
   ROS_INFO("making bezier path...");
   if(msg_.points.size() >= 3){
     MotionState p0 = msg_.points.at(0).motionState;//MAKE THESE DYNAMIC START AND GOALS
@@ -152,7 +157,7 @@ void Path::makeBezierPath(const double resolution){
         
         // ms.msg_.jerks.push_back();
       }
-      std::cout<<"point #"<<t+1<<"\t("<<ms.msg_.velocities.at(0)<<",\t"<<ms.msg_.velocities.at(1)<<",\t"<<ms.msg_.velocities.at(2)<<")\n";
+      // std::cout<<"point #"<<t+1<<"\t("<<ms.msg_.velocities.at(0)<<",\t"<<ms.msg_.velocities.at(1)<<",\t"<<ms.msg_.velocities.at(2)<<")\n";
       // MANUALLY CHANGED TO -2 BECAUSE OF WAYPOINT
       // MUST MAKE DYNAMIC
       KnotPoint kp(ms);

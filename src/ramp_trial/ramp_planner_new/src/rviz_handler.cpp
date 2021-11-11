@@ -2,20 +2,15 @@
 
 RvizHandler::RvizHandler(const ros::NodeHandle h) : handle_(h) {
   pub_markerArray_ = handle_.advertise<visualization_msgs::MarkerArray>("visualization_marker_array", 10);
-  pub_coefs_ = handle_.advertise<ramp_planner_new::TrajectoryRepresentation>("coef_channel", 10);
   pub_path_points_ = handle_.advertise<visualization_msgs::MarkerArray>("path_points_channel",10);
 }
 
 unsigned int RvizHandler::getNumSubscribers(){
-  return pub_markerArray_.getNumSubscribers() + pub_coefs_.getNumSubscribers() + pub_path_points_.getNumSubscribers();
+  return pub_markerArray_.getNumSubscribers() + pub_path_points_.getNumSubscribers();
 }
 
 void RvizHandler::sendMarkerArray(const visualization_msgs::MarkerArray& ma){
   pub_markerArray_.publish(ma);
-}
-
-void RvizHandler::sendCoefs(const ramp_planner_new::TrajectoryRepresentation& c){
-  pub_coefs_.publish(c);
 }
 
 void RvizHandler::sendPathPoints(const visualization_msgs::MarkerArray& ma){

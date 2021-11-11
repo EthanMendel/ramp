@@ -1,5 +1,5 @@
 #include "../include/mobile_robot.h"
-#include <std_msgs/Int8.h>
+#include <ramp_planner_new/TrajectoryRequest.h>
 
 const std::string MobileRobot::TOPIC_STR_PHIDGET_MOTOR="PhidgetMotor";
 const std::string MobileRobot::TOPIC_STR_ODOMETRY="odometry/filtered";
@@ -50,9 +50,10 @@ void MobileRobot::getMinLinTime(const visualization_msgs::MarkerArray& ma){
 
   double dist = sqrt(pow(sx-gx,2)+pow(sy-gy,2));
   double time_needed = ceil(dist/max_linear_vel_);
-  std::cout<<"time needed for path: "<<time_needed<<"secs"<<std::endl;
-  std_msgs::Int8 msg;
-  msg.data = time_needed;
+  ramp_planner_new::TrajectoryRequest msg;
+  msg.timeNeeded = time_needed;
+  msg.type = "cubic";
+  std::cout<<"Trajectory Request:\n"<<msg<<std::endl;
   pub_time_needed_.publish(msg);
 }
 

@@ -1,6 +1,8 @@
 #include "ros/ros.h"
 #include "../include/planner.h"
 #include <visualization_msgs/MarkerArray.h>
+#include <ramp_planner_new/TrajectoryRepresentation.h>
+#include <ramp_planner_new/TrajectoryRequest.h>
  
 Utility utility;
 
@@ -8,6 +10,7 @@ int                 id;
 MotionState         start, goal;
 std::vector<MotionState> pathPoints;
 Path                straightLinePath;
+bool                readyToPubPath;
 std::vector<Range>  ranges;
 double              radius;
 double              max_speed_linear;
@@ -385,6 +388,17 @@ void pubPath(RvizHandler pub_rviz){
   ROS_INFO("Exiting pubPath");
 }
 
+void getTrajectory(ramp_planner_new::TrajectoryRequest msg){
+  std::cout<<"getting trajectory.."<<std::endl;
+  if(msg.type == "cubic"){
+      straightLinePath.makeCubicPath(msg.timeNeeded);
+      straightLinePath.sendCoefs(straightLinePath.buildCubicMsg());
+  }else{
+      straightLinePath.makeBezierPath(msg.timeNeeded);
+  }
+  readyToPubPath = true;
+}
+
 int main(int argc, char** argv) {
   std::cout<<"\nstarting main\n";
   srand( time(0));
@@ -417,16 +431,18 @@ int main(int argc, char** argv) {
    * all parameters are loaded
    */
   pubStartGoalMarkers(pub_rviz);//red-start, blue-goal
-  straightLinePath.makeCubicPath(10);
-  straightLinePath.makeBezierPath(.1);
-  // handle.subscribe("/time_needed", 1, &Path::makeCubicPath, &straightLinePath);  
-  pubPath(pub_rviz);
+  handle.subscribe("/time_needed", 1, getTrajectory);
+  straightLinePath.pub_coefs_ = handle.advertise<ramp_planner_new::TrajectoryRepresentation>("coef_channel", 10);
+  readyToPubPath = false;
   ROS_INFO("Done with publishing markers");
-  pub_rviz.sendCoefs(straightLinePath.buildCubicMsg());
 
   ros::Rate r(1000);
   while(ros::ok()) 
   {
+    if(readyToPubPath){
+        pubPath(pub_rviz);
+        readyToPubPath = false;
+    }
     r.sleep();
     ros::spinOnce();
   }
