@@ -42,10 +42,6 @@ Path::Path(const ramp_msgs::Path p) {
 
 Path::~Path() {}
 
-void Path::sendCoefs(const ramp_planner_new::TrajectoryRepresentation& c){
-  pub_coefs_.publish(c);
-}
-
 const bool Path::equals(const Path& p, const double& epsilon) const {  
   if(size() != p.size()) {
     return false;
@@ -125,6 +121,7 @@ const ramp_planner_new::TrajectoryRepresentation Path::buildCubicMsg() const {
     result.active = true;
     result.type = "cubic";
   }
+  std::cout<<result<<std::endl;
   return result;
 }
 

@@ -15,7 +15,6 @@ class Path {
     Path(const std::vector<MotionState> all);
     Path(const ramp_msgs::Path p);
     ~Path();
-    void sendCoefs(const ramp_planner_new::TrajectoryRepresentation& c);
     
     // Data members
     KnotPoint start_;
@@ -26,8 +25,6 @@ class Path {
     double usedT_;
 
     ramp_msgs::Path msg_;
-    ros::Publisher pub_coefs_;
-
 
     Utility utility_;
     
