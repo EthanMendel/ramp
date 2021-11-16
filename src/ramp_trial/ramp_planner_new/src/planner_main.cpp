@@ -394,28 +394,12 @@ void getTrajectory(ramp_planner_new::TrajectoryRequest msg){
 
 bool acceptableAngTime(const geometry_msgs::Point& p0, const geometry_msgs::Point p1, const geometry_msgs::Point p2){
     const double resolution = 1/10.0;
-    std::vector<std::vector<double>> coefs;
-    std::vector<double> hold;
-    hold.push_back(p1.x);
-    hold.push_back(p0.x - p1.x);//because of chain rule, multipley by -1 for first derivative
-    hold.push_back(p2.x - p1.x);
-    coefs.push_back(hold);
-    hold.clear();
-    hold.push_back(p1.y);
-    hold.push_back(p0.y - p1.y);//because of chain rule, multipley by -1 for first derivative
-    hold.push_back(p2.y - p1.y);
-    coefs.push_back(hold);
-    hold.clear();
-    hold.push_back(p1.z);
-    hold.push_back(p0.z - p1.z);//because of chain rule, multipley by -1 for first derivative
-    hold.push_back(p2.z - p1.z);
-    coefs.push_back(hold);
-    hold.clear();
+    straightLinePath.findBezierCoefs(p0,p1,p2);
 
     for(float t=0;t<=1;t+=resolution){
         for(unsigned int j=0;j<3;j++){//3=DOF
             //not sure if this is the right calculation for angular velocity
-            double vel =(-2*(1-t)*(coefs.at(j).at(1))) + (2*t*(coefs.at(j).at(2)));        
+            double vel =(-2*(1-t)*(straightLinePath.coefs.at(j).at(1))) + (2*t*(straightLinePath.coefs.at(j).at(2)));        
             if(vel > max_angular_vel){
                 return false;
             }
