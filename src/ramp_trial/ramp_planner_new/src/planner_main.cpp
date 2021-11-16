@@ -403,6 +403,10 @@ void getTrajectory(ramp_planner_new::TrajectoryRequest msg){
   readyToPubPath = true;
 }
 
+void bezify(const ramp_planner_new::BezifyRequest& br){
+  std::cout<<"*****ready to bezify*****"<<std::endl;
+}
+
 int main(int argc, char** argv) {
   std::cout<<"\nstarting main\n";
   srand( time(0));
@@ -436,6 +440,7 @@ int main(int argc, char** argv) {
    */
   pubStartGoalMarkers(pub_rviz);//red-start, blue-goal
   // handle.subscribe("/time_needed", 1, getTrajectory);
+  ros::Subscriber bezifyListener  = handle.subscribe("bezify_request", 1, bezify);
   readyToPubPath = false;
   ramp_planner_new::TrajectoryRequest msg;
   msg.timeNeeded = 1;

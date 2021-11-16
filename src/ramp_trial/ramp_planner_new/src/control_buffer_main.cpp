@@ -188,9 +188,9 @@ void updateStartGoal(){
                     br.markers.push_back(pathPoints.markers.at(i));
                     br.markers.push_back(pathPoints.markers.at(i+1));
                     br.markers.push_back(pathPoints.markers.at(i+2));
-                    // pub_bezify_request.publish(br);
-                    bezify(br);
-                    updateStartGoal();
+                    pub_bezify_request.publish(br);
+                    // bezify(br);
+                    // updateStartGoal();
                 }else{
                     curStartGoal.markers.push_back(pathPoints.markers.at(i));
                     curStartGoal.markers.push_back(pathPoints.markers.at(i+1));
