@@ -15,6 +15,7 @@
 #include <ros/builtin_message_traits.h>
 #include <ros/message_operations.h>
 
+#include <geometry_msgs/Point.h>
 
 namespace ramp_planner_new
 {
@@ -25,11 +26,13 @@ struct TrajectoryRequest_
 
   TrajectoryRequest_()
     : timeNeeded(0)
-    , type()  {
+    , type()
+    , points()  {
     }
   TrajectoryRequest_(const ContainerAllocator& _alloc)
     : timeNeeded(0)
-    , type(_alloc)  {
+    , type(_alloc)
+    , points(_alloc)  {
   (void)_alloc;
     }
 
@@ -40,6 +43,9 @@ struct TrajectoryRequest_
 
    typedef std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other >  _type_type;
   _type_type type;
+
+   typedef std::vector< ::geometry_msgs::Point_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::geometry_msgs::Point_<ContainerAllocator> >::other >  _points_type;
+  _points_type points;
 
 
 
@@ -71,7 +77,8 @@ template<typename ContainerAllocator1, typename ContainerAllocator2>
 bool operator==(const ::ramp_planner_new::TrajectoryRequest_<ContainerAllocator1> & lhs, const ::ramp_planner_new::TrajectoryRequest_<ContainerAllocator2> & rhs)
 {
   return lhs.timeNeeded == rhs.timeNeeded &&
-    lhs.type == rhs.type;
+    lhs.type == rhs.type &&
+    lhs.points == rhs.points;
 }
 
 template<typename ContainerAllocator1, typename ContainerAllocator2>
@@ -128,12 +135,12 @@ struct MD5Sum< ::ramp_planner_new::TrajectoryRequest_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "3e58e2f39ce06e72daff4a24c5879f25";
+    return "aa794f340be957ca998246b715e3b0d6";
   }
 
   static const char* value(const ::ramp_planner_new::TrajectoryRequest_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x3e58e2f39ce06e72ULL;
-  static const uint64_t static_value2 = 0xdaff4a24c5879f25ULL;
+  static const uint64_t static_value1 = 0xaa794f340be957caULL;
+  static const uint64_t static_value2 = 0x998246b715e3b0d6ULL;
 };
 
 template<class ContainerAllocator>
@@ -154,6 +161,13 @@ struct Definition< ::ramp_planner_new::TrajectoryRequest_<ContainerAllocator> >
   {
     return "uint8 timeNeeded\n"
 "string type\n"
+"geometry_msgs/Point[] points\n"
+"================================================================================\n"
+"MSG: geometry_msgs/Point\n"
+"# This contains the position of a point in free space\n"
+"float64 x\n"
+"float64 y\n"
+"float64 z\n"
 ;
   }
 
@@ -174,6 +188,7 @@ namespace serialization
     {
       stream.next(m.timeNeeded);
       stream.next(m.type);
+      stream.next(m.points);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -196,6 +211,14 @@ struct Printer< ::ramp_planner_new::TrajectoryRequest_<ContainerAllocator> >
     Printer<uint8_t>::stream(s, indent + "  ", v.timeNeeded);
     s << indent << "type: ";
     Printer<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > >::stream(s, indent + "  ", v.type);
+    s << indent << "points[]" << std::endl;
+    for (size_t i = 0; i < v.points.size(); ++i)
+    {
+      s << indent << "  points[" << i << "]: ";
+      s << std::endl;
+      s << indent;
+      Printer< ::geometry_msgs::Point_<ContainerAllocator> >::stream(s, indent + "    ", v.points[i]);
+    }
   }
 };
 

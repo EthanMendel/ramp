@@ -501,6 +501,8 @@ ros/builtin_message_traits.h
 -
 ros/message_operations.h
 -
+geometry_msgs/Point.h
+-
 
 /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/bezier_curve.h
 motion_state.h
@@ -717,6 +719,12 @@ ros/ros.h
 /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/ros/ros.h
 ../include/planner.h
 /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/planner.h
+../include/mobile_robot.h
+/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/mobile_robot.h
+ramp_planner_new/TrajectoryRequest.h
+-
+
+/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/mobile_robot.cpp
 ../include/mobile_robot.h
 /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/mobile_robot.h
 ramp_planner_new/TrajectoryRequest.h

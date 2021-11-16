@@ -29,7 +29,7 @@ add_custom_target(_ramp_planner_new_generate_messages_check_deps_${_filename}
 
 get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRequest.msg" NAME_WE)
 add_custom_target(_ramp_planner_new_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "ramp_planner_new" "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRequest.msg" ""
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "ramp_planner_new" "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRequest.msg" "geometry_msgs/Point"
 )
 
 #
@@ -53,7 +53,7 @@ _generate_msg_cpp(ramp_planner_new
 _generate_msg_cpp(ramp_planner_new
   "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRequest.msg"
   "${MSG_I_FLAGS}"
-  ""
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/ramp_planner_new
 )
 
@@ -102,7 +102,7 @@ _generate_msg_eus(ramp_planner_new
 _generate_msg_eus(ramp_planner_new
   "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRequest.msg"
   "${MSG_I_FLAGS}"
-  ""
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/ramp_planner_new
 )
 
@@ -151,7 +151,7 @@ _generate_msg_lisp(ramp_planner_new
 _generate_msg_lisp(ramp_planner_new
   "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRequest.msg"
   "${MSG_I_FLAGS}"
-  ""
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/ramp_planner_new
 )
 
@@ -200,7 +200,7 @@ _generate_msg_nodejs(ramp_planner_new
 _generate_msg_nodejs(ramp_planner_new
   "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRequest.msg"
   "${MSG_I_FLAGS}"
-  ""
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/ramp_planner_new
 )
 
@@ -249,7 +249,7 @@ _generate_msg_py(ramp_planner_new
 _generate_msg_py(ramp_planner_new
   "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRequest.msg"
   "${MSG_I_FLAGS}"
-  ""
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/ramp_planner_new
 )
 

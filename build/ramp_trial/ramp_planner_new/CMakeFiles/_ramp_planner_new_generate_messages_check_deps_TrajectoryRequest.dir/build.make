@@ -54,7 +54,7 @@ CMAKE_BINARY_DIR = /home/emendel/Documents/IndepententStudy/ramp/build
 include ramp_trial/ramp_planner_new/CMakeFiles/_ramp_planner_new_generate_messages_check_deps_TrajectoryRequest.dir/progress.make
 
 ramp_trial/ramp_planner_new/CMakeFiles/_ramp_planner_new_generate_messages_check_deps_TrajectoryRequest:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/ramp_planner_new && ../../catkin_generated/env_cached.sh /usr/bin/python3.8 /opt/ros/noetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py ramp_planner_new /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRequest.msg 
+	cd /home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/ramp_planner_new && ../../catkin_generated/env_cached.sh /usr/bin/python3.8 /opt/ros/noetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py ramp_planner_new /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRequest.msg geometry_msgs/Point
 
 _ramp_planner_new_generate_messages_check_deps_TrajectoryRequest: ramp_trial/ramp_planner_new/CMakeFiles/_ramp_planner_new_generate_messages_check_deps_TrajectoryRequest
 _ramp_planner_new_generate_messages_check_deps_TrajectoryRequest: ramp_trial/ramp_planner_new/CMakeFiles/_ramp_planner_new_generate_messages_check_deps_TrajectoryRequest.dir/build.make

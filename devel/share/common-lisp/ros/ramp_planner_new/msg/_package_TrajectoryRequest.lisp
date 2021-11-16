@@ -3,4 +3,6 @@
           TIMENEEDED
           TYPE-VAL
           TYPE
+          POINTS-VAL
+          POINTS
 ))

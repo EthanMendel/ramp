@@ -33,6 +33,8 @@ void getMinLinTime(const visualization_msgs::MarkerArray& ma){
   ramp_planner_new::TrajectoryRequest msg;
   msg.timeNeeded = time_needed;
   msg.type = "cubic";
+  msg.points.push_back(start.position);
+  msg.points.push_back(goal.position);
   std::cout<<"Trajectory Request:\n"<<msg<<std::endl;
   pub_time_needed.publish(msg);
 }
