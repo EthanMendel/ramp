@@ -32,9 +32,6 @@ class MobileRobot
   void updateCallback(const ros::TimerEvent&);
   void sendTwist(const geometry_msgs::Twist twist) const;
   void controlCycle(geometry_msgs::Twist twist, ros::Time end_time, ros::Rate r);
-  void getMinLinTime(const visualization_msgs::MarkerArray& ma);
-
-
 
   /** Data Members **/
   ros::Publisher                    pub_phidget_motor_;
@@ -42,11 +39,9 @@ class MobileRobot
   ros::Publisher                    pub_cmd_vel_;
   ros::Publisher                    pub_cmd_vel2_;
   ros::Publisher                    pub_update_;
-  ros::Publisher                    pub_time_needed_;
   ros::Publisher                    pub_ready_next_;
   ros::Subscriber                   sub_odometry_;
   ros::Subscriber                   sub_imminent_collision_;
-  ros::Subscriber                   sub_start_goal_;
   ramp_msgs::MotionState            motion_state_; 
   geometry_msgs::Twist              velocity_;
   ramp_msgs::RampTrajectory         trajectory_;
@@ -66,7 +61,6 @@ class MobileRobot
   static const std::string  TOPIC_STR_IC;
   static const std::string  TOPIC_STR_SIM;
   static const std::string  TOPIC_STR_SIM2;
-  static const std::string  TOPIC_STR_TIME_NEEDED;
   static const int          SEND_RESELUTION = 10;
   static const int          ACCELERATION_CONSTANT = 50;
   
@@ -92,8 +86,6 @@ class MobileRobot
   int                       seg_step_;
   int                       time_step_;
   const unsigned int        k_dof_;
-  double                    max_linear_vel_;
-  double                    max_angular_vel_;
   std::vector<ros::Time>    end_times; 
   std::vector<double>       speeds_linear_;
   std::vector<double>       speeds_angular_;

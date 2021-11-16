@@ -121,7 +121,7 @@ const ramp_planner_new::TrajectoryRepresentation Path::buildCubicMsg() const {
     result.active = true;
     result.type = type;
   }
-  std::cout<<result<<std::endl;
+  // std::cout<<result<<std::endl;
   return result;
 }
 

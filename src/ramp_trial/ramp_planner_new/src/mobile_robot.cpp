@@ -8,12 +8,11 @@ const std::string MobileRobot::TOPIC_STR_TWIST="twist";
 const std::string MobileRobot::TOPIC_STR_IC="imminent_collision";
 const std::string MobileRobot::TOPIC_STR_SIM="/cmd_vel";
 const std::string MobileRobot::TOPIC_STR_SIM2="/mobile_base/commands/velocity";
-const std::string MobileRobot::TOPIC_STR_TIME_NEEDED="/time_needed";
 const float BASE_WIDTH=0.2413;
 
 const float timeNeededToTurn = 2.5; 
 
-MobileRobot::MobileRobot() : restart_(false), num_(0), num_traveled_(0), k_dof_(3), max_linear_vel_(0.33), max_angular_vel_(1.5708)  
+MobileRobot::MobileRobot() : restart_(false), num_(0), num_traveled_(0), k_dof_(3)  
 { 
   for(unsigned int i=0;i<k_dof_;i++)
   {
@@ -31,31 +30,6 @@ MobileRobot::MobileRobot() : restart_(false), num_(0), num_traveled_(0), k_dof_(
 }
 
 MobileRobot::~MobileRobot() {}
-
-//assuming straight line path from start to goal
-void MobileRobot::getMinLinTime(const visualization_msgs::MarkerArray& ma){
-  geometry_msgs::Pose start;
-  geometry_msgs::Pose goal;
-  for(unsigned int i=0;i<ma.markers.size();i++){
-    if (ma.markers.at(i).id == 10001){
-      start = ma.markers.at(i).pose;
-    }else if(ma.markers.at(i).id == 10002){//MAKE DYNAMIC
-      goal = ma.markers.at(i).pose;
-    }
-  }
-  double sx = start.position.x;
-  double sy = start.position.y;
-  double gx = goal.position.x;
-  double gy = goal.position.y;
-
-  double dist = sqrt(pow(sx-gx,2)+pow(sy-gy,2));
-  double time_needed = ceil(dist/max_linear_vel_);
-  ramp_planner_new::TrajectoryRequest msg;
-  msg.timeNeeded = time_needed;
-  msg.type = "cubic";
-  std::cout<<"Trajectory Request:\n"<<msg<<std::endl;
-  pub_time_needed_.publish(msg);
-}
 
 /* 
  * This is a callback for receiving odometry from the robot and sets the configuration of the robot 
