@@ -140,7 +140,7 @@ void Path::findBezierCoefs(MotionState p0, MotionState p1, MotionState p2){
   }
   type = "bezier";
   coefs.clear();
-    if(msg_.points.size() >= 2){
+  if(msg_.points.size() > 2){
     for(unsigned int i = 0;i<p0.msg_.positions.size();i++){
       std::vector<double> hold;
       hold.push_back(p1.msg_.positions.at(i));
