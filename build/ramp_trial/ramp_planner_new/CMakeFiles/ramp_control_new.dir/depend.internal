@@ -27,9 +27,6 @@ ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/control_main.cpp
  /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectorySrv.h
  /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectorySrvRequest.h
  /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectorySrvResponse.h
- /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/Coefficient.h
- /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/TrajectoryRepresentation.h
- /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/TrajectoryRequest.h
  /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/bezier_curve.h
  /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/control_handler.h
  /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/evaluation_request_handler.h
@@ -177,9 +174,6 @@ ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp
  /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/MotionState.h
  /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/Path.h
  /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/RampTrajectory.h
- /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/Coefficient.h
- /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/TrajectoryRepresentation.h
- /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/TrajectoryRequest.h
  /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/mobile_robot.h
  /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/mobile_robot.cpp
  /opt/ros/noetic/include/geometry_msgs/Point.h

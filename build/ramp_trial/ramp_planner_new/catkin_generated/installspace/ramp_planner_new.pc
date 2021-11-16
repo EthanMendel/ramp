@@ -5,4 +5,4 @@ Description: Description of ramp_planner_new
 Version: 0.0.0
 Cflags: -I${prefix}/include
 Libs: -L${prefix}/lib 
-Requires: geometry_msgs message_runtime ramp_msgs roscpp roslib
+Requires: geometry_msgs message_runtime ramp_msgs roscpp roslib visualization_msgs

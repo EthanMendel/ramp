@@ -13,4 +13,5 @@
 (ros::load-ros-package "rosgraph_msgs")
 (ros::load-ros-package "std_msgs")
 (ros::load-ros-package "trajectory_msgs")
+(ros::load-ros-package "visualization_msgs")
 (ros::load-ros-package "ramp_planner_new")

@@ -3,8 +3,9 @@
 #include <std_msgs/Bool.h>
 #include <geometry_msgs/Pose.h>
 #include <ramp_planner_new/TrajectoryRequest.h>
+#include <ramp_planner_new/PathPoints.h>
 
-visualization_msgs::MarkerArray pathPoints;
+ramp_planner_new::PathPoints pathPoints;
 int curStartId = -1;
 visualization_msgs::MarkerArray curStartGoal;
 ros::Publisher pub_path_points;
@@ -52,6 +53,7 @@ bool acceptableAngTime(const geometry_msgs::Point& p0, const geometry_msgs::Poin
 
     for(float t=0;t<=1;t+=resolution){
         for(unsigned int j=0;j<3;j++){//3=DOF
+            //not sure if this is the right calculation for angular velocity
             double vel =(-2*(1-t)*(coefs.at(j).at(1))) + (2*t*(coefs.at(j).at(2)));        
             if(vel > max_angular_vel){
                 return false;
@@ -107,30 +109,44 @@ visualization_msgs::Marker makeMarker(geometry_msgs::Point p, int id){
     return marker;
 }
 
-visualization_msgs::MarkerArray addControlPoints(visualization_msgs::Marker m, geometry_msgs::Point cp1, geometry_msgs::Point cp2){
-    visualization_msgs::MarkerArray result;
+ramp_planner_new::PathPoints addControlPoints(visualization_msgs::Marker m, geometry_msgs::Point cp1, geometry_msgs::Point cp2){
+    visualization_msgs::MarkerArray maRes;
+    std::vector<std::string> tRes;
     int replaceId = -1;
     bool replaced = false;
     for(unsigned int i=0;i<pathPoints.markers.size();i++){
         if(!replaced){
             if(pathPoints.markers.at(i) == m){
                 replaceId = m.id - i;
-                result.markers.push_back(makeMarker(cp1,replaceId + i));
-                result.markers.push_back(makeMarker(cp2,replaceId + i + 1));
+                maRes.markers.push_back(makeMarker(cp1,replaceId + i));
+                maRes.markers.push_back(makeMarker(cp2,replaceId + i + 1));
+                tRes.push_back("bezier");
+                tRes.push_back(pathPoints.types.at(i));
                 replaced = true;
             }else{
-                result.markers.push_back(pathPoints.markers.at(i));
+                maRes.markers.push_back(pathPoints.markers.at(i));
+                tRes.push_back(pathPoints.types.at(i));
             }
         }else{
             pathPoints.markers.at(i).id = replaceId + i + 1;
-            result.markers.push_back(pathPoints.markers.at(i));
+            maRes.markers.push_back(pathPoints.markers.at(i));
+            if(i < pathPoints.types.size()){
+                tRes.push_back(pathPoints.types.at(i));
+            }
         }
     }
+    ramp_planner_new::PathPoints result;
+    result.markers = maRes.markers;
+    result.types = tRes;
     return result;
 }
 
 void pathPointsCallback(const visualization_msgs::MarkerArray ma){
-    pathPoints = ma;
+    std::cout<<"\n-----got all path points-----"<<std::endl;
+    pathPoints.markers = ma.markers;
+    for(unsigned int i=0;i<pathPoints.markers.size()-1;i++){
+        pathPoints.types.push_back("cubic");
+    }
     if(curStartId == -1){
         curStartId = ma.markers.at(0).id;
     }
@@ -172,10 +188,7 @@ void pathPointsCallback(const visualization_msgs::MarkerArray ma){
             }
         }
         std::cout<<"**found good bezier**"<<std::endl;
-        std::cout<<pathPoints.markers.size()<<"-->";
         pathPoints = addControlPoints(m1,cp1,cp2);
-        std::cout<<pathPoints.markers.size()<<std::endl;
-        std::cout<<pathPoints<<std::endl;
     }
     updateStartGoal();
 }

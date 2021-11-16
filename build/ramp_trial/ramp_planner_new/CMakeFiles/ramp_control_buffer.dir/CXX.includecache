@@ -6,6 +6,24 @@
 
 #IncludeRegexTransform: 
 
+/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/PathPoints.h
+string
+-
+vector
+-
+map
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
+visualization_msgs/Marker.h
+-
+
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/TrajectoryRequest.h
 string
 -
@@ -34,6 +52,8 @@ std_msgs/Bool.h
 geometry_msgs/Pose.h
 -
 ramp_planner_new/TrajectoryRequest.h
+-
+ramp_planner_new/PathPoints.h
 -
 
 /opt/ros/noetic/include/geometry_msgs/Point.h

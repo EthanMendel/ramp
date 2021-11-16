@@ -14,6 +14,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   roslib
   message_generation
+  visualization_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -50,7 +51,12 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-add_message_files(FILES Coefficient.msg TrajectoryRepresentation.msg TrajectoryRequest.msg)
+add_message_files(
+  FILES 
+  Coefficient.msg TrajectoryRepresentation.msg 
+  TrajectoryRequest.msg
+  PathPoints.msg
+)
 
 ## Generate services in the 'srv' folder
 # add_service_files(
@@ -71,6 +77,7 @@ add_message_files(FILES Coefficient.msg TrajectoryRepresentation.msg TrajectoryR
    DEPENDENCIES
    geometry_msgs
    ramp_msgs
+   visualization_msgs
  )
 
 ################################################
@@ -105,7 +112,7 @@ add_message_files(FILES Coefficient.msg TrajectoryRepresentation.msg TrajectoryR
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES ramp_planner_new
-  CATKIN_DEPENDS geometry_msgs message_runtime ramp_msgs roscpp roslib
+  CATKIN_DEPENDS geometry_msgs message_runtime ramp_msgs roscpp roslib visualization_msgs
 #  DEPENDS system_lib
 )
 
