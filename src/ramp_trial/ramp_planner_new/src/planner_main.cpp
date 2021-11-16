@@ -9,7 +9,8 @@ Utility utility;
 
 int                 id;
 MotionState         start, goal;
-std::vector<MotionState> pathPoints;
+std::vector<MotionState> pathMotionStates;
+ramp_planner_new::PathPoints pathPoints;
 Path                straightLinePath;
 bool                readyToPubPath;
 std::vector<Range>  ranges;
@@ -41,6 +42,7 @@ std::string         update_topic;
 ros::Publisher      pub_markerArray;
 ros::Publisher      pub_coefs;
 ros::Publisher      pub_path_points;
+double              max_angular_vel = 1.5708;
 
 
 float costmap_width, costmap_height, costmap_origin_x, costmap_origin_y;
@@ -79,7 +81,7 @@ void initStartGoal(const std::vector<std::vector<float>> points) {
     }else if(i == points.size() -1){
       goal = point;
     }
-    pathPoints.push_back(point);
+    pathMotionStates.push_back(point);
     KnotPoint pkp(point);
     straightLinePath.msg_.points.push_back(pkp.buildKnotPointMsg());
   }
@@ -214,13 +216,13 @@ void pubStartGoalMarkers(){
   visualization_msgs::MarkerArray result;
 
   // markers for both positions
-  for(unsigned int i=0;i<pathPoints.size();i++){
+  for(unsigned int i=0;i<pathMotionStates.size();i++){
     visualization_msgs::Marker marker;
     marker.header.stamp = ros::Time::now();
     if(i==0){
       marker.id = 10001;
-    }else if(i == pathPoints.size() - 1){
-      marker.id = 10000 + pathPoints.size();
+    }else if(i == pathMotionStates.size() - 1){
+      marker.id = 10000 + pathMotionStates.size();
     }else{
       marker.id = 10001 + i;
     }
@@ -229,8 +231,8 @@ void pubStartGoalMarkers(){
     marker.type = visualization_msgs::Marker::SPHERE;
     marker.action = visualization_msgs::Marker::ADD;
     // set positions
-    marker.pose.position.x = pathPoints.at(i).msg_.positions[0];
-    marker.pose.position.y = pathPoints.at(i).msg_.positions[1];
+    marker.pose.position.x = pathMotionStates.at(i).msg_.positions[0];
+    marker.pose.position.y = pathMotionStates.at(i).msg_.positions[1];
     marker.pose.position.z = 0.01;
     // set orientations
     marker.pose.orientation.x = 0.0;
@@ -294,7 +296,7 @@ void pubStartGoalMarkers(){
 void pubPath(){
   ROS_INFO("In pubPath");
   visualization_msgs::MarkerArray result;
-  while(straightLinePath.msg_.points.size()<=pathPoints.size()){
+  while(straightLinePath.msg_.points.size()<=pathMotionStates.size()){
     ros::spinOnce();
   }
 
@@ -390,8 +392,142 @@ void getTrajectory(ramp_planner_new::TrajectoryRequest msg){
   readyToPubPath = true;
 }
 
+bool acceptableAngTime(const geometry_msgs::Point& p0, const geometry_msgs::Point p1, const geometry_msgs::Point p2){
+    const double resolution = 1/10.0;
+    std::vector<std::vector<double>> coefs;
+    std::vector<double> hold;
+    hold.push_back(p1.x);
+    hold.push_back(p0.x - p1.x);//because of chain rule, multipley by -1 for first derivative
+    hold.push_back(p2.x - p1.x);
+    coefs.push_back(hold);
+    hold.clear();
+    hold.push_back(p1.y);
+    hold.push_back(p0.y - p1.y);//because of chain rule, multipley by -1 for first derivative
+    hold.push_back(p2.y - p1.y);
+    coefs.push_back(hold);
+    hold.clear();
+    hold.push_back(p1.z);
+    hold.push_back(p0.z - p1.z);//because of chain rule, multipley by -1 for first derivative
+    hold.push_back(p2.z - p1.z);
+    coefs.push_back(hold);
+    hold.clear();
+
+    for(float t=0;t<=1;t+=resolution){
+        for(unsigned int j=0;j<3;j++){//3=DOF
+            //not sure if this is the right calculation for angular velocity
+            double vel =(-2*(1-t)*(coefs.at(j).at(1))) + (2*t*(coefs.at(j).at(2)));        
+            if(vel > max_angular_vel){
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+visualization_msgs::Marker makeMarker(geometry_msgs::Point p, int id){
+    visualization_msgs::Marker marker;
+    marker.header.stamp = ros::Time::now();
+    marker.id = id;
+    
+    marker.header.frame_id = "map";
+    marker.ns = "basic_shapes";
+    marker.type = visualization_msgs::Marker::SPHERE;
+    marker.action = visualization_msgs::Marker::ADD;
+    // set positions
+    marker.pose.position.x = p.x;
+    marker.pose.position.y = p.y;
+    marker.pose.position.z = 0.01;
+    // set orientations
+    marker.pose.orientation.x = 0.0;
+    marker.pose.orientation.y = 0.0;
+    marker.pose.orientation.z = 0.0;
+    marker.pose.orientation.w = 1.0;
+    // set radii
+    marker.scale.x = 0.5;
+    marker.scale.y = 0.5;
+    marker.scale.z = 0.1;
+    // set colors
+    marker.color.r = 1;
+    marker.color.g = 0;
+    marker.color.b = 0;
+    marker.color.a = 1;
+    // set lifetimes
+    marker.lifetime = ros::Duration(120.0);
+
+    return marker;
+}
+
+ramp_planner_new::PathPoints addControlPoints(visualization_msgs::Marker m, geometry_msgs::Point cp1, geometry_msgs::Point cp2){
+    visualization_msgs::MarkerArray maRes;
+    std::vector<std::string> tRes;
+    int replaceId = -1;
+    bool replaced = false;
+    for(unsigned int i=0;i<pathPoints.markers.size();i++){
+        if(!replaced){
+            if(pathPoints.markers.at(i) == m){
+                replaceId = m.id - i;
+                maRes.markers.push_back(makeMarker(cp1,replaceId + i));
+                maRes.markers.push_back(makeMarker(cp2,replaceId + i + 1));
+                tRes.push_back("bezier");
+                tRes.push_back(pathPoints.types.at(i));
+                replaced = true;
+            }else{
+                maRes.markers.push_back(pathPoints.markers.at(i));
+                tRes.push_back(pathPoints.types.at(i));
+            }
+        }else{
+            pathPoints.markers.at(i).id = replaceId + i + 1;
+            maRes.markers.push_back(pathPoints.markers.at(i));
+            if(i < pathPoints.types.size()){
+                tRes.push_back(pathPoints.types.at(i));
+            }
+        }
+    }
+    ramp_planner_new::PathPoints result;
+    result.markers = maRes.markers;
+    result.types = tRes;
+    return result;
+}
+
 void bezify(const ramp_planner_new::BezifyRequest& br){
-  std::cout<<"*****ready to bezify*****"<<std::endl;
+  std::cout<<"***bezifying.."<<std::endl;
+  pathPoints = br.pathPoints;
+  if(br.markers.size() == 3){
+    visualization_msgs::Marker m0 = br.pathPoints.markers.at(0);
+    visualization_msgs::Marker m1 = br.pathPoints.markers.at(1);
+    visualization_msgs::Marker m2 = br.pathPoints.markers.at(2);
+    
+    geometry_msgs::Point p0,p1,p2;
+    p0 = m0.pose.position;
+    p1 = m1.pose.position;
+    p2 = m2.pose.position;
+    double D1 = sqrt(pow(p0.x - p1.x,2) + pow(p0.y - p1.y,2));
+    double D2 = sqrt(pow(p1.x - p2.x,2) + pow(p1.y - p2.y,2));
+    double D = std::min(D1,D2);
+
+    double v1[] = {p1.x - p0.x, p1.y - p0.y};
+    double normFactor1 = sqrt(pow(v1[0],2) + pow(v1[1],2));
+    double u1[] = {v1[0]/normFactor1, v1[1]/normFactor1};
+    double v2[] = {p2.x - p1.x, p2.y - p1.y};
+    double normFactor2 = sqrt(pow(v2[0],2) + pow(v2[0],2));
+    double u2[] = {v2[0]/normFactor2, v2[1]/normFactor2};
+    //find new control points
+    geometry_msgs::Point cp1,cp2;
+    for(float d=.1;d<=D;d+=.1){
+        cp1.x = p1.x - d*u1[0];
+        cp1.y = p1.y - d*u1[1];
+        cp2.x = p1.x + d*u2[0];
+        cp2.y = p1.y + d*u2[1];
+        //find bezier based on control and test if its okay
+        if(acceptableAngTime(cp1,p1,cp2)){
+            break;
+        }
+    }
+    std::cout<<"**found good bezier**"<<std::endl;
+    pathPoints = addControlPoints(m1,cp1,cp2);
+  }
+  pub_path_points.publish(pathPoints);
+  pub_path_points.publish(pathPoints);
 }
 
 int main(int argc, char** argv) {
@@ -434,7 +570,7 @@ int main(int argc, char** argv) {
   ramp_planner_new::TrajectoryRequest msg;
   msg.timeNeeded = 1;
   msg.type = "bezier";
-  getTrajectory(msg);
+  // getTrajectory(msg);
   ROS_INFO("Done with publishing markers");
 
   ros::Rate r(1000);
@@ -454,3 +590,5 @@ int main(int argc, char** argv) {
   std::cout<<"\nExiting Normally\n";
   return 0;
 }
+
+//I was finally able to get into a callback within the planner node. i'm not really sure what solved the problem, but I 'think' its pretty straightforward from here to move along the currently selected path
