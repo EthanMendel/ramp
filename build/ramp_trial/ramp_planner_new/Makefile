@@ -743,33 +743,6 @@ src/range.cpp.s:
 	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/range.cpp.s
 .PHONY : src/range.cpp.s
 
-src/rviz_handler.o: src/rviz_handler.cpp.o
-
-.PHONY : src/rviz_handler.o
-
-# target to build an object file
-src/rviz_handler.cpp.o:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp.o
-.PHONY : src/rviz_handler.cpp.o
-
-src/rviz_handler.i: src/rviz_handler.cpp.i
-
-.PHONY : src/rviz_handler.i
-
-# target to preprocess a source file
-src/rviz_handler.cpp.i:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp.i
-.PHONY : src/rviz_handler.cpp.i
-
-src/rviz_handler.s: src/rviz_handler.cpp.s
-
-.PHONY : src/rviz_handler.s
-
-# target to generate assembly for a file
-src/rviz_handler.cpp.s:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build.make ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp.s
-.PHONY : src/rviz_handler.cpp.s
-
 src/utility.o: src/utility.cpp.o
 
 .PHONY : src/utility.o
@@ -858,9 +831,6 @@ help:
 	@echo "... src/range.o"
 	@echo "... src/range.i"
 	@echo "... src/range.s"
-	@echo "... src/rviz_handler.o"
-	@echo "... src/rviz_handler.i"
-	@echo "... src/rviz_handler.s"
 	@echo "... src/utility.o"
 	@echo "... src/utility.i"
 	@echo "... src/utility.s"

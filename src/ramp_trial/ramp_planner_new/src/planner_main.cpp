@@ -38,6 +38,10 @@ TrajectoryType      pt;
 std::vector<std::string> ob_topics;
 std::string         global_frame;
 std::string         update_topic;
+ros::Publisher      pub_markerArray;
+ros::Publisher      pub_coefs;
+ros::Publisher      pub_path_points;
+
 
 float costmap_width, costmap_height, costmap_origin_x, costmap_origin_y;
 
@@ -205,7 +209,7 @@ void loadParameters(const ros::NodeHandle handle){
   std::cout<<"\n---------------------------------------";
 }
 
-void pubStartGoalMarkers(RvizHandler pub_rviz){
+void pubStartGoalMarkers(){
   ROS_INFO("In pubStartGoalMarkers");
   visualization_msgs::MarkerArray result;
 
@@ -275,27 +279,19 @@ void pubStartGoalMarkers(RvizHandler pub_rviz){
   ros::Rate r(100);
   ros::Time tStart = ros::Time::now();
   ros::Duration dWait(10);
-  while(pub_rviz.getNumSubscribers() == 0 && (ros::Time::now() - tStart) < dWait){
-    ros::spinOnce();
-    r.sleep();
-  }
-  if(pub_rviz.getNumSubscribers() == 0){
-    ROS_WARN("Could not get subscriber for \"visualization_marker_array\"");
-  }else{
-    ROS_INFO("Rviz started");
-  }
+  //rviz check?
   ramp_planner_new::PathPoints pps;
   pps.markers = result.markers;
   for(unsigned int i=0;i<result.markers.size()-1;i++){
     pps.types.push_back("cubic");
   }
-  pub_rviz.sendPathPoints(pps);
-  pub_rviz.sendPathPoints(pps);
+  pub_path_points.publish(pps);
+  pub_path_points.publish(pps);
   
   ROS_INFO("Exiting pubStartGoalMarkers");
 }
 
-void pubPath(RvizHandler pub_rviz){
+void pubPath(){
   ROS_INFO("In pubPath");
   visualization_msgs::MarkerArray result;
   while(straightLinePath.msg_.points.size()<=pathPoints.size()){
@@ -377,18 +373,9 @@ void pubPath(RvizHandler pub_rviz){
   ros::Rate r(100);
   ros::Time tStart = ros::Time::now();
   ros::Duration dWait(10);
-  while(pub_rviz.getNumSubscribers() == 0 && (ros::Time::now() - tStart) < dWait){
-    ros::spinOnce();
-    r.sleep();
-  }
-  if(pub_rviz.getNumSubscribers() == 0){
-    ROS_WARN("Could not get subscriber for \"visualization_marker_array\"");
-  }else{
-    ROS_INFO("Rviz started");
-  }
-
-  pub_rviz.sendMarkerArray(result);
-  pub_rviz.sendMarkerArray(result);
+  //rviz check?
+  pub_markerArray.publish(result);
+  pub_markerArray.publish(result);
   
   ROS_INFO("Exiting pubPath");
 }
@@ -421,8 +408,12 @@ int main(int argc, char** argv) {
   loadParameters(handle);
   ROS_INFO("Done loading rosparams");
   
-  RvizHandler pub_rviz(handle);
-  
+  pub_markerArray = handle.advertise<visualization_msgs::MarkerArray>("visualization_marker_array", 10);
+  pub_coefs = handle.advertise<ramp_planner_new::TrajectoryRepresentation>("coef_channel", 10);
+  pub_path_points = handle.advertise<ramp_planner_new::PathPoints>("path_points_channel",10);
+  // handle.subscribe("/time_needed", 1, getTrajectory);
+  ros::Subscriber bezifyListener  = handle.subscribe("bezify_request", 1, bezify);
+
   ros::Duration d(0.5);
   d.sleep();
   /*
@@ -438,9 +429,7 @@ int main(int argc, char** argv) {
   /*
    * all parameters are loaded
    */
-  pubStartGoalMarkers(pub_rviz);//red-start, blue-goal
-  // handle.subscribe("/time_needed", 1, getTrajectory);
-  ros::Subscriber bezifyListener  = handle.subscribe("bezify_request", 1, bezify);
+  pubStartGoalMarkers();//red-start, blue-goal
   readyToPubPath = false;
   ramp_planner_new::TrajectoryRequest msg;
   msg.timeNeeded = 1;
@@ -452,8 +441,8 @@ int main(int argc, char** argv) {
   while(ros::ok()) 
   {
     if(readyToPubPath){
-      pub_rviz.sendCoefs(straightLinePath.buildCubicMsg());
-      pubPath(pub_rviz);
+      pub_coefs.publish(straightLinePath.buildCubicMsg());
+      pubPath();
       readyToPubPath = false;
     }
     r.sleep();

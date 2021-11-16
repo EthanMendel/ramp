@@ -122,22 +122,9 @@ ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/range.cpp.s: cma
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ramp_planner_new.dir/src/range.cpp.s"
 	cd /home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/ramp_planner_new && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/range.cpp -o CMakeFiles/ramp_planner_new.dir/src/range.cpp.s
 
-ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp.o: ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/flags.make
-ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/rviz_handler.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp.o"
-	cd /home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/ramp_planner_new && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp.o -c /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/rviz_handler.cpp
-
-ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp.i"
-	cd /home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/ramp_planner_new && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/rviz_handler.cpp > CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp.i
-
-ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp.s"
-	cd /home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/ramp_planner_new && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/rviz_handler.cpp -o CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp.s
-
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/utility.cpp.o: ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/flags.make
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/utility.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/utility.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/utility.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/utility.cpp.o"
 	cd /home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/ramp_planner_new && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ramp_planner_new.dir/src/utility.cpp.o -c /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/utility.cpp
 
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/utility.cpp.i: cmake_force
@@ -155,7 +142,6 @@ ramp_planner_new_OBJECTS = \
 "CMakeFiles/ramp_planner_new.dir/src/motion_state.cpp.o" \
 "CMakeFiles/ramp_planner_new.dir/src/path.cpp.o" \
 "CMakeFiles/ramp_planner_new.dir/src/range.cpp.o" \
-"CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp.o" \
 "CMakeFiles/ramp_planner_new.dir/src/utility.cpp.o"
 
 # External object files for target ramp_planner_new
@@ -166,7 +152,6 @@ ramp_planner_new_EXTERNAL_OBJECTS =
 /home/emendel/Documents/IndepententStudy/ramp/devel/lib/ramp_planner_new/ramp_planner_new: ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/motion_state.cpp.o
 /home/emendel/Documents/IndepententStudy/ramp/devel/lib/ramp_planner_new/ramp_planner_new: ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/path.cpp.o
 /home/emendel/Documents/IndepententStudy/ramp/devel/lib/ramp_planner_new/ramp_planner_new: ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/range.cpp.o
-/home/emendel/Documents/IndepententStudy/ramp/devel/lib/ramp_planner_new/ramp_planner_new: ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp.o
 /home/emendel/Documents/IndepententStudy/ramp/devel/lib/ramp_planner_new/ramp_planner_new: ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/utility.cpp.o
 /home/emendel/Documents/IndepententStudy/ramp/devel/lib/ramp_planner_new/ramp_planner_new: ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/build.make
 /home/emendel/Documents/IndepententStudy/ramp/devel/lib/ramp_planner_new/ramp_planner_new: /opt/ros/noetic/lib/libroscpp.so
@@ -192,7 +177,7 @@ ramp_planner_new_EXTERNAL_OBJECTS =
 /home/emendel/Documents/IndepententStudy/ramp/devel/lib/ramp_planner_new/ramp_planner_new: /usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0
 /home/emendel/Documents/IndepententStudy/ramp/devel/lib/ramp_planner_new/ramp_planner_new: /usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4
 /home/emendel/Documents/IndepententStudy/ramp/devel/lib/ramp_planner_new/ramp_planner_new: ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable /home/emendel/Documents/IndepententStudy/ramp/devel/lib/ramp_planner_new/ramp_planner_new"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable /home/emendel/Documents/IndepententStudy/ramp/devel/lib/ramp_planner_new/ramp_planner_new"
 	cd /home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/ramp_planner_new && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ramp_planner_new.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

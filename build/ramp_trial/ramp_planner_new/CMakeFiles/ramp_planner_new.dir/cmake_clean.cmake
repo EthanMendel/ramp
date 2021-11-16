@@ -6,7 +6,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/ramp_planner_new.dir/src/path.cpp.o"
   "CMakeFiles/ramp_planner_new.dir/src/planner_main.cpp.o"
   "CMakeFiles/ramp_planner_new.dir/src/range.cpp.o"
-  "CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp.o"
   "CMakeFiles/ramp_planner_new.dir/src/utility.cpp.o"
 )
 
