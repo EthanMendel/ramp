@@ -3,6 +3,7 @@
 #include <visualization_msgs/MarkerArray.h>
 #include <ramp_planner_new/TrajectoryRepresentation.h>
 #include <ramp_planner_new/TrajectoryRequest.h>
+#include <ramp_planner_new/BezifyRequest.h>
  
 Utility utility;
 

@@ -34,7 +34,7 @@ int main(int argc, char** argv) {
 
   ros::init(argc, argv, "ramp_controller_new");
   ros::NodeHandle handle;
-  ros::NodeHandle handle_local("~");
+  // ros::NodeHandle handle_local("~");
 
   ros::Subscriber trajListener  = handle.subscribe("coef_channel", 1, trajCallback);
   setvbuf(stdout, NULL, _IOLBF, 4096);

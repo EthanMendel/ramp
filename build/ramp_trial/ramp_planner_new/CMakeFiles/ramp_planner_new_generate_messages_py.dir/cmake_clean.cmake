@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "/home/emendel/Documents/IndepententStudy/ramp/devel/lib/python3/dist-packages/ramp_planner_new/msg/_BezifyRequest.py"
   "/home/emendel/Documents/IndepententStudy/ramp/devel/lib/python3/dist-packages/ramp_planner_new/msg/_Coefficient.py"
   "/home/emendel/Documents/IndepententStudy/ramp/devel/lib/python3/dist-packages/ramp_planner_new/msg/_PathPoints.py"
   "/home/emendel/Documents/IndepententStudy/ramp/devel/lib/python3/dist-packages/ramp_planner_new/msg/_TrajectoryRepresentation.py"

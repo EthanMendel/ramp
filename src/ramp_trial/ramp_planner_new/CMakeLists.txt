@@ -56,6 +56,7 @@ add_message_files(
   Coefficient.msg TrajectoryRepresentation.msg 
   TrajectoryRequest.msg
   PathPoints.msg
+  BezifyRequest.msg
 )
 
 ## Generate services in the 'srv' folder

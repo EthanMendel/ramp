@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/ramp_planner_new/manifest.l"
+  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/ramp_planner_new/msg/BezifyRequest.l"
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/ramp_planner_new/msg/Coefficient.l"
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/ramp_planner_new/msg/PathPoints.l"
   "/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/ramp_planner_new/msg/TrajectoryRepresentation.l"

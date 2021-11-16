@@ -434,6 +434,7 @@ ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/planner_main.cpp
  /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectorySrv.h
  /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectorySrvRequest.h
  /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectorySrvResponse.h
+ /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/BezifyRequest.h
  /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/Coefficient.h
  /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/PathPoints.h
  /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/TrajectoryRepresentation.h

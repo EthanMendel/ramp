@@ -4,31 +4,26 @@
 #include <geometry_msgs/Pose.h>
 #include <ramp_planner_new/TrajectoryRequest.h>
 #include <ramp_planner_new/PathPoints.h>
+#include <ramp_planner_new/BezifyRequest.h>
 
 ramp_planner_new::PathPoints pathPoints;
 int curStartId = -1;
 visualization_msgs::MarkerArray curStartGoal;
 ros::Publisher pub_path_points;
 ros::Publisher pub_time_needed;
+ros::Publisher pub_bezify_request;
 double max_linear_vel = 0.33;
 double max_angular_vel = 1.5708;
 
 //assuming straight line path from start to goal
-void getMinLinTime(const geometry_msgs::Point& start, const geometry_msgs::Point goal){
+double getMinLinTime(const geometry_msgs::Point& start, const geometry_msgs::Point goal){
   double sx = start.x;
   double sy = start.y;
   double gx = goal.x;
   double gy = goal.y;
 
   double dist = sqrt(pow(sx-gx,2)+pow(sy-gy,2));
-  double time_needed = ceil(dist/max_linear_vel);
-  ramp_planner_new::TrajectoryRequest msg;
-  msg.timeNeeded = time_needed;
-  msg.type = "cubic";
-  msg.points.push_back(start);
-  msg.points.push_back(goal);
-  std::cout<<"Trajectory Request:\n"<<msg<<std::endl;
-  pub_time_needed.publish(msg);
+  return ceil(dist/max_linear_vel);
 }
 
 bool acceptableAngTime(const geometry_msgs::Point& p0, const geometry_msgs::Point p1, const geometry_msgs::Point p2){
@@ -128,31 +123,25 @@ ramp_planner_new::PathPoints addControlPoints(visualization_msgs::Marker m, geom
     return result;
 }
 
-void updateStartGoal(){
-    curStartGoal.markers.clear();
-    for(unsigned int i=0;i<pathPoints.markers.size();i++){
-        if(pathPoints.markers.at(i).id == curStartId){
-            curStartGoal.markers.push_back(pathPoints.markers.at(i));
-            curStartGoal.markers.push_back(pathPoints.markers.at(i+1));
-            getMinLinTime(pathPoints.markers.at(i).pose.position,pathPoints.markers.at(i+1).pose.position);
-            break;
-        }
+// j should be the index of the goal marker within pathPoints
+bool needBezify(const unsigned int j){
+    //type indexes are based on start index
+    if(j > 0 and j < pathPoints.markers.size() - 1){
+        //return whether both types involving the inputed point are cubic (linear)
+        return pathPoints.types.at(j-1) == "cubic" && pathPoints.types.at(j) == "cubic";
+    }else{
+        return false;
     }
 }
 
-void pathPointsCallback(const ramp_planner_new::PathPoints pp){
-    std::cout<<"\n-----got all path points-----"<<std::endl;
-    pathPoints = pp;
-    if(curStartId == -1){
-        curStartId = pp.markers.at(0).id;
-    }
-    if(pathPoints.markers.size() > 2){
+void bezify(const ramp_planner_new::BezifyRequest& br){
+    if(br.pathPoints.markers.size() > 2){
         visualization_msgs::Marker m0,m1,m2;
-        for(unsigned int i=0;i<pathPoints.markers.size();i++){
-            if(pathPoints.markers.at(i).id == curStartId){
-                m0 = pathPoints.markers.at(i);
-                m1 = pathPoints.markers.at(i + 1);
-                m2 = pathPoints.markers.at(i + 2);
+        for(unsigned int i=0;i<br.pathPoints.markers.size();i++){
+            if(br.pathPoints.markers.at(i).id == curStartId){
+                m0 = br.pathPoints.markers.at(i);
+                m1 = br.pathPoints.markers.at(i + 1);
+                m2 = br.pathPoints.markers.at(i + 2);
                 break;
             }
         }
@@ -186,6 +175,51 @@ void pathPointsCallback(const ramp_planner_new::PathPoints pp){
         std::cout<<"**found good bezier**"<<std::endl;
         pathPoints = addControlPoints(m1,cp1,cp2);
     }
+}
+
+void updateStartGoal(){
+    curStartGoal.markers.clear();
+    for(unsigned int i=0;i<pathPoints.markers.size();i++){
+        if(pathPoints.markers.at(i).id == curStartId){
+            if(i < pathPoints.markers.size() - 1){
+                if(needBezify(i + 1)){//need bezify checks to make sure we can do i+2
+                    ramp_planner_new::BezifyRequest br;
+                    br.pathPoints = pathPoints;
+                    br.markers.push_back(pathPoints.markers.at(i));
+                    br.markers.push_back(pathPoints.markers.at(i+1));
+                    br.markers.push_back(pathPoints.markers.at(i+2));
+                    // pub_bezify_request.publish(br);
+                    bezify(br);
+                    updateStartGoal();
+                }else{
+                    curStartGoal.markers.push_back(pathPoints.markers.at(i));
+                    curStartGoal.markers.push_back(pathPoints.markers.at(i+1));
+                    ramp_planner_new::TrajectoryRequest msg;
+                    if(pathPoints.types.at(i) == "cubic"){
+                        msg.timeNeeded = getMinLinTime(pathPoints.markers.at(i).pose.position,pathPoints.markers.at(i+1).pose.position);
+                        msg.type = "cubic";
+                    }else{
+                        msg.timeNeeded = 1;
+                        msg.type = "bezier";
+                    }
+                    msg.points.push_back(pathPoints.markers.at(i).pose.position);
+                    msg.points.push_back(pathPoints.markers.at(i + 1).pose.position);
+                    std::cout<<"Trajectory Request:\n"<<msg<<std::endl;
+                    pub_time_needed.publish(msg);
+
+                }
+            }
+            break;
+        }
+    }
+}
+
+void pathPointsCallback(const ramp_planner_new::PathPoints pp){
+    std::cout<<"\n-----got all path points-----"<<std::endl;
+    pathPoints = pp;
+    if(curStartId == -1){
+        curStartId = pp.markers.at(0).id;
+    }
     updateStartGoal();
 }
 
@@ -200,12 +234,13 @@ int main(int argc, char** argv) {
 
   ros::init(argc, argv, "ramp_control_buffer");
   ros::NodeHandle handle;
-  ros::NodeHandle handle_local("~");
+//   ros::NodeHandle handle_local("~");
 
   ros::Subscriber pathPointsListener  = handle.subscribe("path_points_channel", 1, pathPointsCallback);
   ros::Subscriber readyNextListener = handle.subscribe("ready_next", 1, getNextPoint);
   pub_path_points = handle.advertise<visualization_msgs::MarkerArray>("start_goal_channel",10);
   pub_time_needed = handle.advertise<ramp_planner_new::TrajectoryRequest>("/time_needed",1);
+  pub_bezify_request = handle.advertise<ramp_planner_new::BezifyRequest>("/bezify_request",1);
   setvbuf(stdout, NULL, _IOLBF, 4096);
 
   ros::Rate r(1000);

@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/BezifyRequest.h"
   "/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/Coefficient.h"
   "/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/PathPoints.h"
   "/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/TrajectoryRepresentation.h"

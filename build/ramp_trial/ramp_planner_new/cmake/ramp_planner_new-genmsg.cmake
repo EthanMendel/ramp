@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.cmake.em
 
-message(STATUS "ramp_planner_new: 4 messages, 0 services")
+message(STATUS "ramp_planner_new: 5 messages, 0 services")
 
 set(MSG_I_FLAGS "-Iramp_planner_new:/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg;-Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg;-Iramp_msgs:/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg;-Ivisualization_msgs:/opt/ros/noetic/share/visualization_msgs/cmake/../msg;-Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg;-Inav_msgs:/opt/ros/noetic/share/nav_msgs/cmake/../msg;-Itrajectory_msgs:/opt/ros/noetic/share/trajectory_msgs/cmake/../msg;-Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg")
 
@@ -34,7 +34,12 @@ add_custom_target(_ramp_planner_new_generate_messages_check_deps_${_filename}
 
 get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg" NAME_WE)
 add_custom_target(_ramp_planner_new_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "ramp_planner_new" "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg" "std_msgs/Header:visualization_msgs/Marker:std_msgs/ColorRGBA:geometry_msgs/Pose:geometry_msgs/Point:geometry_msgs/Quaternion:geometry_msgs/Vector3"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "ramp_planner_new" "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg" "std_msgs/ColorRGBA:visualization_msgs/Marker:geometry_msgs/Vector3:geometry_msgs/Quaternion:geometry_msgs/Pose:std_msgs/Header:geometry_msgs/Point"
+)
+
+get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/BezifyRequest.msg" NAME_WE)
+add_custom_target(_ramp_planner_new_generate_messages_check_deps_${_filename}
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "ramp_planner_new" "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/BezifyRequest.msg" "ramp_planner_new/PathPoints:std_msgs/ColorRGBA:visualization_msgs/Marker:geometry_msgs/Vector3:geometry_msgs/Quaternion:geometry_msgs/Pose:std_msgs/Header:geometry_msgs/Point"
 )
 
 #
@@ -64,7 +69,13 @@ _generate_msg_cpp(ramp_planner_new
 _generate_msg_cpp(ramp_planner_new
   "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/visualization_msgs/cmake/../msg/Marker.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/opt/ros/noetic/share/visualization_msgs/cmake/../msg/Marker.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/ramp_planner_new
+)
+_generate_msg_cpp(ramp_planner_new
+  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/BezifyRequest.msg"
+  "${MSG_I_FLAGS}"
+  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/opt/ros/noetic/share/visualization_msgs/cmake/../msg/Marker.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/ramp_planner_new
 )
 
@@ -89,6 +100,8 @@ add_dependencies(ramp_planner_new_generate_messages_cpp _ramp_planner_new_genera
 get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRequest.msg" NAME_WE)
 add_dependencies(ramp_planner_new_generate_messages_cpp _ramp_planner_new_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg" NAME_WE)
+add_dependencies(ramp_planner_new_generate_messages_cpp _ramp_planner_new_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/BezifyRequest.msg" NAME_WE)
 add_dependencies(ramp_planner_new_generate_messages_cpp _ramp_planner_new_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -121,7 +134,13 @@ _generate_msg_eus(ramp_planner_new
 _generate_msg_eus(ramp_planner_new
   "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/visualization_msgs/cmake/../msg/Marker.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/opt/ros/noetic/share/visualization_msgs/cmake/../msg/Marker.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/ramp_planner_new
+)
+_generate_msg_eus(ramp_planner_new
+  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/BezifyRequest.msg"
+  "${MSG_I_FLAGS}"
+  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/opt/ros/noetic/share/visualization_msgs/cmake/../msg/Marker.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/ramp_planner_new
 )
 
@@ -146,6 +165,8 @@ add_dependencies(ramp_planner_new_generate_messages_eus _ramp_planner_new_genera
 get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRequest.msg" NAME_WE)
 add_dependencies(ramp_planner_new_generate_messages_eus _ramp_planner_new_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg" NAME_WE)
+add_dependencies(ramp_planner_new_generate_messages_eus _ramp_planner_new_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/BezifyRequest.msg" NAME_WE)
 add_dependencies(ramp_planner_new_generate_messages_eus _ramp_planner_new_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -178,7 +199,13 @@ _generate_msg_lisp(ramp_planner_new
 _generate_msg_lisp(ramp_planner_new
   "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/visualization_msgs/cmake/../msg/Marker.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/opt/ros/noetic/share/visualization_msgs/cmake/../msg/Marker.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/ramp_planner_new
+)
+_generate_msg_lisp(ramp_planner_new
+  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/BezifyRequest.msg"
+  "${MSG_I_FLAGS}"
+  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/opt/ros/noetic/share/visualization_msgs/cmake/../msg/Marker.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/ramp_planner_new
 )
 
@@ -203,6 +230,8 @@ add_dependencies(ramp_planner_new_generate_messages_lisp _ramp_planner_new_gener
 get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRequest.msg" NAME_WE)
 add_dependencies(ramp_planner_new_generate_messages_lisp _ramp_planner_new_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg" NAME_WE)
+add_dependencies(ramp_planner_new_generate_messages_lisp _ramp_planner_new_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/BezifyRequest.msg" NAME_WE)
 add_dependencies(ramp_planner_new_generate_messages_lisp _ramp_planner_new_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -235,7 +264,13 @@ _generate_msg_nodejs(ramp_planner_new
 _generate_msg_nodejs(ramp_planner_new
   "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/visualization_msgs/cmake/../msg/Marker.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/opt/ros/noetic/share/visualization_msgs/cmake/../msg/Marker.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/ramp_planner_new
+)
+_generate_msg_nodejs(ramp_planner_new
+  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/BezifyRequest.msg"
+  "${MSG_I_FLAGS}"
+  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/opt/ros/noetic/share/visualization_msgs/cmake/../msg/Marker.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/ramp_planner_new
 )
 
@@ -260,6 +295,8 @@ add_dependencies(ramp_planner_new_generate_messages_nodejs _ramp_planner_new_gen
 get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRequest.msg" NAME_WE)
 add_dependencies(ramp_planner_new_generate_messages_nodejs _ramp_planner_new_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg" NAME_WE)
+add_dependencies(ramp_planner_new_generate_messages_nodejs _ramp_planner_new_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/BezifyRequest.msg" NAME_WE)
 add_dependencies(ramp_planner_new_generate_messages_nodejs _ramp_planner_new_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -292,7 +329,13 @@ _generate_msg_py(ramp_planner_new
 _generate_msg_py(ramp_planner_new
   "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/visualization_msgs/cmake/../msg/Marker.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/opt/ros/noetic/share/visualization_msgs/cmake/../msg/Marker.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/ramp_planner_new
+)
+_generate_msg_py(ramp_planner_new
+  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/BezifyRequest.msg"
+  "${MSG_I_FLAGS}"
+  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/opt/ros/noetic/share/visualization_msgs/cmake/../msg/Marker.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/ramp_planner_new
 )
 
@@ -317,6 +360,8 @@ add_dependencies(ramp_planner_new_generate_messages_py _ramp_planner_new_generat
 get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRequest.msg" NAME_WE)
 add_dependencies(ramp_planner_new_generate_messages_py _ramp_planner_new_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg" NAME_WE)
+add_dependencies(ramp_planner_new_generate_messages_py _ramp_planner_new_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/BezifyRequest.msg" NAME_WE)
 add_dependencies(ramp_planner_new_generate_messages_py _ramp_planner_new_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
