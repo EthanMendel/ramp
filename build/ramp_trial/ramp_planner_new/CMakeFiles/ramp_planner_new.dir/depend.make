@@ -434,6 +434,7 @@ ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/planner_main.cpp
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/planner_main.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectorySrvRequest.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/planner_main.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/TrajectorySrvResponse.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/planner_main.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/Coefficient.h
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/planner_main.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/PathPoints.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/planner_main.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/TrajectoryRepresentation.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/planner_main.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/TrajectoryRequest.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/planner_main.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/bezier_curve.h
@@ -603,6 +604,7 @@ ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/MotionState.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/Path.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/Coefficient.h
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/PathPoints.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/TrajectoryRepresentation.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/rviz_handler.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/rviz_handler.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/rviz_handler.cpp

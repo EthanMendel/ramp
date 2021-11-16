@@ -63,19 +63,6 @@ bool acceptableAngTime(const geometry_msgs::Point& p0, const geometry_msgs::Poin
     return true;
 }
 
-
-void updateStartGoal(){
-    curStartGoal.markers.clear();
-    for(unsigned int i=0;i<pathPoints.markers.size();i++){
-        if(pathPoints.markers.at(i).id == curStartId){
-            curStartGoal.markers.push_back(pathPoints.markers.at(i));
-            curStartGoal.markers.push_back(pathPoints.markers.at(i+1));
-            getMinLinTime(pathPoints.markers.at(i).pose.position,pathPoints.markers.at(i+1).pose.position);
-            break;
-        }
-    }
-}
-
 visualization_msgs::Marker makeMarker(geometry_msgs::Point p, int id){
     visualization_msgs::Marker marker;
     marker.header.stamp = ros::Time::now();
@@ -141,14 +128,23 @@ ramp_planner_new::PathPoints addControlPoints(visualization_msgs::Marker m, geom
     return result;
 }
 
-void pathPointsCallback(const visualization_msgs::MarkerArray ma){
-    std::cout<<"\n-----got all path points-----"<<std::endl;
-    pathPoints.markers = ma.markers;
-    for(unsigned int i=0;i<pathPoints.markers.size()-1;i++){
-        pathPoints.types.push_back("cubic");
+void updateStartGoal(){
+    curStartGoal.markers.clear();
+    for(unsigned int i=0;i<pathPoints.markers.size();i++){
+        if(pathPoints.markers.at(i).id == curStartId){
+            curStartGoal.markers.push_back(pathPoints.markers.at(i));
+            curStartGoal.markers.push_back(pathPoints.markers.at(i+1));
+            getMinLinTime(pathPoints.markers.at(i).pose.position,pathPoints.markers.at(i+1).pose.position);
+            break;
+        }
     }
+}
+
+void pathPointsCallback(const ramp_planner_new::PathPoints pp){
+    std::cout<<"\n-----got all path points-----"<<std::endl;
+    pathPoints = pp;
     if(curStartId == -1){
-        curStartId = ma.markers.at(0).id;
+        curStartId = pp.markers.at(0).id;
     }
     if(pathPoints.markers.size() > 2){
         visualization_msgs::Marker m0,m1,m2;

@@ -283,9 +283,13 @@ void pubStartGoalMarkers(RvizHandler pub_rviz){
   }else{
     ROS_INFO("Rviz started");
   }
-
-  pub_rviz.sendPathPoints(result);
-  pub_rviz.sendPathPoints(result);
+  ramp_planner_new::PathPoints pps;
+  pps.markers = result.markers;
+  for(unsigned int i=0;i<result.markers.size()-1;i++){
+    pps.types.push_back("cubic");
+  }
+  pub_rviz.sendPathPoints(pps);
+  pub_rviz.sendPathPoints(pps);
   
   ROS_INFO("Exiting pubStartGoalMarkers");
 }

@@ -5,6 +5,7 @@
 #include <ramp_msgs/Path.h>
 #include <ramp_planner_new/TrajectoryRepresentation.h>
 #include <geometry_msgs/Twist.h>
+#include <ramp_planner_new/PathPoints.h>
 
 class RvizHandler {
   public:
@@ -13,7 +14,7 @@ class RvizHandler {
     unsigned int getNumSubscribers();
     void sendMarkerArray(const visualization_msgs::MarkerArray& ma);
     void sendCoefs(const ramp_planner_new::TrajectoryRepresentation& c);
-    void sendPathPoints(const visualization_msgs::MarkerArray& ma);
+    void sendPathPoints(const ramp_planner_new::PathPoints& ma);
 
   private:
     ros::NodeHandle handle_;
