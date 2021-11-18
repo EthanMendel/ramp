@@ -16,6 +16,7 @@
 #include <ros/message_operations.h>
 
 #include <visualization_msgs/Marker.h>
+#include <geometry_msgs/Point.h>
 
 namespace ramp_planner_new
 {
@@ -26,11 +27,13 @@ struct PathPoints_
 
   PathPoints_()
     : markers()
-    , types()  {
+    , types()
+    , points()  {
     }
   PathPoints_(const ContainerAllocator& _alloc)
     : markers(_alloc)
-    , types(_alloc)  {
+    , types(_alloc)
+    , points(_alloc)  {
   (void)_alloc;
     }
 
@@ -41,6 +44,9 @@ struct PathPoints_
 
    typedef std::vector<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > , typename ContainerAllocator::template rebind<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > >::other >  _types_type;
   _types_type types;
+
+   typedef std::vector< ::geometry_msgs::Point_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::geometry_msgs::Point_<ContainerAllocator> >::other >  _points_type;
+  _points_type points;
 
 
 
@@ -72,7 +78,8 @@ template<typename ContainerAllocator1, typename ContainerAllocator2>
 bool operator==(const ::ramp_planner_new::PathPoints_<ContainerAllocator1> & lhs, const ::ramp_planner_new::PathPoints_<ContainerAllocator2> & rhs)
 {
   return lhs.markers == rhs.markers &&
-    lhs.types == rhs.types;
+    lhs.types == rhs.types &&
+    lhs.points == rhs.points;
 }
 
 template<typename ContainerAllocator1, typename ContainerAllocator2>
@@ -129,12 +136,12 @@ struct MD5Sum< ::ramp_planner_new::PathPoints_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "796d493d850dccac836aab43f7ab7a40";
+    return "502711e923216d4426c784f6f7062440";
   }
 
   static const char* value(const ::ramp_planner_new::PathPoints_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x796d493d850dccacULL;
-  static const uint64_t static_value2 = 0x836aab43f7ab7a40ULL;
+  static const uint64_t static_value1 = 0x502711e923216d44ULL;
+  static const uint64_t static_value2 = 0x26c784f6f7062440ULL;
 };
 
 template<class ContainerAllocator>
@@ -155,6 +162,7 @@ struct Definition< ::ramp_planner_new::PathPoints_<ContainerAllocator> >
   {
     return "visualization_msgs/Marker[] markers\n"
 "string[] types\n"
+"geometry_msgs/Point[] points\n"
 "================================================================================\n"
 "MSG: visualization_msgs/Marker\n"
 "# See http://www.ros.org/wiki/rviz/DisplayTypes/Marker and http://www.ros.org/wiki/rviz/Tutorials/Markers%3A%20Basic%20Shapes for more information on using this message with rviz\n"
@@ -278,6 +286,7 @@ namespace serialization
     {
       stream.next(m.markers);
       stream.next(m.types);
+      stream.next(m.points);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -309,6 +318,14 @@ struct Printer< ::ramp_planner_new::PathPoints_<ContainerAllocator> >
     {
       s << indent << "  types[" << i << "]: ";
       Printer<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > >::stream(s, indent + "  ", v.types[i]);
+    }
+    s << indent << "points[]" << std::endl;
+    for (size_t i = 0; i < v.points.size(); ++i)
+    {
+      s << indent << "  points[" << i << "]: ";
+      s << std::endl;
+      s << indent;
+      Printer< ::geometry_msgs::Point_<ContainerAllocator> >::stream(s, indent + "    ", v.points[i]);
     }
   }
 };

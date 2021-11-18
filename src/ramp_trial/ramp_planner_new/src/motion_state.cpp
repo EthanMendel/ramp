@@ -8,6 +8,16 @@ MotionState::MotionState(const geometry_msgs::Point p) : mobile_base_k_(2){
   msg_.positions.push_back(p.x);
   msg_.positions.push_back(p.y);
   msg_.positions.push_back(p.z);
+
+  msg_.velocities.push_back(0);
+  msg_.velocities.push_back(0);
+  msg_.velocities.push_back(0);
+
+  msg_.accelerations.push_back(0);
+  msg_.accelerations.push_back(0);
+  msg_.accelerations.push_back(0);
+
+  msg_.time = -1;
 }
 
 MotionState::MotionState(const trajectory_msgs::JointTrajectoryPoint p) : mobile_base_k_(2) {

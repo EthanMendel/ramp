@@ -12,11 +12,12 @@ import std_msgs.msg
 import visualization_msgs.msg
 
 class PathPoints(genpy.Message):
-  _md5sum = "796d493d850dccac836aab43f7ab7a40"
+  _md5sum = "502711e923216d4426c784f6f7062440"
   _type = "ramp_planner_new/PathPoints"
   _has_header = False  # flag to mark the presence of a Header object
   _full_text = """visualization_msgs/Marker[] markers
 string[] types
+geometry_msgs/Point[] points
 ================================================================================
 MSG: visualization_msgs/Marker
 # See http://www.ros.org/wiki/rviz/DisplayTypes/Marker and http://www.ros.org/wiki/rviz/Tutorials/Markers%3A%20Basic%20Shapes for more information on using this message with rviz
@@ -121,8 +122,8 @@ float32 g
 float32 b
 float32 a
 """
-  __slots__ = ['markers','types']
-  _slot_types = ['visualization_msgs/Marker[]','string[]']
+  __slots__ = ['markers','types','points']
+  _slot_types = ['visualization_msgs/Marker[]','string[]','geometry_msgs/Point[]']
 
   def __init__(self, *args, **kwds):
     """
@@ -132,7 +133,7 @@ float32 a
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       markers,types
+       markers,types,points
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -145,9 +146,12 @@ float32 a
         self.markers = []
       if self.types is None:
         self.types = []
+      if self.points is None:
+        self.points = []
     else:
       self.markers = []
       self.types = []
+      self.points = []
 
   def _get_types(self):
     """
@@ -234,6 +238,11 @@ float32 a
           val1 = val1.encode('utf-8')
           length = len(val1)
         buff.write(struct.Struct('<I%ss'%length).pack(length, val1))
+      length = len(self.points)
+      buff.write(_struct_I.pack(length))
+      for val1 in self.points:
+        _x = val1
+        buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -247,6 +256,8 @@ float32 a
     try:
       if self.markers is None:
         self.markers = None
+      if self.points is None:
+        self.points = None
       end = 0
       start = end
       end += 4
@@ -375,6 +386,17 @@ float32 a
         else:
           val1 = str[start:end]
         self.types.append(val1)
+      start = end
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      self.points = []
+      for i in range(0, length):
+        val1 = geometry_msgs.msg.Point()
+        _x = val1
+        start = end
+        end += 24
+        (_x.x, _x.y, _x.z,) = _get_struct_3d().unpack(str[start:end])
+        self.points.append(val1)
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -460,6 +482,11 @@ float32 a
           val1 = val1.encode('utf-8')
           length = len(val1)
         buff.write(struct.Struct('<I%ss'%length).pack(length, val1))
+      length = len(self.points)
+      buff.write(_struct_I.pack(length))
+      for val1 in self.points:
+        _x = val1
+        buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -474,6 +501,8 @@ float32 a
     try:
       if self.markers is None:
         self.markers = None
+      if self.points is None:
+        self.points = None
       end = 0
       start = end
       end += 4
@@ -602,6 +631,17 @@ float32 a
         else:
           val1 = str[start:end]
         self.types.append(val1)
+      start = end
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      self.points = []
+      for i in range(0, length):
+        val1 = geometry_msgs.msg.Point()
+        _x = val1
+        start = end
+        end += 24
+        (_x.x, _x.y, _x.z,) = _get_struct_3d().unpack(str[start:end])
+        self.points.append(val1)
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill

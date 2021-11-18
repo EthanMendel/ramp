@@ -78,7 +78,7 @@
    self)
   )
 
-(setf (get ramp_planner_new::BezifyRequest :md5sum-) "e4f2e0353c794b8d0956ee4b179622e2")
+(setf (get ramp_planner_new::BezifyRequest :md5sum-) "e03bc9c0134f6143a8677879f3852a19")
 (setf (get ramp_planner_new::BezifyRequest :datatype-) "ramp_planner_new/BezifyRequest")
 (setf (get ramp_planner_new::BezifyRequest :definition-)
       "ramp_planner_new/PathPoints pathPoints
@@ -87,6 +87,7 @@ visualization_msgs/Marker[] markers
 MSG: ramp_planner_new/PathPoints
 visualization_msgs/Marker[] markers
 string[] types
+geometry_msgs/Point[] points
 ================================================================================
 MSG: visualization_msgs/Marker
 # See http://www.ros.org/wiki/rviz/DisplayTypes/Marker and http://www.ros.org/wiki/rviz/Tutorials/Markers%3A%20Basic%20Shapes for more information on using this message with rviz
@@ -195,6 +196,6 @@ float32 a
 
 
 
-(provide :ramp_planner_new/BezifyRequest "e4f2e0353c794b8d0956ee4b179622e2")
+(provide :ramp_planner_new/BezifyRequest "e03bc9c0134f6143a8677879f3852a19")
 
 

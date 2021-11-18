@@ -8,7 +8,7 @@
 Utility utility;
 
 int                 id;
-MotionState         start, goal;
+MotionState         curStartId, curGoalId;
 std::vector<MotionState> pathMotionStates;
 ramp_planner_new::PathPoints pathPoints;
 Path                straightLinePath;
@@ -76,11 +76,6 @@ void initStartGoal(const std::vector<std::vector<float>> points) {
       point.msg_.velocities.push_back(0);
       point.msg_.accelerations.push_back(0);
       point.msg_.jerks.push_back(0);
-    }
-    if(i == 0){
-      start = point;
-    }else if(i == points.size() -1){
-      goal = point;
     }
     pathMotionStates.push_back(point);
     KnotPoint pkp(point);
@@ -203,8 +198,8 @@ void loadParameters(const ros::NodeHandle handle){
 
   std::cout<<"\n------- Done loading parameters -------\n";
     std::cout<<"\n  ID: "<<id;
-    std::cout<<"\n  Start: "<<start.toString();
-    std::cout<<"\n  Goal: "<<goal.toString();
+    // std::cout<<"\n  Start: "<<start.toString();
+    // std::cout<<"\n  Goal: "<<goal.toString();
     std::cout<<"\n  Ranges: ";
     for(uint8_t i=0;i<ranges.size();i++) {
       std::cout<<"\n  "<<i<<": "<<ranges.at(i).toString();
@@ -276,7 +271,7 @@ void pubStartGoalMarkers(){
   origin_marker.color.b = 0;
   origin_marker.color.a = 1;
   origin_marker.lifetime = ros::Duration(120.0);
-  result.markers.push_back(origin_marker);
+  // result.markers.push_back(origin_marker);
 
   ROS_INFO("Waiting for rviz to start...");
   ros::Rate r(100);
@@ -388,9 +383,9 @@ void pubPath(){
 void getTrajectory(ramp_planner_new::TrajectoryRequest msg){
   std::cout<<"getting "<<msg.type<<" trajectory.."<<std::endl;
   if(msg.type == "cubic"){
-      straightLinePath.makeCubicPath(msg.timeNeeded);
+      straightLinePath.makeCubicPath(msg);
   }else{
-      straightLinePath.makeBezierPath(msg.timeNeeded);
+      straightLinePath.makeBezierPath(msg);
   }
   readyToPubPath = true;
 }
@@ -547,13 +542,13 @@ int main(int argc, char** argv) {
   /*
    * check that the start and goal are within specified ranges
    */
-  for(int i=0;i<ranges.size();i++){
-    if( start.msg_.positions[i] < ranges[i].msg_.min || start.msg_.positions[i] > ranges[i].msg_.max ||
-        goal.msg_.positions[i] < ranges[i].msg_.min || goal.msg_.positions[i] > ranges[i].msg_.max ){
-      ROS_ERROR("Either the Start or goal position is not within DOF ranges, exiting ramp_planner");
-      exit(1);
-    }
-  }
+  // for(int i=0;i<ranges.size();i++){
+  //   if( start.msg_.positions[i] < ranges[i].msg_.min || start.msg_.positions[i] > ranges[i].msg_.max ||
+  //       goal.msg_.positions[i] < ranges[i].msg_.min || goal.msg_.positions[i] > ranges[i].msg_.max ){
+  //     ROS_ERROR("Either the Start or goal position is not within DOF ranges, exiting ramp_planner");
+  //     exit(1);
+  //   }
+  // }
   /*
    * all parameters are loaded
    */

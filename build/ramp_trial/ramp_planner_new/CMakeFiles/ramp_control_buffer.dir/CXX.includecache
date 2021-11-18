@@ -43,6 +43,8 @@ ros/message_operations.h
 -
 visualization_msgs/Marker.h
 -
+geometry_msgs/Point.h
+-
 
 /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/TrajectoryRequest.h
 string

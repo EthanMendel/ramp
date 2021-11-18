@@ -76,7 +76,6 @@ void Path::addBeforeGoal(const KnotPoint kp) {
   }
 }
 
-
 /** insert motion state 'ms' into the path at path_size-1 */
 void Path::addBeforeGoal(const MotionState ms) {
   KnotPoint kp(ms);
@@ -154,14 +153,13 @@ void Path::findBezierCoefs(MotionState p0, MotionState p1, MotionState p2){
   }
 }
 
-void Path::makeBezierPath(const double T){
-  const double resolution = T/10.0;
+void Path::makeBezierPath(const ramp_planner_new::TrajectoryRequest msg){
+  const double resolution = msg.timeNeeded/10.0;
   usedT_ = resolution;
-  ROS_INFO("making bezier path...");
-  if(msg_.points.size() >= 3){
-    MotionState p0 = msg_.points.at(0).motionState;//MAKE THESE DYNAMIC START AND GOALS
-    MotionState p1 = msg_.points.at(1).motionState;
-    MotionState p2 = msg_.points.at(2).motionState;
+  if(msg.points.size() >= 3){
+    MotionState p0 = msg.points.at(0);//MAKE THESE DYNAMIC START AND GOALS
+    MotionState p1 = msg.points.at(1);
+    MotionState p2 = msg.points.at(2);
     findBezierCoefs(p0,p1,p2);
 
     for(float t=0;t<=1;t+=resolution){
@@ -189,17 +187,18 @@ void Path::makeBezierPath(const double T){
 
 //from ITCS 5151/8151 (Robotics) 2003, Jing Xiao Handout#3
 //REQUIRES START AND GOAL NODES
-void Path::findCubicCoefs(const double T){
+void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
   order = 3;
+  double T = msg.timeNeeded;
   usedT_ = T;
   type = "cubic";
   for(auto c : coefs){
     c.clear();
   }
   coefs.clear();
-  if(msg_.points.size() >= 2){
-    MotionState start = msg_.points.at(0).motionState;//MAKE THESE DYNAMIC START AND GOALS
-    MotionState goal = msg_.points.at(1).motionState;
+  if(msg.points.size() >= 2){
+    MotionState start = msg.points.at(0);//MAKE THESE DYNAMIC START AND GOALS
+    MotionState goal = msg.points.at(1);
     std::cout<<"start: \t"<<start.toString()<<std::endl;
     std::cout<<"goal: \t"<<goal.toString()<<std::endl;
     for(unsigned int i = 0;i<start.msg_.positions.size();i++){
@@ -216,20 +215,19 @@ void Path::findCubicCoefs(const double T){
   }
 }
 
-void Path::makeCubicPath(const double T){
-  ROS_INFO("making cubic path...");
-  // double T = intT.data; //add some extra cusion here if we want to
-  findCubicCoefs(T);
+void Path::makeCubicPath(const ramp_planner_new::TrajectoryRequest msg){
+  double T = msg.timeNeeded; //add some extra cusion here if we want to
+  findCubicCoefs(msg);
   if(order!=3 && coefs.size() != 4){
     return;
   }
-  double x = msg_.points.at(0).motionState.positions.at(0);
-  double y = msg_.points.at(0).motionState.positions.at(1);
-  double z = msg_.points.at(0).motionState.positions.at(2);
+  double x = msg.points.at(0).x;
+  double y = msg.points.at(0).y;
+  double z = msg.points.at(0).z;
   std::vector<double> starts = {x,y,z};
-  double xInc = (msg_.points.at(msg_.points.size() - 1).motionState.positions.at(0) - x)/T;
-  double yInc = (msg_.points.at(msg_.points.size() - 1).motionState.positions.at(1) - x)/T;
-  double zInc = (msg_.points.at(msg_.points.size() - 1).motionState.positions.at(2) - x)/T;
+  double xInc = (msg.points.at(1).x - x)/T;
+  double yInc = (msg.points.at(1).y - y)/T;
+  double zInc = (msg.points.at(1).z - z)/T;
   std::vector<double> incs = {xInc,yInc,zInc};
 
 

@@ -10,23 +10,27 @@
 
 (in-package "ROS")
 ;;//! \htmlinclude PathPoints.msg.html
+(if (not (find-package "GEOMETRY_MSGS"))
+  (ros::roseus-add-msgs "geometry_msgs"))
 (if (not (find-package "VISUALIZATION_MSGS"))
   (ros::roseus-add-msgs "visualization_msgs"))
 
 
 (defclass ramp_planner_new::PathPoints
   :super ros::object
-  :slots (_markers _types ))
+  :slots (_markers _types _points ))
 
 (defmethod ramp_planner_new::PathPoints
   (:init
    (&key
     ((:markers __markers) ())
     ((:types __types) (let (r) (dotimes (i 0) (push "" r)) r))
+    ((:points __points) ())
     )
    (send-super :init)
    (setq _markers __markers)
    (setq _types __types)
+   (setq _points __points)
    self)
   (:markers
    (&rest __markers)
@@ -38,6 +42,13 @@
   (:types
    (&optional __types)
    (if __types (setq _types __types)) _types)
+  (:points
+   (&rest __points)
+   (if (keywordp (car __points))
+       (send* _points __points)
+     (progn
+       (if __points (setq _points (car __points)))
+       _points)))
   (:serialization-length
    ()
    (+
@@ -45,6 +56,8 @@
     (apply #'+ (send-all _markers :serialization-length)) 4
     ;; string[] _types
     (apply #'+ (mapcar #'(lambda (x) (+ 4 (length x))) _types)) 4
+    ;; geometry_msgs/Point[] _points
+    (apply #'+ (send-all _points :serialization-length)) 4
     ))
   (:serialize
    (&optional strm)
@@ -59,6 +72,11 @@
      (write-long (length _types) s)
      (dolist (elem _types)
        (write-long (length elem) s) (princ elem s)
+       )
+     ;; geometry_msgs/Point[] _points
+     (write-long (length _points) s)
+     (dolist (elem _points)
+       (send elem :serialize s)
        )
      ;;
      (if (null strm) (get-output-stream-string s))))
@@ -78,15 +96,23 @@
      (dotimes (i n)
      (let (n) (setq n (sys::peek buf ptr- :integer)) (incf ptr- 4) (setf (elt _types i) (subseq buf ptr- (+ ptr- n))) (incf ptr- n))
      ))
+   ;; geometry_msgs/Point[] _points
+   (let (n)
+     (setq n (sys::peek buf ptr- :integer)) (incf ptr- 4)
+     (setq _points (let (r) (dotimes (i n) (push (instance geometry_msgs::Point :init) r)) r))
+     (dolist (elem- _points)
+     (send elem- :deserialize buf ptr-) (incf ptr- (send elem- :serialization-length))
+     ))
    ;;
    self)
   )
 
-(setf (get ramp_planner_new::PathPoints :md5sum-) "796d493d850dccac836aab43f7ab7a40")
+(setf (get ramp_planner_new::PathPoints :md5sum-) "502711e923216d4426c784f6f7062440")
 (setf (get ramp_planner_new::PathPoints :datatype-) "ramp_planner_new/PathPoints")
 (setf (get ramp_planner_new::PathPoints :definition-)
       "visualization_msgs/Marker[] markers
 string[] types
+geometry_msgs/Point[] points
 ================================================================================
 MSG: visualization_msgs/Marker
 # See http://www.ros.org/wiki/rviz/DisplayTypes/Marker and http://www.ros.org/wiki/rviz/Tutorials/Markers%3A%20Basic%20Shapes for more information on using this message with rviz
@@ -195,6 +221,6 @@ float32 a
 
 
 
-(provide :ramp_planner_new/PathPoints "796d493d850dccac836aab43f7ab7a40")
+(provide :ramp_planner_new/PathPoints "502711e923216d4426c784f6f7062440")
 
 

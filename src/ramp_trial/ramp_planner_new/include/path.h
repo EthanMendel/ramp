@@ -3,6 +3,7 @@
 #include "knot_point.h"
 #include "ramp_msgs/Path.h"
 #include "ramp_planner_new/TrajectoryRepresentation.h"
+#include "ramp_planner_new/TrajectoryRequest.h"
 
 class Path {
   public:
@@ -42,10 +43,10 @@ class Path {
     const std::string toString() const;
     void findLinearCoefs();
     void makeStraightPath();
-    void findCubicCoefs(const double T);
-    void makeCubicPath(const double T);
+    void findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg);
+    void makeCubicPath(const ramp_planner_new::TrajectoryRequest msg);
     void findBezierCoefs(MotionState p0, MotionState p1, MotionState p2);
-    void makeBezierPath(const double resolution);
+    void makeBezierPath(const ramp_planner_new::TrajectoryRequest msg);
 };
 
 #endif

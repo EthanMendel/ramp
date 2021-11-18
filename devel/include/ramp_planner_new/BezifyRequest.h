@@ -130,12 +130,12 @@ struct MD5Sum< ::ramp_planner_new::BezifyRequest_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "e4f2e0353c794b8d0956ee4b179622e2";
+    return "e03bc9c0134f6143a8677879f3852a19";
   }
 
   static const char* value(const ::ramp_planner_new::BezifyRequest_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0xe4f2e0353c794b8dULL;
-  static const uint64_t static_value2 = 0x0956ee4b179622e2ULL;
+  static const uint64_t static_value1 = 0xe03bc9c0134f6143ULL;
+  static const uint64_t static_value2 = 0xa8677879f3852a19ULL;
 };
 
 template<class ContainerAllocator>
@@ -160,6 +160,7 @@ struct Definition< ::ramp_planner_new::BezifyRequest_<ContainerAllocator> >
 "MSG: ramp_planner_new/PathPoints\n"
 "visualization_msgs/Marker[] markers\n"
 "string[] types\n"
+"geometry_msgs/Point[] points\n"
 "================================================================================\n"
 "MSG: visualization_msgs/Marker\n"
 "# See http://www.ros.org/wiki/rviz/DisplayTypes/Marker and http://www.ros.org/wiki/rviz/Tutorials/Markers%3A%20Basic%20Shapes for more information on using this message with rviz\n"

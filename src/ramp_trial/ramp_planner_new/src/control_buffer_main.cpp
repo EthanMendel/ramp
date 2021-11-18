@@ -71,6 +71,7 @@ void updateStartGoal(){
                     msg.points.push_back(pathPoints.markers.at(i).pose.position);
                     msg.points.push_back(pathPoints.markers.at(i + 1).pose.position);
                     std::cout<<"sending trajectory request"<<std::endl;
+                    // std::cout<<msg<<std::endl;
                     pub_time_needed.publish(msg);
 
                 }

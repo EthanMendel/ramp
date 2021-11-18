@@ -3,4 +3,6 @@
           MARKERS
           TYPES-VAL
           TYPES
+          POINTS-VAL
+          POINTS
 ))
