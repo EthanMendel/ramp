@@ -42,6 +42,7 @@ std::string         update_topic;
 ros::Publisher      pub_markerArray;
 ros::Publisher      pub_coefs;
 ros::Publisher      pub_path_points;
+ros::Publisher      rviz_pub_path_points;
 double              max_angular_vel = 1.5708;
 
 
@@ -287,6 +288,8 @@ void pubStartGoalMarkers(){
   for(unsigned int i=0;i<result.markers.size()-1;i++){
     pps.types.push_back("cubic");
   }
+  rviz_pub_path_points.publish(result);
+  rviz_pub_path_points.publish(result);
   pub_path_points.publish(pps);
   pub_path_points.publish(pps);
   
@@ -383,7 +386,7 @@ void pubPath(){
 }
 
 void getTrajectory(ramp_planner_new::TrajectoryRequest msg){
-  std::cout<<"getting trajectory.."<<std::endl;
+  std::cout<<"getting "<<msg.type<<" trajectory.."<<std::endl;
   if(msg.type == "cubic"){
       straightLinePath.makeCubicPath(msg.timeNeeded);
   }else{
@@ -510,6 +513,10 @@ void bezify(const ramp_planner_new::BezifyRequest& br){
     std::cout<<"**found good bezier**"<<std::endl;
     pathPoints = addControlPoints(m1,cp1,cp2);
   }
+  visualization_msgs::MarkerArray ma;
+  ma.markers = pathPoints.markers;
+  rviz_pub_path_points.publish(ma);
+  rviz_pub_path_points.publish(ma);
   pub_path_points.publish(pathPoints);
   pub_path_points.publish(pathPoints);
 }
@@ -531,7 +538,8 @@ int main(int argc, char** argv) {
   pub_markerArray = handle.advertise<visualization_msgs::MarkerArray>("visualization_marker_array", 10);
   pub_coefs = handle.advertise<ramp_planner_new::TrajectoryRepresentation>("coef_channel", 10);
   pub_path_points = handle.advertise<ramp_planner_new::PathPoints>("path_points_channel",10);
-  // handle.subscribe("/time_needed", 1, getTrajectory);
+  rviz_pub_path_points = handle.advertise<visualization_msgs::MarkerArray>("rviz_path_points",10);
+  ros::Subscriber trajReq = handle.subscribe("/traj_req", 1, getTrajectory);
   ros::Subscriber bezifyListener  = handle.subscribe("bezify_request", 1, bezify);
 
   ros::Duration d(0.5);

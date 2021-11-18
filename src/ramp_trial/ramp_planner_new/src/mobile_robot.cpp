@@ -232,6 +232,8 @@ void MobileRobot::moveOnTrajectory()
       ros::spinOnce();
     } // end while
     std::cout<<"finished full path portion"<<std::endl;
+    seg_step_ = 0;
+    time_step_ = 0;
     cubic_.active = 0;
     std_msgs::Bool msg;
     msg.data = true;

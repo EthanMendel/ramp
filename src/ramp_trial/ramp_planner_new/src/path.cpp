@@ -184,7 +184,7 @@ void Path::makeBezierPath(const double T){
       msg_.points.push_back(kp.buildKnotPointMsg());
     }
   }
-  std::cout<<"Full path has "<<msg_.points.size()<<" points\n";
+  std::cout<<"Bezier path has "<<msg_.points.size()<<" points\n";
 }
 
 //from ITCS 5151/8151 (Robotics) 2003, Jing Xiao Handout#3

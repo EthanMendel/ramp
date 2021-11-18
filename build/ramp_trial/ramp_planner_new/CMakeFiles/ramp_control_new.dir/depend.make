@@ -177,6 +177,9 @@ ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/MotionState.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/Path.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/RampTrajectory.h
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/Coefficient.h
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/TrajectoryRepresentation.h
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/TrajectoryRequest.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/mobile_robot.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/mobile_robot.cpp
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp.o: /opt/ros/noetic/include/geometry_msgs/Point.h

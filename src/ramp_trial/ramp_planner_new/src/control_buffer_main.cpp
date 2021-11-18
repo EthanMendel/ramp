@@ -30,8 +30,15 @@ bool needBezify(const unsigned int j){
     //type indexes are based on start index
     if(j > 0 and j < pathPoints.markers.size() - 1){
         //return whether both types involving the inputed point are cubic (linear)
-        return pathPoints.types.at(j-1) == "cubic" && pathPoints.types.at(j) == "cubic";
+        if(pathPoints.types.at(j-1) == "cubic" && pathPoints.types.at(j) == "cubic"){
+            std::cout<<"two cubics side by side"<<std::endl;
+            return true;
+        }else{
+            std::cout<<"cubic and bezier side by side"<<std::endl;
+            return false;
+        }
     }else{
+        std::cout<<"at begining or end of path"<<std::endl;
         return false;
     }
 }
@@ -63,7 +70,7 @@ void updateStartGoal(){
                     }
                     msg.points.push_back(pathPoints.markers.at(i).pose.position);
                     msg.points.push_back(pathPoints.markers.at(i + 1).pose.position);
-                    std::cout<<"Trajectory Request:\n"<<msg<<std::endl;
+                    std::cout<<"sending trajectory request"<<std::endl;
                     pub_time_needed.publish(msg);
 
                 }
@@ -98,7 +105,7 @@ int main(int argc, char** argv) {
   ros::Subscriber pathPointsListener  = handle.subscribe("path_points_channel", 1, pathPointsCallback);
   ros::Subscriber readyNextListener = handle.subscribe("ready_next", 1, getNextPoint);
   pub_path_points = handle.advertise<visualization_msgs::MarkerArray>("start_goal_channel",10);
-  pub_time_needed = handle.advertise<ramp_planner_new::TrajectoryRequest>("/time_needed",1);
+  pub_time_needed = handle.advertise<ramp_planner_new::TrajectoryRequest>("/traj_req",1);
   pub_bezify_request = handle.advertise<ramp_planner_new::BezifyRequest>("/bezify_request",1);
   setvbuf(stdout, NULL, _IOLBF, 4096);
 

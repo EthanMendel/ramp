@@ -9,6 +9,7 @@ class MotionState {
     MotionState();
     MotionState(const ramp_msgs::MotionState ms);
     MotionState(const trajectory_msgs::JointTrajectoryPoint p);
+    MotionState(const geometry_msgs::Point p);
 
 
     /***** Data Members *****/

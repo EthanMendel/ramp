@@ -4,6 +4,11 @@ MotionState::MotionState() : mobile_base_k_(2) {
   msg_.time = -1;
 }
 
+MotionState::MotionState(const geometry_msgs::Point p) : mobile_base_k_(2){
+  msg_.positions.push_back(p.x);
+  msg_.positions.push_back(p.y);
+  msg_.positions.push_back(p.z);
+}
 
 MotionState::MotionState(const trajectory_msgs::JointTrajectoryPoint p) : mobile_base_k_(2) {
   for(unsigned int i=0;i<p.positions.size();i++) {
