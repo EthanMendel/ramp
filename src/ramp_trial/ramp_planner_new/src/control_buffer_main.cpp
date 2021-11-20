@@ -67,6 +67,7 @@ void updateStartGoal(){
                     }else{
                         msg.timeNeeded = 1;
                         msg.type = "bezier";
+                        msg.points.push_back(pathPoints.markers.at(i - 1).pose.position);
                     }
                     msg.points.push_back(pathPoints.markers.at(i).pose.position);
                     msg.points.push_back(pathPoints.markers.at(i + 1).pose.position);
