@@ -611,6 +611,8 @@ ramp_planner_new/TrajectoryRepresentation.h
 /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/ramp_planner_new/TrajectoryRepresentation.h
 ramp_planner_new/TrajectoryRequest.h
 /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/ramp_planner_new/TrajectoryRequest.h
+ramp_planner_new/PathPoints.h
+/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/ramp_planner_new/PathPoints.h
 
 /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/planner.h
 ros/ros.h

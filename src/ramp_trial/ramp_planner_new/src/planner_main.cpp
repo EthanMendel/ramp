@@ -8,7 +8,7 @@
 Utility utility;
 
 int                 id;
-MotionState         curStartId, curGoalId;
+int                 curStartId, curGoalId;
 std::vector<MotionState> pathMotionStates;
 ramp_planner_new::PathPoints pathPoints;
 Path                straightLinePath;
@@ -382,6 +382,8 @@ void pubPath(){
 
 void getTrajectory(ramp_planner_new::TrajectoryRequest msg){
   std::cout<<"getting "<<msg.type<<" trajectory.."<<std::endl;
+  std::cout<<"start:\n"<<msg.points.at(0)<<std::endl;
+  std::cout<<"goal:\n"<<msg.points.at(1)<<std::endl;
   if(msg.type == "cubic"){
       straightLinePath.makeCubicPath(msg);
   }else{
@@ -468,6 +470,9 @@ ramp_planner_new::PathPoints addControlPoints(visualization_msgs::Marker m, geom
     ramp_planner_new::PathPoints result;
     result.markers = maRes.markers;
     result.types = tRes;
+    for(unsigned int i=0;i<result.markers.size();i++){
+      result.points.push_back(result.markers.at(i).pose.position);
+    }
     return result;
 }
 
@@ -507,6 +512,7 @@ void bezify(const ramp_planner_new::BezifyRequest& br){
     }
     std::cout<<"**found good bezier**"<<std::endl;
     pathPoints = addControlPoints(m1,cp1,cp2);
+    straightLinePath.setPathPoints(pathPoints);
   }
   visualization_msgs::MarkerArray ma;
   ma.markers = pathPoints.markers;

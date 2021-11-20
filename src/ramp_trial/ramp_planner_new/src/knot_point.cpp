@@ -9,6 +9,8 @@ KnotPoint::KnotPoint(const ramp_msgs::KnotPoint kp) {
   stopTime_ = kp.stopTime;
 }
 
+KnotPoint::KnotPoint(const geometry_msgs::Point p) : motionState_(p), stopTime_(0) {}
+
 const bool KnotPoint::equals(const KnotPoint& kp, const double& epsilon) const {
   if(!motionState_.equals(kp.motionState_, epsilon)) {
     return false;

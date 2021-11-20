@@ -282,6 +282,7 @@ ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/path.cpp.o: /hom
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/path.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/RampTrajectory.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/path.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_msgs/Range.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/path.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/Coefficient.h
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/path.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/PathPoints.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/path.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/TrajectoryRepresentation.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/path.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/TrajectoryRequest.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/path.cpp.o: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/knot_point.h
@@ -371,6 +372,7 @@ ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/path.cpp.o: /opt
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/path.cpp.o: /opt/ros/noetic/include/sensor_msgs/ChannelFloat32.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/path.cpp.o: /opt/ros/noetic/include/sensor_msgs/PointCloud.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/path.cpp.o: /opt/ros/noetic/include/std_msgs/Bool.h
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/path.cpp.o: /opt/ros/noetic/include/std_msgs/ColorRGBA.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/path.cpp.o: /opt/ros/noetic/include/std_msgs/Empty.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/path.cpp.o: /opt/ros/noetic/include/std_msgs/Header.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/path.cpp.o: /opt/ros/noetic/include/tf/FrameGraph.h
@@ -406,6 +408,7 @@ ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/path.cpp.o: /opt
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/path.cpp.o: /opt/ros/noetic/include/tf2_ros/transform_listener.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/path.cpp.o: /opt/ros/noetic/include/trajectory_msgs/JointTrajectory.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/path.cpp.o: /opt/ros/noetic/include/trajectory_msgs/JointTrajectoryPoint.h
+ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/path.cpp.o: /opt/ros/noetic/include/visualization_msgs/Marker.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/path.cpp.o: /opt/ros/noetic/include/xmlrpcpp/XmlRpcDecl.h
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/path.cpp.o: /opt/ros/noetic/include/xmlrpcpp/XmlRpcValue.h
 

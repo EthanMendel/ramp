@@ -4,6 +4,7 @@
 #include "ramp_msgs/Path.h"
 #include "ramp_planner_new/TrajectoryRepresentation.h"
 #include "ramp_planner_new/TrajectoryRequest.h"
+#include "ramp_planner_new/PathPoints.h"
 
 class Path {
   public:
@@ -35,6 +36,8 @@ class Path {
     const KnotPoint at(const uint8_t i) const;
     void addBeforeGoal(const KnotPoint kp);
     void addBeforeGoal(const MotionState kp);
+    void addBefore(const KnotPoint kp, const KnotPoint b);
+    void addBefore(const MotionState ms, const MotionState bms);
     void changeStart(const MotionState ms);
     void offsetPositions(const MotionState diff);
     const unsigned int size() const;
@@ -47,6 +50,7 @@ class Path {
     void makeCubicPath(const ramp_planner_new::TrajectoryRequest msg);
     void findBezierCoefs(MotionState p0, MotionState p1, MotionState p2);
     void makeBezierPath(const ramp_planner_new::TrajectoryRequest msg);
+    void setPathPoints(const ramp_planner_new::PathPoints pp);
 };
 
 #endif

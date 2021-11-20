@@ -70,7 +70,7 @@ void Path::offsetPositions(const MotionState diff){
 
 void Path::addBeforeGoal(const KnotPoint kp) {
   if(msg_.points.size() > 0) {
-    msg_.points.insert(msg_.points.end()-2, kp.buildKnotPointMsg());
+    msg_.points.insert(msg_.points.end()-1, kp.buildKnotPointMsg());
   }else {
     msg_.points.push_back(kp.buildKnotPointMsg());
   }
@@ -80,6 +80,27 @@ void Path::addBeforeGoal(const KnotPoint kp) {
 void Path::addBeforeGoal(const MotionState ms) {
   KnotPoint kp(ms);
   addBeforeGoal(kp);
+}
+
+void Path::addBefore(const KnotPoint kp, const KnotPoint b){
+  for(unsigned int i=0;i<msg_.points.size();i++){
+    if(b.equals(msg_.points.at(i))){
+      std::cout<<"found matching kp"<<std::endl;
+      msg_.points.insert(msg_.points.begin() + i,kp.buildKnotPointMsg());
+      return;
+    }
+  }
+  std::cout<<"&&found no matching kp&&"<<std::endl;
+  std::cout<<b.motionState_.toString()<<std::endl;
+  std::cout<<"--"<<std::endl;
+  std::cout<<msg_.points.at(1).motionState<<std::endl;
+}
+
+/** insert motion state 'ms' into the path before the specified element */
+void Path::addBefore(const MotionState ms, const MotionState bms) {
+  KnotPoint kp(ms);
+  KnotPoint b(bms);
+  addBefore(kp,b);
 }
 
 void Path::changeStart(const MotionState ms) {
@@ -178,8 +199,7 @@ void Path::makeBezierPath(const ramp_planner_new::TrajectoryRequest msg){
       // std::cout<<"point #"<<t+1<<"\t("<<ms.msg_.velocities.at(0)<<",\t"<<ms.msg_.velocities.at(1)<<",\t"<<ms.msg_.velocities.at(2)<<")\n";
       // MANUALLY CHANGED TO -2 BECAUSE OF WAYPOINT
       // MUST MAKE DYNAMIC
-      KnotPoint kp(ms);
-      msg_.points.push_back(kp.buildKnotPointMsg());
+      addBefore(ms,msg.points.at(1));
     }
   }
   std::cout<<"Bezier path has "<<msg_.points.size()<<" points\n";
@@ -199,8 +219,6 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
   if(msg.points.size() >= 2){
     MotionState start = msg.points.at(0);//MAKE THESE DYNAMIC START AND GOALS
     MotionState goal = msg.points.at(1);
-    std::cout<<"start: \t"<<start.toString()<<std::endl;
-    std::cout<<"goal: \t"<<goal.toString()<<std::endl;
     for(unsigned int i = 0;i<start.msg_.positions.size();i++){
       std::vector<double> hold;
       hold.push_back( (-2/pow(T,3))*(goal.msg_.positions.at(i) - start.msg_.positions.at(i)) + (1/pow(T,2))*(start.msg_.velocities.at(i) + goal.msg_.velocities.at(i)) );
@@ -246,8 +264,17 @@ void Path::makeCubicPath(const ramp_planner_new::TrajectoryRequest msg){
     // std::cout<<"point #"<<t+1<<"\t("<<ms.msg_.positions.at(0)<<",\t"<<ms.msg_.positions.at(1)<<",\t"<<ms.msg_.positions.at(2)<<")\n";
     // MANUALLY CHANGED TO -2 BECAUSE OF WAYPOINT
     // MUST MAKE DYNAMIC
-    addBeforeGoal(ms);
+    addBefore(ms,msg.points.at(1));
   }
   std::cout<<"Cubic path has "<<msg_.points.size()<<" points\n";
   // std::cout<<"msg_:\n"<<buildPathMsg()<<std::endl;
+}
+
+void Path::setPathPoints(const ramp_planner_new::PathPoints pp){
+  msg_.points.clear();
+  std::cout<<pp.points.size()<<std::endl;
+  for(unsigned int i=0;i<pp.points.size();i++){
+    KnotPoint kp(pp.points.at(i));
+    msg_.points.push_back(kp.buildKnotPointMsg());
+  }
 }

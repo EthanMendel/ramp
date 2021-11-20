@@ -10,6 +10,7 @@ class KnotPoint {
     KnotPoint(); 
     KnotPoint(const MotionState mp);
     KnotPoint(const ramp_msgs::KnotPoint kp);
+    KnotPoint(const geometry_msgs::Point p);
     ~KnotPoint() {}
 
     // We will keep the motion state data as a class object because MotionState class has useful methods
