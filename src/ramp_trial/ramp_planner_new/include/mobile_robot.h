@@ -75,7 +75,7 @@ class MobileRobot
   void                        calculateSpeedsAndTime();
   void                        printVectors() const;
   const bool                  checkImminentCollision();
-  geometry_msgs::Twist        calculateVelocities(const std::vector<ramp_planner_new::Coefficient> coefs, int t);
+  void                        calculateVelocities(const std::vector<ramp_planner_new::Coefficient> coefs, int t);
 
 
   /** Data Members **/

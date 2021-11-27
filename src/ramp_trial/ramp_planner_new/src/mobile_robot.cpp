@@ -102,20 +102,22 @@ void MobileRobot::updateCubic(const ramp_planner_new::TrajectoryRepresentation& 
 void MobileRobot::setNextTwist() 
 {
   // Update vectors for speeds and times
-    twist_ = calculateVelocities(cubic_.coefficients, seg_step_);
+    calculateVelocities(cubic_.coefficients, seg_step_);
 } // End updateTrajectory
 
-geometry_msgs::Twist MobileRobot::calculateVelocities(const std::vector<ramp_planner_new::Coefficient> coefs, int t){
-  geometry_msgs::Twist twist;
-
-  twist.linear.x = 3*coefs.at(0).values.at(0)*pow(t,2) + 2*coefs.at(0).values.at(1)*(t) + coefs.at(0).values.at(2);
-  twist.linear.y = 3*coefs.at(1).values.at(0)*pow(t,2) + 2*coefs.at(1).values.at(1)*(t) + coefs.at(1).values.at(2);
-  twist.linear.z = 3*coefs.at(2).values.at(0)*pow(t,2) + 2*coefs.at(2).values.at(1)*(t) + coefs.at(2).values.at(2);
-  twist.angular.x = 0;
-  twist.angular.y = 0;
-  twist.angular.z = 0;
-
-  return twist;
+void MobileRobot::calculateVelocities(const std::vector<ramp_planner_new::Coefficient> coefs, int t){
+  if(cubic_.type == "cubic"){
+    twist_.linear.x = 3*coefs.at(0).values.at(0)*pow(t,2) + 2*coefs.at(0).values.at(1)*(t) + coefs.at(0).values.at(2);
+    twist_.linear.y = 3*coefs.at(1).values.at(0)*pow(t,2) + 2*coefs.at(1).values.at(1)*(t) + coefs.at(1).values.at(2);
+    twist_.linear.z = 3*coefs.at(2).values.at(0)*pow(t,2) + 2*coefs.at(2).values.at(1)*(t) + coefs.at(2).values.at(2);
+  }else{
+    twist_.angular.x = ( 2*(coefs.at(0).values.at(0) - coefs.at(0).values.at(1) + coefs.at(0).values.at(2))*t +
+                          2*(coefs.at(0).values.at(1)/2 - coefs.at(0).values.at(0)) );
+    twist_.angular.y = ( 2*(coefs.at(1).values.at(0) - coefs.at(1).values.at(1) + coefs.at(1).values.at(2))*t +
+                          2*(coefs.at(1).values.at(1)/2 - coefs.at(1).values.at(0)) );
+    twist_.angular.z = ( 2*(coefs.at(2).values.at(0) - coefs.at(2).values.at(1) + coefs.at(2).values.at(2))*t +
+                          2*(coefs.at(2).values.at(1)/2 - coefs.at(2).values.at(0)) );
+  }
 }
 
 void MobileRobot::sendTwist() const 
