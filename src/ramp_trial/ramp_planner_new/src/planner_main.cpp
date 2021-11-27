@@ -395,14 +395,22 @@ void getTrajectory(ramp_planner_new::TrajectoryRequest msg){
 bool acceptableAngTime(const geometry_msgs::Point& p0, const geometry_msgs::Point p1, const geometry_msgs::Point p2){
     const double resolution = 1/10.0;
     straightLinePath.findBezierCoefs(p0,p1,p2);
+    double A1 = 2*(straightLinePath.coefs.at(0).at(0) - straightLinePath.coefs.at(0).at(1) + straightLinePath.coefs.at(0).at(2));
+    double B1 = 2*(straightLinePath.coefs.at(1).at(0) - straightLinePath.coefs.at(1).at(1) + straightLinePath.coefs.at(1).at(2));
+    double A2 = 2*((straightLinePath.coefs.at(0).at(1)/2)-straightLinePath.coefs.at(0).at(0));
+    double B2 = 2*((straightLinePath.coefs.at(1).at(1)/2)-straightLinePath.coefs.at(1).at(0));
+    if(A1 == 0 || B1 == 0 || A2 == 0 || B2 == 0){
+      return false;
+    }
+    double t = - ((A1*A2 + B1*B2) / (pow(A1,2) + pow(B1,2))); //point of maximum angular velocity
 
-    for(float t=0;t<=1;t+=resolution){
-        for(unsigned int j=0;j<3;j++){//3=DOF
-            //not sure if this is the right calculation for angular velocity
-            double vel =(-2*(1-t)*(straightLinePath.coefs.at(j).at(1))) + (2*t*(straightLinePath.coefs.at(j).at(2)));        
-            if(vel > max_angular_vel){
-                return false;
-            }
+    for(unsigned int j=0;j<3;j++){//3=DOF (x,y,z)
+        double A1 = 2*(straightLinePath.coefs.at(j).at(0) - straightLinePath.coefs.at(j).at(1) + straightLinePath.coefs.at(j).at(2));
+        double A2 = 2*((straightLinePath.coefs.at(j).at(1)/2)-straightLinePath.coefs.at(j).at(0));
+
+        double vel =((A1*t + A2)/*multiply by t'*/);
+        if(vel > max_angular_vel){
+            return false;
         }
     }
     return true;
