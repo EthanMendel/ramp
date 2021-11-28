@@ -11,8 +11,8 @@ const _deserializer = _ros_msg_utils.Deserialize;
 const _arrayDeserializer = _deserializer.Array;
 const _finder = _ros_msg_utils.Find;
 const _getByteLength = _ros_msg_utils.getByteLength;
-let geometry_msgs = _finder('geometry_msgs');
 let visualization_msgs = _finder('visualization_msgs');
+let geometry_msgs = _finder('geometry_msgs');
 
 //-----------------------------------------------------------
 
@@ -23,6 +23,7 @@ class PathPoints {
       this.markers = null;
       this.types = null;
       this.points = null;
+      this.forBez = null;
     }
     else {
       if (initObj.hasOwnProperty('markers')) {
@@ -43,6 +44,12 @@ class PathPoints {
       else {
         this.points = [];
       }
+      if (initObj.hasOwnProperty('forBez')) {
+        this.forBez = initObj.forBez
+      }
+      else {
+        this.forBez = [];
+      }
     }
   }
 
@@ -62,6 +69,8 @@ class PathPoints {
     obj.points.forEach((val) => {
       bufferOffset = geometry_msgs.msg.Point.serialize(val, buffer, bufferOffset);
     });
+    // Serialize message field [forBez]
+    bufferOffset = _arraySerializer.bool(obj.forBez, buffer, bufferOffset, null);
     return bufferOffset;
   }
 
@@ -85,6 +94,8 @@ class PathPoints {
     for (let i = 0; i < len; ++i) {
       data.points[i] = geometry_msgs.msg.Point.deserialize(buffer, bufferOffset)
     }
+    // Deserialize message field [forBez]
+    data.forBez = _arrayDeserializer.bool(buffer, bufferOffset, null)
     return data;
   }
 
@@ -97,7 +108,8 @@ class PathPoints {
       length += 4 + _getByteLength(val);
     });
     length += 24 * object.points.length;
-    return length + 12;
+    length += object.forBez.length;
+    return length + 16;
   }
 
   static datatype() {
@@ -107,7 +119,7 @@ class PathPoints {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '502711e923216d4426c784f6f7062440';
+    return 'deacbf5af4a4c6509a8c5617867d78b0';
   }
 
   static messageDefinition() {
@@ -116,6 +128,7 @@ class PathPoints {
     visualization_msgs/Marker[] markers
     string[] types
     geometry_msgs/Point[] points
+    bool[] forBez
     ================================================================================
     MSG: visualization_msgs/Marker
     # See http://www.ros.org/wiki/rviz/DisplayTypes/Marker and http://www.ros.org/wiki/rviz/Tutorials/Markers%3A%20Basic%20Shapes for more information on using this message with rviz
@@ -254,6 +267,13 @@ class PathPoints {
     }
     else {
       resolved.points = []
+    }
+
+    if (msg.forBez !== undefined) {
+      resolved.forBez = msg.forBez;
+    }
+    else {
+      resolved.forBez = []
     }
 
     return resolved;

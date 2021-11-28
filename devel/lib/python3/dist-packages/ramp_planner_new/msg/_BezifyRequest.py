@@ -13,7 +13,7 @@ import std_msgs.msg
 import visualization_msgs.msg
 
 class BezifyRequest(genpy.Message):
-  _md5sum = "e03bc9c0134f6143a8677879f3852a19"
+  _md5sum = "11bb1ea662a7427a6696b9952d064e57"
   _type = "ramp_planner_new/BezifyRequest"
   _has_header = False  # flag to mark the presence of a Header object
   _full_text = """ramp_planner_new/PathPoints pathPoints
@@ -23,6 +23,7 @@ MSG: ramp_planner_new/PathPoints
 visualization_msgs/Marker[] markers
 string[] types
 geometry_msgs/Point[] points
+bool[] forBez
 ================================================================================
 MSG: visualization_msgs/Marker
 # See http://www.ros.org/wiki/rviz/DisplayTypes/Marker and http://www.ros.org/wiki/rviz/Tutorials/Markers%3A%20Basic%20Shapes for more information on using this message with rviz
@@ -245,6 +246,10 @@ float32 a
       for val1 in self.pathPoints.points:
         _x = val1
         buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
+      length = len(self.pathPoints.forBez)
+      buff.write(_struct_I.pack(length))
+      pattern = '<%sB'%length
+      buff.write(struct.Struct(pattern).pack(*self.pathPoints.forBez))
       length = len(self.markers)
       buff.write(_struct_I.pack(length))
       for val1 in self.markers:
@@ -467,6 +472,15 @@ float32 a
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])
+      pattern = '<%sB'%length
+      start = end
+      s = struct.Struct(pattern)
+      end += s.size
+      self.pathPoints.forBez = s.unpack(str[start:end])
+      self.pathPoints.forBez = list(map(bool, self.pathPoints.forBez))
+      start = end
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
       self.markers = []
       for i in range(0, length):
         val1 = visualization_msgs.msg.Marker()
@@ -666,6 +680,10 @@ float32 a
       for val1 in self.pathPoints.points:
         _x = val1
         buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
+      length = len(self.pathPoints.forBez)
+      buff.write(_struct_I.pack(length))
+      pattern = '<%sB'%length
+      buff.write(self.pathPoints.forBez.tostring())
       length = len(self.markers)
       buff.write(_struct_I.pack(length))
       for val1 in self.markers:
@@ -886,6 +904,15 @@ float32 a
         end += 24
         (_x.x, _x.y, _x.z,) = _get_struct_3d().unpack(str[start:end])
         self.pathPoints.points.append(val1)
+      start = end
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      pattern = '<%sB'%length
+      start = end
+      s = struct.Struct(pattern)
+      end += s.size
+      self.pathPoints.forBez = numpy.frombuffer(str[start:end], dtype=numpy.bool, count=length)
+      self.pathPoints.forBez = list(map(bool, self.pathPoints.forBez))
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])

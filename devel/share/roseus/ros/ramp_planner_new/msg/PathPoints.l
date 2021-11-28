@@ -18,7 +18,7 @@
 
 (defclass ramp_planner_new::PathPoints
   :super ros::object
-  :slots (_markers _types _points ))
+  :slots (_markers _types _points _forBez ))
 
 (defmethod ramp_planner_new::PathPoints
   (:init
@@ -26,11 +26,13 @@
     ((:markers __markers) ())
     ((:types __types) (let (r) (dotimes (i 0) (push "" r)) r))
     ((:points __points) ())
+    ((:forBez __forBez) (let (r) (dotimes (i 0) (push nil r)) r))
     )
    (send-super :init)
    (setq _markers __markers)
    (setq _types __types)
    (setq _points __points)
+   (setq _forBez __forBez)
    self)
   (:markers
    (&rest __markers)
@@ -49,6 +51,9 @@
      (progn
        (if __points (setq _points (car __points)))
        _points)))
+  (:forBez
+   (&optional __forBez)
+   (if __forBez (setq _forBez __forBez)) _forBez)
   (:serialization-length
    ()
    (+
@@ -58,6 +63,8 @@
     (apply #'+ (mapcar #'(lambda (x) (+ 4 (length x))) _types)) 4
     ;; geometry_msgs/Point[] _points
     (apply #'+ (send-all _points :serialization-length)) 4
+    ;; bool[] _forBez
+    (* 1    (length _forBez)) 4
     ))
   (:serialize
    (&optional strm)
@@ -77,6 +84,11 @@
      (write-long (length _points) s)
      (dolist (elem _points)
        (send elem :serialize s)
+       )
+     ;; bool[] _forBez
+     (write-long (length _forBez) s)
+     (dotimes (i (length _forBez))
+       (if (elt _forBez i) (write-byte -1 s) (write-byte 0 s))
        )
      ;;
      (if (null strm) (get-output-stream-string s))))
@@ -103,16 +115,24 @@
      (dolist (elem- _points)
      (send elem- :deserialize buf ptr-) (incf ptr- (send elem- :serialization-length))
      ))
+   ;; bool[] _forBez
+   (let (n)
+     (setq n (sys::peek buf ptr- :integer)) (incf ptr- 4)
+     (setq _forBez (make-list n))
+     (dotimes (i n)
+     (setf (elt _forBez i) (not (= 0 (sys::peek buf ptr- :char)))) (incf ptr- 1)
+     ))
    ;;
    self)
   )
 
-(setf (get ramp_planner_new::PathPoints :md5sum-) "502711e923216d4426c784f6f7062440")
+(setf (get ramp_planner_new::PathPoints :md5sum-) "deacbf5af4a4c6509a8c5617867d78b0")
 (setf (get ramp_planner_new::PathPoints :datatype-) "ramp_planner_new/PathPoints")
 (setf (get ramp_planner_new::PathPoints :definition-)
       "visualization_msgs/Marker[] markers
 string[] types
 geometry_msgs/Point[] points
+bool[] forBez
 ================================================================================
 MSG: visualization_msgs/Marker
 # See http://www.ros.org/wiki/rviz/DisplayTypes/Marker and http://www.ros.org/wiki/rviz/Tutorials/Markers%3A%20Basic%20Shapes for more information on using this message with rviz
@@ -221,6 +241,6 @@ float32 a
 
 
 
-(provide :ramp_planner_new/PathPoints "502711e923216d4426c784f6f7062440")
+(provide :ramp_planner_new/PathPoints "deacbf5af4a4c6509a8c5617867d78b0")
 
 

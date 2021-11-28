@@ -84,7 +84,7 @@ class BezifyRequest {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return 'e03bc9c0134f6143a8677879f3852a19';
+    return '11bb1ea662a7427a6696b9952d064e57';
   }
 
   static messageDefinition() {
@@ -97,6 +97,7 @@ class BezifyRequest {
     visualization_msgs/Marker[] markers
     string[] types
     geometry_msgs/Point[] points
+    bool[] forBez
     ================================================================================
     MSG: visualization_msgs/Marker
     # See http://www.ros.org/wiki/rviz/DisplayTypes/Marker and http://www.ros.org/wiki/rviz/Tutorials/Markers%3A%20Basic%20Shapes for more information on using this message with rviz

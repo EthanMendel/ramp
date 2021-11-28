@@ -282,7 +282,9 @@ void pubStartGoalMarkers(){
   pps.markers = result.markers;
   for(unsigned int i=0;i<result.markers.size()-1;i++){
     pps.types.push_back("cubic");
+    pps.forBez.push_back(true);
   }
+  pps.forBez.push_back(true);//extra needed from above
   rviz_pub_path_points.publish(result);
   rviz_pub_path_points.publish(result);
   pub_path_points.publish(pps);
@@ -299,6 +301,7 @@ void pubPath(){
   }
 
   for(unsigned int i=0;i<straightLinePath.msg_.points.size()-1;i++) {
+    // std::cout<<straightLinePath.msg_.points.at(i).motionState.positions.at(0)<<" "<<straightLinePath.msg_.points.at(i).motionState.positions.at(1)<<std::endl;
     // markers for both positions
     visualization_msgs::Marker mp_marker;
 
@@ -452,6 +455,7 @@ visualization_msgs::Marker makeMarker(geometry_msgs::Point p, int id){
 ramp_planner_new::PathPoints addControlPoints(visualization_msgs::Marker m, geometry_msgs::Point cp1, geometry_msgs::Point cp2){
     visualization_msgs::MarkerArray maRes;
     std::vector<std::string> tRes;
+    std::vector<unsigned char> bRes;
     int replaceId = -1;
     bool replaced = false;
     for(unsigned int i=0;i<pathPoints.markers.size();i++){
@@ -459,25 +463,33 @@ ramp_planner_new::PathPoints addControlPoints(visualization_msgs::Marker m, geom
             if(pathPoints.markers.at(i) == m){
                 replaceId = m.id - i;
                 maRes.markers.push_back(makeMarker(cp1,replaceId + i));
-                maRes.markers.push_back(makeMarker(cp2,replaceId + i + 1));
+                pathPoints.markers.at(i).id = replaceId + i + 1;
+                maRes.markers.push_back(pathPoints.markers.at(i));
+                maRes.markers.push_back(makeMarker(cp2,replaceId + i + 2));
                 tRes.push_back("bezier");
                 tRes.push_back(pathPoints.types.at(i));
+                bRes.push_back(true);
+                bRes.push_back(false);
+                bRes.push_back(true);
                 replaced = true;
             }else{
                 maRes.markers.push_back(pathPoints.markers.at(i));
                 tRes.push_back(pathPoints.types.at(i));
+                bRes.push_back(pathPoints.forBez.at(i));
             }
         }else{
-            pathPoints.markers.at(i).id = replaceId + i + 1;
+            pathPoints.markers.at(i).id = replaceId + i + 2;
             maRes.markers.push_back(pathPoints.markers.at(i));
             if(i < pathPoints.types.size()){
                 tRes.push_back(pathPoints.types.at(i));
             }
+            bRes.push_back(pathPoints.forBez.at(i));
         }
     }
     ramp_planner_new::PathPoints result;
     result.markers = maRes.markers;
     result.types = tRes;
+    result.forBez = bRes;
     for(unsigned int i=0;i<result.markers.size();i++){
       result.points.push_back(result.markers.at(i).pose.position);
     }

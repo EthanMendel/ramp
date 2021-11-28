@@ -85,7 +85,7 @@ void Path::addBeforeGoal(const MotionState ms) {
 void Path::addBefore(const KnotPoint kp, const KnotPoint b){
   for(unsigned int i=0;i<msg_.points.size();i++){
     if(b.equals(msg_.points.at(i))){
-      std::cout<<"found matching kp"<<std::endl;
+      // std::cout<<"found matching kp"<<std::endl;
       msg_.points.insert(msg_.points.begin() + i,kp.buildKnotPointMsg());
       return;
     }
@@ -273,9 +273,11 @@ void Path::makeCubicPath(const ramp_planner_new::TrajectoryRequest msg){
 
 void Path::setPathPoints(const ramp_planner_new::PathPoints pp){
   msg_.points.clear();
-  std::cout<<pp.points.size()<<std::endl;
+  // std::cout<<pp.points.size()<<std::endl;
   for(unsigned int i=0;i<pp.points.size();i++){
-    KnotPoint kp(pp.points.at(i));
-    msg_.points.push_back(kp.buildKnotPointMsg());
+    if(pp.forBez.at(i)){
+      KnotPoint kp(pp.points.at(i));
+      msg_.points.push_back(kp.buildKnotPointMsg());
+    }
   }
 }

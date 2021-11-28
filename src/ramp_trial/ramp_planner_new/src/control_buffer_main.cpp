@@ -45,8 +45,18 @@ bool needBezify(const unsigned int j){
 
 void updateStartGoal(){
     curStartGoal.markers.clear();
+    // std::cout<<"pathPoints\n\t"<<
+    //     pathPoints.markers.size()<<" markers\n\t"<<
+    //     pathPoints.points.size()<<" points\n\t"<<
+    //     pathPoints.forBez.size()<<" bez points\n\t"<<
+    //     pathPoints.types.size()<<" segments"<<std::endl;
+    unsigned int j=0;
     for(unsigned int i=0;i<pathPoints.markers.size();i++){
         if(pathPoints.markers.at(i).id == curStartId){
+            if(!pathPoints.forBez.at(i)){
+                curStartId += 1;
+                continue;
+            }
             if(i < pathPoints.markers.size() - 1){
                 if(needBezify(i + 1)){//need bezify checks to make sure we can do i+2
                     ramp_planner_new::BezifyRequest br;
@@ -61,24 +71,44 @@ void updateStartGoal(){
                     curStartGoal.markers.push_back(pathPoints.markers.at(i));
                     curStartGoal.markers.push_back(pathPoints.markers.at(i+1));
                     ramp_planner_new::TrajectoryRequest msg;
-                    if(pathPoints.types.at(i) == "cubic"){
+                    if(pathPoints.types.at(j) == "cubic"){
                         msg.timeNeeded = getMinLinTime(pathPoints.markers.at(i).pose.position,pathPoints.markers.at(i+1).pose.position);
                         msg.type = "cubic";
+                        msg.points.push_back(pathPoints.markers.at(i).pose.position);
+                        std::cout<<"checking forBez i+1"<<std::endl;
+                        if(!pathPoints.forBez.at(i + 1)){
+                            std::cout<<"a forBez point found in cubic request..\nstoping process"<<std::endl;
+                            break;
+                        }
+                        msg.points.push_back(pathPoints.markers.at(i + 1).pose.position);
                     }else{
                         msg.timeNeeded = 1;
                         msg.type = "bezier";
-                        msg.points.push_back(pathPoints.markers.at(i - 1).pose.position);
+                        msg.points.push_back(pathPoints.markers.at(i).pose.position);
+                        if(pathPoints.forBez.at(i + 1)){
+                            std::cout<<"a non forBez point found in bezier request..\nstoping process"<<std::endl;
+                            break;
+                        }
+                        msg.points.push_back(pathPoints.markers.at(i + 1).pose.position);
+                        if(i + 2 >= pathPoints.markers.size()){
+                            std::cout<<"not enough points for bezier request..\nstopping preocess"<<std::endl;
+                            break;
+                        }
+                        if(!pathPoints.forBez.at(i + 2)){
+                            std::cout<<"a forBez point found in bezier request..\nstoping process"<<std::endl;
+                            break;
+                        }
+                        msg.points.push_back(pathPoints.markers.at(i + 2).pose.position);
                     }
-                    msg.points.push_back(pathPoints.markers.at(i).pose.position);
-                    msg.points.push_back(pathPoints.markers.at(i + 1).pose.position);
+                    
                     std::cout<<"sending trajectory request"<<std::endl;
                     // std::cout<<msg<<std::endl;
                     pub_time_needed.publish(msg);
-
                 }
             }
             break;
         }
+        j++;
     }
 }
 

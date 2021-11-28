@@ -12,12 +12,13 @@ import std_msgs.msg
 import visualization_msgs.msg
 
 class PathPoints(genpy.Message):
-  _md5sum = "502711e923216d4426c784f6f7062440"
+  _md5sum = "deacbf5af4a4c6509a8c5617867d78b0"
   _type = "ramp_planner_new/PathPoints"
   _has_header = False  # flag to mark the presence of a Header object
   _full_text = """visualization_msgs/Marker[] markers
 string[] types
 geometry_msgs/Point[] points
+bool[] forBez
 ================================================================================
 MSG: visualization_msgs/Marker
 # See http://www.ros.org/wiki/rviz/DisplayTypes/Marker and http://www.ros.org/wiki/rviz/Tutorials/Markers%3A%20Basic%20Shapes for more information on using this message with rviz
@@ -122,8 +123,8 @@ float32 g
 float32 b
 float32 a
 """
-  __slots__ = ['markers','types','points']
-  _slot_types = ['visualization_msgs/Marker[]','string[]','geometry_msgs/Point[]']
+  __slots__ = ['markers','types','points','forBez']
+  _slot_types = ['visualization_msgs/Marker[]','string[]','geometry_msgs/Point[]','bool[]']
 
   def __init__(self, *args, **kwds):
     """
@@ -133,7 +134,7 @@ float32 a
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       markers,types,points
+       markers,types,points,forBez
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -148,10 +149,13 @@ float32 a
         self.types = []
       if self.points is None:
         self.points = []
+      if self.forBez is None:
+        self.forBez = []
     else:
       self.markers = []
       self.types = []
       self.points = []
+      self.forBez = []
 
   def _get_types(self):
     """
@@ -243,6 +247,10 @@ float32 a
       for val1 in self.points:
         _x = val1
         buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
+      length = len(self.forBez)
+      buff.write(_struct_I.pack(length))
+      pattern = '<%sB'%length
+      buff.write(struct.Struct(pattern).pack(*self.forBez))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -397,6 +405,15 @@ float32 a
         end += 24
         (_x.x, _x.y, _x.z,) = _get_struct_3d().unpack(str[start:end])
         self.points.append(val1)
+      start = end
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      pattern = '<%sB'%length
+      start = end
+      s = struct.Struct(pattern)
+      end += s.size
+      self.forBez = s.unpack(str[start:end])
+      self.forBez = list(map(bool, self.forBez))
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -487,6 +504,10 @@ float32 a
       for val1 in self.points:
         _x = val1
         buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
+      length = len(self.forBez)
+      buff.write(_struct_I.pack(length))
+      pattern = '<%sB'%length
+      buff.write(self.forBez.tostring())
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -642,6 +663,15 @@ float32 a
         end += 24
         (_x.x, _x.y, _x.z,) = _get_struct_3d().unpack(str[start:end])
         self.points.append(val1)
+      start = end
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      pattern = '<%sB'%length
+      start = end
+      s = struct.Struct(pattern)
+      end += s.size
+      self.forBez = numpy.frombuffer(str[start:end], dtype=numpy.bool, count=length)
+      self.forBez = list(map(bool, self.forBez))
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill

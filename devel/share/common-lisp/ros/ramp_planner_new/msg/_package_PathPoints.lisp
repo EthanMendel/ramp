@@ -5,4 +5,6 @@
           TYPES
           POINTS-VAL
           POINTS
+          FORBEZ-VAL
+          FORBEZ
 ))
