@@ -294,14 +294,14 @@ void pubStartGoalMarkers(){
 }
 
 void pubPath(){
-  ROS_INFO("In pubPath");
+  // ROS_INFO("In pubPath");
   visualization_msgs::MarkerArray result;
   while(straightLinePath.msg_.points.size()<=pathMotionStates.size()){
     ros::spinOnce();
   }
 
   for(unsigned int i=0;i<straightLinePath.msg_.points.size()-1;i++) {
-    // std::cout<<straightLinePath.msg_.points.at(i).motionState.positions.at(0)<<" "<<straightLinePath.msg_.points.at(i).motionState.positions.at(1)<<std::endl;
+    // std::cout<<straightLinePath.msg_.points.at(i).motionState.positions.at(0)<<"\t\t"<<straightLinePath.msg_.points.at(i).motionState.positions.at(1)<<std::endl;
     // markers for both positions
     visualization_msgs::Marker mp_marker;
 
@@ -372,7 +372,6 @@ void pubPath(){
     result.markers.push_back(mp_marker);
   }
 
-  ROS_INFO("Waiting for rviz to start...");
   ros::Rate r(100);
   ros::Time tStart = ros::Time::now();
   ros::Duration dWait(10);
@@ -380,23 +379,24 @@ void pubPath(){
   pub_markerArray.publish(result);
   pub_markerArray.publish(result);
   
-  ROS_INFO("Exiting pubPath");
+  // ROS_INFO("Exiting pubPath");
 }
 
 void getTrajectory(ramp_planner_new::TrajectoryRequest msg){
-  std::cout<<"getting "<<msg.type<<" trajectory.."<<std::endl;
+  std::cout<<"getting "<<msg.type<<" trajectory for "<<msg.timeNeeded<<" sec.."<<std::endl;
   std::cout<<"start:\n"<<msg.points.at(0)<<std::endl;
-  std::cout<<"goal:\n"<<msg.points.at(1)<<std::endl;
   if(msg.type == "cubic"){
+      std::cout<<"goal:\n"<<msg.points.at(1)<<std::endl;
       straightLinePath.makeCubicPath(msg);
   }else{
+      std::cout<<"mid:\n"<<msg.points.at(1)<<std::endl;
+      std::cout<<"goal:\n"<<msg.points.at(2)<<std::endl;
       straightLinePath.makeBezierPath(msg);
   }
   readyToPubPath = true;
 }
 
 bool acceptableAngTime(const geometry_msgs::Point& p0, const geometry_msgs::Point p1, const geometry_msgs::Point p2){
-    const double resolution = 1/10.0;
     straightLinePath.findBezierCoefs(p0,p1,p2);
     double A1 = 2*(straightLinePath.coefs.at(0).at(0) - straightLinePath.coefs.at(0).at(1) + straightLinePath.coefs.at(0).at(2));
     double B1 = 2*(straightLinePath.coefs.at(1).at(0) - straightLinePath.coefs.at(1).at(1) + straightLinePath.coefs.at(1).at(2));
@@ -527,10 +527,10 @@ void bezify(const ramp_planner_new::BezifyRequest& br){
         cp2.y = p1.y + d*u2[1];
         //find bezier based on control and test if its okay
         if(acceptableAngTime(cp1,p1,cp2)){
+            std::cout<<"**found good bezier where d="<<d<<"**"<<std::endl;
             break;
         }
     }
-    std::cout<<"**found good bezier**"<<std::endl;
     pathPoints = addControlPoints(m1,cp1,cp2);
     straightLinePath.setPathPoints(pathPoints);
   }

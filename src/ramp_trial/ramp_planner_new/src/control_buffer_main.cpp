@@ -75,7 +75,6 @@ void updateStartGoal(){
                         msg.timeNeeded = getMinLinTime(pathPoints.markers.at(i).pose.position,pathPoints.markers.at(i+1).pose.position);
                         msg.type = "cubic";
                         msg.points.push_back(pathPoints.markers.at(i).pose.position);
-                        std::cout<<"checking forBez i+1"<<std::endl;
                         if(!pathPoints.forBez.at(i + 1)){
                             std::cout<<"a forBez point found in cubic request..\nstoping process"<<std::endl;
                             break;

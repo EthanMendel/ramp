@@ -178,7 +178,7 @@ void Path::makeBezierPath(const ramp_planner_new::TrajectoryRequest msg){
   const double resolution = msg.timeNeeded/10.0;
   usedT_ = resolution;
   if(msg.points.size() >= 3){
-    MotionState p0 = msg.points.at(0);//MAKE THESE DYNAMIC START AND GOALS
+    MotionState p0 = msg.points.at(0);
     MotionState p1 = msg.points.at(1);
     MotionState p2 = msg.points.at(2);
     findBezierCoefs(p0,p1,p2);
@@ -200,7 +200,7 @@ void Path::makeBezierPath(const ramp_planner_new::TrajectoryRequest msg){
       // std::cout<<"point #"<<t+1<<"\t("<<ms.msg_.velocities.at(0)<<",\t"<<ms.msg_.velocities.at(1)<<",\t"<<ms.msg_.velocities.at(2)<<")\n";
       // MANUALLY CHANGED TO -2 BECAUSE OF WAYPOINT
       // MUST MAKE DYNAMIC
-      addBefore(ms,msg.points.at(1));
+      addBefore(ms,msg.points.at(2));
     }
   }
   std::cout<<"Bezier path has "<<msg_.points.size()<<" points\n";
