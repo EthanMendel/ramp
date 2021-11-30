@@ -107,16 +107,13 @@ void MobileRobot::setNextTwist()
 
 void MobileRobot::calculateVelocities(const std::vector<ramp_planner_new::Coefficient> coefs, int t){
   if(cubic_.type == "cubic"){
+    //TODO make this vector of x and y
     twist_.linear.x = 3*coefs.at(0).values.at(0)*pow(t,2) + 2*coefs.at(0).values.at(1)*(t) + coefs.at(0).values.at(2);
     twist_.linear.y = 3*coefs.at(1).values.at(0)*pow(t,2) + 2*coefs.at(1).values.at(1)*(t) + coefs.at(1).values.at(2);
-    twist_.linear.z = 3*coefs.at(2).values.at(0)*pow(t,2) + 2*coefs.at(2).values.at(1)*(t) + coefs.at(2).values.at(2);
   }else{
-    twist_.angular.x = ( 2*(coefs.at(0).values.at(0) - coefs.at(0).values.at(1) + coefs.at(0).values.at(2))*t +
-                          2*(coefs.at(0).values.at(1)/2 - coefs.at(0).values.at(0)) );
-    twist_.angular.y = ( 2*(coefs.at(1).values.at(0) - coefs.at(1).values.at(1) + coefs.at(1).values.at(2))*t +
-                          2*(coefs.at(1).values.at(1)/2 - coefs.at(1).values.at(0)) );
-    twist_.angular.z = ( 2*(coefs.at(2).values.at(0) - coefs.at(2).values.at(1) + coefs.at(2).values.at(2))*t +
-                          2*(coefs.at(2).values.at(1)/2 - coefs.at(2).values.at(0)) );
+    //TODO do something with z as theta?
+    // twist_.angular.z = ( 2*(coefs.at(2).values.at(0) - coefs.at(2).values.at(1) + coefs.at(2).values.at(2))*t +
+    //                       2*(coefs.at(2).values.at(1)/2 - coefs.at(2).values.at(0)) );
   }
 }
 

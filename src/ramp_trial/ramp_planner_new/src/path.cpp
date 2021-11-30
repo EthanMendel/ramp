@@ -161,7 +161,7 @@ void Path::findBezierCoefs(MotionState p0, MotionState p1, MotionState p2){
   type = "bezier";
   coefs.clear();
   if(msg_.points.size() > 2){
-    for(unsigned int i = 0;i<p0.msg_.positions.size();i++){
+    for(unsigned int i = 0;i<p0.msg_.positions.size()-1;i++){
       std::vector<double> hold;
       hold.push_back( p0.msg_.positions.at(i) );
       hold.push_back( 2 * p1.msg_.positions.at(i) );
@@ -169,6 +169,7 @@ void Path::findBezierCoefs(MotionState p0, MotionState p1, MotionState p2){
       coefs.push_back(hold);
       std::cout<<"A: "<<coefs.at(i).at(0)<<"\tB: "<<coefs.at(i).at(1)<<"\tC: "<<coefs.at(i).at(2)<<"\t\n";
     }
+    //TODO do something for z as theta?
   }else{
     //HOW TO DO WITHOUT KNOWING SIZES
   }
@@ -185,7 +186,7 @@ void Path::makeBezierPath(const ramp_planner_new::TrajectoryRequest msg){
 
     for(float t=0;t<=1;t+=resolution){
       MotionState ms;
-      for(unsigned int j=0;j<p0.msg_.positions.size();j++){
+      for(unsigned int j=0;j<p0.msg_.positions.size()-1;j++){
         double A1 = 2*(coefs.at(j).at(0) - coefs.at(j).at(1) + coefs.at(j).at(2));
         double A2 = 2*((coefs.at(j).at(1)/2)-coefs.at(j).at(0));
 
@@ -197,6 +198,8 @@ void Path::makeBezierPath(const ramp_planner_new::TrajectoryRequest msg){
         
         // ms.msg_.jerks.push_back();
       }
+      //TODO do something for z as theta?
+      
       // std::cout<<"point #"<<t+1<<"\t("<<ms.msg_.velocities.at(0)<<",\t"<<ms.msg_.velocities.at(1)<<",\t"<<ms.msg_.velocities.at(2)<<")\n";
       // MANUALLY CHANGED TO -2 BECAUSE OF WAYPOINT
       // MUST MAKE DYNAMIC
@@ -220,7 +223,7 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
   if(msg.points.size() >= 2){
     MotionState start = msg.points.at(0);//MAKE THESE DYNAMIC START AND GOALS
     MotionState goal = msg.points.at(1);
-    for(unsigned int i = 0;i<start.msg_.positions.size();i++){
+    for(unsigned int i = 0;i<start.msg_.positions.size()-1;i++){
       std::vector<double> hold;
       hold.push_back( (-2/pow(T,3))*(goal.msg_.positions.at(i) - start.msg_.positions.at(i)) + (1/pow(T,2))*(start.msg_.velocities.at(i) + goal.msg_.velocities.at(i)) );
       hold.push_back( ( 3/pow(T,2))*(goal.msg_.positions.at(i) - start.msg_.positions.at(i)) - (2/T)*start.msg_.velocities.at(i) - (1/T)*goal.msg_.velocities.at(i) );
@@ -229,6 +232,7 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
       coefs.push_back(hold);
       std::cout<<"A: "<<coefs.at(i).at(0)<<"\tB: "<<coefs.at(i).at(1)<<"\tC: "<<coefs.at(i).at(2)<<"\tD: "<<coefs.at(i).at(3)<<"\t\n";
     }
+    //TODO do something for z as theta?
   }else{
     //HOW TO DO WITHOUT KNOWING SIZES
   }

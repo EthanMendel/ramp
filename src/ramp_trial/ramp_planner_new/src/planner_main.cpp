@@ -407,15 +407,12 @@ bool acceptableAngTime(const geometry_msgs::Point& p0, const geometry_msgs::Poin
     }
     double t = - ((A1*A2 + B1*B2) / (pow(A1,2) + pow(B1,2))); //point of maximum angular velocity
 
-    for(unsigned int j=0;j<3;j++){//3=DOF (x,y,z)
-        double A1 = 2*(straightLinePath.coefs.at(j).at(0) - straightLinePath.coefs.at(j).at(1) + straightLinePath.coefs.at(j).at(2));
-        double A2 = 2*((straightLinePath.coefs.at(j).at(1)/2)-straightLinePath.coefs.at(j).at(0));
-
-        double vel =((A1*t + A2)/*multiply by t'*/);
-        if(vel > max_angular_vel){
-            return false;
-        }
+    double xVel =((A1*t + A2)/*multiply by t'*/);
+    double yVel =((B1*t + B2)/*multiply by t'*/);
+    if(xVel > max_angular_vel || yVel > max_angular_vel){
+        return false;
     }
+    //TODO do something for z as theta?
     return true;
 }
 
