@@ -9,20 +9,21 @@ import struct
 import ramp_planner_new.msg
 
 class TrajectoryRepresentation(genpy.Message):
-  _md5sum = "8a1ac05ab55ef1132315db65d291debf"
+  _md5sum = "f65cd27a48745f7c3c37027a27dae96d"
   _type = "ramp_planner_new/TrajectoryRepresentation"
   _has_header = False  # flag to mark the presence of a Header object
   _full_text = """uint32 order
 uint32 numDOF
 string type
 ramp_planner_new/Coefficient[] coefficients
+ramp_planner_new/Coefficient[] uCoefficients
 float64 resolution
 bool active
 ================================================================================
 MSG: ramp_planner_new/Coefficient
 float64[] values"""
-  __slots__ = ['order','numDOF','type','coefficients','resolution','active']
-  _slot_types = ['uint32','uint32','string','ramp_planner_new/Coefficient[]','float64','bool']
+  __slots__ = ['order','numDOF','type','coefficients','uCoefficients','resolution','active']
+  _slot_types = ['uint32','uint32','string','ramp_planner_new/Coefficient[]','ramp_planner_new/Coefficient[]','float64','bool']
 
   def __init__(self, *args, **kwds):
     """
@@ -32,7 +33,7 @@ float64[] values"""
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       order,numDOF,type,coefficients,resolution,active
+       order,numDOF,type,coefficients,uCoefficients,resolution,active
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -49,6 +50,8 @@ float64[] values"""
         self.type = ''
       if self.coefficients is None:
         self.coefficients = []
+      if self.uCoefficients is None:
+        self.uCoefficients = []
       if self.resolution is None:
         self.resolution = 0.
       if self.active is None:
@@ -58,6 +61,7 @@ float64[] values"""
       self.numDOF = 0
       self.type = ''
       self.coefficients = []
+      self.uCoefficients = []
       self.resolution = 0.
       self.active = False
 
@@ -88,6 +92,13 @@ float64[] values"""
         buff.write(_struct_I.pack(length))
         pattern = '<%sd'%length
         buff.write(struct.Struct(pattern).pack(*val1.values))
+      length = len(self.uCoefficients)
+      buff.write(_struct_I.pack(length))
+      for val1 in self.uCoefficients:
+        length = len(val1.values)
+        buff.write(_struct_I.pack(length))
+        pattern = '<%sd'%length
+        buff.write(struct.Struct(pattern).pack(*val1.values))
       _x = self
       buff.write(_get_struct_dB().pack(_x.resolution, _x.active))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
@@ -103,6 +114,8 @@ float64[] values"""
     try:
       if self.coefficients is None:
         self.coefficients = None
+      if self.uCoefficients is None:
+        self.uCoefficients = None
       end = 0
       _x = self
       start = end
@@ -132,6 +145,21 @@ float64[] values"""
         end += s.size
         val1.values = s.unpack(str[start:end])
         self.coefficients.append(val1)
+      start = end
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      self.uCoefficients = []
+      for i in range(0, length):
+        val1 = ramp_planner_new.msg.Coefficient()
+        start = end
+        end += 4
+        (length,) = _struct_I.unpack(str[start:end])
+        pattern = '<%sd'%length
+        start = end
+        s = struct.Struct(pattern)
+        end += s.size
+        val1.values = s.unpack(str[start:end])
+        self.uCoefficients.append(val1)
       _x = self
       start = end
       end += 9
@@ -164,6 +192,13 @@ float64[] values"""
         buff.write(_struct_I.pack(length))
         pattern = '<%sd'%length
         buff.write(val1.values.tostring())
+      length = len(self.uCoefficients)
+      buff.write(_struct_I.pack(length))
+      for val1 in self.uCoefficients:
+        length = len(val1.values)
+        buff.write(_struct_I.pack(length))
+        pattern = '<%sd'%length
+        buff.write(val1.values.tostring())
       _x = self
       buff.write(_get_struct_dB().pack(_x.resolution, _x.active))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
@@ -180,6 +215,8 @@ float64[] values"""
     try:
       if self.coefficients is None:
         self.coefficients = None
+      if self.uCoefficients is None:
+        self.uCoefficients = None
       end = 0
       _x = self
       start = end
@@ -209,6 +246,21 @@ float64[] values"""
         end += s.size
         val1.values = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
         self.coefficients.append(val1)
+      start = end
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      self.uCoefficients = []
+      for i in range(0, length):
+        val1 = ramp_planner_new.msg.Coefficient()
+        start = end
+        end += 4
+        (length,) = _struct_I.unpack(str[start:end])
+        pattern = '<%sd'%length
+        start = end
+        s = struct.Struct(pattern)
+        end += s.size
+        val1.values = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
+        self.uCoefficients.append(val1)
       _x = self
       start = end
       end += 9

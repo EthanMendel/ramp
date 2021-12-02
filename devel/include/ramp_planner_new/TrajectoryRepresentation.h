@@ -16,6 +16,7 @@
 #include <ros/message_operations.h>
 
 #include <ramp_planner_new/Coefficient.h>
+#include <ramp_planner_new/Coefficient.h>
 
 namespace ramp_planner_new
 {
@@ -29,6 +30,7 @@ struct TrajectoryRepresentation_
     , numDOF(0)
     , type()
     , coefficients()
+    , uCoefficients()
     , resolution(0.0)
     , active(false)  {
     }
@@ -37,6 +39,7 @@ struct TrajectoryRepresentation_
     , numDOF(0)
     , type(_alloc)
     , coefficients(_alloc)
+    , uCoefficients(_alloc)
     , resolution(0.0)
     , active(false)  {
   (void)_alloc;
@@ -55,6 +58,9 @@ struct TrajectoryRepresentation_
 
    typedef std::vector< ::ramp_planner_new::Coefficient_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::ramp_planner_new::Coefficient_<ContainerAllocator> >::other >  _coefficients_type;
   _coefficients_type coefficients;
+
+   typedef std::vector< ::ramp_planner_new::Coefficient_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::ramp_planner_new::Coefficient_<ContainerAllocator> >::other >  _uCoefficients_type;
+  _uCoefficients_type uCoefficients;
 
    typedef double _resolution_type;
   _resolution_type resolution;
@@ -95,6 +101,7 @@ bool operator==(const ::ramp_planner_new::TrajectoryRepresentation_<ContainerAll
     lhs.numDOF == rhs.numDOF &&
     lhs.type == rhs.type &&
     lhs.coefficients == rhs.coefficients &&
+    lhs.uCoefficients == rhs.uCoefficients &&
     lhs.resolution == rhs.resolution &&
     lhs.active == rhs.active;
 }
@@ -153,12 +160,12 @@ struct MD5Sum< ::ramp_planner_new::TrajectoryRepresentation_<ContainerAllocator>
 {
   static const char* value()
   {
-    return "8a1ac05ab55ef1132315db65d291debf";
+    return "f65cd27a48745f7c3c37027a27dae96d";
   }
 
   static const char* value(const ::ramp_planner_new::TrajectoryRepresentation_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x8a1ac05ab55ef113ULL;
-  static const uint64_t static_value2 = 0x2315db65d291debfULL;
+  static const uint64_t static_value1 = 0xf65cd27a48745f7cULL;
+  static const uint64_t static_value2 = 0x3c37027a27dae96dULL;
 };
 
 template<class ContainerAllocator>
@@ -181,6 +188,7 @@ struct Definition< ::ramp_planner_new::TrajectoryRepresentation_<ContainerAlloca
 "uint32 numDOF\n"
 "string type\n"
 "ramp_planner_new/Coefficient[] coefficients\n"
+"ramp_planner_new/Coefficient[] uCoefficients\n"
 "float64 resolution\n"
 "bool active\n"
 "================================================================================\n"
@@ -208,6 +216,7 @@ namespace serialization
       stream.next(m.numDOF);
       stream.next(m.type);
       stream.next(m.coefficients);
+      stream.next(m.uCoefficients);
       stream.next(m.resolution);
       stream.next(m.active);
     }
@@ -241,6 +250,14 @@ struct Printer< ::ramp_planner_new::TrajectoryRepresentation_<ContainerAllocator
       s << std::endl;
       s << indent;
       Printer< ::ramp_planner_new::Coefficient_<ContainerAllocator> >::stream(s, indent + "    ", v.coefficients[i]);
+    }
+    s << indent << "uCoefficients[]" << std::endl;
+    for (size_t i = 0; i < v.uCoefficients.size(); ++i)
+    {
+      s << indent << "  uCoefficients[" << i << "]: ";
+      s << std::endl;
+      s << indent;
+      Printer< ::ramp_planner_new::Coefficient_<ContainerAllocator> >::stream(s, indent + "    ", v.uCoefficients[i]);
     }
     s << indent << "resolution: ";
     Printer<double>::stream(s, indent + "  ", v.resolution);

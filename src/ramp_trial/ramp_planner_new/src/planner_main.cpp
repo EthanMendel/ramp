@@ -383,7 +383,7 @@ void pubPath(){
 }
 
 void getTrajectory(ramp_planner_new::TrajectoryRequest msg){
-  std::cout<<"getting "<<msg.type<<" trajectory for "<<msg.timeNeeded<<" sec.."<<std::endl;
+  std::cout<<"getting "<<msg.type<<" trajectory for "<<unsigned(msg.timeNeeded)<<" sec.."<<std::endl;
   std::cout<<"start:\n"<<msg.points.at(0)<<std::endl;
   if(msg.type == "cubic"){
       std::cout<<"goal:\n"<<msg.points.at(1)<<std::endl;

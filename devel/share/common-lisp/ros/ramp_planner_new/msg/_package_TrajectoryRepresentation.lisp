@@ -7,6 +7,8 @@
           TYPE
           COEFFICIENTS-VAL
           COEFFICIENTS
+          UCOEFFICIENTS-VAL
+          UCOEFFICIENTS
           RESOLUTION-VAL
           RESOLUTION
           ACTIVE-VAL

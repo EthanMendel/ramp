@@ -27,6 +27,11 @@
     :initarg :coefficients
     :type (cl:vector ramp_planner_new-msg:Coefficient)
    :initform (cl:make-array 0 :element-type 'ramp_planner_new-msg:Coefficient :initial-element (cl:make-instance 'ramp_planner_new-msg:Coefficient)))
+   (uCoefficients
+    :reader uCoefficients
+    :initarg :uCoefficients
+    :type (cl:vector ramp_planner_new-msg:Coefficient)
+   :initform (cl:make-array 0 :element-type 'ramp_planner_new-msg:Coefficient :initial-element (cl:make-instance 'ramp_planner_new-msg:Coefficient)))
    (resolution
     :reader resolution
     :initarg :resolution
@@ -67,6 +72,11 @@
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader ramp_planner_new-msg:coefficients-val is deprecated.  Use ramp_planner_new-msg:coefficients instead.")
   (coefficients m))
 
+(cl:ensure-generic-function 'uCoefficients-val :lambda-list '(m))
+(cl:defmethod uCoefficients-val ((m <TrajectoryRepresentation>))
+  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader ramp_planner_new-msg:uCoefficients-val is deprecated.  Use ramp_planner_new-msg:uCoefficients instead.")
+  (uCoefficients m))
+
 (cl:ensure-generic-function 'resolution-val :lambda-list '(m))
 (cl:defmethod resolution-val ((m <TrajectoryRepresentation>))
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader ramp_planner_new-msg:resolution-val is deprecated.  Use ramp_planner_new-msg:resolution instead.")
@@ -99,6 +109,13 @@
     (cl:write-byte (cl:ldb (cl:byte 8 24) __ros_arr_len) ostream))
   (cl:map cl:nil #'(cl:lambda (ele) (roslisp-msg-protocol:serialize ele ostream))
    (cl:slot-value msg 'coefficients))
+  (cl:let ((__ros_arr_len (cl:length (cl:slot-value msg 'uCoefficients))))
+    (cl:write-byte (cl:ldb (cl:byte 8 0) __ros_arr_len) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 8) __ros_arr_len) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 16) __ros_arr_len) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 24) __ros_arr_len) ostream))
+  (cl:map cl:nil #'(cl:lambda (ele) (roslisp-msg-protocol:serialize ele ostream))
+   (cl:slot-value msg 'uCoefficients))
   (cl:let ((bits (roslisp-utils:encode-double-float-bits (cl:slot-value msg 'resolution))))
     (cl:write-byte (cl:ldb (cl:byte 8 0) bits) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 8) bits) ostream)
@@ -138,6 +155,16 @@
     (cl:dotimes (i __ros_arr_len)
     (cl:setf (cl:aref vals i) (cl:make-instance 'ramp_planner_new-msg:Coefficient))
   (roslisp-msg-protocol:deserialize (cl:aref vals i) istream))))
+  (cl:let ((__ros_arr_len 0))
+    (cl:setf (cl:ldb (cl:byte 8 0) __ros_arr_len) (cl:read-byte istream))
+    (cl:setf (cl:ldb (cl:byte 8 8) __ros_arr_len) (cl:read-byte istream))
+    (cl:setf (cl:ldb (cl:byte 8 16) __ros_arr_len) (cl:read-byte istream))
+    (cl:setf (cl:ldb (cl:byte 8 24) __ros_arr_len) (cl:read-byte istream))
+  (cl:setf (cl:slot-value msg 'uCoefficients) (cl:make-array __ros_arr_len))
+  (cl:let ((vals (cl:slot-value msg 'uCoefficients)))
+    (cl:dotimes (i __ros_arr_len)
+    (cl:setf (cl:aref vals i) (cl:make-instance 'ramp_planner_new-msg:Coefficient))
+  (roslisp-msg-protocol:deserialize (cl:aref vals i) istream))))
     (cl:let ((bits 0))
       (cl:setf (cl:ldb (cl:byte 8 0) bits) (cl:read-byte istream))
       (cl:setf (cl:ldb (cl:byte 8 8) bits) (cl:read-byte istream))
@@ -159,22 +186,23 @@
   "ramp_planner_new/TrajectoryRepresentation")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<TrajectoryRepresentation>)))
   "Returns md5sum for a message object of type '<TrajectoryRepresentation>"
-  "8a1ac05ab55ef1132315db65d291debf")
+  "f65cd27a48745f7c3c37027a27dae96d")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'TrajectoryRepresentation)))
   "Returns md5sum for a message object of type 'TrajectoryRepresentation"
-  "8a1ac05ab55ef1132315db65d291debf")
+  "f65cd27a48745f7c3c37027a27dae96d")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<TrajectoryRepresentation>)))
   "Returns full string definition for message of type '<TrajectoryRepresentation>"
-  (cl:format cl:nil "uint32 order~%uint32 numDOF~%string type~%ramp_planner_new/Coefficient[] coefficients~%float64 resolution~%bool active~%================================================================================~%MSG: ramp_planner_new/Coefficient~%float64[] values~%~%"))
+  (cl:format cl:nil "uint32 order~%uint32 numDOF~%string type~%ramp_planner_new/Coefficient[] coefficients~%ramp_planner_new/Coefficient[] uCoefficients~%float64 resolution~%bool active~%================================================================================~%MSG: ramp_planner_new/Coefficient~%float64[] values~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'TrajectoryRepresentation)))
   "Returns full string definition for message of type 'TrajectoryRepresentation"
-  (cl:format cl:nil "uint32 order~%uint32 numDOF~%string type~%ramp_planner_new/Coefficient[] coefficients~%float64 resolution~%bool active~%================================================================================~%MSG: ramp_planner_new/Coefficient~%float64[] values~%~%"))
+  (cl:format cl:nil "uint32 order~%uint32 numDOF~%string type~%ramp_planner_new/Coefficient[] coefficients~%ramp_planner_new/Coefficient[] uCoefficients~%float64 resolution~%bool active~%================================================================================~%MSG: ramp_planner_new/Coefficient~%float64[] values~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <TrajectoryRepresentation>))
   (cl:+ 0
      4
      4
      4 (cl:length (cl:slot-value msg 'type))
      4 (cl:reduce #'cl:+ (cl:slot-value msg 'coefficients) :key #'(cl:lambda (ele) (cl:declare (cl:ignorable ele)) (cl:+ (roslisp-msg-protocol:serialization-length ele))))
+     4 (cl:reduce #'cl:+ (cl:slot-value msg 'uCoefficients) :key #'(cl:lambda (ele) (cl:declare (cl:ignorable ele)) (cl:+ (roslisp-msg-protocol:serialization-length ele))))
      8
      1
 ))
@@ -185,6 +213,7 @@
     (cl:cons ':numDOF (numDOF msg))
     (cl:cons ':type (type msg))
     (cl:cons ':coefficients (coefficients msg))
+    (cl:cons ':uCoefficients (uCoefficients msg))
     (cl:cons ':resolution (resolution msg))
     (cl:cons ':active (active msg))
 ))

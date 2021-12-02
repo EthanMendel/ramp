@@ -23,6 +23,7 @@ class TrajectoryRepresentation {
       this.numDOF = null;
       this.type = null;
       this.coefficients = null;
+      this.uCoefficients = null;
       this.resolution = null;
       this.active = null;
     }
@@ -50,6 +51,12 @@ class TrajectoryRepresentation {
       }
       else {
         this.coefficients = [];
+      }
+      if (initObj.hasOwnProperty('uCoefficients')) {
+        this.uCoefficients = initObj.uCoefficients
+      }
+      else {
+        this.uCoefficients = [];
       }
       if (initObj.hasOwnProperty('resolution')) {
         this.resolution = initObj.resolution
@@ -80,6 +87,12 @@ class TrajectoryRepresentation {
     obj.coefficients.forEach((val) => {
       bufferOffset = Coefficient.serialize(val, buffer, bufferOffset);
     });
+    // Serialize message field [uCoefficients]
+    // Serialize the length for message field [uCoefficients]
+    bufferOffset = _serializer.uint32(obj.uCoefficients.length, buffer, bufferOffset);
+    obj.uCoefficients.forEach((val) => {
+      bufferOffset = Coefficient.serialize(val, buffer, bufferOffset);
+    });
     // Serialize message field [resolution]
     bufferOffset = _serializer.float64(obj.resolution, buffer, bufferOffset);
     // Serialize message field [active]
@@ -104,6 +117,13 @@ class TrajectoryRepresentation {
     for (let i = 0; i < len; ++i) {
       data.coefficients[i] = Coefficient.deserialize(buffer, bufferOffset)
     }
+    // Deserialize message field [uCoefficients]
+    // Deserialize array length for message field [uCoefficients]
+    len = _deserializer.uint32(buffer, bufferOffset);
+    data.uCoefficients = new Array(len);
+    for (let i = 0; i < len; ++i) {
+      data.uCoefficients[i] = Coefficient.deserialize(buffer, bufferOffset)
+    }
     // Deserialize message field [resolution]
     data.resolution = _deserializer.float64(buffer, bufferOffset);
     // Deserialize message field [active]
@@ -117,7 +137,10 @@ class TrajectoryRepresentation {
     object.coefficients.forEach((val) => {
       length += Coefficient.getMessageSize(val);
     });
-    return length + 25;
+    object.uCoefficients.forEach((val) => {
+      length += Coefficient.getMessageSize(val);
+    });
+    return length + 29;
   }
 
   static datatype() {
@@ -127,7 +150,7 @@ class TrajectoryRepresentation {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '8a1ac05ab55ef1132315db65d291debf';
+    return 'f65cd27a48745f7c3c37027a27dae96d';
   }
 
   static messageDefinition() {
@@ -137,6 +160,7 @@ class TrajectoryRepresentation {
     uint32 numDOF
     string type
     ramp_planner_new/Coefficient[] coefficients
+    ramp_planner_new/Coefficient[] uCoefficients
     float64 resolution
     bool active
     ================================================================================
@@ -180,6 +204,16 @@ class TrajectoryRepresentation {
     }
     else {
       resolved.coefficients = []
+    }
+
+    if (msg.uCoefficients !== undefined) {
+      resolved.uCoefficients = new Array(msg.uCoefficients.length);
+      for (let i = 0; i < resolved.uCoefficients.length; ++i) {
+        resolved.uCoefficients[i] = Coefficient.Resolve(msg.uCoefficients[i]);
+      }
+    }
+    else {
+      resolved.uCoefficients = []
     }
 
     if (msg.resolution !== undefined) {

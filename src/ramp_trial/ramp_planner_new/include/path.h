@@ -23,6 +23,7 @@ class Path {
 
     unsigned int order;
     std::vector<std::vector<double>> coefs;
+    std::vector<std::vector<double>> uCoefs;
     std::string type;
     double usedT_;
 

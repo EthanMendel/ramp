@@ -14,7 +14,7 @@
 
 (defclass ramp_planner_new::TrajectoryRepresentation
   :super ros::object
-  :slots (_order _numDOF _type _coefficients _resolution _active ))
+  :slots (_order _numDOF _type _coefficients _uCoefficients _resolution _active ))
 
 (defmethod ramp_planner_new::TrajectoryRepresentation
   (:init
@@ -23,6 +23,7 @@
     ((:numDOF __numDOF) 0)
     ((:type __type) "")
     ((:coefficients __coefficients) ())
+    ((:uCoefficients __uCoefficients) ())
     ((:resolution __resolution) 0.0)
     ((:active __active) nil)
     )
@@ -31,6 +32,7 @@
    (setq _numDOF (round __numDOF))
    (setq _type (string __type))
    (setq _coefficients __coefficients)
+   (setq _uCoefficients __uCoefficients)
    (setq _resolution (float __resolution))
    (setq _active __active)
    self)
@@ -50,6 +52,13 @@
      (progn
        (if __coefficients (setq _coefficients (car __coefficients)))
        _coefficients)))
+  (:uCoefficients
+   (&rest __uCoefficients)
+   (if (keywordp (car __uCoefficients))
+       (send* _uCoefficients __uCoefficients)
+     (progn
+       (if __uCoefficients (setq _uCoefficients (car __uCoefficients)))
+       _uCoefficients)))
   (:resolution
    (&optional __resolution)
    (if __resolution (setq _resolution __resolution)) _resolution)
@@ -67,6 +76,8 @@
     4 (length _type)
     ;; ramp_planner_new/Coefficient[] _coefficients
     (apply #'+ (send-all _coefficients :serialization-length)) 4
+    ;; ramp_planner_new/Coefficient[] _uCoefficients
+    (apply #'+ (send-all _uCoefficients :serialization-length)) 4
     ;; float64 _resolution
     8
     ;; bool _active
@@ -85,6 +96,11 @@
      ;; ramp_planner_new/Coefficient[] _coefficients
      (write-long (length _coefficients) s)
      (dolist (elem _coefficients)
+       (send elem :serialize s)
+       )
+     ;; ramp_planner_new/Coefficient[] _uCoefficients
+     (write-long (length _uCoefficients) s)
+     (dolist (elem _uCoefficients)
        (send elem :serialize s)
        )
      ;; float64 _resolution
@@ -108,6 +124,13 @@
      (dolist (elem- _coefficients)
      (send elem- :deserialize buf ptr-) (incf ptr- (send elem- :serialization-length))
      ))
+   ;; ramp_planner_new/Coefficient[] _uCoefficients
+   (let (n)
+     (setq n (sys::peek buf ptr- :integer)) (incf ptr- 4)
+     (setq _uCoefficients (let (r) (dotimes (i n) (push (instance ramp_planner_new::Coefficient :init) r)) r))
+     (dolist (elem- _uCoefficients)
+     (send elem- :deserialize buf ptr-) (incf ptr- (send elem- :serialization-length))
+     ))
    ;; float64 _resolution
      (setq _resolution (sys::peek buf ptr- :double)) (incf ptr- 8)
    ;; bool _active
@@ -116,13 +139,14 @@
    self)
   )
 
-(setf (get ramp_planner_new::TrajectoryRepresentation :md5sum-) "8a1ac05ab55ef1132315db65d291debf")
+(setf (get ramp_planner_new::TrajectoryRepresentation :md5sum-) "f65cd27a48745f7c3c37027a27dae96d")
 (setf (get ramp_planner_new::TrajectoryRepresentation :datatype-) "ramp_planner_new/TrajectoryRepresentation")
 (setf (get ramp_planner_new::TrajectoryRepresentation :definition-)
       "uint32 order
 uint32 numDOF
 string type
 ramp_planner_new/Coefficient[] coefficients
+ramp_planner_new/Coefficient[] uCoefficients
 float64 resolution
 bool active
 ================================================================================
@@ -132,6 +156,6 @@ float64[] values
 
 
 
-(provide :ramp_planner_new/TrajectoryRepresentation "8a1ac05ab55ef1132315db65d291debf")
+(provide :ramp_planner_new/TrajectoryRepresentation "f65cd27a48745f7c3c37027a27dae96d")
 
 

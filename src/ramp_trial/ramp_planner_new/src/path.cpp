@@ -158,8 +158,12 @@ void Path::findBezierCoefs(MotionState p0, MotionState p1, MotionState p2){
   for(auto c : coefs){
     c.clear();
   }
+  for(auto c: uCoefs){
+    c.clear();
+  }
   type = "bezier";
   coefs.clear();
+  uCoefs.clear();
   if(msg_.points.size() > 2){
     for(unsigned int i = 0;i<p0.msg_.positions.size()-1;i++){
       std::vector<double> hold;
@@ -176,13 +180,14 @@ void Path::findBezierCoefs(MotionState p0, MotionState p1, MotionState p2){
 }
 
 void Path::makeBezierPath(const ramp_planner_new::TrajectoryRequest msg){
-  const double resolution = msg.timeNeeded/10.0;
+  const double resolution = 1/10.0;
   usedT_ = resolution;
   if(msg.points.size() >= 3){
     MotionState p0 = msg.points.at(0);
     MotionState p1 = msg.points.at(1);
     MotionState p2 = msg.points.at(2);
     findBezierCoefs(p0,p1,p2);
+    //find uCoefs here
 
     for(float t=0;t<=1;t+=resolution){
       MotionState ms;
@@ -219,7 +224,11 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
   for(auto c : coefs){
     c.clear();
   }
+  for(auto c : uCoefs){
+    c.clear();
+  }
   coefs.clear();
+  uCoefs.clear();
   if(msg.points.size() >= 2){
     MotionState start = msg.points.at(0);//MAKE THESE DYNAMIC START AND GOALS
     MotionState goal = msg.points.at(1);

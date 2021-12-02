@@ -81,11 +81,10 @@ void updateStartGoal(){
                         }
                         msg.points.push_back(pathPoints.markers.at(i + 1).pose.position);
                     }else{
-                        msg.timeNeeded = 1;
                         msg.type = "bezier";
                         msg.points.push_back(pathPoints.markers.at(i).pose.position);
                         if(pathPoints.forBez.at(i + 1)){
-                            std::cout<<"a non forBez point found in bezier request..\nstoping process"<<std::endl;
+                            std::cout<<"a non forBez point found as p1..\nstoping process"<<std::endl;
                             break;
                         }
                         msg.points.push_back(pathPoints.markers.at(i + 1).pose.position);
@@ -93,8 +92,9 @@ void updateStartGoal(){
                             std::cout<<"not enough points for bezier request..\nstopping preocess"<<std::endl;
                             break;
                         }
+                        msg.timeNeeded = getMinLinTime(pathPoints.markers.at(i).pose.position,pathPoints.markers.at(i+2).pose.position);
                         if(!pathPoints.forBez.at(i + 2)){
-                            std::cout<<"a forBez point found in bezier request..\nstoping process"<<std::endl;
+                            std::cout<<"a forBez point found as p2..\nstoping process"<<std::endl;
                             break;
                         }
                         msg.points.push_back(pathPoints.markers.at(i + 2).pose.position);
