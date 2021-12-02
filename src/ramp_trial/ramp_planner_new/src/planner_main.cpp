@@ -577,10 +577,6 @@ int main(int argc, char** argv) {
    */
   pubStartGoalMarkers();//red-start, blue-goal
   readyToPubPath = false;
-  ramp_planner_new::TrajectoryRequest msg;
-  msg.timeNeeded = 1;
-  msg.type = "bezier";
-  // getTrajectory(msg);
   ROS_INFO("Done with publishing markers");
 
   ros::Rate r(1000);

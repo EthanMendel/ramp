@@ -223,16 +223,22 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
   if(msg.points.size() >= 2){
     MotionState start = msg.points.at(0);//MAKE THESE DYNAMIC START AND GOALS
     MotionState goal = msg.points.at(1);
-    for(unsigned int i = 0;i<start.msg_.positions.size()-1;i++){
+    for(unsigned int i = 0;i<start.msg_.positions.size();i++){
       std::vector<double> hold;
-      hold.push_back( (-2/pow(T,3))*(goal.msg_.positions.at(i) - start.msg_.positions.at(i)) + (1/pow(T,2))*(start.msg_.velocities.at(i) + goal.msg_.velocities.at(i)) );
-      hold.push_back( ( 3/pow(T,2))*(goal.msg_.positions.at(i) - start.msg_.positions.at(i)) - (2/T)*start.msg_.velocities.at(i) - (1/T)*goal.msg_.velocities.at(i) );
-      hold.push_back( start.msg_.velocities.at(i) );
-      hold.push_back( start.msg_.positions.at(i) );
+      if(i < start.msg_.positions.size()-1){//x and y
+        hold.push_back( (-2/pow(T,3))*(goal.msg_.positions.at(i) - start.msg_.positions.at(i)) + (1/pow(T,2))*(start.msg_.velocities.at(i) + goal.msg_.velocities.at(i)) );
+        hold.push_back( ( 3/pow(T,2))*(goal.msg_.positions.at(i) - start.msg_.positions.at(i)) - (2/T)*start.msg_.velocities.at(i) - (1/T)*goal.msg_.velocities.at(i) );
+        hold.push_back( start.msg_.velocities.at(i) );
+        hold.push_back( start.msg_.positions.at(i) );
+      }else{//theta (z)
+        hold.push_back(0);
+        hold.push_back(0);
+        hold.push_back(0);
+        hold.push_back(0);
+      }
       coefs.push_back(hold);
       std::cout<<"A: "<<coefs.at(i).at(0)<<"\tB: "<<coefs.at(i).at(1)<<"\tC: "<<coefs.at(i).at(2)<<"\tD: "<<coefs.at(i).at(3)<<"\t\n";
     }
-    //TODO do something for z as theta?
   }else{
     //HOW TO DO WITHOUT KNOWING SIZES
   }
