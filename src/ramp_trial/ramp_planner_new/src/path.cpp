@@ -181,33 +181,45 @@ void Path::findBezierCoefs(MotionState p0, MotionState p1, MotionState p2){
 
 void Path::makeBezierPath(const ramp_planner_new::TrajectoryRequest msg){
   const double resolution = 1/10.0;
-  usedT_ = resolution;
+  usedT_ = msg.timeNeeded;
   if(msg.points.size() >= 3){
     MotionState p0 = msg.points.at(0);
     MotionState p1 = msg.points.at(1);
     MotionState p2 = msg.points.at(2);
     findBezierCoefs(p0,p1,p2);
-    //find uCoefs here
-
-    for(float t=0;t<=1;t+=resolution){
+    //TODO find uCoefs here
+    std::vector<std::vector<double>> bezCoefs;
+    bezCoefs = coefs;
+    ramp_planner_new::TrajectoryRequest uMsg;
+    uMsg.timeNeeded = msg.timeNeeded;
+    uMsg.type = "uCubic";
+    uMsg.points.push_back(msg.points.at(0));
+    uMsg.points.push_back(msg.points.at(1));
+    findCubicCoefs(msg);
+    if(uCoefs.size() < 3){
+      std::cout<<"u coefs is not large enough "<<uCoefs.size()<<std::endl;
+      return;
+    }
+    for(unsigned int t=0;t<=msg.timeNeeded;t++){
+      float u   = uCoefs.at(j).at(0)*pow(t,3) + uCoefs.at(j).at(1)*pow(t,2) + uCoefs.at(j).at(2)*(t) + uCoefs.at(j).at(3));
+      float uP  = 3*uCoefs.at(j).at(0)*pow(t,2) + 2*uCoefs.at(j).at(1)*(t) + uCoefs.at(j).at(2));
+      float uPP = 6*uCoefs.at(j).at(0)*(t) + 2*uCoefs.at(j).at(1));
       MotionState ms;
       for(unsigned int j=0;j<p0.msg_.positions.size()-1;j++){
         double A1 = 2*(coefs.at(j).at(0) - coefs.at(j).at(1) + coefs.at(j).at(2));
         double A2 = 2*((coefs.at(j).at(1)/2)-coefs.at(j).at(0));
 
-        ms.msg_.positions.push_back( pow(1-t,2)*coefs.at(j).at(0) + t*(1-t)*coefs.at(j).at(1) + pow(t,2)*coefs.at(j).at(2) );
+        ms.msg_.positions.push_back( pow(1-u,2)*coefs.at(j).at(0) + t*(1-u)*coefs.at(j).at(1) + pow(u,2)*coefs.at(j).at(2) );
         
-        ms.msg_.velocities.push_back( (A1*t + A2)/*multiply by t'*/ );
+        ms.msg_.velocities.push_back( (A1*u + A2)*uP );
         
-        ms.msg_.accelerations.push_back( (A1*t + A2)/*multiply by t''*/ + A1/*multiply by pow(t',2)*/ );
+        ms.msg_.accelerations.push_back( (A1*u + A2)*uPP + A1*pow(uP,2) );
         
         // ms.msg_.jerks.push_back();
       }
       //TODO do something for z as theta?
       
       // std::cout<<"point #"<<t+1<<"\t("<<ms.msg_.velocities.at(0)<<",\t"<<ms.msg_.velocities.at(1)<<",\t"<<ms.msg_.velocities.at(2)<<")\n";
-      // MANUALLY CHANGED TO -2 BECAUSE OF WAYPOINT
-      // MUST MAKE DYNAMIC
       addBefore(ms,msg.points.at(2));
     }
   }
@@ -220,15 +232,18 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
   order = 3;
   double T = msg.timeNeeded;
   usedT_ = T;
-  type = "cubic";
-  for(auto c : coefs){
-    c.clear();
+  type = msg.type;
+  if(type == "cubic"){
+    for(auto c : coefs){
+      c.clear();
+    }
+      coefs.clear();
+  }else{
+    for(auto c : uCoefs){
+      c.clear();
+    }
+    uCoefs.clear();
   }
-  for(auto c : uCoefs){
-    c.clear();
-  }
-  coefs.clear();
-  uCoefs.clear();
   if(msg.points.size() >= 2){
     MotionState start = msg.points.at(0);//MAKE THESE DYNAMIC START AND GOALS
     MotionState goal = msg.points.at(1);
@@ -245,7 +260,11 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
         hold.push_back(0);
         hold.push_back(0);
       }
-      coefs.push_back(hold);
+      if(type == "cubic"){
+          coefs.push_back(hold);
+      }else{
+          uCoefs.push_back(hold);
+      }
       std::cout<<"A: "<<coefs.at(i).at(0)<<"\tB: "<<coefs.at(i).at(1)<<"\tC: "<<coefs.at(i).at(2)<<"\tD: "<<coefs.at(i).at(3)<<"\t\n";
     }
   }else{
@@ -282,8 +301,6 @@ void Path::makeCubicPath(const ramp_planner_new::TrajectoryRequest msg){
       ms.msg_.jerks.push_back(6*coefs.at(j).at(0));
     }
     // std::cout<<"point #"<<t+1<<"\t("<<ms.msg_.positions.at(0)<<",\t"<<ms.msg_.positions.at(1)<<",\t"<<ms.msg_.positions.at(2)<<")\n";
-    // MANUALLY CHANGED TO -2 BECAUSE OF WAYPOINT
-    // MUST MAKE DYNAMIC
     addBefore(ms,msg.points.at(1));
   }
   std::cout<<"Cubic path has "<<msg_.points.size()<<" points\n";
