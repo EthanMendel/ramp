@@ -33,7 +33,11 @@ bool needBezify(const unsigned int j){
         if(pathPoints.types.at(j-1) == "cubic" && pathPoints.types.at(j) == "cubic"){
             std::cout<<"two cubics side by side"<<std::endl;
             return true;
-        }else{
+        }else if(pathPoints.types.at(j-1) == "uCubic" && pathPoints.types.at(j) == "uCubic"){
+            std::cout<<"foud a u trajectory, something went wrong"<<std::endl;
+            return NULL;
+        }
+        else{
             std::cout<<"cubic and bezier side by side"<<std::endl;
             return false;
         }
@@ -80,7 +84,7 @@ void updateStartGoal(){
                             break;
                         }
                         msg.points.push_back(pathPoints.markers.at(i + 1).pose.position);
-                    }else{
+                    }else if (pathPoints.types.at(j) == "bezier"){
                         msg.type = "bezier";
                         msg.points.push_back(pathPoints.markers.at(i).pose.position);
                         if(pathPoints.forBez.at(i + 1)){
@@ -98,6 +102,9 @@ void updateStartGoal(){
                             break;
                         }
                         msg.points.push_back(pathPoints.markers.at(i + 2).pose.position);
+                    }else{
+                        std::cout<<"foud a u trajectory, something went wrong"<<std::endl;
+                        msg = NULL;
                     }
                     
                     std::cout<<"sending trajectory request"<<std::endl;

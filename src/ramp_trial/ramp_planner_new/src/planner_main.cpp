@@ -388,10 +388,13 @@ void getTrajectory(ramp_planner_new::TrajectoryRequest msg){
   if(msg.type == "cubic"){
       std::cout<<"goal:\n"<<msg.points.at(1)<<std::endl;
       straightLinePath.makeCubicPath(msg);
-  }else{
+  }else if(msg.type == "bezier"){
       std::cout<<"mid:\n"<<msg.points.at(1)<<std::endl;
       std::cout<<"goal:\n"<<msg.points.at(2)<<std::endl;
       straightLinePath.makeBezierPath(msg);
+  }else{
+      std::cout<<"foud a u trajectory, something went wrong"<<std::endl;
+      return;
   }
   readyToPubPath = true;
 }
