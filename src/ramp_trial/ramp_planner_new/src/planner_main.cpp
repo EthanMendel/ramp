@@ -409,9 +409,9 @@ bool acceptableAngTime(const geometry_msgs::Point& p0, const geometry_msgs::Poin
       return false;
     }
     double t = - ((A1*A2 + B1*B2) / (pow(A1,2) + pow(B1,2))); //point of maximum angular velocity
-
-    double xVel =((A1*t + A2)/*multiply by t'*/);
-    double yVel =((B1*t + B2)/*multiply by t'*/);
+    float uP  = 3*straightLinePath.uCoefs.at(j).at(0)*pow(t,2) + 2*straightLinePath.uCoefs.at(j).at(1)*(t) + straightLinePath.uCoefs.at(j).at(2));
+    double xVel =((A1*t + A2)*uP);
+    double yVel =((B1*t + B2)*uP);
     if(xVel > max_angular_vel || yVel > max_angular_vel){
         return false;
     }
