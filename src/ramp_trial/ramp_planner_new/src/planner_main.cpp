@@ -11,7 +11,7 @@ int                 id;
 int                 curStartId, curGoalId;
 std::vector<MotionState> pathMotionStates;
 ramp_planner_new::PathPoints pathPoints;
-Path                straightLinePath;
+Path                plannerPath;
 bool                readyToPubPath;
 std::vector<Range>  ranges;
 double              radius;
@@ -79,9 +79,9 @@ void initStartGoal(const std::vector<std::vector<float>> points) {
     }
     pathMotionStates.push_back(point);
     KnotPoint pkp(point);
-    straightLinePath.msg_.points.push_back(pkp.buildKnotPointMsg());
+    plannerPath.msg_.points.push_back(pkp.buildKnotPointMsg());
   }
-  // std::cout<<"points at init:\n"<<straightLinePath.buildPathMsg()<<std::endl;
+  // std::cout<<"points at init:\n"<<plannerPath.buildPathMsg()<<std::endl;
 }
 
  /** loads all ros parameters from .yaml 
@@ -296,12 +296,12 @@ void pubStartGoalMarkers(){
 void pubPath(){
   // ROS_INFO("In pubPath");
   visualization_msgs::MarkerArray result;
-  while(straightLinePath.msg_.points.size()<=pathMotionStates.size()){
+  while(plannerPath.msg_.points.size()<=pathMotionStates.size()){
     ros::spinOnce();
   }
 
-  for(unsigned int i=0;i<straightLinePath.msg_.points.size()-1;i++) {
-    // std::cout<<straightLinePath.msg_.points.at(i).motionState.positions.at(0)<<"\t\t"<<straightLinePath.msg_.points.at(i).motionState.positions.at(1)<<std::endl;
+  for(unsigned int i=0;i<plannerPath.msg_.points.size()-1;i++) {
+    // std::cout<<plannerPath.msg_.points.at(i).motionState.positions.at(0)<<"\t\t"<<plannerPath.msg_.points.at(i).motionState.positions.at(1)<<std::endl;
     // markers for both positions
     visualization_msgs::Marker mp_marker;
 
@@ -318,15 +318,15 @@ void pubPath(){
     
     // first point to create line
     geometry_msgs::Point first;
-    first.x = straightLinePath.msg_.points[i].motionState.positions[0];
-    first.y = straightLinePath.msg_.points[i].motionState.positions[1];
+    first.x = plannerPath.msg_.points[i].motionState.positions[0];
+    first.y = plannerPath.msg_.points[i].motionState.positions[1];
     first.z = 0.01;
     mp_marker.points.push_back(first);
 
     // set next point to create line
     geometry_msgs::Point next;
-    next.x = straightLinePath.msg_.points[i+1].motionState.positions[0];
-    next.y = straightLinePath.msg_.points[i+1].motionState.positions[1];
+    next.x = plannerPath.msg_.points[i+1].motionState.positions[0];
+    next.y = plannerPath.msg_.points[i+1].motionState.positions[1];
     next.z = 0.01;
     mp_marker.points.push_back(next);
 
@@ -387,11 +387,11 @@ void getTrajectory(ramp_planner_new::TrajectoryRequest msg){
   std::cout<<"start:\n"<<msg.points.at(0)<<std::endl;
   if(msg.type == "cubic"){
       std::cout<<"goal:\n"<<msg.points.at(1)<<std::endl;
-      straightLinePath.makeCubicPath(msg);
+      plannerPath.makeCubicPath(msg);
   }else if(msg.type == "bezier"){
       std::cout<<"mid:\n"<<msg.points.at(1)<<std::endl;
       std::cout<<"goal:\n"<<msg.points.at(2)<<std::endl;
-      straightLinePath.makeBezierPath(msg);
+      plannerPath.makeBezierPath(msg);
   }else{
       std::cout<<"foud a u trajectory, something went wrong"<<std::endl;
       return;
@@ -400,16 +400,16 @@ void getTrajectory(ramp_planner_new::TrajectoryRequest msg){
 }
 
 bool acceptableAngTime(const geometry_msgs::Point& p0, const geometry_msgs::Point p1, const geometry_msgs::Point p2){
-    straightLinePath.findBezierCoefs(p0,p1,p2);
-    double A1 = 2*(straightLinePath.coefs.at(0).at(0) - straightLinePath.coefs.at(0).at(1) + straightLinePath.coefs.at(0).at(2));
-    double B1 = 2*(straightLinePath.coefs.at(1).at(0) - straightLinePath.coefs.at(1).at(1) + straightLinePath.coefs.at(1).at(2));
-    double A2 = 2*((straightLinePath.coefs.at(0).at(1)/2)-straightLinePath.coefs.at(0).at(0));
-    double B2 = 2*((straightLinePath.coefs.at(1).at(1)/2)-straightLinePath.coefs.at(1).at(0));
+    plannerPath.findBezierCoefs(p0,p1,p2);
+    double A1 = 2*(plannerPath.coefs.at(0).at(0) - plannerPath.coefs.at(0).at(1) + plannerPath.coefs.at(0).at(2));
+    double B1 = 2*(plannerPath.coefs.at(1).at(0) - plannerPath.coefs.at(1).at(1) + plannerPath.coefs.at(1).at(2));
+    double A2 = 2*((plannerPath.coefs.at(0).at(1)/2)-plannerPath.coefs.at(0).at(0));
+    double B2 = 2*((plannerPath.coefs.at(1).at(1)/2)-plannerPath.coefs.at(1).at(0));
     if(A1 == 0 || B1 == 0 || A2 == 0 || B2 == 0){
       return false;
     }
     double t = - ((A1*A2 + B1*B2) / (pow(A1,2) + pow(B1,2))); //point of maximum angular velocity
-    float uP  = 3*straightLinePath.uCoefs.at(j).at(0)*pow(t,2) + 2*straightLinePath.uCoefs.at(j).at(1)*(t) + straightLinePath.uCoefs.at(j).at(2));
+    float uP  = 3*plannerPath.uCoefs.at(j).at(0)*pow(t,2) + 2*plannerPath.uCoefs.at(j).at(1)*(t) + plannerPath.uCoefs.at(j).at(2));
     double xVel =((A1*t + A2)*uP);
     double yVel =((B1*t + B2)*uP);
     if(xVel > max_angular_vel || yVel > max_angular_vel){
@@ -532,7 +532,7 @@ void bezify(const ramp_planner_new::BezifyRequest& br){
         }
     }
     pathPoints = addControlPoints(m1,cp1,cp2);
-    straightLinePath.setPathPoints(pathPoints);
+    plannerPath.setPathPoints(pathPoints);
   }
   visualization_msgs::MarkerArray ma;
   ma.markers = pathPoints.markers;
@@ -586,7 +586,7 @@ int main(int argc, char** argv) {
   while(ros::ok()) 
   {
     if(readyToPubPath){
-      pub_coefs.publish(straightLinePath.buildCubicMsg());
+      pub_coefs.publish(plannerPath.buildCubicMsg());
       pubPath();
       readyToPubPath = false;
     }
