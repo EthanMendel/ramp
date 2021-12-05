@@ -174,6 +174,16 @@ void Path::findBezierCoefs(MotionState p0, MotionState p1, MotionState p2){
       std::cout<<"A: "<<coefs.at(i).at(0)<<"\tB: "<<coefs.at(i).at(1)<<"\tC: "<<coefs.at(i).at(2)<<"\t\n";
     }
     //TODO do something for z as theta?
+    ramp_planner_new::TrajectoryRequest uMsg;
+    uMsg.timeNeeded = msg.timeNeeded;
+    uMsg.type = "uCubic";
+    uMsg.points.push_back(p0);
+    uMsg.points.push_back(p2);
+    findCubicCoefs(msg);
+    if(uCoefs.size() < 3){
+      std::cout<<"u coefs is not large enough "<<uCoefs.size()<<std::endl;
+      return;
+    }
   }else{
     //HOW TO DO WITHOUT KNOWING SIZES
   }
@@ -187,19 +197,7 @@ void Path::makeBezierPath(const ramp_planner_new::TrajectoryRequest msg){
     MotionState p1 = msg.points.at(1);
     MotionState p2 = msg.points.at(2);
     findBezierCoefs(p0,p1,p2);
-    //TODO find uCoefs here
-    std::vector<std::vector<double>> bezCoefs;
-    bezCoefs = coefs;
-    ramp_planner_new::TrajectoryRequest uMsg;
-    uMsg.timeNeeded = msg.timeNeeded;
-    uMsg.type = "uCubic";
-    uMsg.points.push_back(msg.points.at(0));
-    uMsg.points.push_back(msg.points.at(1));
-    findCubicCoefs(msg);
-    if(uCoefs.size() < 3){
-      std::cout<<"u coefs is not large enough "<<uCoefs.size()<<std::endl;
-      return;
-    }
+
     for(unsigned int t=0;t<=msg.timeNeeded;t++){
       float u   = uCoefs.at(j).at(0)*pow(t,3) + uCoefs.at(j).at(1)*pow(t,2) + uCoefs.at(j).at(2)*(t) + uCoefs.at(j).at(3));
       float uP  = 3*uCoefs.at(j).at(0)*pow(t,2) + 2*uCoefs.at(j).at(1)*(t) + uCoefs.at(j).at(2));
