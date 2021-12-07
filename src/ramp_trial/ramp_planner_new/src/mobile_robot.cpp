@@ -90,7 +90,7 @@ void MobileRobot::updateCallback(const ros::TimerEvent& e) {
   }
 } // End updatePublishTimer
 
-void MobileRobot::updateCubic(const ramp_planner_new::TrajectoryRepresentation& msg)
+void MobileRobot::updateTrajectory(const ramp_planner_new::TrajectoryRepresentation& msg)
 {
   if(msg != trajectory_){
     trajectory_ = msg;

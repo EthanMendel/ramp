@@ -26,7 +26,7 @@ class MobileRobot
   void moveOnTrajectory();
   void moveOnTrajectoryRot(const ramp_msgs::RampTrajectory traj, bool simulation);
   void odomCb(const nav_msgs::Odometry& msg);
-  void updateCubic(const ramp_planner_new::TrajectoryRepresentation& msg); 
+  void updateTrajectory(const ramp_planner_new::TrajectoryRepresentation& msg); 
   void setNextTwist(); 
   void imminentCollisionCb(const std_msgs::Bool msg); 
   void updateCallback(const ros::TimerEvent&);
