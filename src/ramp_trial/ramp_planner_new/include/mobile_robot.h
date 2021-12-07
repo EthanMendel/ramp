@@ -14,6 +14,8 @@
 #include "std_msgs/Bool.h"
 #include <math.h>
 
+#define PI 3.14159f
+
 class MobileRobot
 {
   public:
@@ -43,11 +45,9 @@ class MobileRobot
   ros::Subscriber                   sub_odometry_;
   ros::Subscriber                   sub_imminent_collision_;
   ramp_msgs::MotionState            motion_state_; 
-  geometry_msgs::Twist              velocity_;
   ramp_planner_new::TrajectoryRepresentation trajectory_;
   ros::Timer                        timer_;
   double                            initial_theta_;
-
   bool                              check_imminent_coll_;
   bool                              imminent_coll_;
   bool                              sim_;
@@ -72,9 +72,11 @@ class MobileRobot
 
   void                        sendTwist() const;
   void                        calculateSpeedsAndTime();
-  void                        printVectors() const;
   const bool                  checkImminentCollision();
-  void                        calculateVelocities(const std::vector<ramp_planner_new::Coefficient> coefs, int t);
+  void                        calculateVelocities(const std::vector<ramp_planner_new::Coefficient> coefs,const std::vector<ramp_planner_new::Coefficient> uCoefs, int t);
+  const double                findDistanceBetweenAngles(const double a1, const double a2) const;
+  const double                positionDistance(const std::vector<double> a, const std::vector<double> b) const;
+  const double                findAngleFromAToB(const std::vector<double> a, const std::vector<double> b) const;
 
 
   /** Data Members **/
@@ -86,12 +88,14 @@ class MobileRobot
   int                       time_step_;
   const unsigned int        k_dof_;
   std::vector<ros::Time>    end_times; 
-  std::vector<double>       speeds_linear_;
-  std::vector<double>       speeds_angular_;
-  std::vector<double>       orientations_;
+  double                    speed_linear_;
+  double                    speed_angular_;
+  double                    orientation_;
 
   geometry_msgs::Twist      twist_;
   geometry_msgs::Twist      zero_twist_;
+  std::vector<double>       prevXY_;
+  double                    prevTheta_;
   ramp_msgs::MotionState    prev_motion_state_; 
   ros::Time                 prev_t_;
   ros::Duration             t_immiColl_;

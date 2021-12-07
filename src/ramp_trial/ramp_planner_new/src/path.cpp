@@ -191,37 +191,6 @@ void Path::findBezierCoefs(geometry_msgs::Point p0, geometry_msgs::Point p1, geo
       return;
     }else{
       //TODO do something for z as theta?
-      std::vector<geometry_msgs::Point> bezPoints;
-      float xuMin = uCoefs.at(0).at(0)*pow(0,3) + uCoefs.at(0).at(1)*pow(0,2) + uCoefs.at(0).at(2)*(0) + uCoefs.at(0).at(3);
-      float xuMax = (uCoefs.at(0).at(0)*pow(uMsg.timeNeeded,3) + uCoefs.at(0).at(1)*pow(uMsg.timeNeeded,2) + uCoefs.at(0).at(2)*(uMsg.timeNeeded) + uCoefs.at(0).at(3)) - xuMin;
-      float yuMin = uCoefs.at(1).at(0)*pow(0,3) + uCoefs.at(1).at(1)*pow(0,2) + uCoefs.at(1).at(2)*(0) + uCoefs.at(1).at(3);
-      float yuMax = (uCoefs.at(1).at(0)*pow(uMsg.timeNeeded,3) + uCoefs.at(1).at(1)*pow(uMsg.timeNeeded,2) + uCoefs.at(1).at(2)*(uMsg.timeNeeded) + uCoefs.at(1).at(3)) - yuMin;
-      for(float t=0;t<uMsg.timeNeeded;t+=(1/10.0)){
-        geometry_msgs::Point p;
-        float xu   = ((uCoefs.at(0).at(0)*pow(t,3) + uCoefs.at(0).at(1)*pow(t,2) + uCoefs.at(0).at(2)*(t) + uCoefs.at(0).at(3)) - xuMin)/xuMax;
-        float yu   = ((uCoefs.at(1).at(0)*pow(t,3) + uCoefs.at(1).at(1)*pow(t,2) + uCoefs.at(1).at(2)*(t) + uCoefs.at(1).at(3)) - yuMin)/yuMax;
-        p.x = pow(1-xu,2)*coefs.at(0).at(0) + xu*(1-xu)*coefs.at(0).at(1) + pow(xu,2)*coefs.at(0).at(2);
-        p.y = pow(1-yu,2)*coefs.at(1).at(0) + yu*(1-yu)*coefs.at(1).at(1) + pow(yu,2)*coefs.at(1).at(2);
-        bezPoints.push_back(p);
-      }
-      // std::cout<<bezPoints.size()<<" bezPoints"<<std::endl;
-      std::vector<double> thetas;
-      std::cout<<"thetas:";
-      for(unsigned int i=0;i<bezPoints.size()-1;i++){
-        std::vector<double> A = {bezPoints.at(i).x,bezPoints.at(i).y};
-        std::vector<double> B = {bezPoints.at(i + 1).x,bezPoints.at(i + 1).y};
-        double th = utility_.findAngleFromAToB(A,B);
-        std::cout<<th<<", ";
-        thetas.push_back(th);
-      }
-      std::vector<double> thetasP;
-      std::cout<<"\ntheta primes:";
-      for(unsigned int i=0;i<thetas.size()-1;i++){
-        double thp = utility_.findDistanceBetweenAngles(thetas.at(i),thetas.at(i + 1));
-        std::cout<<thp<<", ";
-        thetasP.push_back(thp);
-      }
-      std::cout<<"\n";
     }
   }else{
     //HOW TO DO WITHOUT KNOWING SIZES

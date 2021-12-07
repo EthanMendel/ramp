@@ -93,6 +93,7 @@ void MobileRobot::updateCallback(const ros::TimerEvent& e) {
 void MobileRobot::updateTrajectory(const ramp_planner_new::TrajectoryRepresentation& msg)
 {
   if(msg != trajectory_){
+    std::cout<<"setting new trajectory"<<std::endl;
     trajectory_ = msg;
   }
 }
@@ -102,16 +103,106 @@ void MobileRobot::updateTrajectory(const ramp_planner_new::TrajectoryRepresentat
 void MobileRobot::setNextTwist() 
 {
   // Update vectors for speeds and times
-    calculateVelocities(trajectory_.coefficients, seg_step_);
+    calculateVelocities(trajectory_.coefficients,trajectory_.uCoefficients, seg_step_);
 } // End updateTrajectory
 
-void MobileRobot::calculateVelocities(const std::vector<ramp_planner_new::Coefficient> coefs, int t){
-    double x = 3*coefs.at(0).values.at(0)*pow(t,2) + 2*coefs.at(0).values.at(1)*(t) + coefs.at(0).values.at(2);
-    double y = 3*coefs.at(1).values.at(0)*pow(t,2) + 2*coefs.at(1).values.at(1)*(t) + coefs.at(1).values.at(2);
-    twist_.linear.x = sqrt(pow(x,2) + pow(y,2));
-    if(coefs.size() > 2){
-      twist_.angular.z = 3*coefs.at(2).values.at(0)*pow(t,2) + 2*coefs.at(2).values.at(1)*(t) + coefs.at(2).values.at(2);
+void MobileRobot::calculateVelocities(const std::vector<ramp_planner_new::Coefficient> coefs, const std::vector<ramp_planner_new::Coefficient> uCoefs, int t){  
+  std::vector<double> curXY;
+  if(trajectory_.type == "cubic"){
+    curXY = {
+      coefs.at(0).values.at(0)*pow(t,3) + coefs.at(0).values.at(1)*pow(t,2) + coefs.at(0).values.at(2)*(t) + coefs.at(0).values.at(3),
+      coefs.at(1).values.at(0)*pow(t,3) + coefs.at(1).values.at(1)*pow(t,2) + coefs.at(1).values.at(2)*(t) + coefs.at(1).values.at(3)
+    };
+  }else if(trajectory_.type == "bezier"){
+    float xuMin = uCoefs.at(0).values.at(0)*pow(0,3) + uCoefs.at(0).values.at(1)*pow(0,2) + uCoefs.at(0).values.at(2)*(0) + uCoefs.at(0).values.at(3);
+    float xuMax = (uCoefs.at(0).values.at(0)*pow(trajectory_.resolution,3) + uCoefs.at(0).values.at(1)*pow(trajectory_.resolution,2) + uCoefs.at(0).values.at(2)*(trajectory_.resolution) + uCoefs.at(0).values.at(3)) - xuMin;
+    float yuMin = uCoefs.at(1).values.at(0)*pow(0,3) + uCoefs.at(1).values.at(1)*pow(0,2) + uCoefs.at(1).values.at(2)*(0) + uCoefs.at(1).values.at(3);
+    float yuMax = (uCoefs.at(1).values.at(0)*pow(trajectory_.resolution,3) + uCoefs.at(1).values.at(1)*pow(trajectory_.resolution,2) + uCoefs.at(1).values.at(2)*(trajectory_.resolution) + uCoefs.at(1).values.at(3)) - yuMin;
+    float xu = ((uCoefs.at(0).values.at(0)*pow(t,3) + uCoefs.at(0).values.at(1)*pow(t,2) + uCoefs.at(0).values.at(2)*(t) + uCoefs.at(0).values.at(3)) - xuMin)/xuMax;
+    float yu = ((uCoefs.at(1).values.at(0)*pow(t,3) + uCoefs.at(1).values.at(1)*pow(t,2) + uCoefs.at(1).values.at(2)*(t) + uCoefs.at(1).values.at(3)) - yuMin)/yuMax;
+    curXY = {
+      pow(1-xu,2)*coefs.at(0).values.at(0) + xu*(1-xu)*coefs.at(0).values.at(1) + pow(xu,2)*coefs.at(0).values.at(2),
+      pow(1-yu,2)*coefs.at(1).values.at(0) + yu*(1-yu)*coefs.at(1).values.at(1) + pow(yu,2)*coefs.at(1).values.at(2)
+    };
+  }else{
+    std::cout<<"got u trajectory, something went wrong"<<std::endl;
+    return;
+  }
+
+  double xP = 3*coefs.at(0).values.at(0)*pow(t,2) + 2*coefs.at(0).values.at(1)*(t) + coefs.at(0).values.at(2);
+  double yP = 3*coefs.at(1).values.at(0)*pow(t,2) + 2*coefs.at(1).values.at(1)*(t) + coefs.at(1).values.at(2);
+  speed_linear_ = sqrt(pow(xP,2) + pow(yP,2));
+  twist_.linear.x = speed_linear_;
+
+  if(prevXY_.size() > 0){
+    double theta = findAngleFromAToB(curXY,prevXY_);
+    if(prevTheta_){
+      speed_angular_ = findDistanceBetweenAngles(prevTheta_,theta);
+      twist_.angular.z = speed_angular_;
     }
+    prevTheta_ = theta;
+  }
+  prevXY_ = curXY;
+}
+
+/** return euclidean distance between two position vectors */
+const double MobileRobot::positionDistance(const std::vector<double> a, const std::vector<double> b) const {
+  double d_x = b.at(0) - a.at(0);
+  double d_y = b.at(1) - a.at(1);
+  return sqrt( pow(d_x,2) + pow(d_y,2) );
+}
+
+/** return the angle that forms a straight line from position a to position b. a and b are [x, y] vectors. */
+const double MobileRobot::findAngleFromAToB(const std::vector<double> a, const std::vector<double> b) const {
+  double result;
+  // ff the positions are the same, return the orientation the robot already has
+  if(fabs(positionDistance(a, b)) < 0.01 && a.size() > 2){
+    return a.at(2);
+  }
+  // find the distances in x,y directions and euclidean distance
+  double d_x = b.at(0) - a.at(0);
+  double d_y = b.at(1) - a.at(1);
+  
+  double euc_dist = sqrt( pow(d_x,2) + pow(d_y,2) );
+  // if the positions are the same,
+  // set the result to the starting orientation if one is provided
+  // or to 0 if no starting orientation is provided
+  if(euc_dist <= 0.0001) {
+    result = 0;
+  }
+  // b in the 1st or 2nd quadrants
+  else if(d_y > 0) {
+    result = acos(d_x / euc_dist);
+  }
+  // b in the 3rd quadrant, d_y<0 & d_x<0
+  else if(d_x < 0) {
+    result = -PI - asin(d_y / euc_dist);
+  }
+  // b in the 4th quadrant, d_y<=0 & d_x>=0
+  else {
+    result = asin(d_y / euc_dist); 
+  }
+  return result;
+}
+
+/** return distance between orientations a1 and a2 in range [-PI, PI]. */
+const double MobileRobot::findDistanceBetweenAngles(const double a1, const double a2) const{
+  double result;
+  double difference = a2 - a1;
+  // difference > pi, should be [-PI,0]
+  if(difference > PI) {
+    difference = fmodf(difference, PI);
+    result = difference - PI;
+  }
+  // difference < -pi, should be [0,PI]
+  else if(difference < -PI){
+    result = difference + (2*PI);
+  }
+  // else, difference is fine
+  else {
+    result = difference;
+  }
+  return result;
 }
 
 void MobileRobot::sendTwist() const 
@@ -141,44 +232,6 @@ void MobileRobot::sendTwist(const geometry_msgs::Twist t) const
     pub_cmd_vel2_.publish(t);
   // }
 }
-
-
-/** This method prints out the information vectors */
-void MobileRobot::printVectors() const 
-{
-    
-  std::cout<<"\nspeeds_linear size: "<<speeds_linear_.size();
-  std::cout<<"\nspeeds_linear: [";
-  for(unsigned int i=0;i<speeds_linear_.size()-1;i++) 
-  {
-    std::cout<<speeds_linear_.at(i)<<", ";
-  }
-  std::cout<<speeds_linear_.at(speeds_linear_.size()-1)<<"]";
-  
-  std::cout<<"\nspeeds_angular size: "<<speeds_angular_.size();
-  std::cout<<"\nspeeds_angular_: [";
-  for(unsigned int i=0;i<speeds_angular_.size()-1;i++) 
-  {
-    std::cout<<speeds_angular_.at(i)<<", ";
-  }
-  std::cout<<speeds_angular_.at(speeds_angular_.size()-1)<<"]";
-
-  std::cout<<"\nend_times size: "<<end_times.size();
-  std::cout<<"\nend_times: [";
-  for(unsigned int i=0;i<end_times.size()-1;i++) 
-  {
-    std::cout<<end_times.at(i)<<", ";
-  }
-  std::cout<<end_times.at(end_times.size()-1)<<"]";
-
-  std::cout<<"\norientations_ size: "<<orientations_.size();
-  std::cout<<"\norientations_: [";
-  for(unsigned int i=0;i<orientations_.size()-1;i++) 
-  {
-    std::cout<<orientations_.at(i)<<", ";
-  }
-  std::cout<<orientations_.at(orientations_.size()-1)<<"]";
-} // End printVectors
 
 /** Returns true if there is imminent collision */
 const bool MobileRobot::checkImminentCollision()  
