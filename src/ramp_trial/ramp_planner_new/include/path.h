@@ -49,7 +49,7 @@ class Path {
     void makeStraightPath();
     void findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg);
     void makeCubicPath(const ramp_planner_new::TrajectoryRequest msg);
-    void findBezierCoefs(MotionState p0, MotionState p1, MotionState p2);
+    void findBezierCoefs(geometry_msgs::Point p0, geometry_msgs::Point p1, geometry_msgs::Point p2);
     void makeBezierPath(const ramp_planner_new::TrajectoryRequest msg);
     void setPathPoints(const ramp_planner_new::PathPoints pp);
 };

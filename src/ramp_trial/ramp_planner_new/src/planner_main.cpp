@@ -401,6 +401,8 @@ void getTrajectory(ramp_planner_new::TrajectoryRequest msg){
 
 bool acceptableAngTime(const geometry_msgs::Point& p0, const geometry_msgs::Point p1, const geometry_msgs::Point p2){
     plannerPath.findBezierCoefs(p0,p1,p2);
+    std::cout<<plannerPath.coefs.size()<<" coefs"<<std::endl;
+    std::cout<<plannerPath.uCoefs.size()<<" uCoefs"<<std::endl;
     double A1 = 2*(plannerPath.coefs.at(0).at(0) - plannerPath.coefs.at(0).at(1) + plannerPath.coefs.at(0).at(2));
     double B1 = 2*(plannerPath.coefs.at(1).at(0) - plannerPath.coefs.at(1).at(1) + plannerPath.coefs.at(1).at(2));
     double A2 = 2*((plannerPath.coefs.at(0).at(1)/2)-plannerPath.coefs.at(0).at(0));
@@ -409,13 +411,16 @@ bool acceptableAngTime(const geometry_msgs::Point& p0, const geometry_msgs::Poin
       return false;
     }
     double t = - ((A1*A2 + B1*B2) / (pow(A1,2) + pow(B1,2))); //point of maximum angular velocity
-    float uP  = 3*plannerPath.uCoefs.at(j).at(0)*pow(t,2) + 2*plannerPath.uCoefs.at(j).at(1)*(t) + plannerPath.uCoefs.at(j).at(2));
-    double xVel =((A1*t + A2)*uP);
-    double yVel =((B1*t + B2)*uP);
-    if(xVel > max_angular_vel || yVel > max_angular_vel){
+    float xuP = 3*plannerPath.uCoefs.at(0).at(0)*pow(t,2) + 2*plannerPath.uCoefs.at(0).at(1)*(t) + plannerPath.uCoefs.at(0).at(2);
+    float yuP = 3*plannerPath.uCoefs.at(1).at(0)*pow(t,2) + 2*plannerPath.uCoefs.at(1).at(1)*(t) + plannerPath.uCoefs.at(1).at(2);
+    double xVel =((A1*t + A2)*xuP);
+    double yVel =((B1*t + B2)*yuP);
+    double linVel = sqrt(pow(xVel,2)+pow(yVel,2));
+    //TODO find angular vel
+    //TODO do something for z as theta?
+    if(linVel > max_speed_linear){
         return false;
     }
-    //TODO do something for z as theta?
     return true;
 }
 

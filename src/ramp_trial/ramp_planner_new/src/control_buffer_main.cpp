@@ -104,7 +104,6 @@ void updateStartGoal(){
                         msg.points.push_back(pathPoints.markers.at(i + 2).pose.position);
                     }else{
                         std::cout<<"foud a u trajectory, something went wrong"<<std::endl;
-                        msg = NULL;
                     }
                     
                     std::cout<<"sending trajectory request"<<std::endl;

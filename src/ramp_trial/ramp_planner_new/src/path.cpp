@@ -153,7 +153,7 @@ const std::string Path::toString() const {
   return result.str();
 }
 
-void Path::findBezierCoefs(MotionState p0, MotionState p1, MotionState p2){
+void Path::findBezierCoefs(geometry_msgs::Point p0, geometry_msgs::Point p1, geometry_msgs::Point p2){
   order = 2;
   for(auto c : coefs){
     c.clear();
@@ -164,22 +164,25 @@ void Path::findBezierCoefs(MotionState p0, MotionState p1, MotionState p2){
   type = "bezier";
   coefs.clear();
   uCoefs.clear();
+  MotionState m0 = p0;
+  MotionState m1 = p1;
+  MotionState m2 = p2;
   if(msg_.points.size() > 2){
-    for(unsigned int i = 0;i<p0.msg_.positions.size()-1;i++){
+    for(unsigned int i = 0;i<m0.msg_.positions.size()-1;i++){
       std::vector<double> hold;
-      hold.push_back( p0.msg_.positions.at(i) );
-      hold.push_back( 2 * p1.msg_.positions.at(i) );
-      hold.push_back( p2.msg_.positions.at(i) );
+      hold.push_back( m0.msg_.positions.at(i) );
+      hold.push_back( 2 * m1.msg_.positions.at(i) );
+      hold.push_back( m2.msg_.positions.at(i) );
       coefs.push_back(hold);
       std::cout<<"A: "<<coefs.at(i).at(0)<<"\tB: "<<coefs.at(i).at(1)<<"\tC: "<<coefs.at(i).at(2)<<"\t\n";
     }
     //TODO do something for z as theta?
     ramp_planner_new::TrajectoryRequest uMsg;
-    uMsg.timeNeeded = msg.timeNeeded;
+    uMsg.timeNeeded = usedT_;
     uMsg.type = "uCubic";
     uMsg.points.push_back(p0);
     uMsg.points.push_back(p2);
-    findCubicCoefs(msg);
+    findCubicCoefs(uMsg);
     if(uCoefs.size() < 3){
       std::cout<<"u coefs is not large enough "<<uCoefs.size()<<std::endl;
       return;
@@ -193,21 +196,21 @@ void Path::makeBezierPath(const ramp_planner_new::TrajectoryRequest msg){
   const double resolution = 1/10.0;
   usedT_ = msg.timeNeeded;
   if(msg.points.size() >= 3){
-    MotionState p0 = msg.points.at(0);
-    MotionState p1 = msg.points.at(1);
-    MotionState p2 = msg.points.at(2);
-    findBezierCoefs(p0,p1,p2);
+    findBezierCoefs(msg.points.at(0),msg.points.at(1),msg.points.at(2));
 
-    for(unsigned int t=0;t<=msg.timeNeeded;t++){
-      float u   = uCoefs.at(j).at(0)*pow(t,3) + uCoefs.at(j).at(1)*pow(t,2) + uCoefs.at(j).at(2)*(t) + uCoefs.at(j).at(3));
-      float uP  = 3*uCoefs.at(j).at(0)*pow(t,2) + 2*uCoefs.at(j).at(1)*(t) + uCoefs.at(j).at(2));
-      float uPP = 6*uCoefs.at(j).at(0)*(t) + 2*uCoefs.at(j).at(1));
+    for(float t=0;t<=msg.timeNeeded;t+=resolution){
       MotionState ms;
-      for(unsigned int j=0;j<p0.msg_.positions.size()-1;j++){
+      for(unsigned int j=0;j<2;j++){//run for x and y, but not z (representing theta)
+        float u   = uCoefs.at(j).at(0)*pow(t,3) + uCoefs.at(j).at(1)*pow(t,2) + uCoefs.at(j).at(2)*(t) + uCoefs.at(j).at(3);
+        float uP  = 3*uCoefs.at(j).at(0)*pow(t,2) + 2*uCoefs.at(j).at(1)*(t) + uCoefs.at(j).at(2);
+        float uPP = 6*uCoefs.at(j).at(0)*(t) + 2*uCoefs.at(j).at(1);
+        
         double A1 = 2*(coefs.at(j).at(0) - coefs.at(j).at(1) + coefs.at(j).at(2));
         double A2 = 2*((coefs.at(j).at(1)/2)-coefs.at(j).at(0));
-
-        ms.msg_.positions.push_back( pow(1-u,2)*coefs.at(j).at(0) + t*(1-u)*coefs.at(j).at(1) + pow(u,2)*coefs.at(j).at(2) );
+        
+        //TODO u is not bound by [0,1].. This makes visualization weird..
+        //does this effect velocities?..
+        ms.msg_.positions.push_back( pow(1-u,2)*coefs.at(j).at(0) + u*(1-u)*coefs.at(j).at(1) + pow(u,2)*coefs.at(j).at(2) );
         
         ms.msg_.velocities.push_back( (A1*u + A2)*uP );
         
@@ -260,10 +263,11 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
       }
       if(type == "cubic"){
           coefs.push_back(hold);
+          std::cout<<"A: "<<coefs.at(i).at(0)<<"\tB: "<<coefs.at(i).at(1)<<"\tC: "<<coefs.at(i).at(2)<<"\tD: "<<coefs.at(i).at(3)<<"\t\n";
       }else{
           uCoefs.push_back(hold);
+          std::cout<<"A: "<<uCoefs.at(i).at(0)<<"\tB: "<<uCoefs.at(i).at(1)<<"\tC: "<<uCoefs.at(i).at(2)<<"\tD: "<<uCoefs.at(i).at(3)<<"\t\n";
       }
-      std::cout<<"A: "<<coefs.at(i).at(0)<<"\tB: "<<coefs.at(i).at(1)<<"\tC: "<<coefs.at(i).at(2)<<"\tD: "<<coefs.at(i).at(3)<<"\t\n";
     }
   }else{
     //HOW TO DO WITHOUT KNOWING SIZES
