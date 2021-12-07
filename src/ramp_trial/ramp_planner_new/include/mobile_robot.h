@@ -45,7 +45,7 @@ class MobileRobot
   ramp_msgs::MotionState            motion_state_; 
   geometry_msgs::Twist              velocity_;
   ramp_msgs::RampTrajectory         trajectory_;
-  ramp_planner_new::TrajectoryRepresentation cubic_;
+  ramp_planner_new::TrajectoryRepresentation trajectory_;
   ros::Timer                        timer_;
   double                            initial_theta_;
 

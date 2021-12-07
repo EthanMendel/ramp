@@ -92,8 +92,8 @@ void MobileRobot::updateCallback(const ros::TimerEvent& e) {
 
 void MobileRobot::updateCubic(const ramp_planner_new::TrajectoryRepresentation& msg)
 {
-  if(msg != cubic_){
-    cubic_ = msg;
+  if(msg != trajectory_){
+    trajectory_ = msg;
   }
 }
 
@@ -102,7 +102,7 @@ void MobileRobot::updateCubic(const ramp_planner_new::TrajectoryRepresentation& 
 void MobileRobot::setNextTwist() 
 {
   // Update vectors for speeds and times
-    calculateVelocities(cubic_.coefficients, seg_step_);
+    calculateVelocities(trajectory_.coefficients, seg_step_);
 } // End updateTrajectory
 
 void MobileRobot::calculateVelocities(const std::vector<ramp_planner_new::Coefficient> coefs, int t){
@@ -203,10 +203,10 @@ void MobileRobot::moveOnTrajectory()
   ros::Time s;
 
   double actual_theta, dist;
-  if(cubic_.active == 1){
+  if(trajectory_.active == 1){
     // Execute the trajectory
     std::cout<<"starting full path portion"<<std::endl;
-    while(ros::ok() && seg_step_ < cubic_.resolution) 
+    while(ros::ok() && seg_step_ < trajectory_.resolution) 
     {
       while(ros::ok() && time_step_ < SEND_RESELUTION) 
       {
@@ -230,7 +230,7 @@ void MobileRobot::moveOnTrajectory()
     std::cout<<"finished full path portion"<<std::endl;
     seg_step_ = 0;
     time_step_ = 0;
-    cubic_.active = 0;
+    trajectory_.active = 0;
     std_msgs::Bool msg;
     msg.data = true;
     pub_ready_next_.publish(msg);
