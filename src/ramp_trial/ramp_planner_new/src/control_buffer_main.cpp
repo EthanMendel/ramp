@@ -12,7 +12,7 @@ visualization_msgs::MarkerArray curStartGoal;
 ros::Publisher pub_path_points;
 ros::Publisher pub_time_needed;
 ros::Publisher pub_bezify_request;
-double max_linear_vel = 0.33;
+double max_speed_linear = 0.33;
 
 //assuming straight line path from start to goal
 double getMinLinTime(const geometry_msgs::Point& start, const geometry_msgs::Point goal){
@@ -22,7 +22,7 @@ double getMinLinTime(const geometry_msgs::Point& start, const geometry_msgs::Poi
   double gy = goal.y;
 
   double dist = sqrt(pow(sx-gx,2)+pow(sy-gy,2));
-  return ceil(dist/max_linear_vel);
+  return ceil(dist/max_speed_linear);
 }
 
 // j should be the index of the goal marker within pathPoints

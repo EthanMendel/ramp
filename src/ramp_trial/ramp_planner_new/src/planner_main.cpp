@@ -44,7 +44,6 @@ ros::Publisher      pub_markerArray;
 ros::Publisher      pub_coefs;
 ros::Publisher      pub_path_points;
 ros::Publisher      rviz_pub_path_points;
-double              max_angular_vel = 1.5708;
 
 
 float costmap_width, costmap_height, costmap_origin_x, costmap_origin_y;
@@ -412,7 +411,20 @@ void getTrajectory(ramp_planner_new::TrajectoryRequest msg){
   readyToPubPath = true;
 }
 
+//assuming straight line path from start to goal
+//**copied from control_buffer_main**
+double getMinLinTime(const geometry_msgs::Point& start, const geometry_msgs::Point goal){
+  double sx = start.x;
+  double sy = start.y;
+  double gx = goal.x;
+  double gy = goal.y;
+
+  double dist = sqrt(pow(sx-gx,2)+pow(sy-gy,2));
+  return ceil(dist/max_speed_linear);
+}
+
 bool acceptableAngTime(const geometry_msgs::Point& p0, const geometry_msgs::Point p1, const geometry_msgs::Point p2){
+    plannerPath.setUsedT(getMinLinTime(p0,p2));
     plannerPath.findBezierCoefs(p0,p1,p2);
     std::cout<<plannerPath.coefs.size()<<" coefs"<<std::endl;
     std::cout<<plannerPath.uCoefs.size()<<" uCoefs"<<std::endl;
@@ -431,7 +443,7 @@ bool acceptableAngTime(const geometry_msgs::Point& p0, const geometry_msgs::Poin
     double linVel = sqrt(pow(xVel,2)+pow(yVel,2));
     double angVel = pow(linVel,2) / max_acceleration;
     //TODO do something for z as theta?
-    if(linVel > max_speed_linear || angVel > max_angular_vel){
+    if(linVel > max_speed_linear || angVel > max_speed_angular){
         return false;
     }
     return true;
@@ -517,7 +529,6 @@ ramp_planner_new::PathPoints addControlPoints(visualization_msgs::Marker m, geom
 void bezify(const ramp_planner_new::BezifyRequest& br){
   std::cout<<"***bezifying.."<<std::endl;
   pathPoints = br.pathPoints;
-  plannerPath.setUsedT(br.timeNeeded);
   if(br.markers.size() == 3){
     visualization_msgs::Marker m0 = br.pathPoints.markers.at(0);
     visualization_msgs::Marker m1 = br.pathPoints.markers.at(1);
