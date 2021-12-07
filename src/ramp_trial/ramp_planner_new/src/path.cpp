@@ -180,7 +180,6 @@ void Path::findBezierCoefs(geometry_msgs::Point p0, geometry_msgs::Point p1, geo
       coefs.push_back(hold);
       std::cout<<"A: "<<coefs.at(i).at(0)<<"\tB: "<<coefs.at(i).at(1)<<"\tC: "<<coefs.at(i).at(2)<<"\t\n";
     }
-    //TODO do something for z as theta?
     ramp_planner_new::TrajectoryRequest uMsg;
     uMsg.timeNeeded = usedT_;
     uMsg.type = "uCubic";
@@ -190,6 +189,12 @@ void Path::findBezierCoefs(geometry_msgs::Point p0, geometry_msgs::Point p1, geo
     if(uCoefs.size() < 3){
       std::cout<<"u coefs is not large enough "<<uCoefs.size()<<std::endl;
       return;
+    }else{
+      //TODO do something for z as theta?
+      unsigned int u = 0;
+      double startX = pow(1-u,2)*coefs.at(0).at(0) + u*(1-u)*coefs.at(0).at(1) + pow(u,2)*coefs.at(0).at(2);
+      double startY = pow(1-u,2)*coefs.at(1).at(0) + u*(1-u)*coefs.at(1).at(1) + pow(u,2)*coefs.at(1).at(2);
+      // double theta = utility_.findAngleFromAToB()
     }
   }else{
     //HOW TO DO WITHOUT KNOWING SIZES
@@ -201,19 +206,22 @@ void Path::makeBezierPath(const ramp_planner_new::TrajectoryRequest msg){
   usedT_ = msg.timeNeeded;
   if(msg.points.size() >= 3){
     findBezierCoefs(msg.points.at(0),msg.points.at(1),msg.points.at(2));
-
+    //use these to bound u on the interval [0,1]
+    float xuMin = uCoefs.at(0).at(0)*pow(0,3) + uCoefs.at(0).at(1)*pow(0,2) + uCoefs.at(0).at(2)*(0) + uCoefs.at(0).at(3);
+    float xuMax = (uCoefs.at(0).at(0)*pow(msg.timeNeeded,3) + uCoefs.at(0).at(1)*pow(msg.timeNeeded,2) + uCoefs.at(0).at(2)*(msg.timeNeeded) + uCoefs.at(0).at(3)) - xuMin;
+    float yuMin = uCoefs.at(1).at(0)*pow(0,3) + uCoefs.at(1).at(1)*pow(0,2) + uCoefs.at(1).at(2)*(0) + uCoefs.at(1).at(3);
+    float yuMax = (uCoefs.at(1).at(0)*pow(msg.timeNeeded,3) + uCoefs.at(1).at(1)*pow(msg.timeNeeded,2) + uCoefs.at(1).at(2)*(msg.timeNeeded) + uCoefs.at(1).at(3)) - yuMin;
+    std::vector<std::vector<float>> uAdjs = {{xuMin,xuMax},{yuMin,yuMax}};
     for(float t=0;t<=msg.timeNeeded;t+=resolution){
       MotionState ms;
       for(unsigned int j=0;j<2;j++){//run for x and y, but not z (representing theta)
-        float u   = uCoefs.at(j).at(0)*pow(t,3) + uCoefs.at(j).at(1)*pow(t,2) + uCoefs.at(j).at(2)*(t) + uCoefs.at(j).at(3);
+        float u   = ((uCoefs.at(j).at(0)*pow(t,3) + uCoefs.at(j).at(1)*pow(t,2) + uCoefs.at(j).at(2)*(t) + uCoefs.at(j).at(3)) - uAdjs.at(j).at(0))/uAdjs.at(j).at(1);
         float uP  = 3*uCoefs.at(j).at(0)*pow(t,2) + 2*uCoefs.at(j).at(1)*(t) + uCoefs.at(j).at(2);
         float uPP = 6*uCoefs.at(j).at(0)*(t) + 2*uCoefs.at(j).at(1);
         
         double A1 = 2*(coefs.at(j).at(0) - coefs.at(j).at(1) + coefs.at(j).at(2));
         double A2 = 2*((coefs.at(j).at(1)/2)-coefs.at(j).at(0));
         
-        //TODO u is not bound by [0,1].. This makes visualization weird..
-        //does this effect velocities?..
         ms.msg_.positions.push_back( pow(1-u,2)*coefs.at(j).at(0) + u*(1-u)*coefs.at(j).at(1) + pow(u,2)*coefs.at(j).at(2) );
         
         ms.msg_.velocities.push_back( (A1*u + A2)*uP );
@@ -232,7 +240,6 @@ void Path::makeBezierPath(const ramp_planner_new::TrajectoryRequest msg){
 }
 
 //from ITCS 5151/8151 (Robotics) 2003, Jing Xiao Handout#3
-//REQUIRES START AND GOAL NODES
 void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
   order = 3;
   double T = msg.timeNeeded;
