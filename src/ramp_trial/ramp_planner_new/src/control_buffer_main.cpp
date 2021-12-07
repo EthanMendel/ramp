@@ -68,6 +68,7 @@ void updateStartGoal(){
                     br.markers.push_back(pathPoints.markers.at(i));
                     br.markers.push_back(pathPoints.markers.at(i+1));
                     br.markers.push_back(pathPoints.markers.at(i+2));
+                    br.timeNeeded = getMinLinTime(pathPoints.markers.at(i).pose.position,pathPoints.markers.at(i+2).pose.position);
                     pub_bezify_request.publish(br);
                     // bezify(br);
                     // updateStartGoal();

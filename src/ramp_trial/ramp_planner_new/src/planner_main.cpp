@@ -17,6 +17,7 @@ std::vector<Range>  ranges;
 double              radius;
 double              max_speed_linear;
 double              max_speed_angular;
+double              max_acceleration;
 int                 population_size;
 int                 num_ppcs;
 bool                sensingBeforeCC;
@@ -141,6 +142,18 @@ void loadParameters(const ros::NodeHandle handle){
     handle.getParam("robot_info/max_speed_linear", max_speed_linear);
   }else{
     ROS_ERROR("Did not find robot_info/max_speed_linear rosparam");
+    exit(1);
+  }
+  if(handle.hasParam("robot_info/max_speed_angular")){
+    handle.getParam("robot_info/max_speed_angular", max_speed_angular);
+  }else{
+    ROS_ERROR("Did not find robot_info/max_speed_angular rosparam");
+    exit(1);
+  }
+  if(handle.hasParam("robot_info/max_acceleration")){
+    handle.getParam("robot_info/max_acceleration", max_acceleration);
+  }else{
+    ROS_ERROR("Did not find robot_info/max_acceleration rosparam");
     exit(1);
   }
   
@@ -416,9 +429,9 @@ bool acceptableAngTime(const geometry_msgs::Point& p0, const geometry_msgs::Poin
     double xVel =((A1*t + A2)*xuP);
     double yVel =((B1*t + B2)*yuP);
     double linVel = sqrt(pow(xVel,2)+pow(yVel,2));
-    //TODO find angular vel
+    double angVel = pow(linVel,2) / max_acceleration;
     //TODO do something for z as theta?
-    if(linVel > max_speed_linear){
+    if(linVel > max_speed_linear || angVel > max_angular_vel){
         return false;
     }
     return true;
@@ -504,6 +517,7 @@ ramp_planner_new::PathPoints addControlPoints(visualization_msgs::Marker m, geom
 void bezify(const ramp_planner_new::BezifyRequest& br){
   std::cout<<"***bezifying.."<<std::endl;
   pathPoints = br.pathPoints;
+  plannerPath.setUsedT(br.timeNeeded);
   if(br.markers.size() == 3){
     visualization_msgs::Marker m0 = br.pathPoints.markers.at(0);
     visualization_msgs::Marker m1 = br.pathPoints.markers.at(1);

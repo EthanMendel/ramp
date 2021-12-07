@@ -27,11 +27,13 @@ struct BezifyRequest_
 
   BezifyRequest_()
     : pathPoints()
-    , markers()  {
+    , markers()
+    , timeNeeded(0)  {
     }
   BezifyRequest_(const ContainerAllocator& _alloc)
     : pathPoints(_alloc)
-    , markers(_alloc)  {
+    , markers(_alloc)
+    , timeNeeded(0)  {
   (void)_alloc;
     }
 
@@ -42,6 +44,9 @@ struct BezifyRequest_
 
    typedef std::vector< ::visualization_msgs::Marker_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::visualization_msgs::Marker_<ContainerAllocator> >::other >  _markers_type;
   _markers_type markers;
+
+   typedef uint8_t _timeNeeded_type;
+  _timeNeeded_type timeNeeded;
 
 
 
@@ -73,7 +78,8 @@ template<typename ContainerAllocator1, typename ContainerAllocator2>
 bool operator==(const ::ramp_planner_new::BezifyRequest_<ContainerAllocator1> & lhs, const ::ramp_planner_new::BezifyRequest_<ContainerAllocator2> & rhs)
 {
   return lhs.pathPoints == rhs.pathPoints &&
-    lhs.markers == rhs.markers;
+    lhs.markers == rhs.markers &&
+    lhs.timeNeeded == rhs.timeNeeded;
 }
 
 template<typename ContainerAllocator1, typename ContainerAllocator2>
@@ -130,12 +136,12 @@ struct MD5Sum< ::ramp_planner_new::BezifyRequest_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "11bb1ea662a7427a6696b9952d064e57";
+    return "03a9e16773d4c11085aa048f2254a432";
   }
 
   static const char* value(const ::ramp_planner_new::BezifyRequest_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x11bb1ea662a7427aULL;
-  static const uint64_t static_value2 = 0x6696b9952d064e57ULL;
+  static const uint64_t static_value1 = 0x03a9e16773d4c110ULL;
+  static const uint64_t static_value2 = 0x85aa048f2254a432ULL;
 };
 
 template<class ContainerAllocator>
@@ -156,6 +162,7 @@ struct Definition< ::ramp_planner_new::BezifyRequest_<ContainerAllocator> >
   {
     return "ramp_planner_new/PathPoints pathPoints\n"
 "visualization_msgs/Marker[] markers\n"
+"uint8 timeNeeded\n"
 "================================================================================\n"
 "MSG: ramp_planner_new/PathPoints\n"
 "visualization_msgs/Marker[] markers\n"
@@ -285,6 +292,7 @@ namespace serialization
     {
       stream.next(m.pathPoints);
       stream.next(m.markers);
+      stream.next(m.timeNeeded);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -314,6 +322,8 @@ struct Printer< ::ramp_planner_new::BezifyRequest_<ContainerAllocator> >
       s << indent;
       Printer< ::visualization_msgs::Marker_<ContainerAllocator> >::stream(s, indent + "    ", v.markers[i]);
     }
+    s << indent << "timeNeeded: ";
+    Printer<uint8_t>::stream(s, indent + "  ", v.timeNeeded);
   }
 };
 

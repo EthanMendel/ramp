@@ -22,6 +22,7 @@ class BezifyRequest {
       // initObj === null is a special case for deserialization where we don't initialize fields
       this.pathPoints = null;
       this.markers = null;
+      this.timeNeeded = null;
     }
     else {
       if (initObj.hasOwnProperty('pathPoints')) {
@@ -36,6 +37,12 @@ class BezifyRequest {
       else {
         this.markers = [];
       }
+      if (initObj.hasOwnProperty('timeNeeded')) {
+        this.timeNeeded = initObj.timeNeeded
+      }
+      else {
+        this.timeNeeded = 0;
+      }
     }
   }
 
@@ -49,6 +56,8 @@ class BezifyRequest {
     obj.markers.forEach((val) => {
       bufferOffset = visualization_msgs.msg.Marker.serialize(val, buffer, bufferOffset);
     });
+    // Serialize message field [timeNeeded]
+    bufferOffset = _serializer.uint8(obj.timeNeeded, buffer, bufferOffset);
     return bufferOffset;
   }
 
@@ -65,6 +74,8 @@ class BezifyRequest {
     for (let i = 0; i < len; ++i) {
       data.markers[i] = visualization_msgs.msg.Marker.deserialize(buffer, bufferOffset)
     }
+    // Deserialize message field [timeNeeded]
+    data.timeNeeded = _deserializer.uint8(buffer, bufferOffset);
     return data;
   }
 
@@ -74,7 +85,7 @@ class BezifyRequest {
     object.markers.forEach((val) => {
       length += visualization_msgs.msg.Marker.getMessageSize(val);
     });
-    return length + 4;
+    return length + 5;
   }
 
   static datatype() {
@@ -84,7 +95,7 @@ class BezifyRequest {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '11bb1ea662a7427a6696b9952d064e57';
+    return '03a9e16773d4c11085aa048f2254a432';
   }
 
   static messageDefinition() {
@@ -92,6 +103,7 @@ class BezifyRequest {
     return `
     ramp_planner_new/PathPoints pathPoints
     visualization_msgs/Marker[] markers
+    uint8 timeNeeded
     ================================================================================
     MSG: ramp_planner_new/PathPoints
     visualization_msgs/Marker[] markers
@@ -226,6 +238,13 @@ class BezifyRequest {
     }
     else {
       resolved.markers = []
+    }
+
+    if (msg.timeNeeded !== undefined) {
+      resolved.timeNeeded = msg.timeNeeded;
+    }
+    else {
+      resolved.timeNeeded = 0
     }
 
     return resolved;

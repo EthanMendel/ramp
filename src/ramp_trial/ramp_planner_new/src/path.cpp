@@ -55,6 +55,10 @@ const bool Path::equals(const Path& p, const double& epsilon) const {
   return true;
 }
 
+void Path::setUsedT(const double T){
+  usedT_ = T;
+}
+
 const KnotPoint Path::at(const uint8_t i) const {
   KnotPoint result(msg_.points[i]);
   return result;
@@ -246,7 +250,7 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
     uCoefs.clear();
   }
   if(msg.points.size() >= 2){
-    MotionState start = msg.points.at(0);//MAKE THESE DYNAMIC START AND GOALS
+    MotionState start = msg.points.at(0);
     MotionState goal = msg.points.at(1);
     for(unsigned int i = 0;i<start.msg_.positions.size();i++){
       std::vector<double> hold;

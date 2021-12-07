@@ -16,17 +16,19 @@
 
 (defclass ramp_planner_new::BezifyRequest
   :super ros::object
-  :slots (_pathPoints _markers ))
+  :slots (_pathPoints _markers _timeNeeded ))
 
 (defmethod ramp_planner_new::BezifyRequest
   (:init
    (&key
     ((:pathPoints __pathPoints) (instance ramp_planner_new::PathPoints :init))
     ((:markers __markers) ())
+    ((:timeNeeded __timeNeeded) 0)
     )
    (send-super :init)
    (setq _pathPoints __pathPoints)
    (setq _markers __markers)
+   (setq _timeNeeded (round __timeNeeded))
    self)
   (:pathPoints
    (&rest __pathPoints)
@@ -42,6 +44,9 @@
      (progn
        (if __markers (setq _markers (car __markers)))
        _markers)))
+  (:timeNeeded
+   (&optional __timeNeeded)
+   (if __timeNeeded (setq _timeNeeded __timeNeeded)) _timeNeeded)
   (:serialization-length
    ()
    (+
@@ -49,6 +54,8 @@
     (send _pathPoints :serialization-length)
     ;; visualization_msgs/Marker[] _markers
     (apply #'+ (send-all _markers :serialization-length)) 4
+    ;; uint8 _timeNeeded
+    1
     ))
   (:serialize
    (&optional strm)
@@ -61,6 +68,8 @@
      (dolist (elem _markers)
        (send elem :serialize s)
        )
+     ;; uint8 _timeNeeded
+       (write-byte _timeNeeded s)
      ;;
      (if (null strm) (get-output-stream-string s))))
   (:deserialize
@@ -74,15 +83,18 @@
      (dolist (elem- _markers)
      (send elem- :deserialize buf ptr-) (incf ptr- (send elem- :serialization-length))
      ))
+   ;; uint8 _timeNeeded
+     (setq _timeNeeded (sys::peek buf ptr- :char)) (incf ptr- 1)
    ;;
    self)
   )
 
-(setf (get ramp_planner_new::BezifyRequest :md5sum-) "11bb1ea662a7427a6696b9952d064e57")
+(setf (get ramp_planner_new::BezifyRequest :md5sum-) "03a9e16773d4c11085aa048f2254a432")
 (setf (get ramp_planner_new::BezifyRequest :datatype-) "ramp_planner_new/BezifyRequest")
 (setf (get ramp_planner_new::BezifyRequest :definition-)
       "ramp_planner_new/PathPoints pathPoints
 visualization_msgs/Marker[] markers
+uint8 timeNeeded
 ================================================================================
 MSG: ramp_planner_new/PathPoints
 visualization_msgs/Marker[] markers
@@ -197,6 +209,6 @@ float32 a
 
 
 
-(provide :ramp_planner_new/BezifyRequest "11bb1ea662a7427a6696b9952d064e57")
+(provide :ramp_planner_new/BezifyRequest "03a9e16773d4c11085aa048f2254a432")
 
 

@@ -44,7 +44,6 @@ class MobileRobot
   ros::Subscriber                   sub_imminent_collision_;
   ramp_msgs::MotionState            motion_state_; 
   geometry_msgs::Twist              velocity_;
-  ramp_msgs::RampTrajectory         trajectory_;
   ramp_planner_new::TrajectoryRepresentation trajectory_;
   ros::Timer                        timer_;
   double                            initial_theta_;

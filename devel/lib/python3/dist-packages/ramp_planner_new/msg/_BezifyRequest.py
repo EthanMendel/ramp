@@ -13,11 +13,12 @@ import std_msgs.msg
 import visualization_msgs.msg
 
 class BezifyRequest(genpy.Message):
-  _md5sum = "11bb1ea662a7427a6696b9952d064e57"
+  _md5sum = "03a9e16773d4c11085aa048f2254a432"
   _type = "ramp_planner_new/BezifyRequest"
   _has_header = False  # flag to mark the presence of a Header object
   _full_text = """ramp_planner_new/PathPoints pathPoints
 visualization_msgs/Marker[] markers
+uint8 timeNeeded
 ================================================================================
 MSG: ramp_planner_new/PathPoints
 visualization_msgs/Marker[] markers
@@ -128,8 +129,8 @@ float32 g
 float32 b
 float32 a
 """
-  __slots__ = ['pathPoints','markers']
-  _slot_types = ['ramp_planner_new/PathPoints','visualization_msgs/Marker[]']
+  __slots__ = ['pathPoints','markers','timeNeeded']
+  _slot_types = ['ramp_planner_new/PathPoints','visualization_msgs/Marker[]','uint8']
 
   def __init__(self, *args, **kwds):
     """
@@ -139,7 +140,7 @@ float32 a
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       pathPoints,markers
+       pathPoints,markers,timeNeeded
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -152,9 +153,12 @@ float32 a
         self.pathPoints = ramp_planner_new.msg.PathPoints()
       if self.markers is None:
         self.markers = []
+      if self.timeNeeded is None:
+        self.timeNeeded = 0
     else:
       self.pathPoints = ramp_planner_new.msg.PathPoints()
       self.markers = []
+      self.timeNeeded = 0
 
   def _get_types(self):
     """
@@ -315,6 +319,8 @@ float32 a
         buff.write(struct.Struct('<I%ss'%length).pack(length, _x))
         _x = val1.mesh_use_embedded_materials
         buff.write(_get_struct_B().pack(_x))
+      _x = self.timeNeeded
+      buff.write(_get_struct_B().pack(_x))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -590,6 +596,9 @@ float32 a
         (val1.mesh_use_embedded_materials,) = _get_struct_B().unpack(str[start:end])
         val1.mesh_use_embedded_materials = bool(val1.mesh_use_embedded_materials)
         self.markers.append(val1)
+      start = end
+      end += 1
+      (self.timeNeeded,) = _get_struct_B().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -749,6 +758,8 @@ float32 a
         buff.write(struct.Struct('<I%ss'%length).pack(length, _x))
         _x = val1.mesh_use_embedded_materials
         buff.write(_get_struct_B().pack(_x))
+      _x = self.timeNeeded
+      buff.write(_get_struct_B().pack(_x))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -1025,6 +1036,9 @@ float32 a
         (val1.mesh_use_embedded_materials,) = _get_struct_B().unpack(str[start:end])
         val1.mesh_use_embedded_materials = bool(val1.mesh_use_embedded_materials)
         self.markers.append(val1)
+      start = end
+      end += 1
+      (self.timeNeeded,) = _get_struct_B().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill

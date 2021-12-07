@@ -3,4 +3,6 @@
           PATHPOINTS
           MARKERS-VAL
           MARKERS
+          TIMENEEDED-VAL
+          TIMENEEDED
 ))
