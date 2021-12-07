@@ -93,7 +93,7 @@ void MobileRobot::updateCallback(const ros::TimerEvent& e) {
 void MobileRobot::updateTrajectory(const ramp_planner_new::TrajectoryRepresentation& msg)
 {
   if(msg != trajectory_){
-    std::cout<<"setting new trajectory"<<std::endl;
+    std::cout<<"setting new "<<msg.type<<" trajectory"<<std::endl;
     trajectory_ = msg;
   }
 }
@@ -108,11 +108,15 @@ void MobileRobot::setNextTwist()
 
 void MobileRobot::calculateVelocities(const std::vector<ramp_planner_new::Coefficient> coefs, const std::vector<ramp_planner_new::Coefficient> uCoefs, int t){  
   std::vector<double> curXY;
+  double xP;
+  double yP;
   if(trajectory_.type == "cubic"){
     curXY = {
       coefs.at(0).values.at(0)*pow(t,3) + coefs.at(0).values.at(1)*pow(t,2) + coefs.at(0).values.at(2)*(t) + coefs.at(0).values.at(3),
       coefs.at(1).values.at(0)*pow(t,3) + coefs.at(1).values.at(1)*pow(t,2) + coefs.at(1).values.at(2)*(t) + coefs.at(1).values.at(3)
     };
+     xP = 3*coefs.at(0).values.at(0)*pow(t,2) + 2*coefs.at(0).values.at(1)*(t) + coefs.at(0).values.at(2);
+     yP = 3*coefs.at(1).values.at(0)*pow(t,2) + 2*coefs.at(1).values.at(1)*(t) + coefs.at(1).values.at(2);
   }else if(trajectory_.type == "bezier"){
     float xuMin = uCoefs.at(0).values.at(0)*pow(0,3) + uCoefs.at(0).values.at(1)*pow(0,2) + uCoefs.at(0).values.at(2)*(0) + uCoefs.at(0).values.at(3);
     float xuMax = (uCoefs.at(0).values.at(0)*pow(trajectory_.resolution,3) + uCoefs.at(0).values.at(1)*pow(trajectory_.resolution,2) + uCoefs.at(0).values.at(2)*(trajectory_.resolution) + uCoefs.at(0).values.at(3)) - xuMin;
@@ -124,13 +128,19 @@ void MobileRobot::calculateVelocities(const std::vector<ramp_planner_new::Coeffi
       pow(1-xu,2)*coefs.at(0).values.at(0) + xu*(1-xu)*coefs.at(0).values.at(1) + pow(xu,2)*coefs.at(0).values.at(2),
       pow(1-yu,2)*coefs.at(1).values.at(0) + yu*(1-yu)*coefs.at(1).values.at(1) + pow(yu,2)*coefs.at(1).values.at(2)
     };
+    double A1 = 2*(coefs.at(0).values.at(0) - coefs.at(0).values.at(1) + coefs.at(0).values.at(2));
+    double B1 = 2*(coefs.at(1).values.at(0) - coefs.at(1).values.at(1) + coefs.at(1).values.at(2));
+    double A2 = 2*((coefs.at(0).values.at(1)/2)-coefs.at(0).values.at(0));
+    double B2 = 2*((coefs.at(1).values.at(1)/2)-coefs.at(1).values.at(0));
+    float xuP = 3*uCoefs.at(0).values.at(0)*pow(t,2) + 2*uCoefs.at(0).values.at(1)*(t) + uCoefs.at(0).values.at(2);
+    float yuP = 3*uCoefs.at(1).values.at(0)*pow(t,2) + 2*uCoefs.at(1).values.at(1)*(t) + uCoefs.at(1).values.at(2);
+    xP =((A1*t + A2)*xuP);
+    yP =((B1*t + B2)*yuP);
   }else{
-    std::cout<<"got u trajectory, something went wrong"<<std::endl;
+    std::cout<<"got "<<trajectory_.type<<" trajectory, something went wrong"<<std::endl;
     return;
   }
 
-  double xP = 3*coefs.at(0).values.at(0)*pow(t,2) + 2*coefs.at(0).values.at(1)*(t) + coefs.at(0).values.at(2);
-  double yP = 3*coefs.at(1).values.at(0)*pow(t,2) + 2*coefs.at(1).values.at(1)*(t) + coefs.at(1).values.at(2);
   speed_linear_ = sqrt(pow(xP,2) + pow(yP,2));
   twist_.linear.x = speed_linear_;
 

@@ -141,6 +141,13 @@ const ramp_planner_new::TrajectoryRepresentation Path::buildCubicMsg() const {
       }
       result.coefficients.push_back(c);
     }
+    for(unsigned int i=0;i<uCoefs.size();i++){
+      ramp_planner_new::Coefficient c;
+      for(unsigned int j=0;j<uCoefs.at(i).size();j++){
+        c.values.push_back(uCoefs.at(i).at(j));
+      }
+      result.uCoefficients.push_back(c);
+    }
     result.resolution=usedT_;
     result.active = true;
     result.type = type;
@@ -186,6 +193,7 @@ void Path::findBezierCoefs(geometry_msgs::Point p0, geometry_msgs::Point p1, geo
     uMsg.points.push_back(p0);
     uMsg.points.push_back(p2);
     findCubicCoefs(uMsg);
+    type = "bezier";
     if(uCoefs.size() < 3){
       std::cout<<"u coefs is not large enough "<<uCoefs.size()<<std::endl;
       return;
