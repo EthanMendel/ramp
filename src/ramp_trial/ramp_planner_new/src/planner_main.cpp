@@ -550,7 +550,8 @@ void bezify(const ramp_planner_new::BezifyRequest& br){
     double u2[] = {v2[0]/normFactor2, v2[1]/normFactor2};
     //find new control points
     geometry_msgs::Point cp1,cp2;
-    for(float d=.3;d<=D;d+=.1){
+    float d;
+    for(d=.5;d<=D;d+=.1){
         cp1.x = p1.x - d*u1[0];
         cp1.y = p1.y - d*u1[1];
         cp2.x = p1.x + d*u2[0];
@@ -560,6 +561,9 @@ void bezify(const ramp_planner_new::BezifyRequest& br){
             std::cout<<"**found good bezier where d="<<d<<"**"<<std::endl;
             break;
         }
+    }
+    if(d > D){
+      std::cout<<"**could not find good bezier**"<<std::endl;
     }
     pathPoints = addControlPoints(m1,cp1,cp2);
     plannerPath.setPathPoints(pathPoints);
