@@ -62,6 +62,7 @@ class MobileRobot
   static const std::string  TOPIC_STR_SIM2;
   static const int          SEND_RESELUTION = 10;
   static const int          ACCELERATION_CONSTANT = 50;
+  const double              CYCLE_TIME_IN_SECONDS = 0.1;
   
   std::vector<ros::Duration> t_points_;
   ros::Time t_prev_traj_;

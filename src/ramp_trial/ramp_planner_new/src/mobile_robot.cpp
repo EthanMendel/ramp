@@ -148,7 +148,7 @@ void MobileRobot::calculateVelocities(const std::vector<ramp_planner_new::Coeffi
   if(prevXY_.size() > 0){
     double theta = findAngleFromAToB(curXY,prevXY_);
     if(prevTheta_){
-      speed_angular_ = findDistanceBetweenAngles(prevTheta_,theta)*2;
+      speed_angular_ = findDistanceBetweenAngles(prevTheta_,theta)/CYCLE_TIME_IN_SECONDS;
       // if(trajectory_.type == "bezier"){
       //   speed_angular_= ang_holder;
       // }else{
@@ -267,8 +267,7 @@ const bool MobileRobot::checkImminentCollision()
 void MobileRobot::moveOnTrajectory() 
 {
   restart_ = false;
-  ros::Rate r(20);
-  ros::Rate r_ic(100);
+  ros::Rate r(10);
 
   ros::Time s;
 
