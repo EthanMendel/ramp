@@ -117,6 +117,7 @@ void MobileRobot::calculateVelocities(const std::vector<ramp_planner_new::Coeffi
     };
      xP = 3*coefs.at(0).values.at(0)*pow(t,2) + 2*coefs.at(0).values.at(1)*(t) + coefs.at(0).values.at(2);
      yP = 3*coefs.at(1).values.at(0)*pow(t,2) + 2*coefs.at(1).values.at(1)*(t) + coefs.at(1).values.at(2);
+  
   }else if(trajectory_.type == "bezier"){
     float xuMin = uCoefs.at(0).values.at(0)*pow(0,3) + uCoefs.at(0).values.at(1)*pow(0,2) + uCoefs.at(0).values.at(2)*(0) + uCoefs.at(0).values.at(3);
     float xuMax = (uCoefs.at(0).values.at(0)*pow(trajectory_.resolution,3) + uCoefs.at(0).values.at(1)*pow(trajectory_.resolution,2) + uCoefs.at(0).values.at(2)*(trajectory_.resolution) + uCoefs.at(0).values.at(3)) - xuMin;
@@ -132,10 +133,10 @@ void MobileRobot::calculateVelocities(const std::vector<ramp_planner_new::Coeffi
     double B1 = 2*(coefs.at(1).values.at(0) - coefs.at(1).values.at(1) + coefs.at(1).values.at(2));
     double A2 = 2*((coefs.at(0).values.at(1)/2)-coefs.at(0).values.at(0));
     double B2 = 2*((coefs.at(1).values.at(1)/2)-coefs.at(1).values.at(0));
-    float xuP = 3*uCoefs.at(0).values.at(0)*pow(t,2) + 2*uCoefs.at(0).values.at(1)*(t) + uCoefs.at(0).values.at(2);
-    float yuP = 3*uCoefs.at(1).values.at(0)*pow(t,2) + 2*uCoefs.at(1).values.at(1)*(t) + uCoefs.at(1).values.at(2);
-    xP =((A1*t + A2)*xuP);
-    yP =((B1*t + B2)*yuP);
+    float xuP = 3*uCoefs.at(0).values.at(0)*pow(xu,2) + 2*uCoefs.at(0).values.at(1)*(xu) + uCoefs.at(0).values.at(2);
+    float yuP = 3*uCoefs.at(1).values.at(0)*pow(yu,2) + 2*uCoefs.at(1).values.at(1)*(yu) + uCoefs.at(1).values.at(2);
+    xP =((A1*xu + A2)*xuP);
+    yP =((B1*yu + B2)*yuP);
   }else{
     std::cout<<"got "<<trajectory_.type<<" trajectory, something went wrong"<<std::endl;
     return;
@@ -148,11 +149,16 @@ void MobileRobot::calculateVelocities(const std::vector<ramp_planner_new::Coeffi
     double theta = findAngleFromAToB(curXY,prevXY_);
     if(prevTheta_){
       speed_angular_ = findDistanceBetweenAngles(prevTheta_,theta);
-      twist_.angular.z = speed_angular_;
+      if(trajectory_.type == "bezier"){
+        twist_.angular.z = speed_angular_;
+      }else{
+        twist_.angular.z = 0;
+      }
     }
     prevTheta_ = theta;
   }
   prevXY_ = curXY;
+  std::cout<<"\tLin: "<<speed_linear_<<"\tAng: "<<speed_angular_<<std::endl;
 }
 
 /** return euclidean distance between two position vectors */
@@ -269,6 +275,7 @@ void MobileRobot::moveOnTrajectory()
   if(trajectory_.active == 1){
     // Execute the trajectory
     std::cout<<"starting full path portion"<<std::endl;
+    setNextTwist(); 
     while(ros::ok() && seg_step_ < trajectory_.resolution) 
     {
       while(ros::ok() && time_step_ < SEND_RESELUTION) 
