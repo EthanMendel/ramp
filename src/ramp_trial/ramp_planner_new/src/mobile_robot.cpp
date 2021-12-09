@@ -133,8 +133,8 @@ void MobileRobot::calculateVelocities(const std::vector<ramp_planner_new::Coeffi
     double B1 = 2*(coefs.at(1).values.at(0) - coefs.at(1).values.at(1) + coefs.at(1).values.at(2));
     double A2 = 2*((coefs.at(0).values.at(1)/2)-coefs.at(0).values.at(0));
     double B2 = 2*((coefs.at(1).values.at(1)/2)-coefs.at(1).values.at(0));
-    float xuP = 3*uCoefs.at(0).values.at(0)*pow(xu,2) + 2*uCoefs.at(0).values.at(1)*(xu) + uCoefs.at(0).values.at(2);
-    float yuP = 3*uCoefs.at(1).values.at(0)*pow(yu,2) + 2*uCoefs.at(1).values.at(1)*(yu) + uCoefs.at(1).values.at(2);
+    float xuP = 3*uCoefs.at(0).values.at(0)*pow(t,2) + 2*uCoefs.at(0).values.at(1)*(t) + uCoefs.at(0).values.at(2);
+    float yuP = 3*uCoefs.at(1).values.at(0)*pow(t,2) + 2*uCoefs.at(1).values.at(1)*(t) + uCoefs.at(1).values.at(2);
     xP =((A1*xu + A2)*xuP);
     yP =((B1*yu + B2)*yuP);
   }else{
@@ -159,7 +159,7 @@ void MobileRobot::calculateVelocities(const std::vector<ramp_planner_new::Coeffi
     prevTheta_ = theta;
   }
   prevXY_ = curXY;
-  std::cout<<"\tLin: "<<speed_linear_<<"\tAng: "<<speed_angular_<<std::endl;
+  std::cout<<"\tt: "<<t<<"\tLin: "<<speed_linear_<<"\tAng: "<<speed_angular_<<std::endl;
 }
 
 /** return euclidean distance between two position vectors */
@@ -281,7 +281,6 @@ void MobileRobot::moveOnTrajectory()
     {
       while(ros::ok() && time_step_ < SEND_RESELUTION) 
       {
-        std::cout<<"\ttime_step_:"<<time_step_<<"\tseg_step_:"<<seg_step_<<std::endl;
         // ** Code that was used to maintain orientation ** //
         // Send the twist_message to move the robot
         setNextTwist();
