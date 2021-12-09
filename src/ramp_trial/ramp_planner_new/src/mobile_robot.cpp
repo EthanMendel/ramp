@@ -1,11 +1,11 @@
 #include "../include/mobile_robot.h"
 #include <ramp_planner_new/TrajectoryRequest.h>
 
-const std::string MobileRobot::TOPIC_STR_PHIDGET_MOTOR="PhidgetMotor";
-const std::string MobileRobot::TOPIC_STR_ODOMETRY="odometry/filtered";
-const std::string MobileRobot::TOPIC_STR_UPDATE="update";
-const std::string MobileRobot::TOPIC_STR_TWIST="twist";
-const std::string MobileRobot::TOPIC_STR_IC="imminent_collision";
+const std::string MobileRobot::TOPIC_STR_PHIDGET_MOTOR="/PhidgetMotor";
+const std::string MobileRobot::TOPIC_STR_ODOMETRY="/odometry/filtered";
+const std::string MobileRobot::TOPIC_STR_UPDATE="/update";
+const std::string MobileRobot::TOPIC_STR_TWIST="/twist";
+const std::string MobileRobot::TOPIC_STR_IC="/imminent_collision";
 const std::string MobileRobot::TOPIC_STR_SIM="/cmd_vel";
 const std::string MobileRobot::TOPIC_STR_SIM2="/mobile_base/commands/velocity";
 const float BASE_WIDTH=0.2413;

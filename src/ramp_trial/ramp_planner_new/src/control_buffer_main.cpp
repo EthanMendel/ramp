@@ -140,9 +140,9 @@ int main(int argc, char** argv) {
   ros::NodeHandle handle;
 //   ros::NodeHandle handle_local("~");
 
-  ros::Subscriber pathPointsListener  = handle.subscribe("path_points_channel", 1, pathPointsCallback);
-  ros::Subscriber readyNextListener = handle.subscribe("ready_next", 1, getNextPoint);
-  pub_path_points = handle.advertise<visualization_msgs::MarkerArray>("start_goal_channel",10);
+  ros::Subscriber pathPointsListener  = handle.subscribe("/path_points_channel", 1, pathPointsCallback);
+  ros::Subscriber readyNextListener = handle.subscribe("/ready_next", 1, getNextPoint);
+  pub_path_points = handle.advertise<visualization_msgs::MarkerArray>("/start_goal_channel",10);
   pub_time_needed = handle.advertise<ramp_planner_new::TrajectoryRequest>("/traj_req",1);
   pub_bezify_request = handle.advertise<ramp_planner_new::BezifyRequest>("/bezify_request",1);
   setvbuf(stdout, NULL, _IOLBF, 4096);

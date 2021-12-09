@@ -530,9 +530,9 @@ void bezify(const ramp_planner_new::BezifyRequest& br){
   std::cout<<"***bezifying.."<<std::endl;
   pathPoints = br.pathPoints;
   if(br.markers.size() == 3){
-    visualization_msgs::Marker m0 = br.pathPoints.markers.at(0);
-    visualization_msgs::Marker m1 = br.pathPoints.markers.at(1);
-    visualization_msgs::Marker m2 = br.pathPoints.markers.at(2);
+    visualization_msgs::Marker m0 = br.markers.at(0);
+    visualization_msgs::Marker m1 = br.markers.at(1);
+    visualization_msgs::Marker m2 = br.markers.at(2);
     
     geometry_msgs::Point p0,p1,p2;
     p0 = m0.pose.position;
