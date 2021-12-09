@@ -73,7 +73,7 @@ class MobileRobot
   void                        sendTwist() const;
   void                        calculateSpeedsAndTime();
   const bool                  checkImminentCollision();
-  void                        calculateVelocities(const std::vector<ramp_planner_new::Coefficient> coefs,const std::vector<ramp_planner_new::Coefficient> uCoefs, int t);
+  void                        calculateVelocities(const std::vector<ramp_planner_new::Coefficient> coefs,const std::vector<ramp_planner_new::Coefficient> uCoefs, double t);
   const double                findDistanceBetweenAngles(const double a1, const double a2) const;
   const double                positionDistance(const std::vector<double> a, const std::vector<double> b) const;
   const double                findAngleFromAToB(const std::vector<double> a, const std::vector<double> b) const;

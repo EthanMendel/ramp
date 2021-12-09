@@ -103,10 +103,10 @@ void MobileRobot::updateTrajectory(const ramp_planner_new::TrajectoryRepresentat
 void MobileRobot::setNextTwist() 
 {
   // Update vectors for speeds and times
-    calculateVelocities(trajectory_.coefficients,trajectory_.uCoefficients, seg_step_);
+    calculateVelocities(trajectory_.coefficients,trajectory_.uCoefficients, (seg_step_+.1*time_step_));
 } // End updateTrajectory
 
-void MobileRobot::calculateVelocities(const std::vector<ramp_planner_new::Coefficient> coefs, const std::vector<ramp_planner_new::Coefficient> uCoefs, int t){  
+void MobileRobot::calculateVelocities(const std::vector<ramp_planner_new::Coefficient> coefs, const std::vector<ramp_planner_new::Coefficient> uCoefs, double t){  
   std::vector<double> curXY;
   double xP;
   double yP;
@@ -148,12 +148,13 @@ void MobileRobot::calculateVelocities(const std::vector<ramp_planner_new::Coeffi
   if(prevXY_.size() > 0){
     double theta = findAngleFromAToB(curXY,prevXY_);
     if(prevTheta_){
-      speed_angular_ = findDistanceBetweenAngles(prevTheta_,theta);
-      if(trajectory_.type == "bezier"){
-        twist_.angular.z = speed_angular_;
-      }else{
-        twist_.angular.z = 0;
-      }
+      speed_angular_ = findDistanceBetweenAngles(prevTheta_,theta)*2;
+      // if(trajectory_.type == "bezier"){
+      //   speed_angular_= ang_holder;
+      // }else{
+      //   speed_angular_ = 0;
+      // }
+      twist_.angular.z = speed_angular_;
     }
     prevTheta_ = theta;
   }
@@ -275,7 +276,7 @@ void MobileRobot::moveOnTrajectory()
   if(trajectory_.active == 1){
     // Execute the trajectory
     std::cout<<"starting full path portion"<<std::endl;
-    setNextTwist(); 
+    // setNextTwist(); 
     while(ros::ok() && seg_step_ < trajectory_.resolution) 
     {
       while(ros::ok() && time_step_ < SEND_RESELUTION) 
@@ -283,6 +284,7 @@ void MobileRobot::moveOnTrajectory()
         std::cout<<"\ttime_step_:"<<time_step_<<"\tseg_step_:"<<seg_step_<<std::endl;
         // ** Code that was used to maintain orientation ** //
         // Send the twist_message to move the robot
+        setNextTwist();
         sendTwist();
         time_step_++;
         // Sleep
@@ -293,7 +295,7 @@ void MobileRobot::moveOnTrajectory()
       // Increment num_traveled
       time_step_ = 0;
       seg_step_++;
-      setNextTwist(); 
+      // setNextTwist(); 
       // Spin once to check for updates in the trajectory
       ros::spinOnce();
     } // end while

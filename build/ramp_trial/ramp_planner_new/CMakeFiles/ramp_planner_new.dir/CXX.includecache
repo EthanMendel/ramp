@@ -736,6 +736,10 @@ ros/console.h
 ros/package.h
 -
 
+/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/path.cpp
+../include/path.h
+/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/path.h
+
 /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/planner_main.cpp
 ros/ros.h
 /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/ros/ros.h
