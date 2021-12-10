@@ -254,16 +254,31 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
     for(auto c : coefs){
       c.clear();
     }
-      coefs.clear();
+    coefs.clear();
+    uCubicEntrenceVelocities.clear();
   }else{
     for(auto c : uCoefs){
       c.clear();
     }
     uCoefs.clear();
+    if(uCubicEntrenceVelocities.size() == 0){
+      std::cout<<"finding uCubic, but entrence velocity is 0"<<std::endl;
+    }
   }
   if(msg.points.size() >= 2){
     MotionState start = msg.points.at(0);
-    MotionState goal = msg.points.at(1);
+    MotionState goal;
+    if(msg.points.size() == 2){
+      goal = msg.points.at(1);
+    } else{
+      goal = msg.poionts.at(2);
+    }
+    if(type == "uCubic" && uCubicEntrenceVelocities.size() > 0){
+      for(unsigned j=0;j<uCubicEntrenceVelocities.size();j++){
+        start.msg_.velocities.at(j) = uCubicEntrenceVelocities.at(j);
+        goal.msg_.velocities.at(j) = uCubicEntrenceVelocities.at(j);
+      }
+    }
     for(unsigned int i = 0;i<start.msg_.positions.size();i++){
       std::vector<double> hold;
       if(i < start.msg_.positions.size()-1){//x and y
@@ -300,13 +315,27 @@ void Path::makeCubicPath(const ramp_planner_new::TrajectoryRequest msg){
   double y = msg.points.at(0).y;
   double z = msg.points.at(0).z;
   std::vector<double> starts = {x,y,z};
-  double xInc = (msg.points.at(1).x - x)/T;
-  double yInc = (msg.points.at(1).y - y)/T;
-  double zInc = (msg.points.at(1).z - z)/T;
+  double xInc, yInc, zInc;
+  if(msg.points.size() == 2){
+    xInc = (msg.points.at(1).x - x)/T;
+    yInc = (msg.points.at(1).y - y)/T;
+    zInc = (msg.points.at(1).z - z)/T;
+  }else{
+    xInc = (msg.points.at(2).x - x)/T;
+    yInc = (msg.points.at(2).y - y)/T;
+    zInc = (msg.points.at(2).z - z)/T;
+    saveVel = true;
+  }
   std::vector<double> incs = {xInc,yInc,zInc};
 
 
   for(unsigned int t=1;t<T;t++){
+    if(t == msg.timeNeeded - msg.timeDelta){
+      for(unsigned int j=0;j<coefs.size();j++){
+        uCubicEntrenceVelocities.push_back(3*coefs.at(j).at(0)*pow(t,2) + 2*coefs.at(j).at(1)*(t) + coefs.at(j).at(2));
+      }
+      break;
+    }
     MotionState ms;
     for(unsigned int j=0;j<coefs.size();j++){
       ms.msg_.positions.push_back(coefs.at(j).at(0)*pow(t,3) + coefs.at(j).at(1)*pow(t,2) +
