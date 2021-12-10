@@ -77,14 +77,22 @@ void updateStartGoal(){
                     curStartGoal.markers.push_back(pathPoints.markers.at(i+1));
                     ramp_planner_new::TrajectoryRequest msg;
                     if(pathPoints.types.at(j) == "cubic"){
-                        msg.timeNeeded = getMinLinTime(pathPoints.markers.at(i).pose.position,pathPoints.markers.at(i+1).pose.position);
                         msg.type = "cubic";
                         msg.points.push_back(pathPoints.markers.at(i).pose.position);
                         if(!pathPoints.forBez.at(i + 1)){
-                            std::cout<<"a forBez point found in cubic request..\nstoping process"<<std::endl;
+                            std::cout<<"a forBez point found as goal in cubic request..\nstoping process"<<std::endl;
                             break;
                         }
                         msg.points.push_back(pathPoints.markers.at(i + 1).pose.position);
+                        if(pathPoints.markers.size() < i + 2 && !pathPoints.forBez.at(i+2)){
+                            std::cout<<"found a forBez poiont after goal point"<<std::endl;
+                            msg.timeNeeded = getMinLinTime(pathPoints.markers.at(i).pose.position,pathPoints.markers.at(i+2).pose.position);
+                            msg.timeDelta = getMinLinTime(pathPoints.markers.at(i).pose.position,pathPoints.markers.at(i+1).pose.position);
+                            msg.points.push_back(pathPoints.markers.at(i + 2));
+                        }else{
+                            msg.timeNeeded = getMinLinTime(pathPoints.markers.at(i).pose.position,pathPoints.markers.at(i+1).pose.position);
+                            msg.timeDelta = 0;
+                        }
                     }else if (pathPoints.types.at(j) == "bezier"){
                         msg.type = "bezier";
                         msg.points.push_back(pathPoints.markers.at(i).pose.position);
