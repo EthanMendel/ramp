@@ -255,7 +255,7 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
       c.clear();
     }
     coefs.clear();
-    uCubicEntrenceVelocities.clear();
+    // uCubicEntrenceVelocities.clear();
   }else{
     for(auto c : uCoefs){
       c.clear();
@@ -273,10 +273,12 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
     } else{
       goal = msg.points.at(2);
     }
-    if(type == "uCubic" && uCubicEntrenceVelocities.size() > 0){
+    if(uCubicEntrenceVelocities.size() > 0){
       for(unsigned j=0;j<uCubicEntrenceVelocities.size();j++){
         start.msg_.velocities.at(j) = uCubicEntrenceVelocities.at(j);
-        goal.msg_.velocities.at(j) = uCubicEntrenceVelocities.at(j);
+        if(type == "uCubic"){
+          goal.msg_.velocities.at(j) = uCubicEntrenceVelocities.at(j);
+        }
       }
     }
     for(unsigned int i = 0;i<start.msg_.positions.size();i++){
@@ -332,6 +334,7 @@ void Path::makeCubicPath(const ramp_planner_new::TrajectoryRequest msg){
   std::cout<<"\ttimeNeeded "<<T<<"\ttimeDelta "<<delta<<std::endl;
   for(unsigned int t=1;t<T;t++){
     if(t == msg.timeNeeded - msg.timeDelta){
+      uCubicEntrenceVelocities.clear();
       std::cout<<"setting entrence velocities"<<std::endl;
       for(unsigned int j=0;j<coefs.size();j++){
         uCubicEntrenceVelocities.push_back(3*coefs.at(j).at(0)*pow(t,2) + 2*coefs.at(j).at(1)*(t) + coefs.at(j).at(2));
