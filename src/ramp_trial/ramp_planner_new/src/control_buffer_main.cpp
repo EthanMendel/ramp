@@ -88,7 +88,7 @@ void updateStartGoal(){
                             std::cout<<"found a forBez poiont after goal point"<<std::endl;
                             msg.timeNeeded = getMinLinTime(pathPoints.markers.at(i).pose.position,pathPoints.markers.at(i+2).pose.position);
                             msg.timeDelta = getMinLinTime(pathPoints.markers.at(i).pose.position,pathPoints.markers.at(i+1).pose.position);
-                            msg.points.push_back(pathPoints.markers.at(i + 2));
+                            msg.points.push_back(pathPoints.markers.at(i + 2).pose.position);
                         }else{
                             msg.timeNeeded = getMinLinTime(pathPoints.markers.at(i).pose.position,pathPoints.markers.at(i+1).pose.position);
                             msg.timeDelta = 0;

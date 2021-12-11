@@ -9,10 +9,11 @@ import struct
 import geometry_msgs.msg
 
 class TrajectoryRequest(genpy.Message):
-  _md5sum = "aa794f340be957ca998246b715e3b0d6"
+  _md5sum = "5807e025a182a2dd09ae68814e63e47d"
   _type = "ramp_planner_new/TrajectoryRequest"
   _has_header = False  # flag to mark the presence of a Header object
   _full_text = """uint8 timeNeeded
+uint8 timeDelta
 string type
 geometry_msgs/Point[] points
 ================================================================================
@@ -22,8 +23,8 @@ float64 x
 float64 y
 float64 z
 """
-  __slots__ = ['timeNeeded','type','points']
-  _slot_types = ['uint8','string','geometry_msgs/Point[]']
+  __slots__ = ['timeNeeded','timeDelta','type','points']
+  _slot_types = ['uint8','uint8','string','geometry_msgs/Point[]']
 
   def __init__(self, *args, **kwds):
     """
@@ -33,7 +34,7 @@ float64 z
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       timeNeeded,type,points
+       timeNeeded,timeDelta,type,points
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -44,12 +45,15 @@ float64 z
       # message fields cannot be None, assign default values for those that are
       if self.timeNeeded is None:
         self.timeNeeded = 0
+      if self.timeDelta is None:
+        self.timeDelta = 0
       if self.type is None:
         self.type = ''
       if self.points is None:
         self.points = []
     else:
       self.timeNeeded = 0
+      self.timeDelta = 0
       self.type = ''
       self.points = []
 
@@ -65,8 +69,8 @@ float64 z
     :param buff: buffer, ``StringIO``
     """
     try:
-      _x = self.timeNeeded
-      buff.write(_get_struct_B().pack(_x))
+      _x = self
+      buff.write(_get_struct_2B().pack(_x.timeNeeded, _x.timeDelta))
       _x = self.type
       length = len(_x)
       if python3 or type(_x) == unicode:
@@ -92,9 +96,10 @@ float64 z
       if self.points is None:
         self.points = None
       end = 0
+      _x = self
       start = end
-      end += 1
-      (self.timeNeeded,) = _get_struct_B().unpack(str[start:end])
+      end += 2
+      (_x.timeNeeded, _x.timeDelta,) = _get_struct_2B().unpack(str[start:end])
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])
@@ -127,8 +132,8 @@ float64 z
     :param numpy: numpy python module
     """
     try:
-      _x = self.timeNeeded
-      buff.write(_get_struct_B().pack(_x))
+      _x = self
+      buff.write(_get_struct_2B().pack(_x.timeNeeded, _x.timeDelta))
       _x = self.type
       length = len(_x)
       if python3 or type(_x) == unicode:
@@ -155,9 +160,10 @@ float64 z
       if self.points is None:
         self.points = None
       end = 0
+      _x = self
       start = end
-      end += 1
-      (self.timeNeeded,) = _get_struct_B().unpack(str[start:end])
+      end += 2
+      (_x.timeNeeded, _x.timeDelta,) = _get_struct_2B().unpack(str[start:end])
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])
@@ -186,15 +192,15 @@ _struct_I = genpy.struct_I
 def _get_struct_I():
     global _struct_I
     return _struct_I
+_struct_2B = None
+def _get_struct_2B():
+    global _struct_2B
+    if _struct_2B is None:
+        _struct_2B = struct.Struct("<2B")
+    return _struct_2B
 _struct_3d = None
 def _get_struct_3d():
     global _struct_3d
     if _struct_3d is None:
         _struct_3d = struct.Struct("<3d")
     return _struct_3d
-_struct_B = None
-def _get_struct_B():
-    global _struct_B
-    if _struct_B is None:
-        _struct_B = struct.Struct("<B")
-    return _struct_B

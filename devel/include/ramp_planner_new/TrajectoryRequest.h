@@ -26,11 +26,13 @@ struct TrajectoryRequest_
 
   TrajectoryRequest_()
     : timeNeeded(0)
+    , timeDelta(0)
     , type()
     , points()  {
     }
   TrajectoryRequest_(const ContainerAllocator& _alloc)
     : timeNeeded(0)
+    , timeDelta(0)
     , type(_alloc)
     , points(_alloc)  {
   (void)_alloc;
@@ -40,6 +42,9 @@ struct TrajectoryRequest_
 
    typedef uint8_t _timeNeeded_type;
   _timeNeeded_type timeNeeded;
+
+   typedef uint8_t _timeDelta_type;
+  _timeDelta_type timeDelta;
 
    typedef std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other >  _type_type;
   _type_type type;
@@ -77,6 +82,7 @@ template<typename ContainerAllocator1, typename ContainerAllocator2>
 bool operator==(const ::ramp_planner_new::TrajectoryRequest_<ContainerAllocator1> & lhs, const ::ramp_planner_new::TrajectoryRequest_<ContainerAllocator2> & rhs)
 {
   return lhs.timeNeeded == rhs.timeNeeded &&
+    lhs.timeDelta == rhs.timeDelta &&
     lhs.type == rhs.type &&
     lhs.points == rhs.points;
 }
@@ -135,12 +141,12 @@ struct MD5Sum< ::ramp_planner_new::TrajectoryRequest_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "aa794f340be957ca998246b715e3b0d6";
+    return "5807e025a182a2dd09ae68814e63e47d";
   }
 
   static const char* value(const ::ramp_planner_new::TrajectoryRequest_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0xaa794f340be957caULL;
-  static const uint64_t static_value2 = 0x998246b715e3b0d6ULL;
+  static const uint64_t static_value1 = 0x5807e025a182a2ddULL;
+  static const uint64_t static_value2 = 0x09ae68814e63e47dULL;
 };
 
 template<class ContainerAllocator>
@@ -160,6 +166,7 @@ struct Definition< ::ramp_planner_new::TrajectoryRequest_<ContainerAllocator> >
   static const char* value()
   {
     return "uint8 timeNeeded\n"
+"uint8 timeDelta\n"
 "string type\n"
 "geometry_msgs/Point[] points\n"
 "================================================================================\n"
@@ -187,6 +194,7 @@ namespace serialization
     template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
     {
       stream.next(m.timeNeeded);
+      stream.next(m.timeDelta);
       stream.next(m.type);
       stream.next(m.points);
     }
@@ -209,6 +217,8 @@ struct Printer< ::ramp_planner_new::TrajectoryRequest_<ContainerAllocator> >
   {
     s << indent << "timeNeeded: ";
     Printer<uint8_t>::stream(s, indent + "  ", v.timeNeeded);
+    s << indent << "timeDelta: ";
+    Printer<uint8_t>::stream(s, indent + "  ", v.timeDelta);
     s << indent << "type: ";
     Printer<std::basic_string<char, std::char_traits<char>, typename ContainerAllocator::template rebind<char>::other > >::stream(s, indent + "  ", v.type);
     s << indent << "points[]" << std::endl;

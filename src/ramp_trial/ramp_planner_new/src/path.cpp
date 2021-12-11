@@ -271,7 +271,7 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
     if(msg.points.size() == 2){
       goal = msg.points.at(1);
     } else{
-      goal = msg.poionts.at(2);
+      goal = msg.points.at(2);
     }
     if(type == "uCubic" && uCubicEntrenceVelocities.size() > 0){
       for(unsigned j=0;j<uCubicEntrenceVelocities.size();j++){
@@ -324,7 +324,7 @@ void Path::makeCubicPath(const ramp_planner_new::TrajectoryRequest msg){
     xInc = (msg.points.at(2).x - x)/T;
     yInc = (msg.points.at(2).y - y)/T;
     zInc = (msg.points.at(2).z - z)/T;
-    saveVel = true;
+    // saveVel = true;
   }
   std::vector<double> incs = {xInc,yInc,zInc};
 
