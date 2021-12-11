@@ -261,7 +261,7 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
       c.clear();
     }
     uCoefs.clear();
-    if(uCubicEntrenceVelocities.size() == 0){
+    if(uCubicEntrenceVelocities.size() == 0 and type == "uCubic"){
       std::cout<<"finding uCubic, but entrence velocity is 0"<<std::endl;
     }
   }
@@ -307,6 +307,7 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
 
 void Path::makeCubicPath(const ramp_planner_new::TrajectoryRequest msg){
   double T = msg.timeNeeded; //add some extra cusion here if we want to
+  double delta = msg.timeDelta;
   findCubicCoefs(msg);
   if(order!=3 && coefs.size() != 4){
     return;
@@ -328,12 +329,15 @@ void Path::makeCubicPath(const ramp_planner_new::TrajectoryRequest msg){
   }
   std::vector<double> incs = {xInc,yInc,zInc};
 
-
+  std::cout<<"\ttimeNeeded "<<T<<"\ttimeDelta "<<delta<<std::endl;
   for(unsigned int t=1;t<T;t++){
     if(t == msg.timeNeeded - msg.timeDelta){
+      std::cout<<"setting entrence velocities"<<std::endl;
       for(unsigned int j=0;j<coefs.size();j++){
         uCubicEntrenceVelocities.push_back(3*coefs.at(j).at(0)*pow(t,2) + 2*coefs.at(j).at(1)*(t) + coefs.at(j).at(2));
       }
+      usedT_ = msg.timeNeeded - msg.timeDelta;
+      std::cout<<"new time set to "<<usedT_<<" sec.."<<std::endl;
       break;
     }
     MotionState ms;

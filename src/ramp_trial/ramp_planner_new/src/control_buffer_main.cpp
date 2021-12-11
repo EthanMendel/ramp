@@ -22,6 +22,7 @@ double getMinLinTime(const geometry_msgs::Point& start, const geometry_msgs::Poi
   double gy = goal.y;
 
   double dist = sqrt(pow(sx-gx,2)+pow(sy-gy,2));
+//   std::cout<<"\tbefore ceil time: "<<dist/max_speed_linear<<std::endl;
   return ceil(dist/max_speed_linear);
 }
 
@@ -70,8 +71,6 @@ void updateStartGoal(){
                     br.markers.push_back(pathPoints.markers.at(i+2));
                     br.timeNeeded = getMinLinTime(pathPoints.markers.at(i).pose.position,pathPoints.markers.at(i+2).pose.position);
                     pub_bezify_request.publish(br);
-                    // bezify(br);
-                    // updateStartGoal();
                 }else{
                     curStartGoal.markers.push_back(pathPoints.markers.at(i));
                     curStartGoal.markers.push_back(pathPoints.markers.at(i+1));
@@ -84,12 +83,13 @@ void updateStartGoal(){
                             break;
                         }
                         msg.points.push_back(pathPoints.markers.at(i + 1).pose.position);
-                        if(pathPoints.markers.size() < i + 2 && !pathPoints.forBez.at(i+2)){
+                        if(pathPoints.markers.size() > (i + 2) && !pathPoints.forBez.at(i+2)){
                             std::cout<<"found a forBez poiont after goal point"<<std::endl;
                             msg.timeNeeded = getMinLinTime(pathPoints.markers.at(i).pose.position,pathPoints.markers.at(i+2).pose.position);
                             msg.timeDelta = getMinLinTime(pathPoints.markers.at(i).pose.position,pathPoints.markers.at(i+1).pose.position);
                             msg.points.push_back(pathPoints.markers.at(i + 2).pose.position);
                         }else{
+                            std::cout<<"markers not long enough, or no forBez after goal"<<std::endl;
                             msg.timeNeeded = getMinLinTime(pathPoints.markers.at(i).pose.position,pathPoints.markers.at(i+1).pose.position);
                             msg.timeDelta = 0;
                         }
