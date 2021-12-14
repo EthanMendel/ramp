@@ -154,6 +154,7 @@ void MobileRobot::calculateVelocities(const std::vector<ramp_planner_new::Coeffi
     prevTheta_ = theta;
   }
   prevXY_ = curXY;
+  std::cout<<"\tcurXY:\t("<<curXY.at(0)<<",\t"<<curXY.at(1)<<")"<<std::endl;
   std::cout<<"\tt: "<<t<<"\tLin: "<<speed_linear_<<"\tAng: "<<speed_angular_<<std::endl;
 }
 
