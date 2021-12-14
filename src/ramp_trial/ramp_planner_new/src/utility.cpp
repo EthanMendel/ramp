@@ -133,6 +133,18 @@ const double Utility::getEuclideanDist(const std::vector<double> a, const std::v
   return result;
 }
 
+//assuming straight line path from start to goal
+const double Utility::getMinLinTime(const geometry_msgs::Point& start, const geometry_msgs::Point goal){
+  double sx = start.x;
+  double sy = start.y;
+  double gx = goal.x;
+  double gy = goal.y;
+
+  double dist = getEuclideanDist({sx,sy},{gx,gy});
+  // std::cout<<"\tbefore ceil time: "<<dist/max_speed_linear<<std::endl;
+  return ceil(dist/max_speed_linear_);
+}
+
 const std::string Utility::toString(const ramp_msgs::MotionState mp) const {
   std::ostringstream result;
   result<<"\np: [ ";

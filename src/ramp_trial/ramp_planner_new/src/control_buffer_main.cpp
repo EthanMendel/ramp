@@ -14,18 +14,6 @@ ros::Publisher pub_time_needed;
 ros::Publisher pub_bezify_request;
 double max_speed_linear = 0.33;
 
-//assuming straight line path from start to goal
-double getMinLinTime(const geometry_msgs::Point& start, const geometry_msgs::Point goal){
-  double sx = start.x;
-  double sy = start.y;
-  double gx = goal.x;
-  double gy = goal.y;
-
-  double dist = sqrt(pow(sx-gx,2)+pow(sy-gy,2));
-//   std::cout<<"\tbefore ceil time: "<<dist/max_speed_linear<<std::endl;
-  return ceil(dist/max_speed_linear);
-}
-
 // j should be the index of the goal marker within pathPoints
 bool needBezify(const unsigned int j){
     //type indexes are based on start index
@@ -65,7 +53,6 @@ void updateStartGoal(){
                     br.markers.push_back(pathPoints.markers.at(i));
                     br.markers.push_back(pathPoints.markers.at(i+1));
                     br.markers.push_back(pathPoints.markers.at(i+2));
-                    br.timeNeeded = getMinLinTime(pathPoints.markers.at(i).pose.position,pathPoints.markers.at(i+2).pose.position);//time value used to find uCubic
                     pub_bezify_request.publish(br);
                 }else{//else, no bezify needed
                     curStartGoal.markers.push_back(pathPoints.markers.at(i));
@@ -81,13 +68,9 @@ void updateStartGoal(){
                         msg.points.push_back(pathPoints.markers.at(i + 1).pose.position);
                         if(pathPoints.markers.size() > (i + 2) && !pathPoints.forBez.at(i+2)){
                             std::cout<<"found a forBez point after goal point"<<std::endl;//this means we need to save exit velocities for bezier entrence
-                            msg.timeNeeded = getMinLinTime(pathPoints.markers.at(i).pose.position,pathPoints.markers.at(i+2).pose.position);
-                            msg.timeDelta = getMinLinTime(pathPoints.markers.at(i).pose.position,pathPoints.markers.at(i+1).pose.position);
                             msg.points.push_back(pathPoints.markers.at(i + 2).pose.position);
                         }else{
                             std::cout<<"markers not long enough, or no forBez after goal"<<std::endl;
-                            msg.timeNeeded = getMinLinTime(pathPoints.markers.at(i).pose.position,pathPoints.markers.at(i+1).pose.position);
-                            msg.timeDelta = 0;
                         }
                     }else if (pathPoints.types.at(j) == "bezier"){
                         msg.type = "bezier";
@@ -101,7 +84,6 @@ void updateStartGoal(){
                             std::cout<<"not enough points for bezier request..\nstopping preocess"<<std::endl;
                             break;
                         }
-                        msg.timeNeeded = getMinLinTime(pathPoints.markers.at(i).pose.position,pathPoints.markers.at(i+2).pose.position);//time value used to find uCubic
                         if(!pathPoints.forBez.at(i + 2)){
                             std::cout<<"a forBez point found as p2..\nstoping process"<<std::endl;
                             break;

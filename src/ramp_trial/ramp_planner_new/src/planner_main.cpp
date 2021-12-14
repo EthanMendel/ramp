@@ -381,7 +381,7 @@ void pubPath(){
 }
 
 void getTrajectory(ramp_planner_new::TrajectoryRequest msg){
-  std::cout<<"getting "<<msg.type<<" trajectory for "<<unsigned(msg.timeNeeded)<<" sec.."<<std::endl;
+  std::cout<<"getting "<<msg.type<<" trajectory"<<std::endl;
   std::cout<<"start:\n"<<msg.points.at(0)<<std::endl;
   if(msg.type == "cubic"){
       std::cout<<"goal:\n"<<msg.points.at(1)<<std::endl;
@@ -397,20 +397,8 @@ void getTrajectory(ramp_planner_new::TrajectoryRequest msg){
   readyToPubPath = true;
 }
 
-//assuming straight line path from start to goal
-//**copied from control_buffer_main**
-double getMinLinTime(const geometry_msgs::Point& start, const geometry_msgs::Point goal){
-  double sx = start.x;
-  double sy = start.y;
-  double gx = goal.x;
-  double gy = goal.y;
-
-  double dist = sqrt(pow(sx-gx,2)+pow(sy-gy,2));
-  return ceil(dist/utility.max_speed_linear_);
-}
-
 bool acceptableAngTime(const geometry_msgs::Point& p0, const geometry_msgs::Point p1, const geometry_msgs::Point p2){
-    plannerPath.setUsedT(getMinLinTime(p0,p2));
+    plannerPath.setUsedT(utility.getMinLinTime(p0,p2));
     plannerPath.findBezierCoefs(p0,p1,p2);
     std::cout<<plannerPath.coefs.size()<<" coefs"<<std::endl;
     std::cout<<plannerPath.uCoefs.size()<<" uCoefs"<<std::endl;
@@ -529,8 +517,8 @@ void bezify(const ramp_planner_new::BezifyRequest& br){
     p1 = m1.pose.position;
     p2 = m2.pose.position;
     //get maximum allowed distance
-    double D1 = sqrt(pow(p0.x - p1.x,2) + pow(p0.y - p1.y,2));
-    double D2 = sqrt(pow(p1.x - p2.x,2) + pow(p1.y - p2.y,2));
+    double D1 = utility.getEuclideanDist({p0.x,p0.y},{p1.x,p1.y});
+    double D2 = utility.getEuclideanDist({p1.x,p1.y},{p2.x,p2.y});
     double D = std::min(D1,D2);
 
     //get linear equations to find intersecting points

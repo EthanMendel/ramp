@@ -64,6 +64,8 @@ class Utility {
     const double displaceAngle(const double a1, double a2) const;
     
     const double getEuclideanDist(const std::vector<double> a, std::vector<double> b) const;
+
+    const double getMinLinTime(const geometry_msgs::Point& start, const geometry_msgs::Point goal) const;
     
     const std::string toString(const ramp_msgs::Obstacle ob) const;
     const std::string toString(const ramp_msgs::ObstacleList ob) const;

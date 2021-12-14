@@ -188,7 +188,6 @@ void Path::findBezierCoefs(geometry_msgs::Point p0, geometry_msgs::Point p1, geo
       std::cout<<"A: "<<coefs.at(i).at(0)<<"\tB: "<<coefs.at(i).at(1)<<"\tC: "<<coefs.at(i).at(2)<<"\t\n";
     }
     ramp_planner_new::TrajectoryRequest uMsg;
-    uMsg.timeNeeded = usedT_;
     uMsg.type = "uCubic";
     uMsg.points.push_back(p0);
     uMsg.points.push_back(p2);
@@ -207,16 +206,17 @@ void Path::findBezierCoefs(geometry_msgs::Point p0, geometry_msgs::Point p1, geo
 
 void Path::makeBezierPath(const ramp_planner_new::TrajectoryRequest msg){
   const double resolution = 1/10.0;
-  usedT_ = msg.timeNeeded;
   if(msg.points.size() >= 3){
+    usedT_ = utility.getMinLinTime(msg.points.at(0),msg.points.at(2));
+    std::cout<<"\t\t"<<usedT_<<" seconds"<<std::endl;
     findBezierCoefs(msg.points.at(0),msg.points.at(1),msg.points.at(2));
     //use these to bound u on the interval [0,1]
     float xuMin = uCoefs.at(0).at(0)*pow(0,3) + uCoefs.at(0).at(1)*pow(0,2) + uCoefs.at(0).at(2)*(0) + uCoefs.at(0).at(3);
-    float xuMax = (uCoefs.at(0).at(0)*pow(msg.timeNeeded,3) + uCoefs.at(0).at(1)*pow(msg.timeNeeded,2) + uCoefs.at(0).at(2)*(msg.timeNeeded) + uCoefs.at(0).at(3)) - xuMin;
+    float xuMax = (uCoefs.at(0).at(0)*pow(usedT_,3) + uCoefs.at(0).at(1)*pow(usedT_,2) + uCoefs.at(0).at(2)*(usedT_) + uCoefs.at(0).at(3)) - xuMin;
     float yuMin = uCoefs.at(1).at(0)*pow(0,3) + uCoefs.at(1).at(1)*pow(0,2) + uCoefs.at(1).at(2)*(0) + uCoefs.at(1).at(3);
-    float yuMax = (uCoefs.at(1).at(0)*pow(msg.timeNeeded,3) + uCoefs.at(1).at(1)*pow(msg.timeNeeded,2) + uCoefs.at(1).at(2)*(msg.timeNeeded) + uCoefs.at(1).at(3)) - yuMin;
+    float yuMax = (uCoefs.at(1).at(0)*pow(usedT_,3) + uCoefs.at(1).at(1)*pow(usedT_,2) + uCoefs.at(1).at(2)*(usedT_) + uCoefs.at(1).at(3)) - yuMin;
     std::vector<std::vector<float>> uAdjs = {{xuMin,xuMax},{yuMin,yuMax}};
-    for(float t=0;t<=msg.timeNeeded;t+=resolution){
+    for(float t=0;t<=usedT_;t+=resolution){
       MotionState ms;
       for(unsigned int j=0;j<2;j++){//run for x and y, but not z (representing theta)
         float u   = ((uCoefs.at(j).at(0)*pow(t,3) + uCoefs.at(j).at(1)*pow(t,2) + uCoefs.at(j).at(2)*(t) + uCoefs.at(j).at(3)) - uAdjs.at(j).at(0))/uAdjs.at(j).at(1);
@@ -247,8 +247,17 @@ void Path::makeBezierPath(const ramp_planner_new::TrajectoryRequest msg){
 //from ITCS 5151/8151 (Robotics) 2003, Jing Xiao Handout#3
 void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
   order = 3;
-  double T = msg.timeNeeded;
+  double T, Td;
+  if(msg.points.size()==2){
+    T = utility.getMinLinTime(msg.points.at(0),msg.points.at(1));
+    Td = 0;
+  }else{
+    T = utility.getMinLinTime(msg.points.at(0),msg.points.at(2));
+    Td = utility.getMinLinTime(msg.points.at(0),msg.points.at(1));
+  }
   usedT_ = T;
+  usedTdelta_ = Td;
+  std::cout<<"\t\t"usedT_<<" seconds with a delta of "<<usedTdelta_<<std::endl;
   type = msg.type;
   if(type == "cubic"){
     for(auto c : coefs){
@@ -308,8 +317,6 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
 }
 
 void Path::makeCubicPath(const ramp_planner_new::TrajectoryRequest msg){
-  double T = msg.timeNeeded; //add some extra cusion here if we want to
-  double delta = msg.timeDelta;
   findCubicCoefs(msg);
   if(order!=3 && coefs.size() != 4){
     return;
@@ -332,14 +339,14 @@ void Path::makeCubicPath(const ramp_planner_new::TrajectoryRequest msg){
   std::vector<double> incs = {xInc,yInc,zInc};
 
   std::cout<<"\ttimeNeeded "<<T<<"\ttimeDelta "<<delta<<std::endl;
-  for(unsigned int t=1;t<T;t++){
-    if(t == msg.timeNeeded - msg.timeDelta){
+  for(unsigned int t=1;t<usedT_;t++){
+    if(t == usedT_ - usedTdelta_){
       uCubicEntrenceVelocities.clear();
       std::cout<<"setting entrence velocities"<<std::endl;
       for(unsigned int j=0;j<coefs.size();j++){
         uCubicEntrenceVelocities.push_back(3*coefs.at(j).at(0)*pow(t,2) + 2*coefs.at(j).at(1)*(t) + coefs.at(j).at(2));
       }
-      usedT_ = msg.timeNeeded - msg.timeDelta;
+      usedT_ = usedT_ - usedTdelta_;
       std::cout<<"new time set to "<<usedT_<<" sec.."<<std::endl;
       break;
     }

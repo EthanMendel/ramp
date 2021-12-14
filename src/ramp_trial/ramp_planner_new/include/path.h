@@ -26,11 +26,12 @@ class Path {
     std::vector<std::vector<double>> uCoefs;
     std::string type;
     double usedT_;
+    double usedTdelta_;
     std::vector<double> uCubicEntrenceVelocities;
 
     ramp_msgs::Path msg_;
 
-    Utility utility_;
+    Utility utility;
     
     
     // Methods
