@@ -159,7 +159,7 @@ const ramp_planner_new::TrajectoryRepresentation Path::buildCubicMsg() const {
 const std::string Path::toString() const {
   std::ostringstream result;
   for(unsigned int i=0;i<msg_.points.size();i++) {
-    result<<"\n  "<<i<<": "<<utility_.toString(msg_.points[i]).c_str();
+    result<<"\n  "<<i<<": "<<utility.toString(msg_.points[i]).c_str();
   }
   return result.str();
 }
@@ -257,7 +257,7 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
   }
   usedT_ = T;
   usedTdelta_ = Td;
-  std::cout<<"\t\t"usedT_<<" seconds with a delta of "<<usedTdelta_<<std::endl;
+  std::cout<<"\t\t"unsigned(usedT_)<<" seconds with a delta of "<<unsigned(usedTdelta_)<<std::endl;
   type = msg.type;
   if(type == "cubic"){
     for(auto c : coefs){
@@ -327,18 +327,18 @@ void Path::makeCubicPath(const ramp_planner_new::TrajectoryRequest msg){
   std::vector<double> starts = {x,y,z};
   double xInc, yInc, zInc;
   if(msg.points.size() == 2){
-    xInc = (msg.points.at(1).x - x)/T;
-    yInc = (msg.points.at(1).y - y)/T;
-    zInc = (msg.points.at(1).z - z)/T;
+    xInc = (msg.points.at(1).x - x)/usedT_;
+    yInc = (msg.points.at(1).y - y)/usedT_;
+    zInc = (msg.points.at(1).z - z)/usedT_;
   }else{
-    xInc = (msg.points.at(2).x - x)/T;
-    yInc = (msg.points.at(2).y - y)/T;
-    zInc = (msg.points.at(2).z - z)/T;
+    xInc = (msg.points.at(2).x - x)/usedT_;
+    yInc = (msg.points.at(2).y - y)/usedT_;
+    zInc = (msg.points.at(2).z - z)/usedT_;
     // saveVel = true;
   }
   std::vector<double> incs = {xInc,yInc,zInc};
 
-  std::cout<<"\ttimeNeeded "<<T<<"\ttimeDelta "<<delta<<std::endl;
+  std::cout<<"\ttimeNeeded "<<usedT_<<"\ttimeDelta "<<usedTdelta_<<std::endl;
   for(unsigned int t=1;t<usedT_;t++){
     if(t == usedT_ - usedTdelta_){
       uCubicEntrenceVelocities.clear();
