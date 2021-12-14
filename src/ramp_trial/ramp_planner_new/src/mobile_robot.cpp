@@ -111,9 +111,9 @@ void MobileRobot::calculateVelocities(const std::vector<ramp_planner_new::Coeffi
   double xP;
   double yP;
   if(trajectory_.type == "cubic"){
-    curXY = {
-      coefs.at(0).values.at(0)*pow(t,3) + coefs.at(0).values.at(1)*pow(t,2) + coefs.at(0).values.at(2)*(t) + coefs.at(0).values.at(3),
-      coefs.at(1).values.at(0)*pow(t,3) + coefs.at(1).values.at(1)*pow(t,2) + coefs.at(1).values.at(2)*(t) + coefs.at(1).values.at(3)
+    curXY = {//position's velocity coefficient should be zero
+      coefs.at(0).values.at(0)*pow(t,3) + coefs.at(0).values.at(1)*pow(t,2) + 0*(t) + coefs.at(0).values.at(3),
+      coefs.at(1).values.at(0)*pow(t,3) + coefs.at(1).values.at(1)*pow(t,2) + 0*(t) + coefs.at(1).values.at(3)
     };
      xP = 3*coefs.at(0).values.at(0)*pow(t,2) + 2*coefs.at(0).values.at(1)*(t) + coefs.at(0).values.at(2);
      yP = 3*coefs.at(1).values.at(0)*pow(t,2) + 2*coefs.at(1).values.at(1)*(t) + coefs.at(1).values.at(2);
@@ -149,11 +149,6 @@ void MobileRobot::calculateVelocities(const std::vector<ramp_planner_new::Coeffi
     double theta = findAngleFromAToB(curXY,prevXY_);
     if(prevTheta_){
       speed_angular_ = findDistanceBetweenAngles(prevTheta_,theta)/CYCLE_TIME_IN_SECONDS;
-      // if(trajectory_.type == "bezier"){
-      //   speed_angular_= ang_holder;
-      // }else{
-      //   speed_angular_ = 0;
-      // }
       twist_.angular.z = speed_angular_;
     }
     prevTheta_ = theta;
