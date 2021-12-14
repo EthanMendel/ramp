@@ -15,9 +15,6 @@ Path                plannerPath;
 bool                readyToPubPath;
 std::vector<Range>  ranges;
 double              radius;
-double              max_speed_linear;
-double              max_speed_angular;
-double              max_acceleration;
 int                 population_size;
 int                 num_ppcs;
 bool                sensingBeforeCC;
@@ -138,19 +135,19 @@ void loadParameters(const ros::NodeHandle handle){
   }
 
   if(handle.hasParam("robot_info/max_speed_linear")){
-    handle.getParam("robot_info/max_speed_linear", max_speed_linear);
+    handle.getParam("robot_info/max_speed_linear", utility.max_speed_linear_);
   }else{
     ROS_ERROR("Did not find robot_info/max_speed_linear rosparam");
     exit(1);
   }
   if(handle.hasParam("robot_info/max_speed_angular")){
-    handle.getParam("robot_info/max_speed_angular", max_speed_angular);
+    handle.getParam("robot_info/max_speed_angular", utility.max_speed_angular_);
   }else{
     ROS_ERROR("Did not find robot_info/max_speed_angular rosparam");
     exit(1);
   }
   if(handle.hasParam("robot_info/max_acceleration")){
-    handle.getParam("robot_info/max_acceleration", max_acceleration);
+    handle.getParam("robot_info/max_acceleration", utility.max_acceleration_);
   }else{
     ROS_ERROR("Did not find robot_info/max_acceleration rosparam");
     exit(1);
@@ -409,7 +406,7 @@ double getMinLinTime(const geometry_msgs::Point& start, const geometry_msgs::Poi
   double gy = goal.y;
 
   double dist = sqrt(pow(sx-gx,2)+pow(sy-gy,2));
-  return ceil(dist/max_speed_linear);
+  return ceil(dist/utility.max_speed_linear_);
 }
 
 bool acceptableAngTime(const geometry_msgs::Point& p0, const geometry_msgs::Point p1, const geometry_msgs::Point p2){
@@ -432,9 +429,9 @@ bool acceptableAngTime(const geometry_msgs::Point& p0, const geometry_msgs::Poin
     double xVel =((A1*t + A2)*xuP);
     double yVel =((B1*t + B2)*yuP);
     double linVel = sqrt(pow(xVel,2)+pow(yVel,2));
-    double angVel = pow(linVel,2) / max_acceleration;//minimum velocity based turning radious, Section II Equation (3)
+    double angVel = pow(linVel,2) / utility.max_acceleration_;//minimum velocity based turning radious, Section II Equation (3)
     //TODO make sure this is the correct angVel value
-    if(linVel > max_speed_linear || angVel >= max_speed_angular){
+    if(linVel > utility.max_speed_linear_ || angVel >= utility.max_speed_angular_){
         return false;
     }
     return true;

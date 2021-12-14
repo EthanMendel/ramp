@@ -9,6 +9,25 @@ Utility::Utility() {
   standardRanges.push_back(range2);
 }
 
+Utility::Utility(const double lin, const double ang, const double acc){
+  Range range0(0, 2.5);
+  Range range1(0, 10.f);
+  Range range2(-PI, PI);
+  standardRanges.push_back(range0);
+  standardRanges.push_back(range1);
+  standardRanges.push_back(range2);
+
+  max_speed_linear_ = lin;
+  max_speed_angular_= ang;
+  max_acceleration_ = acc;
+}
+
+void Utility::setMovementMaxes(const double lin, const double ang, const double acc){
+  max_speed_linear_ = lin;
+  max_speed_angular_= ang;
+  max_acceleration_ = acc;
+}
+
 /** return euclidean distance between two position vectors */
 const double Utility::positionDistance(const std::vector<double> a, const std::vector<double> b) const {
   double d_x = b.at(0) - a.at(0);
@@ -114,28 +133,6 @@ const double Utility::getEuclideanDist(const std::vector<double> a, const std::v
   return result;
 }
 
-
-
-const ramp_msgs::Path Utility::getPath(const std::vector<ramp_msgs::MotionState> mps) const {
-  ramp_msgs::Path result;
-  for(unsigned int i=0;i<mps.size();i++) {
-    ramp_msgs::KnotPoint kp;
-    kp.motionState = mps.at(i);
-    kp.stopTime = 0;
-    result.points.push_back(kp);
-  }
-  return result;
-}
-
-const ramp_msgs::Path Utility::getPath(const std::vector<ramp_msgs::KnotPoint> kps) const {
-  ramp_msgs::Path result;
-
-  for(unsigned int i=0;i<kps.size();i++) {
-    result.points.push_back(kps.at(i));
-  }
-  return result;
-}
-
 const std::string Utility::toString(const ramp_msgs::MotionState mp) const {
   std::ostringstream result;
   result<<"\np: [ ";
@@ -174,105 +171,6 @@ const std::string Utility::toString(const ramp_msgs::Path path) const {
   result<<"\nPath: ";
   for(unsigned int i=0;i<path.points.size();i++) {
     result<<"\n "<<i<<": "<<toString(path.points.at(i));
-  }
-  return result.str();
-}
-
-const std::string Utility::toString(const trajectory_msgs::JointTrajectoryPoint p) const {
-  std::ostringstream result;
-  //positions
-  result<<"\n       Positions: ("<<p.positions.at(0);
-  for(unsigned int k=1;k<p.positions.size();k++) {
-    result<<", "<<p.positions.at(k);
-  }
-  result<<")";
-  //velocities
-  if(p.velocities.size() > 0) {
-    result<<"\n       Velocities: ("<<p.velocities.at(0);
-    for(unsigned int k=1;k<p.velocities.size();k++) {
-      result<<", "<<p.velocities.at(k);
-    }
-    result<<")";
-  }
-  //accelerations
-  if(p.accelerations.size() > 0) {
-    result<<"\n       Accelerations: ("<<p.accelerations.at(0);
-    for(unsigned int k=1;k<p.accelerations.size();k++) {
-      result<<", "<<p.accelerations.at(k);
-    }
-    result<<")";
-  }
-  result<<"\n Time From Start: "<<p.time_from_start;
-
-  return result.str();
-}  
-
-const std::string Utility::toString(const ramp_msgs::BezierCurve bi) const {
-  std::ostringstream result;
-
-  result<<"\nSegment Points: ";
-  for(uint8_t i=0;i<bi.segmentPoints.size();i++) {
-    result<<"\n"<<toString(bi.segmentPoints.at(i));
-  }
-  result<<"\nControl Points: ";
-  for(uint8_t i=0;i<bi.controlPoints.size();i++) {
-    result<<"\n"<<toString(bi.controlPoints.at(i));
-  }
-  result<<"\nms_maxVA: "<<toString(bi.ms_maxVA);
-  result<<"\nms_initialVA: "<<toString(bi.ms_initialVA);
-  result<<"\nms_begin: "<<toString(bi.ms_begin);
-  result<<"\nl: "<<bi.l;
-  result<<"\nu_0: "<<bi.u_0<<" u_dot_0: "<<bi.u_dot_0;
-  result<<"\nu_target: "<<bi.u_target;
-  return result.str();
-}
-
-const std::string Utility::toString(const ramp_msgs::RampTrajectory traj, bool printKnotPoints) const {
-  std::ostringstream result;
-
-  result<<"\n Knot Points:";
-
-  if(traj.i_knotPoints.size() < 1){
-    ROS_WARN("Traj i_knotPoints size(): %i, not printing", (int)traj.i_knotPoints.size());
-  }
-  if(printKnotPoints){
-    for(unsigned int i=0;i<traj.i_knotPoints.size();i++) {
-      result<<"\n   "<<i<<":";
-      unsigned int index = traj.i_knotPoints.at(i);
-      if(index > traj.trajectory.points.size()-1) {
-        ROS_ERROR("Utility::toString(const ramp_msgs::RampTrajectory): index: %i, traj.points.size(): %i", 
-            (int)index, 
-            (int)traj.trajectory.points.size());
-      }
-      trajectory_msgs::JointTrajectoryPoint p = traj.trajectory.points.at(index);
-      result<<"\n       "<<toString(p);
-    }
-  }
-  result<<"\n Points:";
-  for(unsigned int i=0;i<50 && i<traj.trajectory.points.size();i++) {
-    result<<"\n\n   Point "<<i<<":";
-    trajectory_msgs::JointTrajectoryPoint p = traj.trajectory.points.at(i);
-    result<<"\n"<<toString(p);
-  }
-  for(uint8_t i=0;i<traj.curves.size();i++) {
-    result<<"\n Curve "<<(int)i<<"\n"<<toString(traj.curves.at(i));
-  }
-  result<<"\nt_start: "<<traj.t_start.toSec();
-  result<<"\nFitness: "<<traj.fitness<<" t_firstCollision: "<<traj.t_firstCollision<<" Feasible: "<<(int)traj.feasible;
-  return result.str();
-}   
-
-const std::string Utility::toString(const ramp_msgs::Obstacle ob) const{
-  std::ostringstream result;
-  result<<"Pose: ("<<ob.ob_ms.positions[0]<<", "<<ob.ob_ms.positions[1]<<", "<<ob.ob_ms.positions[2]<<")";
-  result<<"Twist: ("<<ob.ob_ms.velocities[0]<<", "<<ob.ob_ms.velocities[1]<<", "<<ob.ob_ms.velocities[2]<<")";
-  return result.str();
-}
-
-const std::string Utility::toString(const ramp_msgs::ObstacleList ob) const{
-  std::ostringstream result;
-  for(int i=0;i<ob.obstacles.size();i++){
-    result<<"\nObstacle "<<i<<": "<<toString(ob.obstacles.at(i));      
   }
   return result.str();
 }

@@ -43,8 +43,15 @@ enum TrajectoryType
 class Utility {
   public:
     Utility();
+    Utility(const double lin,const double ang, const double acc);
+
+    void setMovementMaxes(const double lin, const double ang, const double acc);
 
     std::vector<Range> standardRanges;
+
+    double max_speed_linear_;
+    double max_speed_angular_;
+    double max_acceleration_;
     
     const double positionDistance(const std::vector<double> a, const std::vector<double> b) const;
 
@@ -57,19 +64,12 @@ class Utility {
     const double displaceAngle(const double a1, double a2) const;
     
     const double getEuclideanDist(const std::vector<double> a, std::vector<double> b) const;
-
-    const ramp_msgs::Path getPath(const std::vector<ramp_msgs::MotionState> mps) const;
-    const ramp_msgs::Path getPath(const std::vector<ramp_msgs::KnotPoint>   kps) const;
-
     
     const std::string toString(const ramp_msgs::Obstacle ob) const;
     const std::string toString(const ramp_msgs::ObstacleList ob) const;
     const std::string toString(const ramp_msgs::MotionState mp) const;
     const std::string toString(const ramp_msgs::KnotPoint kp) const;
     const std::string toString(const ramp_msgs::Path path) const;
-    const std::string toString(const ramp_msgs::BezierCurve bi) const;
-    const std::string toString(const ramp_msgs::RampTrajectory traj, bool printKnotPoints=true) const;
-    const std::string toString(const trajectory_msgs::JointTrajectoryPoint p) const;
 };
 
 
