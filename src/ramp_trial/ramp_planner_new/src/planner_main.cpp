@@ -229,9 +229,7 @@ void pubStartGoalMarkers(){
     marker.header.stamp = ros::Time::now();
     if(i==0){
       marker.id = 10001;
-    }else if(i == pathMotionStates.size() - 1){
-      marker.id = 10000 + pathMotionStates.size();
-    }else{
+    } else {
       marker.id = 10001 + i;
     }
     marker.header.frame_id = global_frame;
@@ -285,18 +283,13 @@ void pubStartGoalMarkers(){
   origin_marker.lifetime = ros::Duration(120.0);
   // result.markers.push_back(origin_marker);
 
-  ROS_INFO("Waiting for rviz to start...");
-  ros::Rate r(100);
-  ros::Time tStart = ros::Time::now();
-  ros::Duration dWait(10);
-  //rviz check?
   ramp_planner_new::PathPoints pps;
   pps.markers = result.markers;
-  for(unsigned int i=0;i<result.markers.size()-1;i++){
+  for(unsigned int i=0;i<result.markers.size()-1;i++){//populate type and forBez arrays
     pps.types.push_back("cubic");
     pps.forBez.push_back(true);
   }
-  pps.forBez.push_back(true);//extra needed from above
+  pps.forBez.push_back(true);//extra value needed not included above
   rviz_pub_path_points.publish(result);
   rviz_pub_path_points.publish(result);
   pub_path_points.publish(pps);
@@ -308,7 +301,7 @@ void pubStartGoalMarkers(){
 void pubPath(){
   // ROS_INFO("In pubPath");
   visualization_msgs::MarkerArray result;
-  while(plannerPath.msg_.points.size()<=pathMotionStates.size()){
+  while(plannerPath.msg_.points.size()<=pathMotionStates.size()){//make sure we have a path to publish
     ros::spinOnce();
   }
 
@@ -328,14 +321,14 @@ void pubPath(){
 
     mp_marker.action = visualization_msgs::Marker::ADD;
     
-    // first point to create line
+    // first point to create line start
     geometry_msgs::Point first;
     first.x = plannerPath.msg_.points[i].motionState.positions[0];
     first.y = plannerPath.msg_.points[i].motionState.positions[1];
     first.z = 0.01;
     mp_marker.points.push_back(first);
 
-    // set next point to create line
+    // next point to create line end
     geometry_msgs::Point next;
     next.x = plannerPath.msg_.points[i+1].motionState.positions[0];
     next.y = plannerPath.msg_.points[i+1].motionState.positions[1];
@@ -384,10 +377,6 @@ void pubPath(){
     result.markers.push_back(mp_marker);
   }
 
-  ros::Rate r(100);
-  ros::Time tStart = ros::Time::now();
-  ros::Duration dWait(10);
-  //rviz check?
   pub_markerArray.publish(result);
   pub_markerArray.publish(result);
   
@@ -405,7 +394,7 @@ void getTrajectory(ramp_planner_new::TrajectoryRequest msg){
       std::cout<<"goal:\n"<<msg.points.at(2)<<std::endl;
       plannerPath.makeBezierPath(msg);
   }else{
-      std::cout<<"foud a u trajectory, something went wrong"<<std::endl;
+      std::cout<<"foud a u trajectory in planner, something went wrong"<<std::endl;
       return;
   }
   readyToPubPath = true;
@@ -428,27 +417,30 @@ bool acceptableAngTime(const geometry_msgs::Point& p0, const geometry_msgs::Poin
     plannerPath.findBezierCoefs(p0,p1,p2);
     std::cout<<plannerPath.coefs.size()<<" coefs"<<std::endl;
     std::cout<<plannerPath.uCoefs.size()<<" uCoefs"<<std::endl;
-    double A1 = 2*(plannerPath.coefs.at(0).at(0) - plannerPath.coefs.at(0).at(1) + plannerPath.coefs.at(0).at(2));
+    // Equations based on "Real-time Adaptive Non-holonomic Motion Planning in Unknown Dynamic Environments"
+    double A1 = 2*(plannerPath.coefs.at(0).at(0) - plannerPath.coefs.at(0).at(1) + plannerPath.coefs.at(0).at(2));//Section II, Equation (3)
     double B1 = 2*(plannerPath.coefs.at(1).at(0) - plannerPath.coefs.at(1).at(1) + plannerPath.coefs.at(1).at(2));
     double A2 = 2*((plannerPath.coefs.at(0).at(1)/2)-plannerPath.coefs.at(0).at(0));
     double B2 = 2*((plannerPath.coefs.at(1).at(1)/2)-plannerPath.coefs.at(1).at(0));
     if(A1 == 0 || B1 == 0 || A2 == 0 || B2 == 0){
       return false;
     }
-    double t = - ((A1*A2 + B1*B2) / (pow(A1,2) + pow(B1,2))); //point of maximum angular velocity
+    //Equations based on "On-line Planning of Nonholonomic Trajectories in Crowded and Geometrically Unknown Environments*"
+    double t = - ((A1*A2 + B1*B2) / (pow(A1,2) + pow(B1,2))); //point of maximum angular velocity, Section II, Equation (6)
     float xuP = 3*plannerPath.uCoefs.at(0).at(0)*pow(t,2) + 2*plannerPath.uCoefs.at(0).at(1)*(t) + plannerPath.uCoefs.at(0).at(2);
     float yuP = 3*plannerPath.uCoefs.at(1).at(0)*pow(t,2) + 2*plannerPath.uCoefs.at(1).at(1)*(t) + plannerPath.uCoefs.at(1).at(2);
     double xVel =((A1*t + A2)*xuP);
     double yVel =((B1*t + B2)*yuP);
     double linVel = sqrt(pow(xVel,2)+pow(yVel,2));
-    double angVel = pow(linVel,2) / max_acceleration;
-    //TODO do something for z as theta?
-    if(linVel > max_speed_linear || angVel > max_speed_angular){
+    double angVel = pow(linVel,2) / max_acceleration;//minimum velocity based turning radious, Section II Equation (3)
+    //TODO make sure this is the correct angVel value
+    if(linVel > max_speed_linear || angVel >= max_speed_angular){
         return false;
     }
     return true;
 }
 
+//make a marker to be published based on a given point and requested id
 visualization_msgs::Marker makeMarker(geometry_msgs::Point p, int id){
     visualization_msgs::Marker marker;
     marker.header.stamp = ros::Time::now();
@@ -482,35 +474,36 @@ visualization_msgs::Marker makeMarker(geometry_msgs::Point p, int id){
     return marker;
 }
 
+//add the given control points to the overall path on either side of the given marker to 'replace' the marker and 'bezify' the overall path
 ramp_planner_new::PathPoints addControlPoints(visualization_msgs::Marker m, geometry_msgs::Point cp1, geometry_msgs::Point cp2){
-    visualization_msgs::MarkerArray maRes;
+    visualization_msgs::MarkerArray maRes;//result vars
     std::vector<std::string> tRes;
     std::vector<unsigned char> bRes;
-    int replaceId = -1;
+    int replaceId = -1;//flag vars
     bool replaced = false;
     for(unsigned int i=0;i<pathPoints.markers.size();i++){
-        if(!replaced){
-            if(pathPoints.markers.at(i) == m){
-                replaceId = m.id - i;
-                maRes.markers.push_back(makeMarker(cp1,replaceId + i));
-                pathPoints.markers.at(i).id = replaceId + i + 1;
+        if(!replaced){//before finding marker to 'replace'
+            if(pathPoints.markers.at(i) == m){//if marker marker
+                replaceId = m.id - i;//'replace' marker
+                maRes.markers.push_back(makeMarker(cp1,replaceId + i));//add first control point before marker
+                pathPoints.markers.at(i).id = replaceId + i + 1;//edit marker id to account for movement change
                 maRes.markers.push_back(pathPoints.markers.at(i));
-                maRes.markers.push_back(makeMarker(cp2,replaceId + i + 2));
-                tRes.push_back("bezier");
+                maRes.markers.push_back(makeMarker(cp2,replaceId + i + 2));//add second control point after marker
+                tRes.push_back("bezier");//add info about new points
                 tRes.push_back(pathPoints.types.at(i));
                 bRes.push_back(true);
                 bRes.push_back(false);
                 bRes.push_back(true);
                 replaced = true;
-            }else{
-                maRes.markers.push_back(pathPoints.markers.at(i));
+            }else{//else
+                maRes.markers.push_back(pathPoints.markers.at(i));//add with no changes
                 tRes.push_back(pathPoints.types.at(i));
                 bRes.push_back(pathPoints.forBez.at(i));
             }
-        }else{
-            pathPoints.markers.at(i).id = replaceId + i + 2;
+        }else{//already found marker to 'replace'
+            pathPoints.markers.at(i).id = replaceId + i + 2;//edit marker id to accoutn for movement chagne
             maRes.markers.push_back(pathPoints.markers.at(i));
-            if(i < pathPoints.types.size()){
+            if(i < pathPoints.types.size()){//make sure not out-of-bounds
                 tRes.push_back(pathPoints.types.at(i));
             }
             bRes.push_back(pathPoints.forBez.at(i));
@@ -538,10 +531,12 @@ void bezify(const ramp_planner_new::BezifyRequest& br){
     p0 = m0.pose.position;
     p1 = m1.pose.position;
     p2 = m2.pose.position;
+    //get maximum allowed distance
     double D1 = sqrt(pow(p0.x - p1.x,2) + pow(p0.y - p1.y,2));
     double D2 = sqrt(pow(p1.x - p2.x,2) + pow(p1.y - p2.y,2));
     double D = std::min(D1,D2);
 
+    //get linear equations to find intersecting points
     double v1[] = {p1.x - p0.x, p1.y - p0.y};
     double normFactor1 = sqrt(pow(v1[0],2) + pow(v1[1],2));
     double u1[] = {v1[0]/normFactor1, v1[1]/normFactor1};
@@ -551,7 +546,7 @@ void bezify(const ramp_planner_new::BezifyRequest& br){
     //find new control points
     geometry_msgs::Point cp1,cp2;
     float d;
-    for(d=.1;d<=D;d+=.1){
+    for(d=.1;d<=D;d+=.1){//for all distences (incrimented as 10ths)
         cp1.x = p1.x - d*u1[0];
         cp1.y = p1.y - d*u1[1];
         cp2.x = p1.x + d*u2[0];
@@ -633,5 +628,3 @@ int main(int argc, char** argv) {
   std::cout<<"\nExiting Normally\n";
   return 0;
 }
-
-//I was finally able to get into a callback within the planner node. i'm not really sure what solved the problem, but I 'think' its pretty straightforward from here to move along the currently selected path

@@ -50,28 +50,24 @@ bool needBezify(const unsigned int j){
 
 void updateStartGoal(){
     curStartGoal.markers.clear();
-    // std::cout<<"pathPoints\n\t"<<
-    //     pathPoints.markers.size()<<" markers\n\t"<<
-    //     pathPoints.points.size()<<" points\n\t"<<
-    //     pathPoints.forBez.size()<<" bez points\n\t"<<
-    //     pathPoints.types.size()<<" segments"<<std::endl;
-    unsigned int j=0;
+    unsigned int j=0;//j used as iterator for types, as types.size() = markers.size()-1
     for(unsigned int i=0;i<pathPoints.markers.size();i++){
-        if(pathPoints.markers.at(i).id == curStartId){
-            if(!pathPoints.forBez.at(i)){
-                curStartId += 1;
+        if(pathPoints.markers.at(i).id == curStartId){//find the current start marker based on id
+            if(!pathPoints.forBez.at(i)){//if the current start is only for bezier calculation
+                curStartId += 1;//skip it
                 continue;
             }
-            if(i < pathPoints.markers.size() - 1){
+            if(i < pathPoints.markers.size() - 1){//make sure there there is a next point (as a goal)
                 if(needBezify(i + 1)){//need bezify checks to make sure we can do i+2
+                    //if we need to bezify the path, send bezify request
                     ramp_planner_new::BezifyRequest br;
                     br.pathPoints = pathPoints;
                     br.markers.push_back(pathPoints.markers.at(i));
                     br.markers.push_back(pathPoints.markers.at(i+1));
                     br.markers.push_back(pathPoints.markers.at(i+2));
-                    br.timeNeeded = getMinLinTime(pathPoints.markers.at(i).pose.position,pathPoints.markers.at(i+2).pose.position);
+                    br.timeNeeded = getMinLinTime(pathPoints.markers.at(i).pose.position,pathPoints.markers.at(i+2).pose.position);//time value used to find uCubic
                     pub_bezify_request.publish(br);
-                }else{
+                }else{//else, no bezify needed
                     curStartGoal.markers.push_back(pathPoints.markers.at(i));
                     curStartGoal.markers.push_back(pathPoints.markers.at(i+1));
                     ramp_planner_new::TrajectoryRequest msg;
@@ -84,7 +80,7 @@ void updateStartGoal(){
                         }
                         msg.points.push_back(pathPoints.markers.at(i + 1).pose.position);
                         if(pathPoints.markers.size() > (i + 2) && !pathPoints.forBez.at(i+2)){
-                            std::cout<<"found a forBez poiont after goal point"<<std::endl;
+                            std::cout<<"found a forBez point after goal point"<<std::endl;//this means we need to save exit velocities for bezier entrence
                             msg.timeNeeded = getMinLinTime(pathPoints.markers.at(i).pose.position,pathPoints.markers.at(i+2).pose.position);
                             msg.timeDelta = getMinLinTime(pathPoints.markers.at(i).pose.position,pathPoints.markers.at(i+1).pose.position);
                             msg.points.push_back(pathPoints.markers.at(i + 2).pose.position);
@@ -105,7 +101,7 @@ void updateStartGoal(){
                             std::cout<<"not enough points for bezier request..\nstopping preocess"<<std::endl;
                             break;
                         }
-                        msg.timeNeeded = getMinLinTime(pathPoints.markers.at(i).pose.position,pathPoints.markers.at(i+2).pose.position);
+                        msg.timeNeeded = getMinLinTime(pathPoints.markers.at(i).pose.position,pathPoints.markers.at(i+2).pose.position);//time value used to find uCubic
                         if(!pathPoints.forBez.at(i + 2)){
                             std::cout<<"a forBez point found as p2..\nstoping process"<<std::endl;
                             break;
