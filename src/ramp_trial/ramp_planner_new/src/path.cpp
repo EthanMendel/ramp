@@ -257,7 +257,7 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
   }
   usedT_ = T;
   usedTdelta_ = Td;
-  std::cout<<"\t\t"unsigned(usedT_)<<" seconds with a delta of "<<unsigned(usedTdelta_)<<std::endl;
+  std::cout<<"\t\t"<<usedT_<<" seconds with a delta of "<<usedTdelta_<<std::endl;
   type = msg.type;
   if(type == "cubic"){
     for(auto c : coefs){

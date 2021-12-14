@@ -134,7 +134,7 @@ const double Utility::getEuclideanDist(const std::vector<double> a, const std::v
 }
 
 //assuming straight line path from start to goal
-const double Utility::getMinLinTime(const geometry_msgs::Point& start, const geometry_msgs::Point& goal){
+const double Utility::getMinLinTime(const geometry_msgs::Point& start, const geometry_msgs::Point& goal) const{
   double sx = start.x;
   double sy = start.y;
   double gx = goal.x;
