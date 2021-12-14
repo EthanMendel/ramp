@@ -568,6 +568,7 @@ int main(int argc, char** argv) {
   
   // load ros parameters
   loadParameters(handle);
+  plannerPath.utility = utility;
   ROS_INFO("Done loading rosparams");
   
   pub_markerArray = handle.advertise<visualization_msgs::MarkerArray>("visualization_marker_array", 10);
