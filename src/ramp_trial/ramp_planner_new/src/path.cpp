@@ -209,7 +209,6 @@ void Path::makeBezierPath(const ramp_planner_new::TrajectoryRequest msg){
   const double resolution = 1/10.0;
   if(msg.points.size() >= 3){
     usedT_ = utility.getMinLinTime(msg.points.at(0),msg.points.at(2));
-    std::cout<<"\t\t"<<usedT_<<" seconds"<<std::endl;
     findBezierCoefs(msg.points.at(0),msg.points.at(1),msg.points.at(2));
     //use these to bound u on the interval [0,1]
     float xuMin = uCoefs.at(0).at(0)*pow(0,3) + uCoefs.at(0).at(1)*pow(0,2) + uCoefs.at(0).at(2)*(0) + uCoefs.at(0).at(3);
@@ -248,6 +247,7 @@ void Path::makeBezierPath(const ramp_planner_new::TrajectoryRequest msg){
 //from ITCS 5151/8151 (Robotics) 2003, Jing Xiao Handout#3
 void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
   order = 3;
+  type = msg.type;
   double T, Td, sT;
   if(msg.points.size()== 2){//normal cubic
     T = utility.getMinLinTime(msg.points.at(0),msg.points.at(1));
@@ -269,8 +269,12 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
   }
   usedT_ = T;
   usedTdelta_ = Td;
-  std::cout<<"\t"<<usedT_<<" seconds with a delta of "<<usedTdelta_<<std::endl;
-  type = msg.type;
+  if(uCubicEntrenceVelocities.size() > 0 && msg.type == "cubic"){
+    startT_ = (unsigned int) usedTdelta_;
+  }else{
+    startT_ = 0;
+  }
+  std::cout<<"\t"<<usedT_<<" seconds with a delta of "<<usedTdelta_<<" starting at t="<<startT_<<std::endl;
   if(type == "cubic"){
     for(auto c : coefs){
       c.clear();
@@ -299,7 +303,7 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
       //TODO when more points are added
     }
     if(uCubicEntrenceVelocities.size() > 0 && type == "uCubic"){
-      for(unsigned j=0;j<uCubicEntrenceVelocities.size();j++){
+      for(unsigned int j=0;j<uCubicEntrenceVelocities.size();j++){
         start.msg_.velocities.at(j) = uCubicEntrenceVelocities.at(j);
         goal.msg_.velocities.at(j) = uCubicEntrenceVelocities.at(j);
       }
@@ -352,15 +356,7 @@ void Path::makeCubicPath(const ramp_planner_new::TrajectoryRequest msg){
   }
   std::vector<double> incs = {xInc,yInc,zInc};
 
-  unsigned int t;
-  if(uCubicEntrenceVelocities.size() > 0 && type == "cubic"){
-    t = (unsigned int) usedTdelta_;
-  }else{
-    t = 0;
-  }
-  startT_ = t;
-  std::cout<<"starting at "<<t<<std::endl;
-  for(t;t<usedT_;t++){
+  for(unsigned int t = startT_;t<usedT_;t++){
     if(t == usedT_ - usedTdelta_ && startT_ == 0){
       uCubicEntrenceVelocities.clear();
       std::cout<<"setting entrence velocities"<<std::endl;
