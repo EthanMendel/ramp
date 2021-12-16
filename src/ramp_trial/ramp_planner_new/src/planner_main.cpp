@@ -544,6 +544,7 @@ void bezify(const ramp_planner_new::BezifyRequest& br){
     }
     if(d > D){
       std::cout<<"**could not find good bezier**"<<std::endl;
+      return;
     }
     pathPoints = addControlPoints(m1,cp1,cp2);
     plannerPath.setPathPoints(pathPoints);
