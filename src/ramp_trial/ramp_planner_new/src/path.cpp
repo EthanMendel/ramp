@@ -148,7 +148,8 @@ const ramp_planner_new::TrajectoryRepresentation Path::buildCubicMsg() const {
       }
       result.uCoefficients.push_back(c);
     }
-    result.resolution=usedT_;
+    result.totalTime=usedT_;
+    result.startTime=startT_;
     result.active = true;
     result.type = type;
   }
@@ -247,17 +248,28 @@ void Path::makeBezierPath(const ramp_planner_new::TrajectoryRequest msg){
 //from ITCS 5151/8151 (Robotics) 2003, Jing Xiao Handout#3
 void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
   order = 3;
-  double T, Td;
-  if(msg.points.size()==2){
+  double T, Td, sT;
+  if(msg.points.size()== 2){//normal cubic
     T = utility.getMinLinTime(msg.points.at(0),msg.points.at(1));
     Td = 0;
-  }else{
+    sT = 0;
+  }else if(msg.points.size() == 3){//either entrecnce or exit vels need to be found
     T = utility.getMinLinTime(msg.points.at(0),msg.points.at(2));
     Td = utility.getMinLinTime(msg.points.at(0),msg.points.at(1));
+    if(Td > T){
+      double h = T;
+      T = Td;
+      Td = T - h;
+    }
+  }else if(msg.points.size() == 4){//both entrence and exit vels need to be found
+    //TODO when more points are added
+  }else{
+    std::cout<<"dont know what to do in findCubicCoefs with "<<msg.points.size()<<" points"<<std::endl;
+    return;
   }
   usedT_ = T;
   usedTdelta_ = Td;
-  std::cout<<"\t\t"<<usedT_<<" seconds with a delta of "<<usedTdelta_<<std::endl;
+  std::cout<<"\t"<<usedT_<<" seconds with a delta of "<<usedTdelta_<<std::endl;
   type = msg.type;
   if(type == "cubic"){
     for(auto c : coefs){
@@ -270,24 +282,26 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
       c.clear();
     }
     uCoefs.clear();
-    if(uCubicEntrenceVelocities.size() == 0 and type == "uCubic"){
+    if(uCubicEntrenceVelocities.size() == 0 && type == "uCubic"){
       std::cout<<"finding uCubic, but entrence velocity is 0"<<std::endl;
     }
   }
   if(msg.points.size() >= 2){
     MotionState start = msg.points.at(0);
-    MotionState goal;
-    if(msg.points.size() == 2){
-      goal = msg.points.at(1);
-    } else{
-      goal = msg.points.at(2);
+    MotionState goal = msg.points.at(1);;
+    if(msg.points.size() == 3){
+      if(uCubicEntrenceVelocities.size() > 0){
+        start = msg.points.at(2);
+      }else{
+        goal = msg.points.at(2);
+      }
+    }else if(msg.points.size() == 4){
+      //TODO when more points are added
     }
-    if(uCubicEntrenceVelocities.size() > 0){
+    if(uCubicEntrenceVelocities.size() > 0 && type == "uCubic"){
       for(unsigned j=0;j<uCubicEntrenceVelocities.size();j++){
         start.msg_.velocities.at(j) = uCubicEntrenceVelocities.at(j);
-        if(type == "uCubic"){
-          goal.msg_.velocities.at(j) = uCubicEntrenceVelocities.at(j);
-        }
+        goal.msg_.velocities.at(j) = uCubicEntrenceVelocities.at(j);
       }
     }
     for(unsigned int i = 0;i<start.msg_.positions.size();i++){
@@ -338,9 +352,16 @@ void Path::makeCubicPath(const ramp_planner_new::TrajectoryRequest msg){
   }
   std::vector<double> incs = {xInc,yInc,zInc};
 
-  std::cout<<"\ttimeNeeded "<<usedT_<<"\ttimeDelta "<<usedTdelta_<<std::endl;
-  for(unsigned int t=1;t<usedT_;t++){
-    if(t == usedT_ - usedTdelta_){
+  unsigned int t;
+  if(uCubicEntrenceVelocities.size() > 0 && type == "cubic"){
+    t = (unsigned int) usedTdelta_;
+  }else{
+    t = 0;
+  }
+  startT_ = t;
+  std::cout<<"starting at "<<t<<std::endl;
+  for(t;t<usedT_;t++){
+    if(t == usedT_ - usedTdelta_ && startT_ == 0){
       uCubicEntrenceVelocities.clear();
       std::cout<<"setting entrence velocities"<<std::endl;
       for(unsigned int j=0;j<coefs.size();j++){

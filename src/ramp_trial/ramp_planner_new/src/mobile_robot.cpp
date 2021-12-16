@@ -93,7 +93,7 @@ void MobileRobot::updateCallback(const ros::TimerEvent& e) {
 void MobileRobot::updateTrajectory(const ramp_planner_new::TrajectoryRepresentation& msg)
 {
   if(msg != trajectory_){
-    std::cout<<"setting new "<<msg.type<<" trajectory for "<<msg.resolution<<" secs"<<std::endl;
+    std::cout<<"setting new "<<msg.type<<" trajectory for "<<msg.totalTime<<" secs"<<std::endl;
     trajectory_ = msg;
   }
 }
@@ -112,17 +112,17 @@ void MobileRobot::calculateVelocities(const std::vector<ramp_planner_new::Coeffi
   double yP;
   if(trajectory_.type == "cubic"){
     curXY = {//position's velocity coefficient should be zero
-      coefs.at(0).values.at(0)*pow(t,3) + coefs.at(0).values.at(1)*pow(t,2) + 0*(t) + coefs.at(0).values.at(3),
-      coefs.at(1).values.at(0)*pow(t,3) + coefs.at(1).values.at(1)*pow(t,2) + 0*(t) + coefs.at(1).values.at(3)
+      coefs.at(0).values.at(0)*pow(t,3) + coefs.at(0).values.at(1)*pow(t,2) + coefs.at(0).values.at(2)*(t) + coefs.at(0).values.at(3),
+      coefs.at(1).values.at(0)*pow(t,3) + coefs.at(1).values.at(1)*pow(t,2) + coefs.at(1).values.at(2)*(t) + coefs.at(1).values.at(3)
     };
      xP = 3*coefs.at(0).values.at(0)*pow(t,2) + 2*coefs.at(0).values.at(1)*(t) + coefs.at(0).values.at(2);
      yP = 3*coefs.at(1).values.at(0)*pow(t,2) + 2*coefs.at(1).values.at(1)*(t) + coefs.at(1).values.at(2);
   
   }else if(trajectory_.type == "bezier"){
     float xuMin = uCoefs.at(0).values.at(0)*pow(0,3) + uCoefs.at(0).values.at(1)*pow(0,2) + uCoefs.at(0).values.at(2)*(0) + uCoefs.at(0).values.at(3);
-    float xuMax = (uCoefs.at(0).values.at(0)*pow(trajectory_.resolution,3) + uCoefs.at(0).values.at(1)*pow(trajectory_.resolution,2) + uCoefs.at(0).values.at(2)*(trajectory_.resolution) + uCoefs.at(0).values.at(3)) - xuMin;
+    float xuMax = (uCoefs.at(0).values.at(0)*pow(trajectory_.totalTime,3) + uCoefs.at(0).values.at(1)*pow(trajectory_.totalTime,2) + uCoefs.at(0).values.at(2)*(trajectory_.totalTime) + uCoefs.at(0).values.at(3)) - xuMin;
     float yuMin = uCoefs.at(1).values.at(0)*pow(0,3) + uCoefs.at(1).values.at(1)*pow(0,2) + uCoefs.at(1).values.at(2)*(0) + uCoefs.at(1).values.at(3);
-    float yuMax = (uCoefs.at(1).values.at(0)*pow(trajectory_.resolution,3) + uCoefs.at(1).values.at(1)*pow(trajectory_.resolution,2) + uCoefs.at(1).values.at(2)*(trajectory_.resolution) + uCoefs.at(1).values.at(3)) - yuMin;
+    float yuMax = (uCoefs.at(1).values.at(0)*pow(trajectory_.totalTime,3) + uCoefs.at(1).values.at(1)*pow(trajectory_.totalTime,2) + uCoefs.at(1).values.at(2)*(trajectory_.totalTime) + uCoefs.at(1).values.at(3)) - yuMin;
     float xu = ((uCoefs.at(0).values.at(0)*pow(t,3) + uCoefs.at(0).values.at(1)*pow(t,2) + uCoefs.at(0).values.at(2)*(t) + uCoefs.at(0).values.at(3)) - xuMin)/xuMax;
     float yu = ((uCoefs.at(1).values.at(0)*pow(t,3) + uCoefs.at(1).values.at(1)*pow(t,2) + uCoefs.at(1).values.at(2)*(t) + uCoefs.at(1).values.at(3)) - yuMin)/yuMax;
     curXY = {
@@ -272,7 +272,8 @@ void MobileRobot::moveOnTrajectory()
     // Execute the trajectory
     std::cout<<"starting full path portion"<<std::endl;
     // setNextTwist(); 
-    while(ros::ok() && seg_step_ < trajectory_.resolution) 
+    seg_step_ = (int) trajectory_.startTime;
+    while(ros::ok() && seg_step_ < trajectory_.totalTime) 
     {
       while(ros::ok() && time_step_ < SEND_RESELUTION) 
       {

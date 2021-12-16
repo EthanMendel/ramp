@@ -5,3 +5,5 @@ ramp_planner_new/Coefficient[] coefficients
 ramp_planner_new/Coefficient[] uCoefficients
 float64 resolution
 bool active
+float64 startTime
+float64 totalTime

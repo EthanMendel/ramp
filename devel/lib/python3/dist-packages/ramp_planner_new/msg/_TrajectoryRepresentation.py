@@ -9,7 +9,7 @@ import struct
 import ramp_planner_new.msg
 
 class TrajectoryRepresentation(genpy.Message):
-  _md5sum = "f65cd27a48745f7c3c37027a27dae96d"
+  _md5sum = "2fb6a8686a3294d98b86c6717636ecfe"
   _type = "ramp_planner_new/TrajectoryRepresentation"
   _has_header = False  # flag to mark the presence of a Header object
   _full_text = """uint32 order
@@ -19,11 +19,13 @@ ramp_planner_new/Coefficient[] coefficients
 ramp_planner_new/Coefficient[] uCoefficients
 float64 resolution
 bool active
+float64 startTime
+float64 totalTime
 ================================================================================
 MSG: ramp_planner_new/Coefficient
 float64[] values"""
-  __slots__ = ['order','numDOF','type','coefficients','uCoefficients','resolution','active']
-  _slot_types = ['uint32','uint32','string','ramp_planner_new/Coefficient[]','ramp_planner_new/Coefficient[]','float64','bool']
+  __slots__ = ['order','numDOF','type','coefficients','uCoefficients','resolution','active','startTime','totalTime']
+  _slot_types = ['uint32','uint32','string','ramp_planner_new/Coefficient[]','ramp_planner_new/Coefficient[]','float64','bool','float64','float64']
 
   def __init__(self, *args, **kwds):
     """
@@ -33,7 +35,7 @@ float64[] values"""
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       order,numDOF,type,coefficients,uCoefficients,resolution,active
+       order,numDOF,type,coefficients,uCoefficients,resolution,active,startTime,totalTime
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -56,6 +58,10 @@ float64[] values"""
         self.resolution = 0.
       if self.active is None:
         self.active = False
+      if self.startTime is None:
+        self.startTime = 0.
+      if self.totalTime is None:
+        self.totalTime = 0.
     else:
       self.order = 0
       self.numDOF = 0
@@ -64,6 +70,8 @@ float64[] values"""
       self.uCoefficients = []
       self.resolution = 0.
       self.active = False
+      self.startTime = 0.
+      self.totalTime = 0.
 
   def _get_types(self):
     """
@@ -100,7 +108,7 @@ float64[] values"""
         pattern = '<%sd'%length
         buff.write(struct.Struct(pattern).pack(*val1.values))
       _x = self
-      buff.write(_get_struct_dB().pack(_x.resolution, _x.active))
+      buff.write(_get_struct_dB2d().pack(_x.resolution, _x.active, _x.startTime, _x.totalTime))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -162,8 +170,8 @@ float64[] values"""
         self.uCoefficients.append(val1)
       _x = self
       start = end
-      end += 9
-      (_x.resolution, _x.active,) = _get_struct_dB().unpack(str[start:end])
+      end += 25
+      (_x.resolution, _x.active, _x.startTime, _x.totalTime,) = _get_struct_dB2d().unpack(str[start:end])
       self.active = bool(self.active)
       return self
     except struct.error as e:
@@ -200,7 +208,7 @@ float64[] values"""
         pattern = '<%sd'%length
         buff.write(val1.values.tostring())
       _x = self
-      buff.write(_get_struct_dB().pack(_x.resolution, _x.active))
+      buff.write(_get_struct_dB2d().pack(_x.resolution, _x.active, _x.startTime, _x.totalTime))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -263,8 +271,8 @@ float64[] values"""
         self.uCoefficients.append(val1)
       _x = self
       start = end
-      end += 9
-      (_x.resolution, _x.active,) = _get_struct_dB().unpack(str[start:end])
+      end += 25
+      (_x.resolution, _x.active, _x.startTime, _x.totalTime,) = _get_struct_dB2d().unpack(str[start:end])
       self.active = bool(self.active)
       return self
     except struct.error as e:
@@ -280,9 +288,9 @@ def _get_struct_2I():
     if _struct_2I is None:
         _struct_2I = struct.Struct("<2I")
     return _struct_2I
-_struct_dB = None
-def _get_struct_dB():
-    global _struct_dB
-    if _struct_dB is None:
-        _struct_dB = struct.Struct("<dB")
-    return _struct_dB
+_struct_dB2d = None
+def _get_struct_dB2d():
+    global _struct_dB2d
+    if _struct_dB2d is None:
+        _struct_dB2d = struct.Struct("<dB2d")
+    return _struct_dB2d

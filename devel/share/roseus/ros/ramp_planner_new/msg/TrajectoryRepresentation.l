@@ -14,7 +14,7 @@
 
 (defclass ramp_planner_new::TrajectoryRepresentation
   :super ros::object
-  :slots (_order _numDOF _type _coefficients _uCoefficients _resolution _active ))
+  :slots (_order _numDOF _type _coefficients _uCoefficients _resolution _active _startTime _totalTime ))
 
 (defmethod ramp_planner_new::TrajectoryRepresentation
   (:init
@@ -26,6 +26,8 @@
     ((:uCoefficients __uCoefficients) ())
     ((:resolution __resolution) 0.0)
     ((:active __active) nil)
+    ((:startTime __startTime) 0.0)
+    ((:totalTime __totalTime) 0.0)
     )
    (send-super :init)
    (setq _order (round __order))
@@ -35,6 +37,8 @@
    (setq _uCoefficients __uCoefficients)
    (setq _resolution (float __resolution))
    (setq _active __active)
+   (setq _startTime (float __startTime))
+   (setq _totalTime (float __totalTime))
    self)
   (:order
    (&optional __order)
@@ -65,6 +69,12 @@
   (:active
    (&optional (__active :null))
    (if (not (eq __active :null)) (setq _active __active)) _active)
+  (:startTime
+   (&optional __startTime)
+   (if __startTime (setq _startTime __startTime)) _startTime)
+  (:totalTime
+   (&optional __totalTime)
+   (if __totalTime (setq _totalTime __totalTime)) _totalTime)
   (:serialization-length
    ()
    (+
@@ -82,6 +92,10 @@
     8
     ;; bool _active
     1
+    ;; float64 _startTime
+    8
+    ;; float64 _totalTime
+    8
     ))
   (:serialize
    (&optional strm)
@@ -107,6 +121,10 @@
        (sys::poke _resolution (send s :buffer) (send s :count) :double) (incf (stream-count s) 8)
      ;; bool _active
        (if _active (write-byte -1 s) (write-byte 0 s))
+     ;; float64 _startTime
+       (sys::poke _startTime (send s :buffer) (send s :count) :double) (incf (stream-count s) 8)
+     ;; float64 _totalTime
+       (sys::poke _totalTime (send s :buffer) (send s :count) :double) (incf (stream-count s) 8)
      ;;
      (if (null strm) (get-output-stream-string s))))
   (:deserialize
@@ -135,11 +153,15 @@
      (setq _resolution (sys::peek buf ptr- :double)) (incf ptr- 8)
    ;; bool _active
      (setq _active (not (= 0 (sys::peek buf ptr- :char)))) (incf ptr- 1)
+   ;; float64 _startTime
+     (setq _startTime (sys::peek buf ptr- :double)) (incf ptr- 8)
+   ;; float64 _totalTime
+     (setq _totalTime (sys::peek buf ptr- :double)) (incf ptr- 8)
    ;;
    self)
   )
 
-(setf (get ramp_planner_new::TrajectoryRepresentation :md5sum-) "f65cd27a48745f7c3c37027a27dae96d")
+(setf (get ramp_planner_new::TrajectoryRepresentation :md5sum-) "2fb6a8686a3294d98b86c6717636ecfe")
 (setf (get ramp_planner_new::TrajectoryRepresentation :datatype-) "ramp_planner_new/TrajectoryRepresentation")
 (setf (get ramp_planner_new::TrajectoryRepresentation :definition-)
       "uint32 order
@@ -149,6 +171,8 @@ ramp_planner_new/Coefficient[] coefficients
 ramp_planner_new/Coefficient[] uCoefficients
 float64 resolution
 bool active
+float64 startTime
+float64 totalTime
 ================================================================================
 MSG: ramp_planner_new/Coefficient
 float64[] values
@@ -156,6 +180,6 @@ float64[] values
 
 
 
-(provide :ramp_planner_new/TrajectoryRepresentation "f65cd27a48745f7c3c37027a27dae96d")
+(provide :ramp_planner_new/TrajectoryRepresentation "2fb6a8686a3294d98b86c6717636ecfe")
 
 

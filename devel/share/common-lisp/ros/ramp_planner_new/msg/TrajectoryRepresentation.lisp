@@ -41,7 +41,17 @@
     :reader active
     :initarg :active
     :type cl:boolean
-    :initform cl:nil))
+    :initform cl:nil)
+   (startTime
+    :reader startTime
+    :initarg :startTime
+    :type cl:float
+    :initform 0.0)
+   (totalTime
+    :reader totalTime
+    :initarg :totalTime
+    :type cl:float
+    :initform 0.0))
 )
 
 (cl:defclass TrajectoryRepresentation (<TrajectoryRepresentation>)
@@ -86,6 +96,16 @@
 (cl:defmethod active-val ((m <TrajectoryRepresentation>))
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader ramp_planner_new-msg:active-val is deprecated.  Use ramp_planner_new-msg:active instead.")
   (active m))
+
+(cl:ensure-generic-function 'startTime-val :lambda-list '(m))
+(cl:defmethod startTime-val ((m <TrajectoryRepresentation>))
+  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader ramp_planner_new-msg:startTime-val is deprecated.  Use ramp_planner_new-msg:startTime instead.")
+  (startTime m))
+
+(cl:ensure-generic-function 'totalTime-val :lambda-list '(m))
+(cl:defmethod totalTime-val ((m <TrajectoryRepresentation>))
+  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader ramp_planner_new-msg:totalTime-val is deprecated.  Use ramp_planner_new-msg:totalTime instead.")
+  (totalTime m))
 (cl:defmethod roslisp-msg-protocol:serialize ((msg <TrajectoryRepresentation>) ostream)
   "Serializes a message object of type '<TrajectoryRepresentation>"
   (cl:write-byte (cl:ldb (cl:byte 8 0) (cl:slot-value msg 'order)) ostream)
@@ -126,6 +146,24 @@
     (cl:write-byte (cl:ldb (cl:byte 8 48) bits) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 56) bits) ostream))
   (cl:write-byte (cl:ldb (cl:byte 8 0) (cl:if (cl:slot-value msg 'active) 1 0)) ostream)
+  (cl:let ((bits (roslisp-utils:encode-double-float-bits (cl:slot-value msg 'startTime))))
+    (cl:write-byte (cl:ldb (cl:byte 8 0) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 8) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 16) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 24) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 32) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 40) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 48) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 56) bits) ostream))
+  (cl:let ((bits (roslisp-utils:encode-double-float-bits (cl:slot-value msg 'totalTime))))
+    (cl:write-byte (cl:ldb (cl:byte 8 0) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 8) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 16) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 24) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 32) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 40) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 48) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 56) bits) ostream))
 )
 (cl:defmethod roslisp-msg-protocol:deserialize ((msg <TrajectoryRepresentation>) istream)
   "Deserializes a message object of type '<TrajectoryRepresentation>"
@@ -176,6 +214,26 @@
       (cl:setf (cl:ldb (cl:byte 8 56) bits) (cl:read-byte istream))
     (cl:setf (cl:slot-value msg 'resolution) (roslisp-utils:decode-double-float-bits bits)))
     (cl:setf (cl:slot-value msg 'active) (cl:not (cl:zerop (cl:read-byte istream))))
+    (cl:let ((bits 0))
+      (cl:setf (cl:ldb (cl:byte 8 0) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 8) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 16) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 24) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 32) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 40) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 48) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 56) bits) (cl:read-byte istream))
+    (cl:setf (cl:slot-value msg 'startTime) (roslisp-utils:decode-double-float-bits bits)))
+    (cl:let ((bits 0))
+      (cl:setf (cl:ldb (cl:byte 8 0) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 8) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 16) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 24) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 32) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 40) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 48) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 56) bits) (cl:read-byte istream))
+    (cl:setf (cl:slot-value msg 'totalTime) (roslisp-utils:decode-double-float-bits bits)))
   msg
 )
 (cl:defmethod roslisp-msg-protocol:ros-datatype ((msg (cl:eql '<TrajectoryRepresentation>)))
@@ -186,16 +244,16 @@
   "ramp_planner_new/TrajectoryRepresentation")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<TrajectoryRepresentation>)))
   "Returns md5sum for a message object of type '<TrajectoryRepresentation>"
-  "f65cd27a48745f7c3c37027a27dae96d")
+  "2fb6a8686a3294d98b86c6717636ecfe")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'TrajectoryRepresentation)))
   "Returns md5sum for a message object of type 'TrajectoryRepresentation"
-  "f65cd27a48745f7c3c37027a27dae96d")
+  "2fb6a8686a3294d98b86c6717636ecfe")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<TrajectoryRepresentation>)))
   "Returns full string definition for message of type '<TrajectoryRepresentation>"
-  (cl:format cl:nil "uint32 order~%uint32 numDOF~%string type~%ramp_planner_new/Coefficient[] coefficients~%ramp_planner_new/Coefficient[] uCoefficients~%float64 resolution~%bool active~%================================================================================~%MSG: ramp_planner_new/Coefficient~%float64[] values~%~%"))
+  (cl:format cl:nil "uint32 order~%uint32 numDOF~%string type~%ramp_planner_new/Coefficient[] coefficients~%ramp_planner_new/Coefficient[] uCoefficients~%float64 resolution~%bool active~%float64 startTime~%float64 totalTime~%================================================================================~%MSG: ramp_planner_new/Coefficient~%float64[] values~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'TrajectoryRepresentation)))
   "Returns full string definition for message of type 'TrajectoryRepresentation"
-  (cl:format cl:nil "uint32 order~%uint32 numDOF~%string type~%ramp_planner_new/Coefficient[] coefficients~%ramp_planner_new/Coefficient[] uCoefficients~%float64 resolution~%bool active~%================================================================================~%MSG: ramp_planner_new/Coefficient~%float64[] values~%~%"))
+  (cl:format cl:nil "uint32 order~%uint32 numDOF~%string type~%ramp_planner_new/Coefficient[] coefficients~%ramp_planner_new/Coefficient[] uCoefficients~%float64 resolution~%bool active~%float64 startTime~%float64 totalTime~%================================================================================~%MSG: ramp_planner_new/Coefficient~%float64[] values~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <TrajectoryRepresentation>))
   (cl:+ 0
      4
@@ -205,6 +263,8 @@
      4 (cl:reduce #'cl:+ (cl:slot-value msg 'uCoefficients) :key #'(cl:lambda (ele) (cl:declare (cl:ignorable ele)) (cl:+ (roslisp-msg-protocol:serialization-length ele))))
      8
      1
+     8
+     8
 ))
 (cl:defmethod roslisp-msg-protocol:ros-message-to-list ((msg <TrajectoryRepresentation>))
   "Converts a ROS message object to a list"
@@ -216,4 +276,6 @@
     (cl:cons ':uCoefficients (uCoefficients msg))
     (cl:cons ':resolution (resolution msg))
     (cl:cons ':active (active msg))
+    (cl:cons ':startTime (startTime msg))
+    (cl:cons ':totalTime (totalTime msg))
 ))

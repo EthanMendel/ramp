@@ -106,47 +106,47 @@ yujin_ocs/yocs_msgs/CMakeFiles/yocs_msgs_generate_messages_eus: /home/emendel/Do
 
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/Wall.l: /opt/ros/noetic/lib/geneus/gen_eus.py
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/Wall.l: /home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Wall.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/Wall.l: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/Wall.l: /opt/ros/noetic/share/geometry_msgs/msg/PoseWithCovarianceStamped.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/Wall.l: /opt/ros/noetic/share/geometry_msgs/msg/Pose.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/Wall.l: /opt/ros/noetic/share/geometry_msgs/msg/PoseWithCovariance.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/Wall.l: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/Wall.l: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/Wall.l: /opt/ros/noetic/share/std_msgs/msg/Header.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/Wall.l: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating EusLisp code from yocs_msgs/Wall.msg"
 	cd /home/emendel/Documents/IndepententStudy/ramp/build/yujin_ocs/yocs_msgs && ../../catkin_generated/env_cached.sh /usr/bin/python3.8 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Wall.msg -Iyocs_msgs:/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg -Iyocs_msgs:/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -p yocs_msgs -o /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg
 
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/WallList.l: /opt/ros/noetic/lib/geneus/gen_eus.py
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/WallList.l: /home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/WallList.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/WallList.l: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/WallList.l: /opt/ros/noetic/share/geometry_msgs/msg/PoseWithCovarianceStamped.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/WallList.l: /opt/ros/noetic/share/geometry_msgs/msg/Pose.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/WallList.l: /opt/ros/noetic/share/geometry_msgs/msg/PoseWithCovariance.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/WallList.l: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/WallList.l: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/WallList.l: /home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Wall.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/WallList.l: /opt/ros/noetic/share/std_msgs/msg/Header.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/WallList.l: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating EusLisp code from yocs_msgs/WallList.msg"
 	cd /home/emendel/Documents/IndepententStudy/ramp/build/yujin_ocs/yocs_msgs && ../../catkin_generated/env_cached.sh /usr/bin/python3.8 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/WallList.msg -Iyocs_msgs:/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg -Iyocs_msgs:/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -p yocs_msgs -o /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg
 
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/Column.l: /opt/ros/noetic/lib/geneus/gen_eus.py
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/Column.l: /home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Column.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/Column.l: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/Column.l: /opt/ros/noetic/share/geometry_msgs/msg/PoseWithCovarianceStamped.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/Column.l: /opt/ros/noetic/share/geometry_msgs/msg/Pose.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/Column.l: /opt/ros/noetic/share/geometry_msgs/msg/PoseWithCovariance.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/Column.l: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/Column.l: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/Column.l: /opt/ros/noetic/share/std_msgs/msg/Header.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/Column.l: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Generating EusLisp code from yocs_msgs/Column.msg"
 	cd /home/emendel/Documents/IndepententStudy/ramp/build/yujin_ocs/yocs_msgs && ../../catkin_generated/env_cached.sh /usr/bin/python3.8 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Column.msg -Iyocs_msgs:/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg -Iyocs_msgs:/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -p yocs_msgs -o /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg
 
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/ColumnList.l: /opt/ros/noetic/lib/geneus/gen_eus.py
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/ColumnList.l: /home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/ColumnList.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/ColumnList.l: /opt/ros/noetic/share/geometry_msgs/msg/PoseWithCovariance.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/ColumnList.l: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/ColumnList.l: /opt/ros/noetic/share/geometry_msgs/msg/PoseWithCovarianceStamped.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/ColumnList.l: /opt/ros/noetic/share/geometry_msgs/msg/Pose.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/ColumnList.l: /home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Column.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/ColumnList.l: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/ColumnList.l: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/ColumnList.l: /opt/ros/noetic/share/geometry_msgs/msg/PoseWithCovariance.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/ColumnList.l: /opt/ros/noetic/share/std_msgs/msg/Header.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/ColumnList.l: /home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Column.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/ColumnList.l: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Generating EusLisp code from yocs_msgs/ColumnList.msg"
 	cd /home/emendel/Documents/IndepententStudy/ramp/build/yujin_ocs/yocs_msgs && ../../catkin_generated/env_cached.sh /usr/bin/python3.8 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/ColumnList.msg -Iyocs_msgs:/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg -Iyocs_msgs:/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -p yocs_msgs -o /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg
 
@@ -168,45 +168,45 @@ yujin_ocs/yocs_msgs/CMakeFiles/yocs_msgs_generate_messages_eus: /home/emendel/Do
 
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/Table.l: /opt/ros/noetic/lib/geneus/gen_eus.py
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/Table.l: /home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Table.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/Table.l: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/Table.l: /opt/ros/noetic/share/geometry_msgs/msg/PoseWithCovarianceStamped.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/Table.l: /opt/ros/noetic/share/geometry_msgs/msg/Pose.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/Table.l: /opt/ros/noetic/share/geometry_msgs/msg/PoseWithCovariance.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/Table.l: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/Table.l: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/Table.l: /opt/ros/noetic/share/std_msgs/msg/Header.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/Table.l: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Generating EusLisp code from yocs_msgs/Table.msg"
 	cd /home/emendel/Documents/IndepententStudy/ramp/build/yujin_ocs/yocs_msgs && ../../catkin_generated/env_cached.sh /usr/bin/python3.8 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Table.msg -Iyocs_msgs:/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg -Iyocs_msgs:/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -p yocs_msgs -o /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg
 
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/TableList.l: /opt/ros/noetic/lib/geneus/gen_eus.py
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/TableList.l: /home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/TableList.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/TableList.l: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/TableList.l: /opt/ros/noetic/share/geometry_msgs/msg/PoseWithCovarianceStamped.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/TableList.l: /home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Table.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/TableList.l: /opt/ros/noetic/share/geometry_msgs/msg/Pose.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/TableList.l: /opt/ros/noetic/share/geometry_msgs/msg/PoseWithCovariance.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/TableList.l: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/TableList.l: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/TableList.l: /opt/ros/noetic/share/std_msgs/msg/Header.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/TableList.l: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/TableList.l: /home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Table.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Generating EusLisp code from yocs_msgs/TableList.msg"
 	cd /home/emendel/Documents/IndepententStudy/ramp/build/yujin_ocs/yocs_msgs && ../../catkin_generated/env_cached.sh /usr/bin/python3.8 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/TableList.msg -Iyocs_msgs:/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg -Iyocs_msgs:/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -p yocs_msgs -o /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg
 
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/Trajectory.l: /opt/ros/noetic/lib/geneus/gen_eus.py
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/Trajectory.l: /home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Trajectory.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/Trajectory.l: /home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/Trajectory.l: /opt/ros/noetic/share/geometry_msgs/msg/Pose.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/Trajectory.l: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/Trajectory.l: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/Trajectory.l: /opt/ros/noetic/share/geometry_msgs/msg/Pose.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/Trajectory.l: /opt/ros/noetic/share/std_msgs/msg/Header.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/Trajectory.l: /home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/Trajectory.l: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Generating EusLisp code from yocs_msgs/Trajectory.msg"
 	cd /home/emendel/Documents/IndepententStudy/ramp/build/yujin_ocs/yocs_msgs && ../../catkin_generated/env_cached.sh /usr/bin/python3.8 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Trajectory.msg -Iyocs_msgs:/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg -Iyocs_msgs:/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -p yocs_msgs -o /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg
 
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/TrajectoryList.l: /opt/ros/noetic/lib/geneus/gen_eus.py
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/TrajectoryList.l: /home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/TrajectoryList.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/TrajectoryList.l: /home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/TrajectoryList.l: /opt/ros/noetic/share/geometry_msgs/msg/Pose.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/TrajectoryList.l: /home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Trajectory.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/TrajectoryList.l: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/TrajectoryList.l: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/TrajectoryList.l: /opt/ros/noetic/share/geometry_msgs/msg/Pose.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/TrajectoryList.l: /opt/ros/noetic/share/std_msgs/msg/Header.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/TrajectoryList.l: /home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/TrajectoryList.l: /home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Trajectory.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/TrajectoryList.l: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Generating EusLisp code from yocs_msgs/TrajectoryList.msg"
 	cd /home/emendel/Documents/IndepententStudy/ramp/build/yujin_ocs/yocs_msgs && ../../catkin_generated/env_cached.sh /usr/bin/python3.8 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/TrajectoryList.msg -Iyocs_msgs:/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg -Iyocs_msgs:/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -p yocs_msgs -o /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg
 
@@ -221,41 +221,41 @@ yujin_ocs/yocs_msgs/CMakeFiles/yocs_msgs_generate_messages_eus: /home/emendel/Do
 
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/WaypointList.l: /opt/ros/noetic/lib/geneus/gen_eus.py
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/WaypointList.l: /home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/WaypointList.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/WaypointList.l: /home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/WaypointList.l: /opt/ros/noetic/share/geometry_msgs/msg/Pose.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/WaypointList.l: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/WaypointList.l: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/WaypointList.l: /opt/ros/noetic/share/geometry_msgs/msg/Pose.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/WaypointList.l: /opt/ros/noetic/share/std_msgs/msg/Header.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/WaypointList.l: /home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/WaypointList.l: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Generating EusLisp code from yocs_msgs/WaypointList.msg"
 	cd /home/emendel/Documents/IndepententStudy/ramp/build/yujin_ocs/yocs_msgs && ../../catkin_generated/env_cached.sh /usr/bin/python3.8 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/WaypointList.msg -Iyocs_msgs:/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg -Iyocs_msgs:/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -p yocs_msgs -o /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg
 
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/NavigateToAction.l: /opt/ros/noetic/lib/geneus/gen_eus.py
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/NavigateToAction.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToAction.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/NavigateToAction.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionResult.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/NavigateToAction.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionGoal.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/NavigateToAction.l: /opt/ros/noetic/share/actionlib_msgs/msg/GoalStatus.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/NavigateToAction.l: /opt/ros/noetic/share/actionlib_msgs/msg/GoalID.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/NavigateToAction.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionFeedback.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/NavigateToAction.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToFeedback.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/NavigateToAction.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToResult.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/NavigateToAction.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToGoal.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/NavigateToAction.l: /opt/ros/noetic/share/std_msgs/msg/Header.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/NavigateToAction.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionGoal.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/NavigateToAction.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToFeedback.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/NavigateToAction.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToGoal.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/NavigateToAction.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionResult.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/NavigateToAction.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionFeedback.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Generating EusLisp code from yocs_msgs/NavigateToAction.msg"
 	cd /home/emendel/Documents/IndepententStudy/ramp/build/yujin_ocs/yocs_msgs && ../../catkin_generated/env_cached.sh /usr/bin/python3.8 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToAction.msg -Iyocs_msgs:/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg -Iyocs_msgs:/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -p yocs_msgs -o /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg
 
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/NavigateToActionGoal.l: /opt/ros/noetic/lib/geneus/gen_eus.py
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/NavigateToActionGoal.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionGoal.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/NavigateToActionGoal.l: /opt/ros/noetic/share/actionlib_msgs/msg/GoalID.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/NavigateToActionGoal.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToGoal.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/NavigateToActionGoal.l: /opt/ros/noetic/share/actionlib_msgs/msg/GoalID.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/NavigateToActionGoal.l: /opt/ros/noetic/share/std_msgs/msg/Header.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Generating EusLisp code from yocs_msgs/NavigateToActionGoal.msg"
 	cd /home/emendel/Documents/IndepententStudy/ramp/build/yujin_ocs/yocs_msgs && ../../catkin_generated/env_cached.sh /usr/bin/python3.8 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionGoal.msg -Iyocs_msgs:/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg -Iyocs_msgs:/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -p yocs_msgs -o /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg
 
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/NavigateToActionResult.l: /opt/ros/noetic/lib/geneus/gen_eus.py
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/NavigateToActionResult.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionResult.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/NavigateToActionResult.l: /opt/ros/noetic/share/actionlib_msgs/msg/GoalID.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/NavigateToActionResult.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToResult.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/NavigateToActionResult.l: /opt/ros/noetic/share/actionlib_msgs/msg/GoalStatus.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/NavigateToActionResult.l: /opt/ros/noetic/share/actionlib_msgs/msg/GoalID.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/NavigateToActionResult.l: /opt/ros/noetic/share/std_msgs/msg/Header.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Generating EusLisp code from yocs_msgs/NavigateToActionResult.msg"
 	cd /home/emendel/Documents/IndepententStudy/ramp/build/yujin_ocs/yocs_msgs && ../../catkin_generated/env_cached.sh /usr/bin/python3.8 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionResult.msg -Iyocs_msgs:/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg -Iyocs_msgs:/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -p yocs_msgs -o /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg
@@ -263,8 +263,8 @@ yujin_ocs/yocs_msgs/CMakeFiles/yocs_msgs_generate_messages_eus: /home/emendel/Do
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/NavigateToActionFeedback.l: /opt/ros/noetic/lib/geneus/gen_eus.py
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/NavigateToActionFeedback.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionFeedback.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/NavigateToActionFeedback.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToFeedback.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/NavigateToActionFeedback.l: /opt/ros/noetic/share/actionlib_msgs/msg/GoalID.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/NavigateToActionFeedback.l: /opt/ros/noetic/share/actionlib_msgs/msg/GoalStatus.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/NavigateToActionFeedback.l: /opt/ros/noetic/share/actionlib_msgs/msg/GoalID.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/NavigateToActionFeedback.l: /opt/ros/noetic/share/std_msgs/msg/Header.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Generating EusLisp code from yocs_msgs/NavigateToActionFeedback.msg"
 	cd /home/emendel/Documents/IndepententStudy/ramp/build/yujin_ocs/yocs_msgs && ../../catkin_generated/env_cached.sh /usr/bin/python3.8 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/NavigateToActionFeedback.msg -Iyocs_msgs:/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg -Iyocs_msgs:/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -p yocs_msgs -o /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg
@@ -286,15 +286,15 @@ yujin_ocs/yocs_msgs/CMakeFiles/yocs_msgs_generate_messages_eus: /home/emendel/Do
 
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/DockingInteractorAction.l: /opt/ros/noetic/lib/geneus/gen_eus.py
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/DockingInteractorAction.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorAction.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/DockingInteractorAction.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionFeedback.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/DockingInteractorAction.l: /opt/ros/noetic/share/actionlib_msgs/msg/GoalStatus.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/DockingInteractorAction.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionResult.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/DockingInteractorAction.l: /opt/ros/noetic/share/actionlib_msgs/msg/GoalID.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/DockingInteractorAction.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorFeedback.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/DockingInteractorAction.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorGoal.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/DockingInteractorAction.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionGoal.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/DockingInteractorAction.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorResult.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/DockingInteractorAction.l: /opt/ros/noetic/share/actionlib_msgs/msg/GoalStatus.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/DockingInteractorAction.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorGoal.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/DockingInteractorAction.l: /opt/ros/noetic/share/std_msgs/msg/Header.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/DockingInteractorAction.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionFeedback.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/DockingInteractorAction.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorFeedback.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/DockingInteractorAction.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionGoal.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Generating EusLisp code from yocs_msgs/DockingInteractorAction.msg"
 	cd /home/emendel/Documents/IndepententStudy/ramp/build/yujin_ocs/yocs_msgs && ../../catkin_generated/env_cached.sh /usr/bin/python3.8 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorAction.msg -Iyocs_msgs:/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg -Iyocs_msgs:/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -p yocs_msgs -o /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg
 
@@ -308,17 +308,17 @@ yujin_ocs/yocs_msgs/CMakeFiles/yocs_msgs_generate_messages_eus: /home/emendel/Do
 
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/DockingInteractorActionResult.l: /opt/ros/noetic/lib/geneus/gen_eus.py
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/DockingInteractorActionResult.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionResult.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/DockingInteractorActionResult.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorResult.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/DockingInteractorActionResult.l: /opt/ros/noetic/share/actionlib_msgs/msg/GoalID.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/DockingInteractorActionResult.l: /opt/ros/noetic/share/actionlib_msgs/msg/GoalStatus.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/DockingInteractorActionResult.l: /opt/ros/noetic/share/actionlib_msgs/msg/GoalID.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/DockingInteractorActionResult.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorResult.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/DockingInteractorActionResult.l: /opt/ros/noetic/share/std_msgs/msg/Header.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Generating EusLisp code from yocs_msgs/DockingInteractorActionResult.msg"
 	cd /home/emendel/Documents/IndepententStudy/ramp/build/yujin_ocs/yocs_msgs && ../../catkin_generated/env_cached.sh /usr/bin/python3.8 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionResult.msg -Iyocs_msgs:/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg -Iyocs_msgs:/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -p yocs_msgs -o /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg
 
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/DockingInteractorActionFeedback.l: /opt/ros/noetic/lib/geneus/gen_eus.py
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/DockingInteractorActionFeedback.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorActionFeedback.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/DockingInteractorActionFeedback.l: /opt/ros/noetic/share/actionlib_msgs/msg/GoalID.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/DockingInteractorActionFeedback.l: /opt/ros/noetic/share/actionlib_msgs/msg/GoalStatus.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/DockingInteractorActionFeedback.l: /opt/ros/noetic/share/actionlib_msgs/msg/GoalID.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/DockingInteractorActionFeedback.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/DockingInteractorFeedback.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/DockingInteractorActionFeedback.l: /opt/ros/noetic/share/std_msgs/msg/Header.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Generating EusLisp code from yocs_msgs/DockingInteractorActionFeedback.msg"
@@ -341,15 +341,15 @@ yujin_ocs/yocs_msgs/CMakeFiles/yocs_msgs_generate_messages_eus: /home/emendel/Do
 
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/LocalizeAction.l: /opt/ros/noetic/lib/geneus/gen_eus.py
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/LocalizeAction.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeAction.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/LocalizeAction.l: /opt/ros/noetic/share/actionlib_msgs/msg/GoalStatus.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/LocalizeAction.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionResult.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/LocalizeAction.l: /opt/ros/noetic/share/actionlib_msgs/msg/GoalID.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/LocalizeAction.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeFeedback.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/LocalizeAction.l: /opt/ros/noetic/share/std_msgs/msg/Header.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/LocalizeAction.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionFeedback.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/LocalizeAction.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionGoal.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/LocalizeAction.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionResult.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/LocalizeAction.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeGoal.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/LocalizeAction.l: /opt/ros/noetic/share/actionlib_msgs/msg/GoalStatus.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/LocalizeAction.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeResult.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/LocalizeAction.l: /opt/ros/noetic/share/std_msgs/msg/Header.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/LocalizeAction.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeGoal.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/LocalizeAction.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeFeedback.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Generating EusLisp code from yocs_msgs/LocalizeAction.msg"
 	cd /home/emendel/Documents/IndepententStudy/ramp/build/yujin_ocs/yocs_msgs && ../../catkin_generated/env_cached.sh /usr/bin/python3.8 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeAction.msg -Iyocs_msgs:/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg -Iyocs_msgs:/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -p yocs_msgs -o /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg
 
@@ -363,8 +363,8 @@ yujin_ocs/yocs_msgs/CMakeFiles/yocs_msgs_generate_messages_eus: /home/emendel/Do
 
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/LocalizeActionResult.l: /opt/ros/noetic/lib/geneus/gen_eus.py
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/LocalizeActionResult.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionResult.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/LocalizeActionResult.l: /opt/ros/noetic/share/actionlib_msgs/msg/GoalID.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/LocalizeActionResult.l: /opt/ros/noetic/share/actionlib_msgs/msg/GoalStatus.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/LocalizeActionResult.l: /opt/ros/noetic/share/actionlib_msgs/msg/GoalID.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/LocalizeActionResult.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeResult.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/LocalizeActionResult.l: /opt/ros/noetic/share/std_msgs/msg/Header.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_32) "Generating EusLisp code from yocs_msgs/LocalizeActionResult.msg"
@@ -372,9 +372,9 @@ yujin_ocs/yocs_msgs/CMakeFiles/yocs_msgs_generate_messages_eus: /home/emendel/Do
 
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/LocalizeActionFeedback.l: /opt/ros/noetic/lib/geneus/gen_eus.py
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/LocalizeActionFeedback.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionFeedback.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/LocalizeActionFeedback.l: /opt/ros/noetic/share/actionlib_msgs/msg/GoalID.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/LocalizeActionFeedback.l: /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeFeedback.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/LocalizeActionFeedback.l: /opt/ros/noetic/share/actionlib_msgs/msg/GoalStatus.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/LocalizeActionFeedback.l: /opt/ros/noetic/share/actionlib_msgs/msg/GoalID.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg/LocalizeActionFeedback.l: /opt/ros/noetic/share/std_msgs/msg/Header.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Generating EusLisp code from yocs_msgs/LocalizeActionFeedback.msg"
 	cd /home/emendel/Documents/IndepententStudy/ramp/build/yujin_ocs/yocs_msgs && ../../catkin_generated/env_cached.sh /usr/bin/python3.8 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg/LocalizeActionFeedback.msg -Iyocs_msgs:/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg -Iyocs_msgs:/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -p yocs_msgs -o /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/msg
@@ -396,12 +396,12 @@ yujin_ocs/yocs_msgs/CMakeFiles/yocs_msgs_generate_messages_eus: /home/emendel/Do
 
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/srv/WaypointListService.l: /opt/ros/noetic/lib/geneus/gen_eus.py
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/srv/WaypointListService.l: /home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/srv/WaypointListService.srv
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/srv/WaypointListService.l: /home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/srv/WaypointListService.l: /home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/WaypointList.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/srv/WaypointListService.l: /opt/ros/noetic/share/geometry_msgs/msg/Pose.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/srv/WaypointListService.l: /opt/ros/noetic/share/geometry_msgs/msg/Quaternion.msg
-/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/srv/WaypointListService.l: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/srv/WaypointListService.l: /opt/ros/noetic/share/geometry_msgs/msg/Pose.msg
 /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/srv/WaypointListService.l: /opt/ros/noetic/share/std_msgs/msg/Header.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/srv/WaypointListService.l: /home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg/Waypoint.msg
+/home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/srv/WaypointListService.l: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/emendel/Documents/IndepententStudy/ramp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_37) "Generating EusLisp code from yocs_msgs/WaypointListService.srv"
 	cd /home/emendel/Documents/IndepententStudy/ramp/build/yujin_ocs/yocs_msgs && ../../catkin_generated/env_cached.sh /usr/bin/python3.8 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/srv/WaypointListService.srv -Iyocs_msgs:/home/emendel/Documents/IndepententStudy/ramp/src/yujin_ocs/yocs_msgs/msg -Iyocs_msgs:/home/emendel/Documents/IndepententStudy/ramp/devel/share/yocs_msgs/msg -Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -p yocs_msgs -o /home/emendel/Documents/IndepententStudy/ramp/devel/share/roseus/ros/yocs_msgs/srv
 

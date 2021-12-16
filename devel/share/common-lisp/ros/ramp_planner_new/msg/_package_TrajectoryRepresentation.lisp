@@ -13,4 +13,8 @@
           RESOLUTION
           ACTIVE-VAL
           ACTIVE
+          STARTTIME-VAL
+          STARTTIME
+          TOTALTIME-VAL
+          TOTALTIME
 ))

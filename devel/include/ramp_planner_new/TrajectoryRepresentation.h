@@ -32,7 +32,9 @@ struct TrajectoryRepresentation_
     , coefficients()
     , uCoefficients()
     , resolution(0.0)
-    , active(false)  {
+    , active(false)
+    , startTime(0.0)
+    , totalTime(0.0)  {
     }
   TrajectoryRepresentation_(const ContainerAllocator& _alloc)
     : order(0)
@@ -41,7 +43,9 @@ struct TrajectoryRepresentation_
     , coefficients(_alloc)
     , uCoefficients(_alloc)
     , resolution(0.0)
-    , active(false)  {
+    , active(false)
+    , startTime(0.0)
+    , totalTime(0.0)  {
   (void)_alloc;
     }
 
@@ -67,6 +71,12 @@ struct TrajectoryRepresentation_
 
    typedef uint8_t _active_type;
   _active_type active;
+
+   typedef double _startTime_type;
+  _startTime_type startTime;
+
+   typedef double _totalTime_type;
+  _totalTime_type totalTime;
 
 
 
@@ -103,7 +113,9 @@ bool operator==(const ::ramp_planner_new::TrajectoryRepresentation_<ContainerAll
     lhs.coefficients == rhs.coefficients &&
     lhs.uCoefficients == rhs.uCoefficients &&
     lhs.resolution == rhs.resolution &&
-    lhs.active == rhs.active;
+    lhs.active == rhs.active &&
+    lhs.startTime == rhs.startTime &&
+    lhs.totalTime == rhs.totalTime;
 }
 
 template<typename ContainerAllocator1, typename ContainerAllocator2>
@@ -160,12 +172,12 @@ struct MD5Sum< ::ramp_planner_new::TrajectoryRepresentation_<ContainerAllocator>
 {
   static const char* value()
   {
-    return "f65cd27a48745f7c3c37027a27dae96d";
+    return "2fb6a8686a3294d98b86c6717636ecfe";
   }
 
   static const char* value(const ::ramp_planner_new::TrajectoryRepresentation_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0xf65cd27a48745f7cULL;
-  static const uint64_t static_value2 = 0x3c37027a27dae96dULL;
+  static const uint64_t static_value1 = 0x2fb6a8686a3294d9ULL;
+  static const uint64_t static_value2 = 0x8b86c6717636ecfeULL;
 };
 
 template<class ContainerAllocator>
@@ -191,6 +203,8 @@ struct Definition< ::ramp_planner_new::TrajectoryRepresentation_<ContainerAlloca
 "ramp_planner_new/Coefficient[] uCoefficients\n"
 "float64 resolution\n"
 "bool active\n"
+"float64 startTime\n"
+"float64 totalTime\n"
 "================================================================================\n"
 "MSG: ramp_planner_new/Coefficient\n"
 "float64[] values\n"
@@ -219,6 +233,8 @@ namespace serialization
       stream.next(m.uCoefficients);
       stream.next(m.resolution);
       stream.next(m.active);
+      stream.next(m.startTime);
+      stream.next(m.totalTime);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -263,6 +279,10 @@ struct Printer< ::ramp_planner_new::TrajectoryRepresentation_<ContainerAllocator
     Printer<double>::stream(s, indent + "  ", v.resolution);
     s << indent << "active: ";
     Printer<uint8_t>::stream(s, indent + "  ", v.active);
+    s << indent << "startTime: ";
+    Printer<double>::stream(s, indent + "  ", v.startTime);
+    s << indent << "totalTime: ";
+    Printer<double>::stream(s, indent + "  ", v.totalTime);
   }
 };
 

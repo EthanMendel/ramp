@@ -26,6 +26,8 @@ class TrajectoryRepresentation {
       this.uCoefficients = null;
       this.resolution = null;
       this.active = null;
+      this.startTime = null;
+      this.totalTime = null;
     }
     else {
       if (initObj.hasOwnProperty('order')) {
@@ -70,6 +72,18 @@ class TrajectoryRepresentation {
       else {
         this.active = false;
       }
+      if (initObj.hasOwnProperty('startTime')) {
+        this.startTime = initObj.startTime
+      }
+      else {
+        this.startTime = 0.0;
+      }
+      if (initObj.hasOwnProperty('totalTime')) {
+        this.totalTime = initObj.totalTime
+      }
+      else {
+        this.totalTime = 0.0;
+      }
     }
   }
 
@@ -97,6 +111,10 @@ class TrajectoryRepresentation {
     bufferOffset = _serializer.float64(obj.resolution, buffer, bufferOffset);
     // Serialize message field [active]
     bufferOffset = _serializer.bool(obj.active, buffer, bufferOffset);
+    // Serialize message field [startTime]
+    bufferOffset = _serializer.float64(obj.startTime, buffer, bufferOffset);
+    // Serialize message field [totalTime]
+    bufferOffset = _serializer.float64(obj.totalTime, buffer, bufferOffset);
     return bufferOffset;
   }
 
@@ -128,6 +146,10 @@ class TrajectoryRepresentation {
     data.resolution = _deserializer.float64(buffer, bufferOffset);
     // Deserialize message field [active]
     data.active = _deserializer.bool(buffer, bufferOffset);
+    // Deserialize message field [startTime]
+    data.startTime = _deserializer.float64(buffer, bufferOffset);
+    // Deserialize message field [totalTime]
+    data.totalTime = _deserializer.float64(buffer, bufferOffset);
     return data;
   }
 
@@ -140,7 +162,7 @@ class TrajectoryRepresentation {
     object.uCoefficients.forEach((val) => {
       length += Coefficient.getMessageSize(val);
     });
-    return length + 29;
+    return length + 45;
   }
 
   static datatype() {
@@ -150,7 +172,7 @@ class TrajectoryRepresentation {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return 'f65cd27a48745f7c3c37027a27dae96d';
+    return '2fb6a8686a3294d98b86c6717636ecfe';
   }
 
   static messageDefinition() {
@@ -163,6 +185,8 @@ class TrajectoryRepresentation {
     ramp_planner_new/Coefficient[] uCoefficients
     float64 resolution
     bool active
+    float64 startTime
+    float64 totalTime
     ================================================================================
     MSG: ramp_planner_new/Coefficient
     float64[] values
@@ -228,6 +252,20 @@ class TrajectoryRepresentation {
     }
     else {
       resolved.active = false
+    }
+
+    if (msg.startTime !== undefined) {
+      resolved.startTime = msg.startTime;
+    }
+    else {
+      resolved.startTime = 0.0
+    }
+
+    if (msg.totalTime !== undefined) {
+      resolved.totalTime = msg.totalTime;
+    }
+    else {
+      resolved.totalTime = 0.0
     }
 
     return resolved;

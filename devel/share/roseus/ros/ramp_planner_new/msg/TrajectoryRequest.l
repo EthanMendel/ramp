@@ -16,28 +16,18 @@
 
 (defclass ramp_planner_new::TrajectoryRequest
   :super ros::object
-  :slots (_timeNeeded _timeDelta _type _points ))
+  :slots (_type _points ))
 
 (defmethod ramp_planner_new::TrajectoryRequest
   (:init
    (&key
-    ((:timeNeeded __timeNeeded) 0)
-    ((:timeDelta __timeDelta) 0)
     ((:type __type) "")
     ((:points __points) ())
     )
    (send-super :init)
-   (setq _timeNeeded (round __timeNeeded))
-   (setq _timeDelta (round __timeDelta))
    (setq _type (string __type))
    (setq _points __points)
    self)
-  (:timeNeeded
-   (&optional __timeNeeded)
-   (if __timeNeeded (setq _timeNeeded __timeNeeded)) _timeNeeded)
-  (:timeDelta
-   (&optional __timeDelta)
-   (if __timeDelta (setq _timeDelta __timeDelta)) _timeDelta)
   (:type
    (&optional __type)
    (if __type (setq _type __type)) _type)
@@ -51,10 +41,6 @@
   (:serialization-length
    ()
    (+
-    ;; uint8 _timeNeeded
-    1
-    ;; uint8 _timeDelta
-    1
     ;; string _type
     4 (length _type)
     ;; geometry_msgs/Point[] _points
@@ -64,10 +50,6 @@
    (&optional strm)
    (let ((s (if strm strm
               (make-string-output-stream (send self :serialization-length)))))
-     ;; uint8 _timeNeeded
-       (write-byte _timeNeeded s)
-     ;; uint8 _timeDelta
-       (write-byte _timeDelta s)
      ;; string _type
        (write-long (length _type) s) (princ _type s)
      ;; geometry_msgs/Point[] _points
@@ -79,10 +61,6 @@
      (if (null strm) (get-output-stream-string s))))
   (:deserialize
    (buf &optional (ptr- 0))
-   ;; uint8 _timeNeeded
-     (setq _timeNeeded (sys::peek buf ptr- :char)) (incf ptr- 1)
-   ;; uint8 _timeDelta
-     (setq _timeDelta (sys::peek buf ptr- :char)) (incf ptr- 1)
    ;; string _type
      (let (n) (setq n (sys::peek buf ptr- :integer)) (incf ptr- 4) (setq _type (subseq buf ptr- (+ ptr- n))) (incf ptr- n))
    ;; geometry_msgs/Point[] _points
@@ -96,12 +74,10 @@
    self)
   )
 
-(setf (get ramp_planner_new::TrajectoryRequest :md5sum-) "5807e025a182a2dd09ae68814e63e47d")
+(setf (get ramp_planner_new::TrajectoryRequest :md5sum-) "99dc7fc87f5249607f322d8df0d6ae30")
 (setf (get ramp_planner_new::TrajectoryRequest :datatype-) "ramp_planner_new/TrajectoryRequest")
 (setf (get ramp_planner_new::TrajectoryRequest :definition-)
-      "uint8 timeNeeded
-uint8 timeDelta
-string type
+      "string type
 geometry_msgs/Point[] points
 ================================================================================
 MSG: geometry_msgs/Point
@@ -114,6 +90,6 @@ float64 z
 
 
 
-(provide :ramp_planner_new/TrajectoryRequest "5807e025a182a2dd09ae68814e63e47d")
+(provide :ramp_planner_new/TrajectoryRequest "99dc7fc87f5249607f322d8df0d6ae30")
 
 

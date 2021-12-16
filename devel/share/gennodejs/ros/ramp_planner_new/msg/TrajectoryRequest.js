@@ -19,24 +19,10 @@ class TrajectoryRequest {
   constructor(initObj={}) {
     if (initObj === null) {
       // initObj === null is a special case for deserialization where we don't initialize fields
-      this.timeNeeded = null;
-      this.timeDelta = null;
       this.type = null;
       this.points = null;
     }
     else {
-      if (initObj.hasOwnProperty('timeNeeded')) {
-        this.timeNeeded = initObj.timeNeeded
-      }
-      else {
-        this.timeNeeded = 0;
-      }
-      if (initObj.hasOwnProperty('timeDelta')) {
-        this.timeDelta = initObj.timeDelta
-      }
-      else {
-        this.timeDelta = 0;
-      }
       if (initObj.hasOwnProperty('type')) {
         this.type = initObj.type
       }
@@ -54,10 +40,6 @@ class TrajectoryRequest {
 
   static serialize(obj, buffer, bufferOffset) {
     // Serializes a message object of type TrajectoryRequest
-    // Serialize message field [timeNeeded]
-    bufferOffset = _serializer.uint8(obj.timeNeeded, buffer, bufferOffset);
-    // Serialize message field [timeDelta]
-    bufferOffset = _serializer.uint8(obj.timeDelta, buffer, bufferOffset);
     // Serialize message field [type]
     bufferOffset = _serializer.string(obj.type, buffer, bufferOffset);
     // Serialize message field [points]
@@ -73,10 +55,6 @@ class TrajectoryRequest {
     //deserializes a message object of type TrajectoryRequest
     let len;
     let data = new TrajectoryRequest(null);
-    // Deserialize message field [timeNeeded]
-    data.timeNeeded = _deserializer.uint8(buffer, bufferOffset);
-    // Deserialize message field [timeDelta]
-    data.timeDelta = _deserializer.uint8(buffer, bufferOffset);
     // Deserialize message field [type]
     data.type = _deserializer.string(buffer, bufferOffset);
     // Deserialize message field [points]
@@ -93,7 +71,7 @@ class TrajectoryRequest {
     let length = 0;
     length += _getByteLength(object.type);
     length += 24 * object.points.length;
-    return length + 10;
+    return length + 8;
   }
 
   static datatype() {
@@ -103,14 +81,12 @@ class TrajectoryRequest {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '5807e025a182a2dd09ae68814e63e47d';
+    return '99dc7fc87f5249607f322d8df0d6ae30';
   }
 
   static messageDefinition() {
     // Returns full string definition for message
     return `
-    uint8 timeNeeded
-    uint8 timeDelta
     string type
     geometry_msgs/Point[] points
     ================================================================================
@@ -129,20 +105,6 @@ class TrajectoryRequest {
       msg = {};
     }
     const resolved = new TrajectoryRequest(null);
-    if (msg.timeNeeded !== undefined) {
-      resolved.timeNeeded = msg.timeNeeded;
-    }
-    else {
-      resolved.timeNeeded = 0
-    }
-
-    if (msg.timeDelta !== undefined) {
-      resolved.timeDelta = msg.timeDelta;
-    }
-    else {
-      resolved.timeDelta = 0
-    }
-
     if (msg.type !== undefined) {
       resolved.type = msg.type;
     }

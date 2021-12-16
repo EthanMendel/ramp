@@ -27,6 +27,7 @@ class Path {
     std::string type;
     double usedT_;
     double usedTdelta_;
+    double startT_;
     std::vector<double> uCubicEntrenceVelocities;
 
     ramp_msgs::Path msg_;

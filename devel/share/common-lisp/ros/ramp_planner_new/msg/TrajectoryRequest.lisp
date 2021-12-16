@@ -7,17 +7,7 @@
 ;//! \htmlinclude TrajectoryRequest.msg.html
 
 (cl:defclass <TrajectoryRequest> (roslisp-msg-protocol:ros-message)
-  ((timeNeeded
-    :reader timeNeeded
-    :initarg :timeNeeded
-    :type cl:fixnum
-    :initform 0)
-   (timeDelta
-    :reader timeDelta
-    :initarg :timeDelta
-    :type cl:fixnum
-    :initform 0)
-   (type
+  ((type
     :reader type
     :initarg :type
     :type cl:string
@@ -37,16 +27,6 @@
   (cl:unless (cl:typep m 'TrajectoryRequest)
     (roslisp-msg-protocol:msg-deprecation-warning "using old message class name ramp_planner_new-msg:<TrajectoryRequest> is deprecated: use ramp_planner_new-msg:TrajectoryRequest instead.")))
 
-(cl:ensure-generic-function 'timeNeeded-val :lambda-list '(m))
-(cl:defmethod timeNeeded-val ((m <TrajectoryRequest>))
-  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader ramp_planner_new-msg:timeNeeded-val is deprecated.  Use ramp_planner_new-msg:timeNeeded instead.")
-  (timeNeeded m))
-
-(cl:ensure-generic-function 'timeDelta-val :lambda-list '(m))
-(cl:defmethod timeDelta-val ((m <TrajectoryRequest>))
-  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader ramp_planner_new-msg:timeDelta-val is deprecated.  Use ramp_planner_new-msg:timeDelta instead.")
-  (timeDelta m))
-
 (cl:ensure-generic-function 'type-val :lambda-list '(m))
 (cl:defmethod type-val ((m <TrajectoryRequest>))
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader ramp_planner_new-msg:type-val is deprecated.  Use ramp_planner_new-msg:type instead.")
@@ -58,8 +38,6 @@
   (points m))
 (cl:defmethod roslisp-msg-protocol:serialize ((msg <TrajectoryRequest>) ostream)
   "Serializes a message object of type '<TrajectoryRequest>"
-  (cl:write-byte (cl:ldb (cl:byte 8 0) (cl:slot-value msg 'timeNeeded)) ostream)
-  (cl:write-byte (cl:ldb (cl:byte 8 0) (cl:slot-value msg 'timeDelta)) ostream)
   (cl:let ((__ros_str_len (cl:length (cl:slot-value msg 'type))))
     (cl:write-byte (cl:ldb (cl:byte 8 0) __ros_str_len) ostream)
     (cl:write-byte (cl:ldb (cl:byte 8 8) __ros_str_len) ostream)
@@ -76,8 +54,6 @@
 )
 (cl:defmethod roslisp-msg-protocol:deserialize ((msg <TrajectoryRequest>) istream)
   "Deserializes a message object of type '<TrajectoryRequest>"
-    (cl:setf (cl:ldb (cl:byte 8 0) (cl:slot-value msg 'timeNeeded)) (cl:read-byte istream))
-    (cl:setf (cl:ldb (cl:byte 8 0) (cl:slot-value msg 'timeDelta)) (cl:read-byte istream))
     (cl:let ((__ros_str_len 0))
       (cl:setf (cl:ldb (cl:byte 8 0) __ros_str_len) (cl:read-byte istream))
       (cl:setf (cl:ldb (cl:byte 8 8) __ros_str_len) (cl:read-byte istream))
@@ -106,28 +82,24 @@
   "ramp_planner_new/TrajectoryRequest")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<TrajectoryRequest>)))
   "Returns md5sum for a message object of type '<TrajectoryRequest>"
-  "5807e025a182a2dd09ae68814e63e47d")
+  "99dc7fc87f5249607f322d8df0d6ae30")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'TrajectoryRequest)))
   "Returns md5sum for a message object of type 'TrajectoryRequest"
-  "5807e025a182a2dd09ae68814e63e47d")
+  "99dc7fc87f5249607f322d8df0d6ae30")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<TrajectoryRequest>)))
   "Returns full string definition for message of type '<TrajectoryRequest>"
-  (cl:format cl:nil "uint8 timeNeeded~%uint8 timeDelta~%string type~%geometry_msgs/Point[] points~%================================================================================~%MSG: geometry_msgs/Point~%# This contains the position of a point in free space~%float64 x~%float64 y~%float64 z~%~%~%"))
+  (cl:format cl:nil "string type~%geometry_msgs/Point[] points~%================================================================================~%MSG: geometry_msgs/Point~%# This contains the position of a point in free space~%float64 x~%float64 y~%float64 z~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'TrajectoryRequest)))
   "Returns full string definition for message of type 'TrajectoryRequest"
-  (cl:format cl:nil "uint8 timeNeeded~%uint8 timeDelta~%string type~%geometry_msgs/Point[] points~%================================================================================~%MSG: geometry_msgs/Point~%# This contains the position of a point in free space~%float64 x~%float64 y~%float64 z~%~%~%"))
+  (cl:format cl:nil "string type~%geometry_msgs/Point[] points~%================================================================================~%MSG: geometry_msgs/Point~%# This contains the position of a point in free space~%float64 x~%float64 y~%float64 z~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <TrajectoryRequest>))
   (cl:+ 0
-     1
-     1
      4 (cl:length (cl:slot-value msg 'type))
      4 (cl:reduce #'cl:+ (cl:slot-value msg 'points) :key #'(cl:lambda (ele) (cl:declare (cl:ignorable ele)) (cl:+ (roslisp-msg-protocol:serialization-length ele))))
 ))
 (cl:defmethod roslisp-msg-protocol:ros-message-to-list ((msg <TrajectoryRequest>))
   "Converts a ROS message object to a list"
   (cl:list 'TrajectoryRequest
-    (cl:cons ':timeNeeded (timeNeeded msg))
-    (cl:cons ':timeDelta (timeDelta msg))
     (cl:cons ':type (type msg))
     (cl:cons ':points (points msg))
 ))

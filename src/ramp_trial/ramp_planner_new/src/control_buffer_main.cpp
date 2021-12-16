@@ -39,7 +39,7 @@ bool needBezify(const unsigned int j){
 void updateStartGoal(){
     curStartGoal.markers.clear();
     unsigned int j=0;//j used as iterator for types, as types.size() = markers.size()-1
-    for(unsigned int i=0;i<pathPoints.markers.size();i++){
+    for(int i=0;i<pathPoints.markers.size();i++){
         if(pathPoints.markers.at(i).id == curStartId){//find the current start marker based on id
             if(!pathPoints.forBez.at(i)){//if the current start is only for bezier calculation
                 curStartId += 1;//skip it
@@ -66,6 +66,10 @@ void updateStartGoal(){
                             break;
                         }
                         msg.points.push_back(pathPoints.markers.at(i + 1).pose.position);
+                        if((i-1) >= 0 && !pathPoints.forBez.at(i-1)){
+                            std::cout<<"found a forBez point before start point"<<std::endl;//this means we need to calculate entrence velocities for cubic entrence
+                            msg.points.push_back(pathPoints.markers.at(i-1).pose.position);
+                        }
                         if(pathPoints.markers.size() > (i + 2) && !pathPoints.forBez.at(i+2)){
                             std::cout<<"found a forBez point after goal point"<<std::endl;//this means we need to save exit velocities for bezier entrence
                             msg.points.push_back(pathPoints.markers.at(i + 2).pose.position);
