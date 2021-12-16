@@ -248,17 +248,16 @@ void Path::makeBezierPath(const ramp_planner_new::TrajectoryRequest msg){
 void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
   order = 3;
   type = msg.type;
-  double T, Td, sT;
+  double T, Td;
   if(msg.points.size()== 2){//normal cubic
     T = utility.getMinLinTime(msg.points.at(0),msg.points.at(1));
     Td = 0;
-    sT = 0;
   }else if(msg.points.size() == 3){//either entrecnce or exit vels need to be found
     T = utility.getMinLinTime(msg.points.at(0),msg.points.at(2));
     Td = utility.getMinLinTime(msg.points.at(0),msg.points.at(1));
     if(Td > T){
       double h = T;
-      T = Td;
+      T = Td + 1;//add one to undo 'ceil' function and do 'floor' instead because inverse of overlapping
       Td = T - h;
     }
   }else if(msg.points.size() == 4){//both entrence and exit vels need to be found
