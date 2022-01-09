@@ -243,8 +243,8 @@ void pubStartGoalMarkers(){
     marker.pose.orientation.z = 0.0;
     marker.pose.orientation.w = 1.0;
     // set radii
-    marker.scale.x = 0.5;
-    marker.scale.y = 0.5;
+    marker.scale.x = 0.1;
+    marker.scale.y = 0.1;
     marker.scale.z = 0.1;
     // set colors
     marker.color.r = 1;
@@ -270,15 +270,14 @@ void pubStartGoalMarkers(){
   origin_marker.pose.orientation.y = 0.0;
   origin_marker.pose.orientation.z = 0.0;
   origin_marker.pose.orientation.w = 1.0;
-  origin_marker.scale.x = 0.5;
-  origin_marker.scale.y = 0.5;
-  origin_marker.scale.z = 0.1;
+  origin_marker.scale.x = 0.1;
+  origin_marker.scale.y = 0.1;
+  origin_marker.scale.z = 0.01;
   origin_marker.color.r = 0;
   origin_marker.color.g = 1;
   origin_marker.color.b = 0;
   origin_marker.color.a = 1;
   origin_marker.lifetime = ros::Duration(120.0);
-  // result.markers.push_back(origin_marker);
 
   ramp_planner_new::PathPoints pps;
   pps.markers = result.markers;
@@ -287,6 +286,8 @@ void pubStartGoalMarkers(){
     pps.forBez.push_back(true);
   }
   pps.forBez.push_back(true);//extra value needed not included above
+  
+  result.markers.push_back(origin_marker); // add origin onto rviz path points
   rviz_pub_path_points.publish(result);
   rviz_pub_path_points.publish(result);
   pub_path_points.publish(pps);
@@ -445,8 +446,8 @@ visualization_msgs::Marker makeMarker(geometry_msgs::Point p, int id){
     marker.pose.orientation.z = 0.0;
     marker.pose.orientation.w = 1.0;
     // set radii
-    marker.scale.x = 0.5;
-    marker.scale.y = 0.5;
+    marker.scale.x = 0.1;
+    marker.scale.y = 0.1;
     marker.scale.z = 0.1;
     // set colors
     marker.color.r = 1;
@@ -472,6 +473,8 @@ ramp_planner_new::PathPoints addControlPoints(visualization_msgs::Marker m, geom
                 replaceId = m.id - i;//'replace' marker
                 maRes.markers.push_back(makeMarker(cp1,replaceId + i));//add first control point before marker
                 pathPoints.markers.at(i).id = replaceId + i + 1;//edit marker id to account for movement change
+                pathPoints.markers.at(i).color.r = 0;
+                pathPoints.markers.at(i).color.b = 1;
                 maRes.markers.push_back(pathPoints.markers.at(i));
                 maRes.markers.push_back(makeMarker(cp2,replaceId + i + 2));//add second control point after marker
                 tRes.push_back("bezier");//add info about new points

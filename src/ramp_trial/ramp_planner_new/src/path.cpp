@@ -259,9 +259,12 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
       double h = T;
       T = Td + 1;//add one to undo 'ceil' function and do 'floor' instead because inverse of overlapping
       Td = T - h;
+    }else if(Td == T){
+      Td = Td - 1;
     }
   }else if(msg.points.size() == 4){//both entrence and exit vels need to be found
     //TODO when more points are added
+    std::cout<<"four points not yet supported"<<std::endl;
   }else{
     std::cout<<"dont know what to do in findCubicCoefs with "<<msg.points.size()<<" points"<<std::endl;
     return;
