@@ -17,7 +17,7 @@ double max_speed_linear = 0.33;
 // j should be the index of the goal marker within pathPoints
 bool needBezify(const unsigned int j){
     //type indexes are based on start index
-    if(j > 0 and j < pathPoints.markers.size() - 1){
+    if(j > 0 and j < pathPoints.types.size()){
         //return whether both types involving the inputed point are cubic (linear)
         if(pathPoints.types.at(j-1) == "cubic" && pathPoints.types.at(j) == "cubic"){
             std::cout<<"two cubics side by side"<<std::endl;
@@ -46,7 +46,7 @@ void updateStartGoal(){
                 continue;
             }
             if(i < pathPoints.markers.size() - 1){//make sure there there is a next point (as a goal)
-                if(needBezify(i + 1)){//need bezify checks to make sure we can do i+2
+                if(needBezify(j + 1)){//need bezify checks to make sure we can do i+2
                     //if we need to bezify the path, send bezify request
                     ramp_planner_new::BezifyRequest br;
                     br.pathPoints = pathPoints;
@@ -101,6 +101,8 @@ void updateStartGoal(){
                     // std::cout<<msg<<std::endl;
                     pub_time_needed.publish(msg);
                 }
+            }else{
+                std::cout<<"no next point, end of trajectory"<<std::endl;
             }
             break;
         }
@@ -109,7 +111,7 @@ void updateStartGoal(){
 }
 
 void pathPointsCallback(const ramp_planner_new::PathPoints pp){
-    std::cout<<"---got path points in buffer---"<<std::endl;
+    std::cout<<"---got "<<pp.markers.size()<<" path points in buffer---"<<std::endl;
     pathPoints = pp;
     if(curStartId == -1){
         curStartId = pp.markers.at(0).id;

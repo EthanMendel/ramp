@@ -19,4 +19,5 @@ max_acceleration: 0.33
 # relative to map
 start: [0.0, 0.0, 0.0]
 waypoint: [0.75, 0.75, 0.0]
-goal:  [2.0, 1.0, 0.0]
+waypoint2:  [2.0, 1.0, 0.0]
+goal: [1.5, 3.0, 0.0]
