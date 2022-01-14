@@ -531,7 +531,7 @@ void bezify(const ramp_planner_new::BezifyRequest& br){
     double normFactor1 = sqrt(pow(v1[0],2) + pow(v1[1],2));
     double u1[] = {v1[0]/normFactor1, v1[1]/normFactor1};
     double v2[] = {p2.x - p1.x, p2.y - p1.y};
-    double normFactor2 = sqrt(pow(v2[0],2) + pow(v2[0],2));
+    double normFactor2 = sqrt(pow(v2[0],2) + pow(v2[1],2));
     double u2[] = {v2[0]/normFactor2, v2[1]/normFactor2};
     //find new control points
     geometry_msgs::Point cp1,cp2;
