@@ -415,14 +415,26 @@ bool acceptableAngTime(const geometry_msgs::Point& p0, const geometry_msgs::Poin
     }
     //Equations based on "On-line Planning of Nonholonomic Trajectories in Crowded and Geometrically Unknown Environments*"
     double t = - ((A1*A2 + B1*B2) / (pow(A1,2) + pow(B1,2))); //point of maximum angular velocity, Section II, Equation (6)
+    if(t < 0 || t > 1){
+      return false;
+    }
     float xuP = 3*plannerPath.uCoefs.at(0).at(0)*pow(t,2) + 2*plannerPath.uCoefs.at(0).at(1)*(t) + plannerPath.uCoefs.at(0).at(2);
     float yuP = 3*plannerPath.uCoefs.at(1).at(0)*pow(t,2) + 2*plannerPath.uCoefs.at(1).at(1)*(t) + plannerPath.uCoefs.at(1).at(2);
     double xVel =((A1*t + A2)*xuP);
     double yVel =((B1*t + B2)*yuP);
     double linVel = sqrt(pow(xVel,2)+pow(yVel,2));
-    double angVel = pow(linVel,2) / utility.max_acceleration_;//minimum velocity based turning radious, Section II Equation (3)
+    if(linVel > utility.max_speed_linear_){
+      return false;
+    }
+    double numerator1 = (pow(A1,2) + pow(B1,2)) * pow(t,2);
+    double numerator2 = 2 * ((A1*A2) + (B1*B2)) * t;
+    double numerator3 = pow(A2,2) + pow(B2,2);
+    double numerator  = pow(numerator1 + numerator2 + numerator3, 3);
+    double denominator= pow((B1*A2) - (A1*B2), 2);
+    double R_min_     = sqrt(numerator / denominator);
+    double angVel = linVel / R_min_;
     //TODO make sure this is the correct angVel value
-    if(linVel > utility.max_speed_linear_ || angVel >= utility.max_speed_angular_){
+    if(angVel >= ((2.f*PI)/3.f)){
         return false;
     }
     return true;
@@ -541,6 +553,8 @@ void bezify(const ramp_planner_new::BezifyRequest& br){
         cp1.y = p1.y - d*u1[1];
         cp2.x = p1.x + d*u2[0];
         cp2.y = p1.y + d*u2[1];
+	std::cout<<"\td1: "<<utility.getEuclideanDist({cp1.x,cp1.y},{p1.x,p1.y})<<std::endl;
+	std::cout<<"\td2: "<<utility.getEuclideanDist({cp2.x,cp2.y},{p1.x,p1.y})<<std::endl;
         //find bezier based on control and test if its okay
         if(acceptableAngTime(cp1,p1,cp2)){
             std::cout<<"**found good bezier where d="<<d<<"**"<<std::endl;
