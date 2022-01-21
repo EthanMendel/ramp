@@ -183,7 +183,7 @@ void Path::findBezierCoefs(geometry_msgs::Point p0, geometry_msgs::Point p1, geo
     for(unsigned int i = 0;i<m0.msg_.positions.size()-1;i++){
       std::vector<double> hold;
       hold.push_back( m0.msg_.positions.at(i) );
-      hold.push_back( 2 * m1.msg_.positions.at(i) );
+      hold.push_back( m1.msg_.positions.at(i) );
       hold.push_back( m2.msg_.positions.at(i) );
       coefs.push_back(hold);
       std::cout<<"A: "<<coefs.at(i).at(0)<<"\tB: "<<coefs.at(i).at(1)<<"\tC: "<<coefs.at(i).at(2)<<"\t\n";
@@ -224,10 +224,10 @@ void Path::makeBezierPath(const ramp_planner_new::TrajectoryRequest msg){
         float uP  = 3*uCoefs.at(j).at(0)*pow(t,2) + 2*uCoefs.at(j).at(1)*(t) + uCoefs.at(j).at(2);
         float uPP = 6*uCoefs.at(j).at(0)*(t) + 2*uCoefs.at(j).at(1);
         
-        double A1 = 2*(coefs.at(j).at(0) - coefs.at(j).at(1) + coefs.at(j).at(2));
-        double A2 = 2*((coefs.at(j).at(1)/2)-coefs.at(j).at(0));
+        double A1 = 2*(coefs.at(j).at(0) - 2*coefs.at(j).at(1) + coefs.at(j).at(2));
+        double A2 = 2*((coefs.at(j).at(1))-coefs.at(j).at(0));
         
-        ms.msg_.positions.push_back( pow(1-u,2)*coefs.at(j).at(0) + u*(1-u)*coefs.at(j).at(1) + pow(u,2)*coefs.at(j).at(2) );
+        ms.msg_.positions.push_back( pow(1-u,2)*coefs.at(j).at(0) + u*(1-u)*2*coefs.at(j).at(1) + pow(u,2)*coefs.at(j).at(2) );
         
         ms.msg_.velocities.push_back( (A1*u + A2)*uP );
         

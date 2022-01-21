@@ -333,8 +333,8 @@ void pubPath(){
     next.z = 0.01;
     mp_marker.points.push_back(next);
 
-    // std::cout<<"segment "<<i+1<<" from ("<<first.x<<", "<<first.y<<", "<<first.z<<
-    // ") to ("<<next.x<<", "<<next.y<<", "<<next.z<<")"<<std::endl;
+    std::cout<<"segment "<<i+1<<" from ("<<first.x<<", "<<first.y<<", "<<first.z<<
+    ") to ("<<next.x<<", "<<next.y<<", "<<next.z<<")"<<std::endl;
     
     // set orientations
     mp_marker.pose.orientation.x = 0.0;
@@ -404,23 +404,35 @@ bool acceptableAngTime(const geometry_msgs::Point& p0, const geometry_msgs::Poin
     std::cout<<plannerPath.coefs.size()<<" coefs"<<std::endl;
     std::cout<<plannerPath.uCoefs.size()<<" uCoefs"<<std::endl;
     // Equations based on "Real-time Adaptive Non-holonomic Motion Planning in Unknown Dynamic Environments"
-    double A1 = 2*(plannerPath.coefs.at(0).at(0) - plannerPath.coefs.at(0).at(1) + plannerPath.coefs.at(0).at(2));//Section II, Equation (3)
-    double B1 = 2*(plannerPath.coefs.at(1).at(0) - plannerPath.coefs.at(1).at(1) + plannerPath.coefs.at(1).at(2));
-    double A2 = 2*((plannerPath.coefs.at(0).at(1)/2)-plannerPath.coefs.at(0).at(0));
-    double B2 = 2*((plannerPath.coefs.at(1).at(1)/2)-plannerPath.coefs.at(1).at(0));
+    double A1 = 2*(plannerPath.coefs.at(0).at(0) - 2*plannerPath.coefs.at(0).at(1) + plannerPath.coefs.at(0).at(2));//Section II, Equation (3)
+    double B1 = 2*(plannerPath.coefs.at(1).at(0) - 2*plannerPath.coefs.at(1).at(1) + plannerPath.coefs.at(1).at(2));
+    double A2 = 2*((plannerPath.coefs.at(0).at(1))-plannerPath.coefs.at(0).at(0));
+    double B2 = 2*((plannerPath.coefs.at(1).at(1))-plannerPath.coefs.at(1).at(0));
     if(A1 == 0 || B1 == 0 || A2 == 0 || B2 == 0){
       return false;
     }
     //Equations based on "On-line Planning of Nonholonomic Trajectories in Crowded and Geometrically Unknown Environments*"
     double t = - ((A1*A2 + B1*B2) / (pow(A1,2) + pow(B1,2))); //point of maximum angular velocity, Section II, Equation (6)
+    if(t < 0 || t > 1){
+      return false;
+    }
     float xuP = 3*plannerPath.uCoefs.at(0).at(0)*pow(t,2) + 2*plannerPath.uCoefs.at(0).at(1)*(t) + plannerPath.uCoefs.at(0).at(2);
     float yuP = 3*plannerPath.uCoefs.at(1).at(0)*pow(t,2) + 2*plannerPath.uCoefs.at(1).at(1)*(t) + plannerPath.uCoefs.at(1).at(2);
     double xVel =((A1*t + A2)*xuP);
     double yVel =((B1*t + B2)*yuP);
     double linVel = sqrt(pow(xVel,2)+pow(yVel,2));
-    double angVel = pow(linVel,2) / utility.max_acceleration_;//minimum velocity based turning radious, Section II Equation (3)
+    if(linVel > utility.max_speed_linear_){
+      return false;
+    }
+    double numerator1 = (pow(A1,2) + pow(B1,2)) * pow(t,2);
+    double numerator2 = 2 * ((A1*A2) + (B1*B2)) * t;
+    double numerator3 = pow(A2,2) + pow(B2,2);
+    double numerator  = pow(numerator1 + numerator2 + numerator3, 3);
+    double denominator= pow((B1*A2) - (A1*B2), 2);
+    double R_min_     = sqrt(numerator / denominator);
+    double angVel = linVel / R_min_;
     //TODO make sure this is the correct angVel value
-    if(linVel > utility.max_speed_linear_ || angVel >= utility.max_speed_angular_){
+    if(angVel >= ((2.f*PI)/3.f)){
         return false;
     }
     return true;
@@ -529,16 +541,18 @@ void bezify(const ramp_planner_new::BezifyRequest& br){
     double normFactor1 = sqrt(pow(v1[0],2) + pow(v1[1],2));
     double u1[] = {v1[0]/normFactor1, v1[1]/normFactor1};
     double v2[] = {p2.x - p1.x, p2.y - p1.y};
-    double normFactor2 = sqrt(pow(v2[0],2) + pow(v2[0],2));
+    double normFactor2 = sqrt(pow(v2[0],2) + pow(v2[1],2));
     double u2[] = {v2[0]/normFactor2, v2[1]/normFactor2};
     //find new control points
     geometry_msgs::Point cp1,cp2;
     float d;
-    for(d=.1;d<=D;d+=.1){//for all distences (incrimented as 10ths)
+    for(d=.5;d<=D;d+=.1){//for all distences (incrimented as 10ths)
         cp1.x = p1.x - d*u1[0];
         cp1.y = p1.y - d*u1[1];
         cp2.x = p1.x + d*u2[0];
         cp2.y = p1.y + d*u2[1];
+	std::cout<<"\td1: "<<utility.getEuclideanDist({cp1.x,cp1.y},{p1.x,p1.y})<<std::endl;
+	std::cout<<"\td2: "<<utility.getEuclideanDist({cp2.x,cp2.y},{p1.x,p1.y})<<std::endl;
         //find bezier based on control and test if its okay
         if(acceptableAngTime(cp1,p1,cp2)){
             std::cout<<"**found good bezier where d="<<d<<"**"<<std::endl;
@@ -556,6 +570,9 @@ void bezify(const ramp_planner_new::BezifyRequest& br){
   ma.markers = pathPoints.markers;
   rviz_pub_path_points.publish(ma);
   rviz_pub_path_points.publish(ma);
+  // for(unsigned int i=0;i<ma.markers.size();i++){
+  //   std::cout<<"marker "<<i<<":\n"<<ma.markers.at(i).pose.position<<std::endl;
+  // }
   pub_path_points.publish(pathPoints);
   pub_path_points.publish(pathPoints);
 }
