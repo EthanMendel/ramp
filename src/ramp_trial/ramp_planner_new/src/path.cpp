@@ -253,14 +253,14 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
     T = utility.getMinLinTime(msg.points.at(0),msg.points.at(1));
     Td = 0;
   }else if(msg.points.size() == 3){//either entrecnce or exit vels need to be found
+    std::cout<<"extra point:\n"<<msg.points.at(2)<<std::endl;
     T = utility.getMinLinTime(msg.points.at(0),msg.points.at(2));
     Td = utility.getMinLinTime(msg.points.at(0),msg.points.at(1));
-    if(Td > T){
-      double h = T;
-      T = Td + 1;//add one to undo 'ceil' function and do 'floor' instead because inverse of overlapping
-      Td = T - h;
-    }else if(Td == T){
-      Td = Td - 1;
+    if(Td > T){//TODO find different criteria for this if statement
+      std::cout<<"swapping T("<<T<<") and Td("<<Td<<")"<<std::endl;
+      double h = Td;
+      Td = T;
+      T = h + T;
     }
   }else if(msg.points.size() == 4){//both entrence and exit vels need to be found
     //TODO when more points are added
@@ -272,7 +272,7 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
   usedT_ = T;
   usedTdelta_ = Td;
   if(uCubicEntrenceVelocities.size() > 0 && msg.type == "cubic"){
-    startT_ = (unsigned int) usedTdelta_;
+    startT_ = usedTdelta_;
   }else{
     startT_ = 0;
   }
@@ -358,7 +358,7 @@ void Path::makeCubicPath(const ramp_planner_new::TrajectoryRequest msg){
   }
   std::vector<double> incs = {xInc,yInc,zInc};
 
-  for(unsigned int t = startT_;t<usedT_;t++){
+  for(double t = startT_;t<usedT_;t+=.1){
     if(t == usedT_ - usedTdelta_ && startT_ == 0){
       uCubicEntrenceVelocities.clear();
       std::cout<<"setting entrence velocities"<<std::endl;
@@ -389,11 +389,19 @@ void Path::makeCubicPath(const ramp_planner_new::TrajectoryRequest msg){
 
 void Path::setPathPoints(const ramp_planner_new::PathPoints pp){
   msg_.points.clear();
-  // std::cout<<pp.points.size()<<std::endl;
+  std::cout<<"adding "<<pp.points.size()<<" pathPoints"<<std::endl;
   for(unsigned int i=0;i<pp.points.size();i++){
+    std::cout<<"\ttesting "<<pp.points.at(i).x<<","<<pp.points.at(i).y<<std::endl;
     if(pp.forBez.at(i)){
+      std::cout<<"\t\tadding"<<std::endl;
       KnotPoint kp(pp.points.at(i));
       msg_.points.push_back(kp.buildKnotPointMsg());
+    }else{
+      std::cout<<"\t\tnot adding"<<std::endl;
     }
+  }
+  std::cout<<"path points:"<<std::endl;
+  for(unsigned int i=0;i<msg_.points.size();i++){
+    std::cout<<"\t"<<msg_.points.at(i).motionState.positions.at(0)<<","<<msg_.points.at(i).motionState.positions.at(1)<<std::endl;
   }
 }

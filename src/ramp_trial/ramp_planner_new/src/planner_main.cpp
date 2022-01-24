@@ -333,8 +333,8 @@ void pubPath(){
     next.z = 0.01;
     mp_marker.points.push_back(next);
 
-    std::cout<<"segment "<<i+1<<" from ("<<first.x<<", "<<first.y<<", "<<first.z<<
-    ") to ("<<next.x<<", "<<next.y<<", "<<next.z<<")"<<std::endl;
+    // std::cout<<"segment "<<i+1<<" from ("<<first.x<<", "<<first.y<<", "<<first.z<<
+    // ") to ("<<next.x<<", "<<next.y<<", "<<next.z<<")"<<std::endl;
     
     // set orientations
     mp_marker.pose.orientation.x = 0.0;
