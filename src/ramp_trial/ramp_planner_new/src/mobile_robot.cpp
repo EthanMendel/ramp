@@ -274,7 +274,7 @@ void MobileRobot::moveOnTrajectory()
     // setNextTwist(); 
     seg_step_ = (int) trajectory_.startTime;
     time_step_ = (int) ((trajectory_.startTime - seg_step_) * 10);
-    while(ros::ok() && (seg_step_+.1*time_step_) < trajectory_.totalTime) 
+    while(ros::ok() && (seg_step_+.1*time_step_) <= trajectory_.totalTime) 
     {
       while(ros::ok() && time_step_ < SEND_RESELUTION) 
       {
