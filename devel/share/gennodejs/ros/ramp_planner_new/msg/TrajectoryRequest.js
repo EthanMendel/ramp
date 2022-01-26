@@ -21,6 +21,7 @@ class TrajectoryRequest {
       // initObj === null is a special case for deserialization where we don't initialize fields
       this.type = null;
       this.points = null;
+      this.normVals = null;
     }
     else {
       if (initObj.hasOwnProperty('type')) {
@@ -35,6 +36,12 @@ class TrajectoryRequest {
       else {
         this.points = [];
       }
+      if (initObj.hasOwnProperty('normVals')) {
+        this.normVals = initObj.normVals
+      }
+      else {
+        this.normVals = [];
+      }
     }
   }
 
@@ -48,6 +55,8 @@ class TrajectoryRequest {
     obj.points.forEach((val) => {
       bufferOffset = geometry_msgs.msg.Point.serialize(val, buffer, bufferOffset);
     });
+    // Serialize message field [normVals]
+    bufferOffset = _arraySerializer.float64(obj.normVals, buffer, bufferOffset, null);
     return bufferOffset;
   }
 
@@ -64,6 +73,8 @@ class TrajectoryRequest {
     for (let i = 0; i < len; ++i) {
       data.points[i] = geometry_msgs.msg.Point.deserialize(buffer, bufferOffset)
     }
+    // Deserialize message field [normVals]
+    data.normVals = _arrayDeserializer.float64(buffer, bufferOffset, null)
     return data;
   }
 
@@ -71,7 +82,8 @@ class TrajectoryRequest {
     let length = 0;
     length += _getByteLength(object.type);
     length += 24 * object.points.length;
-    return length + 8;
+    length += 8 * object.normVals.length;
+    return length + 12;
   }
 
   static datatype() {
@@ -81,7 +93,7 @@ class TrajectoryRequest {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '99dc7fc87f5249607f322d8df0d6ae30';
+    return '5c125c00eccba1e258c36f6c4bcd110e';
   }
 
   static messageDefinition() {
@@ -89,6 +101,7 @@ class TrajectoryRequest {
     return `
     string type
     geometry_msgs/Point[] points
+    float64[] normVals
     ================================================================================
     MSG: geometry_msgs/Point
     # This contains the position of a point in free space
@@ -120,6 +133,13 @@ class TrajectoryRequest {
     }
     else {
       resolved.points = []
+    }
+
+    if (msg.normVals !== undefined) {
+      resolved.normVals = msg.normVals;
+    }
+    else {
+      resolved.normVals = []
     }
 
     return resolved;

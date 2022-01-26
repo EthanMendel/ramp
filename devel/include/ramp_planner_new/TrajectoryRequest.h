@@ -26,11 +26,13 @@ struct TrajectoryRequest_
 
   TrajectoryRequest_()
     : type()
-    , points()  {
+    , points()
+    , normVals()  {
     }
   TrajectoryRequest_(const ContainerAllocator& _alloc)
     : type(_alloc)
-    , points(_alloc)  {
+    , points(_alloc)
+    , normVals(_alloc)  {
   (void)_alloc;
     }
 
@@ -41,6 +43,9 @@ struct TrajectoryRequest_
 
    typedef std::vector< ::geometry_msgs::Point_<ContainerAllocator> , typename ContainerAllocator::template rebind< ::geometry_msgs::Point_<ContainerAllocator> >::other >  _points_type;
   _points_type points;
+
+   typedef std::vector<double, typename ContainerAllocator::template rebind<double>::other >  _normVals_type;
+  _normVals_type normVals;
 
 
 
@@ -72,7 +77,8 @@ template<typename ContainerAllocator1, typename ContainerAllocator2>
 bool operator==(const ::ramp_planner_new::TrajectoryRequest_<ContainerAllocator1> & lhs, const ::ramp_planner_new::TrajectoryRequest_<ContainerAllocator2> & rhs)
 {
   return lhs.type == rhs.type &&
-    lhs.points == rhs.points;
+    lhs.points == rhs.points &&
+    lhs.normVals == rhs.normVals;
 }
 
 template<typename ContainerAllocator1, typename ContainerAllocator2>
@@ -129,12 +135,12 @@ struct MD5Sum< ::ramp_planner_new::TrajectoryRequest_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "99dc7fc87f5249607f322d8df0d6ae30";
+    return "5c125c00eccba1e258c36f6c4bcd110e";
   }
 
   static const char* value(const ::ramp_planner_new::TrajectoryRequest_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x99dc7fc87f524960ULL;
-  static const uint64_t static_value2 = 0x7f322d8df0d6ae30ULL;
+  static const uint64_t static_value1 = 0x5c125c00eccba1e2ULL;
+  static const uint64_t static_value2 = 0x58c36f6c4bcd110eULL;
 };
 
 template<class ContainerAllocator>
@@ -155,6 +161,7 @@ struct Definition< ::ramp_planner_new::TrajectoryRequest_<ContainerAllocator> >
   {
     return "string type\n"
 "geometry_msgs/Point[] points\n"
+"float64[] normVals\n"
 "================================================================================\n"
 "MSG: geometry_msgs/Point\n"
 "# This contains the position of a point in free space\n"
@@ -181,6 +188,7 @@ namespace serialization
     {
       stream.next(m.type);
       stream.next(m.points);
+      stream.next(m.normVals);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -208,6 +216,12 @@ struct Printer< ::ramp_planner_new::TrajectoryRequest_<ContainerAllocator> >
       s << std::endl;
       s << indent;
       Printer< ::geometry_msgs::Point_<ContainerAllocator> >::stream(s, indent + "    ", v.points[i]);
+    }
+    s << indent << "normVals[]" << std::endl;
+    for (size_t i = 0; i < v.normVals.size(); ++i)
+    {
+      s << indent << "  normVals[" << i << "]: ";
+      Printer<double>::stream(s, indent + "  ", v.normVals[i]);
     }
   }
 };

@@ -190,8 +190,17 @@ void Path::findBezierCoefs(geometry_msgs::Point p0, geometry_msgs::Point p1, geo
     }
     ramp_planner_new::TrajectoryRequest uMsg;
     uMsg.type = "uCubic";
-    uMsg.points.push_back(p0);
-    uMsg.points.push_back(p2);
+    geometry_msgs::Point pnt;
+    pnt.x=0;
+    pnt.y=0;
+    uMsg.points.push_back(pnt);
+    pnt.x=1;
+    pnt.y=1;
+    uMsg.points.push_back(pnt);
+    for(unsigned int i=0;i<coefs.size();i++){
+      uMsg.normVals.push_back(2*((coefs.at(i).at(1))-coefs.at(i).at(0)));
+    }
+    uMsg.normVals.push_back(1);//extra value to not normalize z (theta)
     findCubicCoefs(uMsg);
     type = "bezier";
     if(uCoefs.size() < 3){
@@ -306,8 +315,8 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
     }
     if(uCubicEntrenceVelocities.size() > 0 && type == "uCubic"){
       for(unsigned int j=0;j<uCubicEntrenceVelocities.size();j++){
-        start.msg_.velocities.at(j) = uCubicEntrenceVelocities.at(j);
-        goal.msg_.velocities.at(j) = uCubicEntrenceVelocities.at(j);
+        start.msg_.velocities.at(j) = uCubicEntrenceVelocities.at(j)/msg.normVals.at(j);
+        goal.msg_.velocities.at(j) = uCubicEntrenceVelocities.at(j)/msg.normVals.at(j);
       }
     }
     for(unsigned int i = 0;i<start.msg_.positions.size();i++){

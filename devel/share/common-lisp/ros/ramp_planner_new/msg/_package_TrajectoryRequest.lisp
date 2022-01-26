@@ -3,4 +3,6 @@
           TYPE
           POINTS-VAL
           POINTS
+          NORMVALS-VAL
+          NORMVALS
 ))

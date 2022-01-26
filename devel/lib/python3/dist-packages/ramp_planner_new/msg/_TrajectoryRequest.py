@@ -9,11 +9,12 @@ import struct
 import geometry_msgs.msg
 
 class TrajectoryRequest(genpy.Message):
-  _md5sum = "99dc7fc87f5249607f322d8df0d6ae30"
+  _md5sum = "5c125c00eccba1e258c36f6c4bcd110e"
   _type = "ramp_planner_new/TrajectoryRequest"
   _has_header = False  # flag to mark the presence of a Header object
   _full_text = """string type
 geometry_msgs/Point[] points
+float64[] normVals
 ================================================================================
 MSG: geometry_msgs/Point
 # This contains the position of a point in free space
@@ -21,8 +22,8 @@ float64 x
 float64 y
 float64 z
 """
-  __slots__ = ['type','points']
-  _slot_types = ['string','geometry_msgs/Point[]']
+  __slots__ = ['type','points','normVals']
+  _slot_types = ['string','geometry_msgs/Point[]','float64[]']
 
   def __init__(self, *args, **kwds):
     """
@@ -32,7 +33,7 @@ float64 z
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       type,points
+       type,points,normVals
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -45,9 +46,12 @@ float64 z
         self.type = ''
       if self.points is None:
         self.points = []
+      if self.normVals is None:
+        self.normVals = []
     else:
       self.type = ''
       self.points = []
+      self.normVals = []
 
   def _get_types(self):
     """
@@ -72,6 +76,10 @@ float64 z
       for val1 in self.points:
         _x = val1
         buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
+      length = len(self.normVals)
+      buff.write(_struct_I.pack(length))
+      pattern = '<%sd'%length
+      buff.write(struct.Struct(pattern).pack(*self.normVals))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -106,6 +114,14 @@ float64 z
         end += 24
         (_x.x, _x.y, _x.z,) = _get_struct_3d().unpack(str[start:end])
         self.points.append(val1)
+      start = end
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      pattern = '<%sd'%length
+      start = end
+      s = struct.Struct(pattern)
+      end += s.size
+      self.normVals = s.unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -129,6 +145,10 @@ float64 z
       for val1 in self.points:
         _x = val1
         buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
+      length = len(self.normVals)
+      buff.write(_struct_I.pack(length))
+      pattern = '<%sd'%length
+      buff.write(self.normVals.tostring())
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -164,6 +184,14 @@ float64 z
         end += 24
         (_x.x, _x.y, _x.z,) = _get_struct_3d().unpack(str[start:end])
         self.points.append(val1)
+      start = end
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      pattern = '<%sd'%length
+      start = end
+      s = struct.Struct(pattern)
+      end += s.size
+      self.normVals = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill

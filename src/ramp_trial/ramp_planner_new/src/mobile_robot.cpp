@@ -119,12 +119,12 @@ void MobileRobot::calculateVelocities(const std::vector<ramp_planner_new::Coeffi
      yP = 3*coefs.at(1).values.at(0)*pow(t,2) + 2*coefs.at(1).values.at(1)*(t) + coefs.at(1).values.at(2);
   
   }else if(trajectory_.type == "bezier"){
-    float xuMin = uCoefs.at(0).values.at(0)*pow(0,3) + uCoefs.at(0).values.at(1)*pow(0,2) + uCoefs.at(0).values.at(2)*(0) + uCoefs.at(0).values.at(3);
-    float xuMax = (uCoefs.at(0).values.at(0)*pow(trajectory_.totalTime,3) + uCoefs.at(0).values.at(1)*pow(trajectory_.totalTime,2) + uCoefs.at(0).values.at(2)*(trajectory_.totalTime) + uCoefs.at(0).values.at(3)) - xuMin;
-    float yuMin = uCoefs.at(1).values.at(0)*pow(0,3) + uCoefs.at(1).values.at(1)*pow(0,2) + uCoefs.at(1).values.at(2)*(0) + uCoefs.at(1).values.at(3);
-    float yuMax = (uCoefs.at(1).values.at(0)*pow(trajectory_.totalTime,3) + uCoefs.at(1).values.at(1)*pow(trajectory_.totalTime,2) + uCoefs.at(1).values.at(2)*(trajectory_.totalTime) + uCoefs.at(1).values.at(3)) - yuMin;
-    float xu = ((uCoefs.at(0).values.at(0)*pow(t,3) + uCoefs.at(0).values.at(1)*pow(t,2) + uCoefs.at(0).values.at(2)*(t) + uCoefs.at(0).values.at(3)) - xuMin)/xuMax;
-    float yu = ((uCoefs.at(1).values.at(0)*pow(t,3) + uCoefs.at(1).values.at(1)*pow(t,2) + uCoefs.at(1).values.at(2)*(t) + uCoefs.at(1).values.at(3)) - yuMin)/yuMax;
+    // float xuMin = uCoefs.at(0).values.at(0)*pow(0,3) + uCoefs.at(0).values.at(1)*pow(0,2) + uCoefs.at(0).values.at(2)*(0) + uCoefs.at(0).values.at(3);
+    // float xuMax = (uCoefs.at(0).values.at(0)*pow(trajectory_.totalTime,3) + uCoefs.at(0).values.at(1)*pow(trajectory_.totalTime,2) + uCoefs.at(0).values.at(2)*(trajectory_.totalTime) + uCoefs.at(0).values.at(3)) - xuMin;
+    // float yuMin = uCoefs.at(1).values.at(0)*pow(0,3) + uCoefs.at(1).values.at(1)*pow(0,2) + uCoefs.at(1).values.at(2)*(0) + uCoefs.at(1).values.at(3);
+    // float yuMax = (uCoefs.at(1).values.at(0)*pow(trajectory_.totalTime,3) + uCoefs.at(1).values.at(1)*pow(trajectory_.totalTime,2) + uCoefs.at(1).values.at(2)*(trajectory_.totalTime) + uCoefs.at(1).values.at(3)) - yuMin;
+    float xu = ((uCoefs.at(0).values.at(0)*pow(t,3) + uCoefs.at(0).values.at(1)*pow(t,2) + uCoefs.at(0).values.at(2)*(t) + uCoefs.at(0).values.at(3)));// - xuMin)/xuMax;
+    float yu = ((uCoefs.at(1).values.at(0)*pow(t,3) + uCoefs.at(1).values.at(1)*pow(t,2) + uCoefs.at(1).values.at(2)*(t) + uCoefs.at(1).values.at(3)));// - yuMin)/yuMax;
     curXY = {
       pow(1-xu,2)*coefs.at(0).values.at(0) + 2*xu*(1-xu)*coefs.at(0).values.at(1) + pow(xu,2)*coefs.at(0).values.at(2),
       pow(1-yu,2)*coefs.at(1).values.at(0) + 2*yu*(1-yu)*coefs.at(1).values.at(1) + pow(yu,2)*coefs.at(1).values.at(2)
