@@ -259,7 +259,7 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
     if(Td > T){//TODO find different criteria for this if statement
       std::cout<<"swapping T("<<T<<") and Td("<<Td<<")"<<std::endl;
       double h = Td;
-      Td = T;
+      Td = T + .1;
       T = h + T;
     }
   }else if(msg.points.size() == 4){//both entrence and exit vels need to be found
