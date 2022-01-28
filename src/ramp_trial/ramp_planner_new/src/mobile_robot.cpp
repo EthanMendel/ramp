@@ -93,7 +93,7 @@ void MobileRobot::updateCallback(const ros::TimerEvent& e) {
 void MobileRobot::updateTrajectory(const ramp_planner_new::TrajectoryRepresentation& msg)
 {
   if(msg != trajectory_){
-    std::cout<<"setting new "<<msg.type<<" trajectory for "<<msg.totalTime<<" secs starting at "<<msg.startTime<<std::endl;
+    std::cout<<"setting new "<<msg.type<<" trajectory for "<<msg.totalTime<<" secs starting at "<<msg.startTime<<" ending at "<<msg.totalTime<<std::endl;
     trajectory_ = msg;
   }
 }

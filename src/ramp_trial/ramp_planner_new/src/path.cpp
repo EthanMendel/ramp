@@ -263,14 +263,10 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
     Td = 0;
   }else if(msg.points.size() == 3){//either entrecnce or exit vels need to be found
     std::cout<<"extra point:\n"<<msg.points.at(2)<<std::endl;
-    T = utility.getMinLinTime(msg.points.at(0),msg.points.at(2));
-    Td = utility.getMinLinTime(msg.points.at(0),msg.points.at(1));
-    if(Td > T){//TODO find different criteria for this if statement
-      std::cout<<"swapping T("<<T<<") and Td("<<Td<<")"<<std::endl;
-      double h = Td;
-      Td = T + .1;
-      T = h + T;
-    }
+    T =  std::max(utility.getMinLinTime(msg.points.at(0),msg.points.at(2)),
+                  utility.getMinLinTime(msg.points.at(1),msg.points.at(2)));
+    Td = std::min(utility.getMinLinTime(msg.points.at(0),msg.points.at(2)),
+                  utility.getMinLinTime(msg.points.at(1),msg.points.at(2)));
   }else if(msg.points.size() == 4){//both entrence and exit vels need to be found
     //TODO when more points are added
     std::cout<<"four points not yet supported"<<std::endl;
@@ -307,8 +303,10 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
     if(msg.points.size() == 3){
       if(uCubicEntrenceVelocities.size() > 0){
         start = msg.points.at(2);
+        startT_ += .4;
       }else{
         goal = msg.points.at(2);
+        usedTdelta_ += .3;
       }
     }else if(msg.points.size() == 4){
       //TODO when more points are added
@@ -350,25 +348,10 @@ void Path::makeCubicPath(const ramp_planner_new::TrajectoryRequest msg){
   if(order!=3 && coefs.size() != 4){
     return;
   }
-  double x = msg.points.at(0).x;
-  double y = msg.points.at(0).y;
-  double z = msg.points.at(0).z;
-  std::vector<double> starts = {x,y,z};
-  double xInc, yInc, zInc;
-  if(msg.points.size() == 2){
-    xInc = (msg.points.at(1).x - x)/usedT_;
-    yInc = (msg.points.at(1).y - y)/usedT_;
-    zInc = (msg.points.at(1).z - z)/usedT_;
-  }else{
-    xInc = (msg.points.at(2).x - x)/usedT_;
-    yInc = (msg.points.at(2).y - y)/usedT_;
-    zInc = (msg.points.at(2).z - z)/usedT_;
-    // saveVel = true;
-  }
-  std::vector<double> incs = {xInc,yInc,zInc};
 
+  std::cout<<"\t"<<usedT_<<" seconds with a delta of "<<usedTdelta_<<" starting at t="<<startT_<<" ending at t="<<usedT_-usedTdelta_<<std::endl;
   for(double t = startT_;t<usedT_;t+=.1){
-    if(t == usedT_ - usedTdelta_ && startT_ == 0){
+    if(t >= usedT_ - usedTdelta_ && startT_ == 0){
       uCubicEntrenceVelocities.clear();
       std::cout<<"setting entrence velocities"<<std::endl;
       for(unsigned int j=0;j<coefs.size();j++){
