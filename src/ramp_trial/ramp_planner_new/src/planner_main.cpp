@@ -406,10 +406,10 @@ bool acceptableAngTime(const geometry_msgs::Point& p0, const geometry_msgs::Poin
     std::cout<<plannerPath.coefs.size()<<" coefs"<<std::endl;
     std::cout<<plannerPath.uCoefs.size()<<" uCoefs"<<std::endl;
     // Equations based on "Real-time Adaptive Non-holonomic Motion Planning in Unknown Dynamic Environments"
-    double A1 = 2*(plannerPath.coefs.at(0).at(0) - plannerPath.coefs.at(0).at(1) + plannerPath.coefs.at(0).at(2));//Section II, Equation (3)
-    double B1 = 2*(plannerPath.coefs.at(1).at(0) - plannerPath.coefs.at(1).at(1) + plannerPath.coefs.at(1).at(2));
-    double A2 = 2*((plannerPath.coefs.at(0).at(1)/2)-plannerPath.coefs.at(0).at(0));
-    double B2 = 2*((plannerPath.coefs.at(1).at(1)/2)-plannerPath.coefs.at(1).at(0));
+    double A1 = 2*(plannerPath.coefs.at(0).at(0) - 2*plannerPath.coefs.at(0).at(1) + plannerPath.coefs.at(0).at(2));//Section II, Equation (3)
+    double B1 = 2*(plannerPath.coefs.at(1).at(0) - 2*plannerPath.coefs.at(1).at(1) + plannerPath.coefs.at(1).at(2));
+    double A2 = 2*((plannerPath.coefs.at(0).at(1))-plannerPath.coefs.at(0).at(0));
+    double B2 = 2*((plannerPath.coefs.at(1).at(1))-plannerPath.coefs.at(1).at(0));
     if(A1 == 0 || B1 == 0 || A2 == 0 || B2 == 0){
       return false;
     }
@@ -548,7 +548,7 @@ void bezify(const ramp_planner_new::BezifyRequest& br){
     //find new control points
     geometry_msgs::Point cp1,cp2;
     float d;
-    for(d=.1;d<=D;d+=.1){//for all distences (incrimented as 10ths)
+    for(d=.4;d<=D;d+=.1){//for all distences (incrimented as 10ths)
         cp1.x = p1.x - d*u1[0];
         cp1.y = p1.y - d*u1[1];
         cp2.x = p1.x + d*u2[0];

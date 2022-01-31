@@ -141,8 +141,10 @@ const double Utility::getMinLinTime(const geometry_msgs::Point& start, const geo
   double gy = goal.y;
 
   double dist = getEuclideanDist({sx,sy},{gx,gy});
-  // std::cout<<"\tbefore ceil time: "<<dist/max_speed_linear<<std::endl;
-  return ceil(dist/max_speed_linear_);
+  double val = dist/max_speed_linear_;
+  double retVal = floor(val*10+0.5)/10;
+  // std::cout<<"\ttime: "<<retVal<<std::endl;
+  return retVal;
 }
 
 const std::string Utility::toString(const ramp_msgs::MotionState mp) const {

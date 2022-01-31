@@ -183,15 +183,24 @@ void Path::findBezierCoefs(geometry_msgs::Point p0, geometry_msgs::Point p1, geo
     for(unsigned int i = 0;i<m0.msg_.positions.size()-1;i++){
       std::vector<double> hold;
       hold.push_back( m0.msg_.positions.at(i) );
-      hold.push_back( 2 * m1.msg_.positions.at(i) );
+      hold.push_back( m1.msg_.positions.at(i) );
       hold.push_back( m2.msg_.positions.at(i) );
       coefs.push_back(hold);
       std::cout<<"A: "<<coefs.at(i).at(0)<<"\tB: "<<coefs.at(i).at(1)<<"\tC: "<<coefs.at(i).at(2)<<"\t\n";
     }
     ramp_planner_new::TrajectoryRequest uMsg;
     uMsg.type = "uCubic";
-    uMsg.points.push_back(p0);
-    uMsg.points.push_back(p2);
+    geometry_msgs::Point pnt;
+    pnt.x=0;
+    pnt.y=0;
+    uMsg.points.push_back(pnt);
+    pnt.x=1;
+    pnt.y=1;
+    uMsg.points.push_back(pnt);
+    for(unsigned int i=0;i<coefs.size();i++){
+      uMsg.normVals.push_back(2*((coefs.at(i).at(1))-coefs.at(i).at(0)));
+    }
+    uMsg.normVals.push_back(1);//extra value to not normalize z (theta)
     findCubicCoefs(uMsg);
     type = "bezier";
     if(uCoefs.size() < 3){
@@ -224,10 +233,10 @@ void Path::makeBezierPath(const ramp_planner_new::TrajectoryRequest msg){
         float uP  = 3*uCoefs.at(j).at(0)*pow(t,2) + 2*uCoefs.at(j).at(1)*(t) + uCoefs.at(j).at(2);
         float uPP = 6*uCoefs.at(j).at(0)*(t) + 2*uCoefs.at(j).at(1);
         
-        double A1 = 2*(coefs.at(j).at(0) - coefs.at(j).at(1) + coefs.at(j).at(2));
-        double A2 = 2*((coefs.at(j).at(1)/2)-coefs.at(j).at(0));
+        double A1 = 2*(coefs.at(j).at(0) - 2*coefs.at(j).at(1) + coefs.at(j).at(2));
+        double A2 = 2*((coefs.at(j).at(1))-coefs.at(j).at(0));
         
-        ms.msg_.positions.push_back( pow(1-u,2)*coefs.at(j).at(0) + u*(1-u)*coefs.at(j).at(1) + pow(u,2)*coefs.at(j).at(2) );
+        ms.msg_.positions.push_back( pow(1-u,2)*coefs.at(j).at(0) + u*(1-u)*2*coefs.at(j).at(1) + pow(u,2)*coefs.at(j).at(2) );
         
         ms.msg_.velocities.push_back( (A1*u + A2)*uP );
         
@@ -253,13 +262,11 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
     T = utility.getMinLinTime(msg.points.at(0),msg.points.at(1));
     Td = 0;
   }else if(msg.points.size() == 3){//either entrecnce or exit vels need to be found
-    T = utility.getMinLinTime(msg.points.at(0),msg.points.at(2));
-    Td = utility.getMinLinTime(msg.points.at(0),msg.points.at(1));
-    if(Td > T){
-      double h = T;
-      T = Td + 1;//add one to undo 'ceil' function and do 'floor' instead because inverse of overlapping
-      Td = T - h;
-    }
+    std::cout<<"extra point:\n"<<msg.points.at(2)<<std::endl;
+    T =  std::max(utility.getMinLinTime(msg.points.at(0),msg.points.at(2)),
+                  utility.getMinLinTime(msg.points.at(1),msg.points.at(2)));
+    Td = std::min(utility.getMinLinTime(msg.points.at(0),msg.points.at(2)),
+                  utility.getMinLinTime(msg.points.at(1),msg.points.at(2)));
   }else if(msg.points.size() == 4){//both entrence and exit vels need to be found
     uCubicEntrenceVelocities.clear();
     T = utility.getMinLinTime(msg.points.at(2),msg.points.at(3));
@@ -273,7 +280,7 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
   if(msg.points.size() == 4){
     startT_ = utility.getMinLinTime(msg.points.at(2),msg.points.at(0));
   }else if(uCubicEntrenceVelocities.size() > 0 && msg.type == "cubic"){
-    startT_ = (unsigned int) usedTdelta_;
+    startT_ = usedTdelta_;
   }else{
     startT_ = 0;
   }
@@ -299,8 +306,10 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
     if(msg.points.size() == 3){
       if(uCubicEntrenceVelocities.size() > 0){
         start = msg.points.at(2);
+        startT_ += .4;
       }else{
         goal = msg.points.at(2);
+        usedTdelta_ += .3;
       }
     }else if(msg.points.size() == 4){
       start = msg.points.at(2);
@@ -308,8 +317,8 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
     }
     if(uCubicEntrenceVelocities.size() > 0 && type == "uCubic"){
       for(unsigned int j=0;j<uCubicEntrenceVelocities.size();j++){
-        start.msg_.velocities.at(j) = uCubicEntrenceVelocities.at(j);
-        goal.msg_.velocities.at(j) = uCubicEntrenceVelocities.at(j);
+        start.msg_.velocities.at(j) = uCubicEntrenceVelocities.at(j)/msg.normVals.at(j);
+        goal.msg_.velocities.at(j) = uCubicEntrenceVelocities.at(j)/msg.normVals.at(j);
       }
     }
     for(unsigned int i = 0;i<start.msg_.positions.size();i++){
@@ -343,25 +352,10 @@ void Path::makeCubicPath(const ramp_planner_new::TrajectoryRequest msg){
   if(order!=3 && coefs.size() != 4){
     return;
   }
-  double x = msg.points.at(0).x;
-  double y = msg.points.at(0).y;
-  double z = msg.points.at(0).z;
-  std::vector<double> starts = {x,y,z};
-  double xInc, yInc, zInc;
-  if(msg.points.size() == 2){
-    xInc = (msg.points.at(1).x - x)/usedT_;
-    yInc = (msg.points.at(1).y - y)/usedT_;
-    zInc = (msg.points.at(1).z - z)/usedT_;
-  }else{
-    xInc = (msg.points.at(2).x - x)/usedT_;
-    yInc = (msg.points.at(2).y - y)/usedT_;
-    zInc = (msg.points.at(2).z - z)/usedT_;
-    // saveVel = true;
-  }
-  std::vector<double> incs = {xInc,yInc,zInc};
 
-  for(unsigned int t = startT_;t<usedT_;t++){
-    if(t == usedT_ - usedTdelta_ && startT_ == 0){
+  std::cout<<"\t"<<usedT_<<" seconds with a delta of "<<usedTdelta_<<" starting at t="<<startT_<<" ending at t="<<usedT_-usedTdelta_<<std::endl;
+  for(double t = startT_;t<usedT_;t+=.1){
+    if(t >= usedT_ - usedTdelta_ && startT_ == 0){
       uCubicEntrenceVelocities.clear();
       std::cout<<"setting entrence velocities"<<std::endl;
       for(unsigned int j=0;j<coefs.size();j++){
@@ -391,11 +385,19 @@ void Path::makeCubicPath(const ramp_planner_new::TrajectoryRequest msg){
 
 void Path::setPathPoints(const ramp_planner_new::PathPoints pp){
   msg_.points.clear();
-  // std::cout<<pp.points.size()<<std::endl;
+  std::cout<<"adding "<<pp.points.size()<<" pathPoints"<<std::endl;
   for(unsigned int i=0;i<pp.points.size();i++){
+    std::cout<<"\ttesting "<<pp.points.at(i).x<<","<<pp.points.at(i).y<<std::endl;
     if(pp.forBez.at(i)){
+      std::cout<<"\t\tadding"<<std::endl;
       KnotPoint kp(pp.points.at(i));
       msg_.points.push_back(kp.buildKnotPointMsg());
+    }else{
+      std::cout<<"\t\tnot adding"<<std::endl;
     }
+  }
+  std::cout<<"path points:"<<std::endl;
+  for(unsigned int i=0;i<msg_.points.size();i++){
+    std::cout<<"\t"<<msg_.points.at(i).motionState.positions.at(0)<<","<<msg_.points.at(i).motionState.positions.at(1)<<std::endl;
   }
 }

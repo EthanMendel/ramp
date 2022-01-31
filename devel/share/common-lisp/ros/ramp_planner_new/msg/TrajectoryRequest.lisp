@@ -16,7 +16,12 @@
     :reader points
     :initarg :points
     :type (cl:vector geometry_msgs-msg:Point)
-   :initform (cl:make-array 0 :element-type 'geometry_msgs-msg:Point :initial-element (cl:make-instance 'geometry_msgs-msg:Point))))
+   :initform (cl:make-array 0 :element-type 'geometry_msgs-msg:Point :initial-element (cl:make-instance 'geometry_msgs-msg:Point)))
+   (normVals
+    :reader normVals
+    :initarg :normVals
+    :type (cl:vector cl:float)
+   :initform (cl:make-array 0 :element-type 'cl:float :initial-element 0.0)))
 )
 
 (cl:defclass TrajectoryRequest (<TrajectoryRequest>)
@@ -36,6 +41,11 @@
 (cl:defmethod points-val ((m <TrajectoryRequest>))
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader ramp_planner_new-msg:points-val is deprecated.  Use ramp_planner_new-msg:points instead.")
   (points m))
+
+(cl:ensure-generic-function 'normVals-val :lambda-list '(m))
+(cl:defmethod normVals-val ((m <TrajectoryRequest>))
+  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader ramp_planner_new-msg:normVals-val is deprecated.  Use ramp_planner_new-msg:normVals instead.")
+  (normVals m))
 (cl:defmethod roslisp-msg-protocol:serialize ((msg <TrajectoryRequest>) ostream)
   "Serializes a message object of type '<TrajectoryRequest>"
   (cl:let ((__ros_str_len (cl:length (cl:slot-value msg 'type))))
@@ -51,6 +61,21 @@
     (cl:write-byte (cl:ldb (cl:byte 8 24) __ros_arr_len) ostream))
   (cl:map cl:nil #'(cl:lambda (ele) (roslisp-msg-protocol:serialize ele ostream))
    (cl:slot-value msg 'points))
+  (cl:let ((__ros_arr_len (cl:length (cl:slot-value msg 'normVals))))
+    (cl:write-byte (cl:ldb (cl:byte 8 0) __ros_arr_len) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 8) __ros_arr_len) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 16) __ros_arr_len) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 24) __ros_arr_len) ostream))
+  (cl:map cl:nil #'(cl:lambda (ele) (cl:let ((bits (roslisp-utils:encode-double-float-bits ele)))
+    (cl:write-byte (cl:ldb (cl:byte 8 0) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 8) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 16) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 24) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 32) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 40) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 48) bits) ostream)
+    (cl:write-byte (cl:ldb (cl:byte 8 56) bits) ostream)))
+   (cl:slot-value msg 'normVals))
 )
 (cl:defmethod roslisp-msg-protocol:deserialize ((msg <TrajectoryRequest>) istream)
   "Deserializes a message object of type '<TrajectoryRequest>"
@@ -72,6 +97,24 @@
     (cl:dotimes (i __ros_arr_len)
     (cl:setf (cl:aref vals i) (cl:make-instance 'geometry_msgs-msg:Point))
   (roslisp-msg-protocol:deserialize (cl:aref vals i) istream))))
+  (cl:let ((__ros_arr_len 0))
+    (cl:setf (cl:ldb (cl:byte 8 0) __ros_arr_len) (cl:read-byte istream))
+    (cl:setf (cl:ldb (cl:byte 8 8) __ros_arr_len) (cl:read-byte istream))
+    (cl:setf (cl:ldb (cl:byte 8 16) __ros_arr_len) (cl:read-byte istream))
+    (cl:setf (cl:ldb (cl:byte 8 24) __ros_arr_len) (cl:read-byte istream))
+  (cl:setf (cl:slot-value msg 'normVals) (cl:make-array __ros_arr_len))
+  (cl:let ((vals (cl:slot-value msg 'normVals)))
+    (cl:dotimes (i __ros_arr_len)
+    (cl:let ((bits 0))
+      (cl:setf (cl:ldb (cl:byte 8 0) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 8) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 16) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 24) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 32) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 40) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 48) bits) (cl:read-byte istream))
+      (cl:setf (cl:ldb (cl:byte 8 56) bits) (cl:read-byte istream))
+    (cl:setf (cl:aref vals i) (roslisp-utils:decode-double-float-bits bits))))))
   msg
 )
 (cl:defmethod roslisp-msg-protocol:ros-datatype ((msg (cl:eql '<TrajectoryRequest>)))
@@ -82,24 +125,26 @@
   "ramp_planner_new/TrajectoryRequest")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<TrajectoryRequest>)))
   "Returns md5sum for a message object of type '<TrajectoryRequest>"
-  "99dc7fc87f5249607f322d8df0d6ae30")
+  "5c125c00eccba1e258c36f6c4bcd110e")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'TrajectoryRequest)))
   "Returns md5sum for a message object of type 'TrajectoryRequest"
-  "99dc7fc87f5249607f322d8df0d6ae30")
+  "5c125c00eccba1e258c36f6c4bcd110e")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<TrajectoryRequest>)))
   "Returns full string definition for message of type '<TrajectoryRequest>"
-  (cl:format cl:nil "string type~%geometry_msgs/Point[] points~%================================================================================~%MSG: geometry_msgs/Point~%# This contains the position of a point in free space~%float64 x~%float64 y~%float64 z~%~%~%"))
+  (cl:format cl:nil "string type~%geometry_msgs/Point[] points~%float64[] normVals~%================================================================================~%MSG: geometry_msgs/Point~%# This contains the position of a point in free space~%float64 x~%float64 y~%float64 z~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'TrajectoryRequest)))
   "Returns full string definition for message of type 'TrajectoryRequest"
-  (cl:format cl:nil "string type~%geometry_msgs/Point[] points~%================================================================================~%MSG: geometry_msgs/Point~%# This contains the position of a point in free space~%float64 x~%float64 y~%float64 z~%~%~%"))
+  (cl:format cl:nil "string type~%geometry_msgs/Point[] points~%float64[] normVals~%================================================================================~%MSG: geometry_msgs/Point~%# This contains the position of a point in free space~%float64 x~%float64 y~%float64 z~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <TrajectoryRequest>))
   (cl:+ 0
      4 (cl:length (cl:slot-value msg 'type))
      4 (cl:reduce #'cl:+ (cl:slot-value msg 'points) :key #'(cl:lambda (ele) (cl:declare (cl:ignorable ele)) (cl:+ (roslisp-msg-protocol:serialization-length ele))))
+     4 (cl:reduce #'cl:+ (cl:slot-value msg 'normVals) :key #'(cl:lambda (ele) (cl:declare (cl:ignorable ele)) (cl:+ 8)))
 ))
 (cl:defmethod roslisp-msg-protocol:ros-message-to-list ((msg <TrajectoryRequest>))
   "Converts a ROS message object to a list"
   (cl:list 'TrajectoryRequest
     (cl:cons ':type (type msg))
     (cl:cons ':points (points msg))
+    (cl:cons ':normVals (normVals msg))
 ))

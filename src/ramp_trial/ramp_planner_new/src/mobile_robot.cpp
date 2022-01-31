@@ -93,7 +93,7 @@ void MobileRobot::updateCallback(const ros::TimerEvent& e) {
 void MobileRobot::updateTrajectory(const ramp_planner_new::TrajectoryRepresentation& msg)
 {
   if(msg != trajectory_){
-    std::cout<<"setting new "<<msg.type<<" trajectory for "<<msg.totalTime<<" secs"<<std::endl;
+    std::cout<<"setting new "<<msg.type<<" trajectory for "<<msg.totalTime<<" secs starting at "<<msg.startTime<<" ending at "<<msg.totalTime<<std::endl;
     trajectory_ = msg;
   }
 }
@@ -119,20 +119,20 @@ void MobileRobot::calculateVelocities(const std::vector<ramp_planner_new::Coeffi
      yP = 3*coefs.at(1).values.at(0)*pow(t,2) + 2*coefs.at(1).values.at(1)*(t) + coefs.at(1).values.at(2);
   
   }else if(trajectory_.type == "bezier"){
-    float xuMin = uCoefs.at(0).values.at(0)*pow(0,3) + uCoefs.at(0).values.at(1)*pow(0,2) + uCoefs.at(0).values.at(2)*(0) + uCoefs.at(0).values.at(3);
-    float xuMax = (uCoefs.at(0).values.at(0)*pow(trajectory_.totalTime,3) + uCoefs.at(0).values.at(1)*pow(trajectory_.totalTime,2) + uCoefs.at(0).values.at(2)*(trajectory_.totalTime) + uCoefs.at(0).values.at(3)) - xuMin;
-    float yuMin = uCoefs.at(1).values.at(0)*pow(0,3) + uCoefs.at(1).values.at(1)*pow(0,2) + uCoefs.at(1).values.at(2)*(0) + uCoefs.at(1).values.at(3);
-    float yuMax = (uCoefs.at(1).values.at(0)*pow(trajectory_.totalTime,3) + uCoefs.at(1).values.at(1)*pow(trajectory_.totalTime,2) + uCoefs.at(1).values.at(2)*(trajectory_.totalTime) + uCoefs.at(1).values.at(3)) - yuMin;
-    float xu = ((uCoefs.at(0).values.at(0)*pow(t,3) + uCoefs.at(0).values.at(1)*pow(t,2) + uCoefs.at(0).values.at(2)*(t) + uCoefs.at(0).values.at(3)) - xuMin)/xuMax;
-    float yu = ((uCoefs.at(1).values.at(0)*pow(t,3) + uCoefs.at(1).values.at(1)*pow(t,2) + uCoefs.at(1).values.at(2)*(t) + uCoefs.at(1).values.at(3)) - yuMin)/yuMax;
+    // float xuMin = uCoefs.at(0).values.at(0)*pow(0,3) + uCoefs.at(0).values.at(1)*pow(0,2) + uCoefs.at(0).values.at(2)*(0) + uCoefs.at(0).values.at(3);
+    // float xuMax = (uCoefs.at(0).values.at(0)*pow(trajectory_.totalTime,3) + uCoefs.at(0).values.at(1)*pow(trajectory_.totalTime,2) + uCoefs.at(0).values.at(2)*(trajectory_.totalTime) + uCoefs.at(0).values.at(3)) - xuMin;
+    // float yuMin = uCoefs.at(1).values.at(0)*pow(0,3) + uCoefs.at(1).values.at(1)*pow(0,2) + uCoefs.at(1).values.at(2)*(0) + uCoefs.at(1).values.at(3);
+    // float yuMax = (uCoefs.at(1).values.at(0)*pow(trajectory_.totalTime,3) + uCoefs.at(1).values.at(1)*pow(trajectory_.totalTime,2) + uCoefs.at(1).values.at(2)*(trajectory_.totalTime) + uCoefs.at(1).values.at(3)) - yuMin;
+    float xu = ((uCoefs.at(0).values.at(0)*pow(t,3) + uCoefs.at(0).values.at(1)*pow(t,2) + uCoefs.at(0).values.at(2)*(t) + uCoefs.at(0).values.at(3)));// - xuMin)/xuMax;
+    float yu = ((uCoefs.at(1).values.at(0)*pow(t,3) + uCoefs.at(1).values.at(1)*pow(t,2) + uCoefs.at(1).values.at(2)*(t) + uCoefs.at(1).values.at(3)));// - yuMin)/yuMax;
     curXY = {
-      pow(1-xu,2)*coefs.at(0).values.at(0) + xu*(1-xu)*coefs.at(0).values.at(1) + pow(xu,2)*coefs.at(0).values.at(2),
-      pow(1-yu,2)*coefs.at(1).values.at(0) + yu*(1-yu)*coefs.at(1).values.at(1) + pow(yu,2)*coefs.at(1).values.at(2)
+      pow(1-xu,2)*coefs.at(0).values.at(0) + 2*xu*(1-xu)*coefs.at(0).values.at(1) + pow(xu,2)*coefs.at(0).values.at(2),
+      pow(1-yu,2)*coefs.at(1).values.at(0) + 2*yu*(1-yu)*coefs.at(1).values.at(1) + pow(yu,2)*coefs.at(1).values.at(2)
     };
-    double A1 = 2*(coefs.at(0).values.at(0) - coefs.at(0).values.at(1) + coefs.at(0).values.at(2));
-    double B1 = 2*(coefs.at(1).values.at(0) - coefs.at(1).values.at(1) + coefs.at(1).values.at(2));
-    double A2 = 2*((coefs.at(0).values.at(1)/2)-coefs.at(0).values.at(0));
-    double B2 = 2*((coefs.at(1).values.at(1)/2)-coefs.at(1).values.at(0));
+    double A1 = 2*(coefs.at(0).values.at(0) - 2*coefs.at(0).values.at(1) + coefs.at(0).values.at(2));
+    double B1 = 2*(coefs.at(1).values.at(0) - 2*coefs.at(1).values.at(1) + coefs.at(1).values.at(2));
+    double A2 = 2*((coefs.at(0).values.at(1))-coefs.at(0).values.at(0));
+    double B2 = 2*((coefs.at(1).values.at(1))-coefs.at(1).values.at(0));
     float xuP = 3*uCoefs.at(0).values.at(0)*pow(t,2) + 2*uCoefs.at(0).values.at(1)*(t) + uCoefs.at(0).values.at(2);
     float yuP = 3*uCoefs.at(1).values.at(0)*pow(t,2) + 2*uCoefs.at(1).values.at(1)*(t) + uCoefs.at(1).values.at(2);
     xP =((A1*xu + A2)*xuP);
@@ -273,10 +273,15 @@ void MobileRobot::moveOnTrajectory()
     std::cout<<"starting full path portion"<<std::endl;
     // setNextTwist(); 
     seg_step_ = (int) trajectory_.startTime;
-    while(ros::ok() && seg_step_ < trajectory_.totalTime) 
+    time_step_ = (int) ((trajectory_.startTime - seg_step_) * 10);
+    while(ros::ok() && (seg_step_+.1*time_step_) <= trajectory_.totalTime) 
     {
       while(ros::ok() && time_step_ < SEND_RESELUTION) 
       {
+        if((seg_step_+.1*time_step_) > trajectory_.totalTime){
+          break;
+        }
+        // std::cout<<"running for "<<(seg_step_+.1*time_step_)<<std::endl;
         // ** Code that was used to maintain orientation ** //
         // Send the twist_message to move the robot
         setNextTwist();
