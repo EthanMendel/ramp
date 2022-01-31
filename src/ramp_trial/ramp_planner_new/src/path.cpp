@@ -268,15 +268,18 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
     Td = std::min(utility.getMinLinTime(msg.points.at(0),msg.points.at(2)),
                   utility.getMinLinTime(msg.points.at(1),msg.points.at(2)));
   }else if(msg.points.size() == 4){//both entrence and exit vels need to be found
-    //TODO when more points are added
-    std::cout<<"four points not yet supported"<<std::endl;
+    uCubicEntrenceVelocities.clear();
+    T = utility.getMinLinTime(msg.points.at(2),msg.points.at(3));
+    Td = utility.getMinLinTime(msg.points.at(0),msg.points.at(1));
   }else{
     std::cout<<"dont know what to do in findCubicCoefs with "<<msg.points.size()<<" points"<<std::endl;
     return;
   }
   usedT_ = T;
   usedTdelta_ = Td;
-  if(uCubicEntrenceVelocities.size() > 0 && msg.type == "cubic"){
+  if(msg.points.size() == 4){
+    startT_ = utility.getMinLinTime(msg.points.at(2),msg.points.at(0));
+  }else if(uCubicEntrenceVelocities.size() > 0 && msg.type == "cubic"){
     startT_ = usedTdelta_;
   }else{
     startT_ = 0;
@@ -309,7 +312,8 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
         usedTdelta_ += .3;
       }
     }else if(msg.points.size() == 4){
-      //TODO when more points are added
+      start = msg.points.at(2);
+      goal = msg.points.at(3);
     }
     if(uCubicEntrenceVelocities.size() > 0 && type == "uCubic"){
       for(unsigned int j=0;j<uCubicEntrenceVelocities.size();j++){

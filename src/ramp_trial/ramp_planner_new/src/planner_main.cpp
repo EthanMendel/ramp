@@ -159,10 +159,12 @@ void loadParameters(const ros::NodeHandle handle){
     std::vector<float> p_start;
     std::vector<float> p_goal;
     std::vector<float> p_waypoint;
+    std::vector<float> p_waypoint2;
     handle.getParam("robot_info/start", p_start);
     handle.getParam("robot_info/goal",  p_goal );
     handle.getParam("robot_info/waypoint", p_waypoint);
-    initStartGoal({p_start, p_waypoint, p_goal});
+    handle.getParam("robot_info/waypoint2", p_waypoint2);
+    initStartGoal({p_start, p_waypoint, p_waypoint2, p_goal});
   }else {
     ROS_ERROR("Did not find parameters robot_info/start, robot_info/goal");
     exit(1);
@@ -333,8 +335,8 @@ void pubPath(){
     next.z = 0.01;
     mp_marker.points.push_back(next);
 
-    // std::cout<<"segment "<<i+1<<" from ("<<first.x<<", "<<first.y<<", "<<first.z<<
-    // ") to ("<<next.x<<", "<<next.y<<", "<<next.z<<")"<<std::endl;
+    std::cout<<"segment "<<i+1<<" from ("<<first.x<<", "<<first.y<<", "<<first.z<<
+    ") to ("<<next.x<<", "<<next.y<<", "<<next.z<<")"<<std::endl;
     
     // set orientations
     mp_marker.pose.orientation.x = 0.0;
@@ -490,7 +492,7 @@ ramp_planner_new::PathPoints addControlPoints(visualization_msgs::Marker m, geom
                 maRes.markers.push_back(pathPoints.markers.at(i));
                 maRes.markers.push_back(makeMarker(cp2,replaceId + i + 2));//add second control point after marker
                 tRes.push_back("bezier");//add info about new points
-                tRes.push_back(pathPoints.types.at(i));
+                tRes.push_back(pathPoints.types.at(i-1));
                 bRes.push_back(true);
                 bRes.push_back(false);
                 bRes.push_back(true);
