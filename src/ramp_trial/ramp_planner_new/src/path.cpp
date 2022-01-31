@@ -306,10 +306,10 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
     if(msg.points.size() == 3){
       if(uCubicEntrenceVelocities.size() > 0){
         start = msg.points.at(2);
-        startT_ += .4;
+        // startT_ += .4;
       }else{
         goal = msg.points.at(2);
-        usedTdelta_ += .3;
+        // usedTdelta_ += .3;
       }
     }else if(msg.points.size() == 4){
       start = msg.points.at(2);
