@@ -238,7 +238,7 @@ void pubStartGoalMarkers(){
     // set positions
     marker.pose.position.x = pathMotionStates.at(i).msg_.positions[0];
     marker.pose.position.y = pathMotionStates.at(i).msg_.positions[1];
-    marker.pose.position.z = 0.01;
+    marker.pose.position.z = 0.0;
     // set orientations
     marker.pose.orientation.x = 0.0;
     marker.pose.orientation.y = 0.0;
@@ -265,16 +265,16 @@ void pubStartGoalMarkers(){
   origin_marker.ns = "basic_shapes";
   origin_marker.type = visualization_msgs::Marker::SPHERE;
   origin_marker.action = visualization_msgs::Marker::ADD;
-  origin_marker.pose.position.x = 0;
-  origin_marker.pose.position.y = 0;
-  origin_marker.pose.position.z = 0.01;
+  origin_marker.pose.position.x = 0.0;
+  origin_marker.pose.position.y = 0.0;
+  origin_marker.pose.position.z = 0.0;
   origin_marker.pose.orientation.x = 0.0;
   origin_marker.pose.orientation.y = 0.0;
   origin_marker.pose.orientation.z = 0.0;
   origin_marker.pose.orientation.w = 1.0;
   origin_marker.scale.x = 0.1;
   origin_marker.scale.y = 0.1;
-  origin_marker.scale.z = 0.01;
+  origin_marker.scale.z = 0.0;
   origin_marker.color.r = 0;
   origin_marker.color.g = 1;
   origin_marker.color.b = 0;
@@ -325,18 +325,18 @@ void pubPath(){
     geometry_msgs::Point first;
     first.x = plannerPath.msg_.points[i].motionState.positions[0];
     first.y = plannerPath.msg_.points[i].motionState.positions[1];
-    first.z = 0.01;
+    first.z = 0.0;
     mp_marker.points.push_back(first);
 
     // next point to create line end
     geometry_msgs::Point next;
     next.x = plannerPath.msg_.points[i+1].motionState.positions[0];
     next.y = plannerPath.msg_.points[i+1].motionState.positions[1];
-    next.z = 0.01;
+    next.z = 0.0;
     mp_marker.points.push_back(next);
 
-    std::cout<<"segment "<<i+1<<" from ("<<first.x<<", "<<first.y<<", "<<first.z<<
-    ") to ("<<next.x<<", "<<next.y<<", "<<next.z<<")"<<std::endl;
+    // std::cout<<"segment "<<i+1<<" from ("<<first.x<<", "<<first.y<<", "<<first.z<<
+    // ") to ("<<next.x<<", "<<next.y<<", "<<next.z<<")"<<std::endl;
     
     // set orientations
     mp_marker.pose.orientation.x = 0.0;
@@ -347,7 +347,7 @@ void pubPath(){
     // set radii
     mp_marker.scale.x = 0.1;
     mp_marker.scale.y = 0.1;
-    mp_marker.scale.z = 0.02;
+    mp_marker.scale.z = 0.0;
   
     // set colors
     //    different colors help visualize the order of the path
@@ -411,11 +411,13 @@ bool acceptableAngTime(const geometry_msgs::Point& p0, const geometry_msgs::Poin
     double A2 = 2*((plannerPath.coefs.at(0).at(1))-plannerPath.coefs.at(0).at(0));
     double B2 = 2*((plannerPath.coefs.at(1).at(1))-plannerPath.coefs.at(1).at(0));
     if(A1 == 0 || B1 == 0 || A2 == 0 || B2 == 0){
+      std::cout<<"/t**A,B,C,D == 0"<<std::endl;
       return false;
     }
     //Equations based on "On-line Planning of Nonholonomic Trajectories in Crowded and Geometrically Unknown Environments*"
     double t = - ((A1*A2 + B1*B2) / (pow(A1,2) + pow(B1,2))); //point of maximum angular velocity, Section II, Equation (6)
     if(t < 0 || t > 1){
+      std::cout<<"t<0 || t>1"<<std::endl;
       return false;
     }
     float xuP = 3*plannerPath.uCoefs.at(0).at(0)*pow(t,2) + 2*plannerPath.uCoefs.at(0).at(1)*(t) + plannerPath.uCoefs.at(0).at(2);
@@ -424,6 +426,7 @@ bool acceptableAngTime(const geometry_msgs::Point& p0, const geometry_msgs::Poin
     double yVel =((B1*t + B2)*yuP);
     double linVel = sqrt(pow(xVel,2)+pow(yVel,2));
     if(linVel > utility.max_speed_linear_){
+      std::cout<<"linVel too high "<<linVel<<std::endl;
       return false;
     }
     double numerator1 = (pow(A1,2) + pow(B1,2)) * pow(t,2);
@@ -435,7 +438,8 @@ bool acceptableAngTime(const geometry_msgs::Point& p0, const geometry_msgs::Poin
     double angVel = linVel / R_min_;
     //TODO make sure this is the correct angVel value
     if(angVel >= ((2.f*PI)/3.f)){
-        return false;
+      std::cout<<"angVel too high"<<std::endl;
+      return false;
     }
     return true;
 }
@@ -453,7 +457,7 @@ visualization_msgs::Marker makeMarker(geometry_msgs::Point p, int id){
     // set positions
     marker.pose.position.x = p.x;
     marker.pose.position.y = p.y;
-    marker.pose.position.z = 0.01;
+    marker.pose.position.z = 0.0;
     // set orientations
     marker.pose.orientation.x = 0.0;
     marker.pose.orientation.y = 0.0;

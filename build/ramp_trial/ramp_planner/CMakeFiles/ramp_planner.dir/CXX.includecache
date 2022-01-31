@@ -664,6 +664,10 @@ modifier.h
 motion_state.h
 /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner/src/motion_state.h
 
+/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner/src/parameter_handler.cpp
+parameter_handler.h
+/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner/src/parameter_handler.h
+
 /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner/src/path.cpp
 path.h
 /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner/src/path.h
@@ -683,6 +687,10 @@ ramp_trajectory.h
 /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner/src/range.cpp
 range.h
 /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner/src/range.h
+
+/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner/src/rviz_handler.cpp
+rviz_handler.h
+/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner/src/rviz_handler.h
 
 /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner/src/trajectory_request_handler.cpp
 trajectory_request_handler.h

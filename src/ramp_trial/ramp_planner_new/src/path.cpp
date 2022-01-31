@@ -355,7 +355,7 @@ void Path::makeCubicPath(const ramp_planner_new::TrajectoryRequest msg){
 
   std::cout<<"\t"<<usedT_<<" seconds with a delta of "<<usedTdelta_<<" starting at t="<<startT_<<" ending at t="<<usedT_-usedTdelta_<<std::endl;
   for(double t = startT_;t<usedT_;t+=.1){
-    if(t >= usedT_ - usedTdelta_ && startT_ == 0){
+    if(t >= usedT_ - usedTdelta_){
       uCubicEntrenceVelocities.clear();
       std::cout<<"setting entrence velocities"<<std::endl;
       for(unsigned int j=0;j<coefs.size();j++){
@@ -384,20 +384,37 @@ void Path::makeCubicPath(const ramp_planner_new::TrajectoryRequest msg){
 }
 
 void Path::setPathPoints(const ramp_planner_new::PathPoints pp){
-  msg_.points.clear();
   std::cout<<"adding "<<pp.points.size()<<" pathPoints"<<std::endl;
   for(unsigned int i=0;i<pp.points.size();i++){
-    std::cout<<"\ttesting "<<pp.points.at(i).x<<","<<pp.points.at(i).y<<std::endl;
-    if(pp.forBez.at(i)){
-      std::cout<<"\t\tadding"<<std::endl;
-      KnotPoint kp(pp.points.at(i));
-      msg_.points.push_back(kp.buildKnotPointMsg());
+    KnotPoint kp(pp.points.at(i));
+    ramp_msgs::KnotPoint rkp(kp.buildKnotPointMsg());
+    std::cout<<"\ttesting "<<rkp.motionState.positions.at(0)<<","<<rkp.motionState.positions.at(1)<<std::endl;    
+    auto pos = std::find(msg_.points.begin(), msg_.points.end(), rkp);
+    bool found = pos != msg_.points.end();
+    if(found && !pp.forBez.at(i)){
+      std::cout<<"\t\tFound, need to remove"<<std::endl;
+      msg_.points.erase(pos);
     }else{
-      std::cout<<"\t\tnot adding"<<std::endl;
+      if(!found && pp.forBez.at(i)){
+        std::cout<<"\t\tnot found, need to add"<<std::endl;
+        bool added = false;
+        for(unsigned int j=i;j<pp.points.size();j++){
+          KnotPoint kp2(pp.points.at(j));
+          ramp_msgs::KnotPoint rkp2(kp2.buildKnotPointMsg());
+          auto pos2 = std::find(msg_.points.begin(), msg_.points.end(), rkp2);
+          bool found2 = pos2 != msg_.points.end();
+          if(found2){
+            std::cout<<"\t\tfound point to add before"<<std::endl;
+            addBefore(rkp,rkp2);
+            added = true;
+            break;
+          }
+        }
+        if(!added){
+          std::cout<<"\t\tno point to add before, adding to the end"<<std::endl;
+          msg_.points.push_back(rkp);
+        }
+      }
     }
-  }
-  std::cout<<"path points:"<<std::endl;
-  for(unsigned int i=0;i<msg_.points.size();i++){
-    std::cout<<"\t"<<msg_.points.at(i).motionState.positions.at(0)<<","<<msg_.points.at(i).motionState.positions.at(1)<<std::endl;
   }
 }

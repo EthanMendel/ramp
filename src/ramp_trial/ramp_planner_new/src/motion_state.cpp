@@ -17,6 +17,10 @@ MotionState::MotionState(const geometry_msgs::Point p) : mobile_base_k_(2){
   msg_.accelerations.push_back(0);
   msg_.accelerations.push_back(0);
 
+  msg_.jerks.push_back(0);
+  msg_.jerks.push_back(0);
+  msg_.jerks.push_back(0);
+
   msg_.time = -1;
 }
 
