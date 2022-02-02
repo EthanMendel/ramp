@@ -190,13 +190,8 @@ void Path::findBezierCoefs(geometry_msgs::Point p0, geometry_msgs::Point p1, geo
     }
     ramp_planner_new::TrajectoryRequest uMsg;
     uMsg.type = "uCubic";
-    geometry_msgs::Point pnt;
-    pnt.x=0;
-    pnt.y=0;
-    uMsg.points.push_back(pnt);
-    pnt.x=1;
-    pnt.y=1;
-    uMsg.points.push_back(pnt);
+    uMsg.points.push_back(p0);
+    uMsg.points.push_back(p2);
     for(unsigned int i=0;i<coefs.size();i++){
       uMsg.normVals.push_back(2*((coefs.at(i).at(1))-coefs.at(i).at(0)));
     }
@@ -302,7 +297,13 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
   }
   if(msg.points.size() >= 2){
     MotionState start = msg.points.at(0);
-    MotionState goal = msg.points.at(1);;
+    MotionState goal = msg.points.at(1);
+    if(type == "uCubic"){
+      start.msg_.positions.at(0) = 0;
+      start.msg_.positions.at(1) = 0;
+      goal.msg_.positions.at(0) = 1;
+      goal.msg_.positions.at(1) = 1;
+    }
     if(msg.points.size() == 3){
       if(uCubicEntrenceVelocities.size() > 0){
         start = msg.points.at(2);
