@@ -16,7 +16,7 @@
 
 (defclass ramp_planner_new::TrajectoryRequest
   :super ros::object
-  :slots (_type _points _normVals ))
+  :slots (_type _points _normVals _hasNext ))
 
 (defmethod ramp_planner_new::TrajectoryRequest
   (:init
@@ -24,11 +24,13 @@
     ((:type __type) "")
     ((:points __points) ())
     ((:normVals __normVals) (make-array 0 :initial-element 0.0 :element-type :float))
+    ((:hasNext __hasNext) nil)
     )
    (send-super :init)
    (setq _type (string __type))
    (setq _points __points)
    (setq _normVals __normVals)
+   (setq _hasNext __hasNext)
    self)
   (:type
    (&optional __type)
@@ -43,6 +45,9 @@
   (:normVals
    (&optional __normVals)
    (if __normVals (setq _normVals __normVals)) _normVals)
+  (:hasNext
+   (&optional (__hasNext :null))
+   (if (not (eq __hasNext :null)) (setq _hasNext __hasNext)) _hasNext)
   (:serialization-length
    ()
    (+
@@ -52,6 +57,8 @@
     (apply #'+ (send-all _points :serialization-length)) 4
     ;; float64[] _normVals
     (* 8    (length _normVals)) 4
+    ;; bool _hasNext
+    1
     ))
   (:serialize
    (&optional strm)
@@ -69,6 +76,8 @@
      (dotimes (i (length _normVals))
        (sys::poke (elt _normVals i) (send s :buffer) (send s :count) :double) (incf (stream-count s) 8)
        )
+     ;; bool _hasNext
+       (if _hasNext (write-byte -1 s) (write-byte 0 s))
      ;;
      (if (null strm) (get-output-stream-string s))))
   (:deserialize
@@ -89,16 +98,19 @@
      (dotimes (i n)
      (setf (elt _normVals i) (sys::peek buf ptr- :double)) (incf ptr- 8)
      ))
+   ;; bool _hasNext
+     (setq _hasNext (not (= 0 (sys::peek buf ptr- :char)))) (incf ptr- 1)
    ;;
    self)
   )
 
-(setf (get ramp_planner_new::TrajectoryRequest :md5sum-) "5c125c00eccba1e258c36f6c4bcd110e")
+(setf (get ramp_planner_new::TrajectoryRequest :md5sum-) "670d22841def486d9fd88eee4b9481a0")
 (setf (get ramp_planner_new::TrajectoryRequest :datatype-) "ramp_planner_new/TrajectoryRequest")
 (setf (get ramp_planner_new::TrajectoryRequest :definition-)
       "string type
 geometry_msgs/Point[] points
 float64[] normVals
+bool hasNext
 ================================================================================
 MSG: geometry_msgs/Point
 # This contains the position of a point in free space
@@ -110,6 +122,6 @@ float64 z
 
 
 
-(provide :ramp_planner_new/TrajectoryRequest "5c125c00eccba1e258c36f6c4bcd110e")
+(provide :ramp_planner_new/TrajectoryRequest "670d22841def486d9fd88eee4b9481a0")
 
 

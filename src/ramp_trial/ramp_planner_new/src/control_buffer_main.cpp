@@ -73,8 +73,10 @@ void updateStartGoal(){
                         if(pathPoints.markers.size() > (i + 2) && !pathPoints.forBez.at(i+2)){
                             std::cout<<"found a forBez point after goal point"<<std::endl;//this means we need to save exit velocities for bezier entrence
                             msg.points.push_back(pathPoints.markers.at(i + 2).pose.position);
+                            msg.hasNext = true;
                         }else{
                             std::cout<<"markers not long enough, or no forBez after goal"<<std::endl;
+                            msg.hasNext = false;
                         }
                     }else if (pathPoints.types.at(j) == "bezier"){
                         msg.type = "bezier";

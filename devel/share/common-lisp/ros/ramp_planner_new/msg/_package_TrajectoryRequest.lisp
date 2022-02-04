@@ -5,4 +5,6 @@
           POINTS
           NORMVALS-VAL
           NORMVALS
+          HASNEXT-VAL
+          HASNEXT
 ))

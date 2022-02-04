@@ -356,7 +356,7 @@ void Path::makeCubicPath(const ramp_planner_new::TrajectoryRequest msg){
 
   std::cout<<"\t"<<usedT_<<" seconds with a delta of "<<usedTdelta_<<" starting at t="<<startT_<<" ending at t="<<usedT_-usedTdelta_<<std::endl;
   for(double t = startT_;t<usedT_;t+=.1){
-    if(t >= usedT_ - usedTdelta_){
+    if(t >= usedT_ - usedTdelta_ && msg.hasNext){
       uCubicEntrenceVelocities.clear();
       std::cout<<"setting entrence velocities"<<std::endl;
       for(unsigned int j=0;j<coefs.size();j++){

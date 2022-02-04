@@ -377,10 +377,8 @@ A: -0.0671344   B: 0.312175     C: 0    D: 2
 A: 0.0167836    B: -0.0780437   C: 0    D: 1
 A: 0    B: 0    C: 0    D: 0
         3.1 seconds with a delta of 1.2 starting at t=1.2 ending at t=1.9
-setting entrence velocities
-new time set to 1.9 sec..
-Cubic path has 98 points
-setting new cubic trajectory for 1.9 secs starting at 1.2 ending at 1.9
+Cubic path has 110 points
+setting new cubic trajectory for 3.1 secs starting at 1.2 ending at 3.1
 starting full path portion
         curXY:  (2.28838,       0.927906)
         t: 1.1  Lin: 0.456723   Ang: 31.3115
@@ -400,4 +398,28 @@ starting full path portion
         t: 1.8  Lin: 0.485788   Ang: 4.44089e-15
         curXY:  (2.66648,       0.833381)
         t: 1.9  Lin: 0.473332   Ang: 0
+        curXY:  (2.71162,       0.822094)
+        t: 2    Lin: 0.456723   Ang: 0
+        curXY:  (2.75496,       0.81126)
+        t: 2.1  Lin: 0.435963   Ang: 0
+        curXY:  (2.79608,       0.80098)
+        t: 2.2  Lin: 0.411051   Ang: 4.44089e-15
+        curXY:  (2.83458,       0.791355)
+        t: 2.3  Lin: 0.381987   Ang: -4.44089e-15
+        curXY:  (2.87006,       0.782485)
+        t: 2.4  Lin: 0.348771   Ang: 4.44089e-15
+        curXY:  (2.90212,       0.77447)
+        t: 2.5  Lin: 0.311402   Ang: 0
+        curXY:  (2.93035,       0.767413)
+        t: 2.6  Lin: 0.269882   Ang: -4.44089e-15
+        curXY:  (2.95435,       0.761413)
+        t: 2.7  Lin: 0.22421    Ang: 0
+        curXY:  (2.97372,       0.756571)
+        t: 2.8  Lin: 0.174385   Ang: 0
+        curXY:  (2.98805,       0.752987)
+        t: 2.9  Lin: 0.120409   Ang: 4.44089e-15
+        curXY:  (2.99695,       0.750764)
+        t: 3    Lin: 0.0622805  Ang: -4.44089e-15
+        curXY:  (3,     0.75)
+        t: 3.1  Lin: 2.28878e-16        Ang: 0
 finished full path portion

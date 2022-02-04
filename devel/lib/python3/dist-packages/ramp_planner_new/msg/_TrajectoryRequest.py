@@ -9,12 +9,13 @@ import struct
 import geometry_msgs.msg
 
 class TrajectoryRequest(genpy.Message):
-  _md5sum = "5c125c00eccba1e258c36f6c4bcd110e"
+  _md5sum = "670d22841def486d9fd88eee4b9481a0"
   _type = "ramp_planner_new/TrajectoryRequest"
   _has_header = False  # flag to mark the presence of a Header object
   _full_text = """string type
 geometry_msgs/Point[] points
 float64[] normVals
+bool hasNext
 ================================================================================
 MSG: geometry_msgs/Point
 # This contains the position of a point in free space
@@ -22,8 +23,8 @@ float64 x
 float64 y
 float64 z
 """
-  __slots__ = ['type','points','normVals']
-  _slot_types = ['string','geometry_msgs/Point[]','float64[]']
+  __slots__ = ['type','points','normVals','hasNext']
+  _slot_types = ['string','geometry_msgs/Point[]','float64[]','bool']
 
   def __init__(self, *args, **kwds):
     """
@@ -33,7 +34,7 @@ float64 z
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       type,points,normVals
+       type,points,normVals,hasNext
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -48,10 +49,13 @@ float64 z
         self.points = []
       if self.normVals is None:
         self.normVals = []
+      if self.hasNext is None:
+        self.hasNext = False
     else:
       self.type = ''
       self.points = []
       self.normVals = []
+      self.hasNext = False
 
   def _get_types(self):
     """
@@ -80,6 +84,8 @@ float64 z
       buff.write(_struct_I.pack(length))
       pattern = '<%sd'%length
       buff.write(struct.Struct(pattern).pack(*self.normVals))
+      _x = self.hasNext
+      buff.write(_get_struct_B().pack(_x))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -122,6 +128,10 @@ float64 z
       s = struct.Struct(pattern)
       end += s.size
       self.normVals = s.unpack(str[start:end])
+      start = end
+      end += 1
+      (self.hasNext,) = _get_struct_B().unpack(str[start:end])
+      self.hasNext = bool(self.hasNext)
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -149,6 +159,8 @@ float64 z
       buff.write(_struct_I.pack(length))
       pattern = '<%sd'%length
       buff.write(self.normVals.tostring())
+      _x = self.hasNext
+      buff.write(_get_struct_B().pack(_x))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -192,6 +204,10 @@ float64 z
       s = struct.Struct(pattern)
       end += s.size
       self.normVals = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
+      start = end
+      end += 1
+      (self.hasNext,) = _get_struct_B().unpack(str[start:end])
+      self.hasNext = bool(self.hasNext)
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -206,3 +222,9 @@ def _get_struct_3d():
     if _struct_3d is None:
         _struct_3d = struct.Struct("<3d")
     return _struct_3d
+_struct_B = None
+def _get_struct_B():
+    global _struct_B
+    if _struct_B is None:
+        _struct_B = struct.Struct("<B")
+    return _struct_B

@@ -27,12 +27,14 @@ struct TrajectoryRequest_
   TrajectoryRequest_()
     : type()
     , points()
-    , normVals()  {
+    , normVals()
+    , hasNext(false)  {
     }
   TrajectoryRequest_(const ContainerAllocator& _alloc)
     : type(_alloc)
     , points(_alloc)
-    , normVals(_alloc)  {
+    , normVals(_alloc)
+    , hasNext(false)  {
   (void)_alloc;
     }
 
@@ -46,6 +48,9 @@ struct TrajectoryRequest_
 
    typedef std::vector<double, typename ContainerAllocator::template rebind<double>::other >  _normVals_type;
   _normVals_type normVals;
+
+   typedef uint8_t _hasNext_type;
+  _hasNext_type hasNext;
 
 
 
@@ -78,7 +83,8 @@ bool operator==(const ::ramp_planner_new::TrajectoryRequest_<ContainerAllocator1
 {
   return lhs.type == rhs.type &&
     lhs.points == rhs.points &&
-    lhs.normVals == rhs.normVals;
+    lhs.normVals == rhs.normVals &&
+    lhs.hasNext == rhs.hasNext;
 }
 
 template<typename ContainerAllocator1, typename ContainerAllocator2>
@@ -135,12 +141,12 @@ struct MD5Sum< ::ramp_planner_new::TrajectoryRequest_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "5c125c00eccba1e258c36f6c4bcd110e";
+    return "670d22841def486d9fd88eee4b9481a0";
   }
 
   static const char* value(const ::ramp_planner_new::TrajectoryRequest_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x5c125c00eccba1e2ULL;
-  static const uint64_t static_value2 = 0x58c36f6c4bcd110eULL;
+  static const uint64_t static_value1 = 0x670d22841def486dULL;
+  static const uint64_t static_value2 = 0x9fd88eee4b9481a0ULL;
 };
 
 template<class ContainerAllocator>
@@ -162,6 +168,7 @@ struct Definition< ::ramp_planner_new::TrajectoryRequest_<ContainerAllocator> >
     return "string type\n"
 "geometry_msgs/Point[] points\n"
 "float64[] normVals\n"
+"bool hasNext\n"
 "================================================================================\n"
 "MSG: geometry_msgs/Point\n"
 "# This contains the position of a point in free space\n"
@@ -189,6 +196,7 @@ namespace serialization
       stream.next(m.type);
       stream.next(m.points);
       stream.next(m.normVals);
+      stream.next(m.hasNext);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -223,6 +231,8 @@ struct Printer< ::ramp_planner_new::TrajectoryRequest_<ContainerAllocator> >
       s << indent << "  normVals[" << i << "]: ";
       Printer<double>::stream(s, indent + "  ", v.normVals[i]);
     }
+    s << indent << "hasNext: ";
+    Printer<uint8_t>::stream(s, indent + "  ", v.hasNext);
   }
 };
 

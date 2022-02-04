@@ -22,6 +22,7 @@ class TrajectoryRequest {
       this.type = null;
       this.points = null;
       this.normVals = null;
+      this.hasNext = null;
     }
     else {
       if (initObj.hasOwnProperty('type')) {
@@ -42,6 +43,12 @@ class TrajectoryRequest {
       else {
         this.normVals = [];
       }
+      if (initObj.hasOwnProperty('hasNext')) {
+        this.hasNext = initObj.hasNext
+      }
+      else {
+        this.hasNext = false;
+      }
     }
   }
 
@@ -57,6 +64,8 @@ class TrajectoryRequest {
     });
     // Serialize message field [normVals]
     bufferOffset = _arraySerializer.float64(obj.normVals, buffer, bufferOffset, null);
+    // Serialize message field [hasNext]
+    bufferOffset = _serializer.bool(obj.hasNext, buffer, bufferOffset);
     return bufferOffset;
   }
 
@@ -75,6 +84,8 @@ class TrajectoryRequest {
     }
     // Deserialize message field [normVals]
     data.normVals = _arrayDeserializer.float64(buffer, bufferOffset, null)
+    // Deserialize message field [hasNext]
+    data.hasNext = _deserializer.bool(buffer, bufferOffset);
     return data;
   }
 
@@ -83,7 +94,7 @@ class TrajectoryRequest {
     length += _getByteLength(object.type);
     length += 24 * object.points.length;
     length += 8 * object.normVals.length;
-    return length + 12;
+    return length + 13;
   }
 
   static datatype() {
@@ -93,7 +104,7 @@ class TrajectoryRequest {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '5c125c00eccba1e258c36f6c4bcd110e';
+    return '670d22841def486d9fd88eee4b9481a0';
   }
 
   static messageDefinition() {
@@ -102,6 +113,7 @@ class TrajectoryRequest {
     string type
     geometry_msgs/Point[] points
     float64[] normVals
+    bool hasNext
     ================================================================================
     MSG: geometry_msgs/Point
     # This contains the position of a point in free space
@@ -140,6 +152,13 @@ class TrajectoryRequest {
     }
     else {
       resolved.normVals = []
+    }
+
+    if (msg.hasNext !== undefined) {
+      resolved.hasNext = msg.hasNext;
+    }
+    else {
+      resolved.hasNext = false
     }
 
     return resolved;
