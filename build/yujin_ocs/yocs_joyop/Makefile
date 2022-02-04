@@ -68,17 +68,15 @@ install/strip/fast: preinstall/fast
 	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
 
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
 
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+
+.PHONY : list_install_components/fast
 
 # Special rule for the target install
 install: preinstall
@@ -92,15 +90,16 @@ install/fast: preinstall/fast
 	/usr/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
+	/usr/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
 
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
+# Special rule for the target test
+test/fast: test
 
-.PHONY : list_install_components/fast
+.PHONY : test/fast
 
 # Special rule for the target rebuild_cache
 rebuild_cache:
@@ -124,16 +123,17 @@ edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
 
-# Special rule for the target test
-test:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
-	/usr/bin/ctest --force-new-ctest-process $(ARGS)
-.PHONY : test
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
 
-# Special rule for the target test
-test/fast: test
-
-.PHONY : test/fast
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -166,6 +166,96 @@ preinstall/fast:
 depend:
 	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
+
+# Convenience name for target.
+yujin_ocs/yocs_joyop/CMakeFiles/yocs_msgs_gencfg.dir/rule:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 yujin_ocs/yocs_joyop/CMakeFiles/yocs_msgs_gencfg.dir/rule
+.PHONY : yujin_ocs/yocs_joyop/CMakeFiles/yocs_msgs_gencfg.dir/rule
+
+# Convenience name for target.
+yocs_msgs_gencfg: yujin_ocs/yocs_joyop/CMakeFiles/yocs_msgs_gencfg.dir/rule
+
+.PHONY : yocs_msgs_gencfg
+
+# fast build rule for target.
+yocs_msgs_gencfg/fast:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f yujin_ocs/yocs_joyop/CMakeFiles/yocs_msgs_gencfg.dir/build.make yujin_ocs/yocs_joyop/CMakeFiles/yocs_msgs_gencfg.dir/build
+.PHONY : yocs_msgs_gencfg/fast
+
+# Convenience name for target.
+yujin_ocs/yocs_joyop/CMakeFiles/yocs_msgs_generate_messages_cpp.dir/rule:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 yujin_ocs/yocs_joyop/CMakeFiles/yocs_msgs_generate_messages_cpp.dir/rule
+.PHONY : yujin_ocs/yocs_joyop/CMakeFiles/yocs_msgs_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+yocs_msgs_generate_messages_cpp: yujin_ocs/yocs_joyop/CMakeFiles/yocs_msgs_generate_messages_cpp.dir/rule
+
+.PHONY : yocs_msgs_generate_messages_cpp
+
+# fast build rule for target.
+yocs_msgs_generate_messages_cpp/fast:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f yujin_ocs/yocs_joyop/CMakeFiles/yocs_msgs_generate_messages_cpp.dir/build.make yujin_ocs/yocs_joyop/CMakeFiles/yocs_msgs_generate_messages_cpp.dir/build
+.PHONY : yocs_msgs_generate_messages_cpp/fast
+
+# Convenience name for target.
+yujin_ocs/yocs_joyop/CMakeFiles/yocs_msgs_generate_messages_py.dir/rule:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 yujin_ocs/yocs_joyop/CMakeFiles/yocs_msgs_generate_messages_py.dir/rule
+.PHONY : yujin_ocs/yocs_joyop/CMakeFiles/yocs_msgs_generate_messages_py.dir/rule
+
+# Convenience name for target.
+yocs_msgs_generate_messages_py: yujin_ocs/yocs_joyop/CMakeFiles/yocs_msgs_generate_messages_py.dir/rule
+
+.PHONY : yocs_msgs_generate_messages_py
+
+# fast build rule for target.
+yocs_msgs_generate_messages_py/fast:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f yujin_ocs/yocs_joyop/CMakeFiles/yocs_msgs_generate_messages_py.dir/build.make yujin_ocs/yocs_joyop/CMakeFiles/yocs_msgs_generate_messages_py.dir/build
+.PHONY : yocs_msgs_generate_messages_py/fast
+
+# Convenience name for target.
+yujin_ocs/yocs_joyop/CMakeFiles/yocs_msgs_generate_messages_eus.dir/rule:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 yujin_ocs/yocs_joyop/CMakeFiles/yocs_msgs_generate_messages_eus.dir/rule
+.PHONY : yujin_ocs/yocs_joyop/CMakeFiles/yocs_msgs_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+yocs_msgs_generate_messages_eus: yujin_ocs/yocs_joyop/CMakeFiles/yocs_msgs_generate_messages_eus.dir/rule
+
+.PHONY : yocs_msgs_generate_messages_eus
+
+# fast build rule for target.
+yocs_msgs_generate_messages_eus/fast:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f yujin_ocs/yocs_joyop/CMakeFiles/yocs_msgs_generate_messages_eus.dir/build.make yujin_ocs/yocs_joyop/CMakeFiles/yocs_msgs_generate_messages_eus.dir/build
+.PHONY : yocs_msgs_generate_messages_eus/fast
+
+# Convenience name for target.
+yujin_ocs/yocs_joyop/CMakeFiles/yocs_msgs_generate_messages_lisp.dir/rule:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 yujin_ocs/yocs_joyop/CMakeFiles/yocs_msgs_generate_messages_lisp.dir/rule
+.PHONY : yujin_ocs/yocs_joyop/CMakeFiles/yocs_msgs_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+yocs_msgs_generate_messages_lisp: yujin_ocs/yocs_joyop/CMakeFiles/yocs_msgs_generate_messages_lisp.dir/rule
+
+.PHONY : yocs_msgs_generate_messages_lisp
+
+# fast build rule for target.
+yocs_msgs_generate_messages_lisp/fast:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f yujin_ocs/yocs_joyop/CMakeFiles/yocs_msgs_generate_messages_lisp.dir/build.make yujin_ocs/yocs_joyop/CMakeFiles/yocs_msgs_generate_messages_lisp.dir/build
+.PHONY : yocs_msgs_generate_messages_lisp/fast
+
+# Convenience name for target.
+yujin_ocs/yocs_joyop/CMakeFiles/yocs_msgs_generate_messages_nodejs.dir/rule:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 yujin_ocs/yocs_joyop/CMakeFiles/yocs_msgs_generate_messages_nodejs.dir/rule
+.PHONY : yujin_ocs/yocs_joyop/CMakeFiles/yocs_msgs_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+yocs_msgs_generate_messages_nodejs: yujin_ocs/yocs_joyop/CMakeFiles/yocs_msgs_generate_messages_nodejs.dir/rule
+
+.PHONY : yocs_msgs_generate_messages_nodejs
+
+# fast build rule for target.
+yocs_msgs_generate_messages_nodejs/fast:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f yujin_ocs/yocs_joyop/CMakeFiles/yocs_msgs_generate_messages_nodejs.dir/build.make yujin_ocs/yocs_joyop/CMakeFiles/yocs_msgs_generate_messages_nodejs.dir/build
+.PHONY : yocs_msgs_generate_messages_nodejs/fast
 
 # Convenience name for target.
 yujin_ocs/yocs_joyop/CMakeFiles/joyop.dir/rule:
@@ -216,13 +306,19 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... install/strip"
-	@echo "... install/local"
-	@echo "... install"
+	@echo "... yocs_msgs_gencfg"
+	@echo "... yocs_msgs_generate_messages_cpp"
 	@echo "... list_install_components"
-	@echo "... rebuild_cache"
-	@echo "... edit_cache"
+	@echo "... yocs_msgs_generate_messages_py"
+	@echo "... install"
+	@echo "... yocs_msgs_generate_messages_eus"
 	@echo "... test"
+	@echo "... rebuild_cache"
+	@echo "... yocs_msgs_generate_messages_lisp"
+	@echo "... edit_cache"
+	@echo "... yocs_msgs_generate_messages_nodejs"
 	@echo "... joyop"
+	@echo "... install/local"
 	@echo "... src/joyop.o"
 	@echo "... src/joyop.i"
 	@echo "... src/joyop.s"

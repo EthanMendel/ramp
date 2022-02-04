@@ -90,6 +90,17 @@ list_install_components/fast: list_install_components
 
 .PHONY : list_install_components/fast
 
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
+	/usr/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+
+.PHONY : test/fast
+
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
@@ -112,17 +123,6 @@ install/local/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
 	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
-
-# Special rule for the target test
-test:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
-	/usr/bin/ctest --force-new-ctest-process $(ARGS)
-.PHONY : test
-
-# Special rule for the target test
-test/fast: test
-
-.PHONY : test/fast
 
 # Special rule for the target rebuild_cache
 rebuild_cache:
@@ -166,6 +166,21 @@ preinstall/fast:
 depend:
 	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
+
+# Convenience name for target.
+ramp_trial/ramp_planner/CMakeFiles/clean_test_results_ramp_planner.dir/rule:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner/CMakeFiles/clean_test_results_ramp_planner.dir/rule
+.PHONY : ramp_trial/ramp_planner/CMakeFiles/clean_test_results_ramp_planner.dir/rule
+
+# Convenience name for target.
+clean_test_results_ramp_planner: ramp_trial/ramp_planner/CMakeFiles/clean_test_results_ramp_planner.dir/rule
+
+.PHONY : clean_test_results_ramp_planner
+
+# fast build rule for target.
+clean_test_results_ramp_planner/fast:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/clean_test_results_ramp_planner.dir/build.make ramp_trial/ramp_planner/CMakeFiles/clean_test_results_ramp_planner.dir/build
+.PHONY : clean_test_results_ramp_planner/fast
 
 # Convenience name for target.
 ramp_trial/ramp_planner/CMakeFiles/_run_tests_ramp_planner_gtest_fullPath_testFunctionality.dir/rule:
@@ -228,139 +243,49 @@ run_tests_ramp_planner/fast:
 .PHONY : run_tests_ramp_planner/fast
 
 # Convenience name for target.
-ramp_trial/ramp_planner/CMakeFiles/fullPath_testFunctionality.dir/rule:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner/CMakeFiles/fullPath_testFunctionality.dir/rule
-.PHONY : ramp_trial/ramp_planner/CMakeFiles/fullPath_testFunctionality.dir/rule
+ramp_trial/ramp_planner/CMakeFiles/tf_generate_messages_py.dir/rule:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner/CMakeFiles/tf_generate_messages_py.dir/rule
+.PHONY : ramp_trial/ramp_planner/CMakeFiles/tf_generate_messages_py.dir/rule
 
 # Convenience name for target.
-fullPath_testFunctionality: ramp_trial/ramp_planner/CMakeFiles/fullPath_testFunctionality.dir/rule
+tf_generate_messages_py: ramp_trial/ramp_planner/CMakeFiles/tf_generate_messages_py.dir/rule
 
-.PHONY : fullPath_testFunctionality
+.PHONY : tf_generate_messages_py
 
 # fast build rule for target.
-fullPath_testFunctionality/fast:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/fullPath_testFunctionality.dir/build.make ramp_trial/ramp_planner/CMakeFiles/fullPath_testFunctionality.dir/build
-.PHONY : fullPath_testFunctionality/fast
+tf_generate_messages_py/fast:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/tf_generate_messages_py.dir/build.make ramp_trial/ramp_planner/CMakeFiles/tf_generate_messages_py.dir/build
+.PHONY : tf_generate_messages_py/fast
 
 # Convenience name for target.
-ramp_trial/ramp_planner/CMakeFiles/move_gazebo_obs.dir/rule:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner/CMakeFiles/move_gazebo_obs.dir/rule
-.PHONY : ramp_trial/ramp_planner/CMakeFiles/move_gazebo_obs.dir/rule
+ramp_trial/ramp_planner/CMakeFiles/actionlib_generate_messages_py.dir/rule:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner/CMakeFiles/actionlib_generate_messages_py.dir/rule
+.PHONY : ramp_trial/ramp_planner/CMakeFiles/actionlib_generate_messages_py.dir/rule
 
 # Convenience name for target.
-move_gazebo_obs: ramp_trial/ramp_planner/CMakeFiles/move_gazebo_obs.dir/rule
+actionlib_generate_messages_py: ramp_trial/ramp_planner/CMakeFiles/actionlib_generate_messages_py.dir/rule
 
-.PHONY : move_gazebo_obs
+.PHONY : actionlib_generate_messages_py
 
 # fast build rule for target.
-move_gazebo_obs/fast:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/move_gazebo_obs.dir/build.make ramp_trial/ramp_planner/CMakeFiles/move_gazebo_obs.dir/build
-.PHONY : move_gazebo_obs/fast
+actionlib_generate_messages_py/fast:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/actionlib_generate_messages_py.dir/build.make ramp_trial/ramp_planner/CMakeFiles/actionlib_generate_messages_py.dir/build
+.PHONY : actionlib_generate_messages_py/fast
 
 # Convenience name for target.
-ramp_trial/ramp_planner/CMakeFiles/pub_map_odom.dir/rule:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner/CMakeFiles/pub_map_odom.dir/rule
-.PHONY : ramp_trial/ramp_planner/CMakeFiles/pub_map_odom.dir/rule
+ramp_trial/ramp_planner/CMakeFiles/tf_generate_messages_cpp.dir/rule:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner/CMakeFiles/tf_generate_messages_cpp.dir/rule
+.PHONY : ramp_trial/ramp_planner/CMakeFiles/tf_generate_messages_cpp.dir/rule
 
 # Convenience name for target.
-pub_map_odom: ramp_trial/ramp_planner/CMakeFiles/pub_map_odom.dir/rule
+tf_generate_messages_cpp: ramp_trial/ramp_planner/CMakeFiles/tf_generate_messages_cpp.dir/rule
 
-.PHONY : pub_map_odom
+.PHONY : tf_generate_messages_cpp
 
 # fast build rule for target.
-pub_map_odom/fast:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/pub_map_odom.dir/build.make ramp_trial/ramp_planner/CMakeFiles/pub_map_odom.dir/build
-.PHONY : pub_map_odom/fast
-
-# Convenience name for target.
-ramp_trial/ramp_planner/CMakeFiles/ramp_planner.dir/rule:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner/CMakeFiles/ramp_planner.dir/rule
-.PHONY : ramp_trial/ramp_planner/CMakeFiles/ramp_planner.dir/rule
-
-# Convenience name for target.
-ramp_planner: ramp_trial/ramp_planner/CMakeFiles/ramp_planner.dir/rule
-
-.PHONY : ramp_planner
-
-# fast build rule for target.
-ramp_planner/fast:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/ramp_planner.dir/build.make ramp_trial/ramp_planner/CMakeFiles/ramp_planner.dir/build
-.PHONY : ramp_planner/fast
-
-# Convenience name for target.
-ramp_trial/ramp_planner/CMakeFiles/run_tests_ramp_planner_gtest_fullPath_testFunctionality.dir/rule:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner/CMakeFiles/run_tests_ramp_planner_gtest_fullPath_testFunctionality.dir/rule
-.PHONY : ramp_trial/ramp_planner/CMakeFiles/run_tests_ramp_planner_gtest_fullPath_testFunctionality.dir/rule
-
-# Convenience name for target.
-run_tests_ramp_planner_gtest_fullPath_testFunctionality: ramp_trial/ramp_planner/CMakeFiles/run_tests_ramp_planner_gtest_fullPath_testFunctionality.dir/rule
-
-.PHONY : run_tests_ramp_planner_gtest_fullPath_testFunctionality
-
-# fast build rule for target.
-run_tests_ramp_planner_gtest_fullPath_testFunctionality/fast:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/run_tests_ramp_planner_gtest_fullPath_testFunctionality.dir/build.make ramp_trial/ramp_planner/CMakeFiles/run_tests_ramp_planner_gtest_fullPath_testFunctionality.dir/build
-.PHONY : run_tests_ramp_planner_gtest_fullPath_testFunctionality/fast
-
-# Convenience name for target.
-ramp_trial/ramp_planner/CMakeFiles/tf2_msgs_generate_messages_py.dir/rule:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner/CMakeFiles/tf2_msgs_generate_messages_py.dir/rule
-.PHONY : ramp_trial/ramp_planner/CMakeFiles/tf2_msgs_generate_messages_py.dir/rule
-
-# Convenience name for target.
-tf2_msgs_generate_messages_py: ramp_trial/ramp_planner/CMakeFiles/tf2_msgs_generate_messages_py.dir/rule
-
-.PHONY : tf2_msgs_generate_messages_py
-
-# fast build rule for target.
-tf2_msgs_generate_messages_py/fast:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/tf2_msgs_generate_messages_py.dir/build.make ramp_trial/ramp_planner/CMakeFiles/tf2_msgs_generate_messages_py.dir/build
-.PHONY : tf2_msgs_generate_messages_py/fast
-
-# Convenience name for target.
-ramp_trial/ramp_planner/CMakeFiles/std_srvs_generate_messages_lisp.dir/rule:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner/CMakeFiles/std_srvs_generate_messages_lisp.dir/rule
-.PHONY : ramp_trial/ramp_planner/CMakeFiles/std_srvs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-std_srvs_generate_messages_lisp: ramp_trial/ramp_planner/CMakeFiles/std_srvs_generate_messages_lisp.dir/rule
-
-.PHONY : std_srvs_generate_messages_lisp
-
-# fast build rule for target.
-std_srvs_generate_messages_lisp/fast:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/std_srvs_generate_messages_lisp.dir/build.make ramp_trial/ramp_planner/CMakeFiles/std_srvs_generate_messages_lisp.dir/build
-.PHONY : std_srvs_generate_messages_lisp/fast
-
-# Convenience name for target.
-ramp_trial/ramp_planner/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/rule:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/rule
-.PHONY : ramp_trial/ramp_planner/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-sensor_msgs_generate_messages_nodejs: ramp_trial/ramp_planner/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/rule
-
-.PHONY : sensor_msgs_generate_messages_nodejs
-
-# fast build rule for target.
-sensor_msgs_generate_messages_nodejs/fast:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/build.make ramp_trial/ramp_planner/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/build
-.PHONY : sensor_msgs_generate_messages_nodejs/fast
-
-# Convenience name for target.
-ramp_trial/ramp_planner/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule
-.PHONY : ramp_trial/ramp_planner/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-sensor_msgs_generate_messages_lisp: ramp_trial/ramp_planner/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule
-
-.PHONY : sensor_msgs_generate_messages_lisp
-
-# fast build rule for target.
-sensor_msgs_generate_messages_lisp/fast:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/build.make ramp_trial/ramp_planner/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/build
-.PHONY : sensor_msgs_generate_messages_lisp/fast
+tf_generate_messages_cpp/fast:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/tf_generate_messages_cpp.dir/build.make ramp_trial/ramp_planner/CMakeFiles/tf_generate_messages_cpp.dir/build
+.PHONY : tf_generate_messages_cpp/fast
 
 # Convenience name for target.
 ramp_trial/ramp_planner/CMakeFiles/sensor_msgs_generate_messages_py.dir/rule:
@@ -408,19 +333,34 @@ tf2_msgs_generate_messages_lisp/fast:
 .PHONY : tf2_msgs_generate_messages_lisp/fast
 
 # Convenience name for target.
-ramp_trial/ramp_planner/CMakeFiles/std_srvs_generate_messages_eus.dir/rule:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner/CMakeFiles/std_srvs_generate_messages_eus.dir/rule
-.PHONY : ramp_trial/ramp_planner/CMakeFiles/std_srvs_generate_messages_eus.dir/rule
+ramp_trial/ramp_planner/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/rule:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/rule
+.PHONY : ramp_trial/ramp_planner/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/rule
 
 # Convenience name for target.
-std_srvs_generate_messages_eus: ramp_trial/ramp_planner/CMakeFiles/std_srvs_generate_messages_eus.dir/rule
+sensor_msgs_generate_messages_nodejs: ramp_trial/ramp_planner/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/rule
 
-.PHONY : std_srvs_generate_messages_eus
+.PHONY : sensor_msgs_generate_messages_nodejs
 
 # fast build rule for target.
-std_srvs_generate_messages_eus/fast:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/std_srvs_generate_messages_eus.dir/build.make ramp_trial/ramp_planner/CMakeFiles/std_srvs_generate_messages_eus.dir/build
-.PHONY : std_srvs_generate_messages_eus/fast
+sensor_msgs_generate_messages_nodejs/fast:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/build.make ramp_trial/ramp_planner/CMakeFiles/sensor_msgs_generate_messages_nodejs.dir/build
+.PHONY : sensor_msgs_generate_messages_nodejs/fast
+
+# Convenience name for target.
+ramp_trial/ramp_planner/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule
+.PHONY : ramp_trial/ramp_planner/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+sensor_msgs_generate_messages_lisp: ramp_trial/ramp_planner/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/rule
+
+.PHONY : sensor_msgs_generate_messages_lisp
+
+# fast build rule for target.
+sensor_msgs_generate_messages_lisp/fast:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/build.make ramp_trial/ramp_planner/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/build
+.PHONY : sensor_msgs_generate_messages_lisp/fast
 
 # Convenience name for target.
 ramp_trial/ramp_planner/CMakeFiles/run_tests_ramp_planner_gtest.dir/rule:
@@ -513,94 +453,19 @@ gazebo_msgs_generate_messages_lisp/fast:
 .PHONY : gazebo_msgs_generate_messages_lisp/fast
 
 # Convenience name for target.
-ramp_trial/ramp_planner/CMakeFiles/clean_test_results_ramp_planner.dir/rule:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner/CMakeFiles/clean_test_results_ramp_planner.dir/rule
-.PHONY : ramp_trial/ramp_planner/CMakeFiles/clean_test_results_ramp_planner.dir/rule
+ramp_trial/ramp_planner/CMakeFiles/move_gazebo_obs.dir/rule:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner/CMakeFiles/move_gazebo_obs.dir/rule
+.PHONY : ramp_trial/ramp_planner/CMakeFiles/move_gazebo_obs.dir/rule
 
 # Convenience name for target.
-clean_test_results_ramp_planner: ramp_trial/ramp_planner/CMakeFiles/clean_test_results_ramp_planner.dir/rule
+move_gazebo_obs: ramp_trial/ramp_planner/CMakeFiles/move_gazebo_obs.dir/rule
 
-.PHONY : clean_test_results_ramp_planner
+.PHONY : move_gazebo_obs
 
 # fast build rule for target.
-clean_test_results_ramp_planner/fast:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/clean_test_results_ramp_planner.dir/build.make ramp_trial/ramp_planner/CMakeFiles/clean_test_results_ramp_planner.dir/build
-.PHONY : clean_test_results_ramp_planner/fast
-
-# Convenience name for target.
-ramp_trial/ramp_planner/CMakeFiles/std_srvs_generate_messages_nodejs.dir/rule:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner/CMakeFiles/std_srvs_generate_messages_nodejs.dir/rule
-.PHONY : ramp_trial/ramp_planner/CMakeFiles/std_srvs_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-std_srvs_generate_messages_nodejs: ramp_trial/ramp_planner/CMakeFiles/std_srvs_generate_messages_nodejs.dir/rule
-
-.PHONY : std_srvs_generate_messages_nodejs
-
-# fast build rule for target.
-std_srvs_generate_messages_nodejs/fast:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/std_srvs_generate_messages_nodejs.dir/build.make ramp_trial/ramp_planner/CMakeFiles/std_srvs_generate_messages_nodejs.dir/build
-.PHONY : std_srvs_generate_messages_nodejs/fast
-
-# Convenience name for target.
-ramp_trial/ramp_planner/CMakeFiles/std_srvs_generate_messages_py.dir/rule:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner/CMakeFiles/std_srvs_generate_messages_py.dir/rule
-.PHONY : ramp_trial/ramp_planner/CMakeFiles/std_srvs_generate_messages_py.dir/rule
-
-# Convenience name for target.
-std_srvs_generate_messages_py: ramp_trial/ramp_planner/CMakeFiles/std_srvs_generate_messages_py.dir/rule
-
-.PHONY : std_srvs_generate_messages_py
-
-# fast build rule for target.
-std_srvs_generate_messages_py/fast:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/std_srvs_generate_messages_py.dir/build.make ramp_trial/ramp_planner/CMakeFiles/std_srvs_generate_messages_py.dir/build
-.PHONY : std_srvs_generate_messages_py/fast
-
-# Convenience name for target.
-ramp_trial/ramp_planner/CMakeFiles/tf_generate_messages_cpp.dir/rule:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner/CMakeFiles/tf_generate_messages_cpp.dir/rule
-.PHONY : ramp_trial/ramp_planner/CMakeFiles/tf_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-tf_generate_messages_cpp: ramp_trial/ramp_planner/CMakeFiles/tf_generate_messages_cpp.dir/rule
-
-.PHONY : tf_generate_messages_cpp
-
-# fast build rule for target.
-tf_generate_messages_cpp/fast:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/tf_generate_messages_cpp.dir/build.make ramp_trial/ramp_planner/CMakeFiles/tf_generate_messages_cpp.dir/build
-.PHONY : tf_generate_messages_cpp/fast
-
-# Convenience name for target.
-ramp_trial/ramp_planner/CMakeFiles/tf_generate_messages_py.dir/rule:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner/CMakeFiles/tf_generate_messages_py.dir/rule
-.PHONY : ramp_trial/ramp_planner/CMakeFiles/tf_generate_messages_py.dir/rule
-
-# Convenience name for target.
-tf_generate_messages_py: ramp_trial/ramp_planner/CMakeFiles/tf_generate_messages_py.dir/rule
-
-.PHONY : tf_generate_messages_py
-
-# fast build rule for target.
-tf_generate_messages_py/fast:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/tf_generate_messages_py.dir/build.make ramp_trial/ramp_planner/CMakeFiles/tf_generate_messages_py.dir/build
-.PHONY : tf_generate_messages_py/fast
-
-# Convenience name for target.
-ramp_trial/ramp_planner/CMakeFiles/actionlib_generate_messages_py.dir/rule:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner/CMakeFiles/actionlib_generate_messages_py.dir/rule
-.PHONY : ramp_trial/ramp_planner/CMakeFiles/actionlib_generate_messages_py.dir/rule
-
-# Convenience name for target.
-actionlib_generate_messages_py: ramp_trial/ramp_planner/CMakeFiles/actionlib_generate_messages_py.dir/rule
-
-.PHONY : actionlib_generate_messages_py
-
-# fast build rule for target.
-actionlib_generate_messages_py/fast:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/actionlib_generate_messages_py.dir/build.make ramp_trial/ramp_planner/CMakeFiles/actionlib_generate_messages_py.dir/build
-.PHONY : actionlib_generate_messages_py/fast
+move_gazebo_obs/fast:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/move_gazebo_obs.dir/build.make ramp_trial/ramp_planner/CMakeFiles/move_gazebo_obs.dir/build
+.PHONY : move_gazebo_obs/fast
 
 # Convenience name for target.
 ramp_trial/ramp_planner/CMakeFiles/gazebo_msgs_generate_messages_cpp.dir/rule:
@@ -708,34 +573,19 @@ actionlib_generate_messages_nodejs/fast:
 .PHONY : actionlib_generate_messages_nodejs/fast
 
 # Convenience name for target.
-ramp_trial/ramp_planner/CMakeFiles/std_srvs_generate_messages_cpp.dir/rule:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner/CMakeFiles/std_srvs_generate_messages_cpp.dir/rule
-.PHONY : ramp_trial/ramp_planner/CMakeFiles/std_srvs_generate_messages_cpp.dir/rule
+ramp_trial/ramp_planner/CMakeFiles/fullPath_testFunctionality.dir/rule:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner/CMakeFiles/fullPath_testFunctionality.dir/rule
+.PHONY : ramp_trial/ramp_planner/CMakeFiles/fullPath_testFunctionality.dir/rule
 
 # Convenience name for target.
-std_srvs_generate_messages_cpp: ramp_trial/ramp_planner/CMakeFiles/std_srvs_generate_messages_cpp.dir/rule
+fullPath_testFunctionality: ramp_trial/ramp_planner/CMakeFiles/fullPath_testFunctionality.dir/rule
 
-.PHONY : std_srvs_generate_messages_cpp
+.PHONY : fullPath_testFunctionality
 
 # fast build rule for target.
-std_srvs_generate_messages_cpp/fast:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/std_srvs_generate_messages_cpp.dir/build.make ramp_trial/ramp_planner/CMakeFiles/std_srvs_generate_messages_cpp.dir/build
-.PHONY : std_srvs_generate_messages_cpp/fast
-
-# Convenience name for target.
-ramp_trial/ramp_planner/CMakeFiles/gazebo_msgs_generate_messages_py.dir/rule:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner/CMakeFiles/gazebo_msgs_generate_messages_py.dir/rule
-.PHONY : ramp_trial/ramp_planner/CMakeFiles/gazebo_msgs_generate_messages_py.dir/rule
-
-# Convenience name for target.
-gazebo_msgs_generate_messages_py: ramp_trial/ramp_planner/CMakeFiles/gazebo_msgs_generate_messages_py.dir/rule
-
-.PHONY : gazebo_msgs_generate_messages_py
-
-# fast build rule for target.
-gazebo_msgs_generate_messages_py/fast:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/gazebo_msgs_generate_messages_py.dir/build.make ramp_trial/ramp_planner/CMakeFiles/gazebo_msgs_generate_messages_py.dir/build
-.PHONY : gazebo_msgs_generate_messages_py/fast
+fullPath_testFunctionality/fast:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/fullPath_testFunctionality.dir/build.make ramp_trial/ramp_planner/CMakeFiles/fullPath_testFunctionality.dir/build
+.PHONY : fullPath_testFunctionality/fast
 
 # Convenience name for target.
 ramp_trial/ramp_planner/CMakeFiles/tf_generate_messages_eus.dir/rule:
@@ -751,6 +601,21 @@ tf_generate_messages_eus: ramp_trial/ramp_planner/CMakeFiles/tf_generate_message
 tf_generate_messages_eus/fast:
 	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/tf_generate_messages_eus.dir/build.make ramp_trial/ramp_planner/CMakeFiles/tf_generate_messages_eus.dir/build
 .PHONY : tf_generate_messages_eus/fast
+
+# Convenience name for target.
+ramp_trial/ramp_planner/CMakeFiles/gazebo_msgs_generate_messages_py.dir/rule:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner/CMakeFiles/gazebo_msgs_generate_messages_py.dir/rule
+.PHONY : ramp_trial/ramp_planner/CMakeFiles/gazebo_msgs_generate_messages_py.dir/rule
+
+# Convenience name for target.
+gazebo_msgs_generate_messages_py: ramp_trial/ramp_planner/CMakeFiles/gazebo_msgs_generate_messages_py.dir/rule
+
+.PHONY : gazebo_msgs_generate_messages_py
+
+# fast build rule for target.
+gazebo_msgs_generate_messages_py/fast:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/gazebo_msgs_generate_messages_py.dir/build.make ramp_trial/ramp_planner/CMakeFiles/gazebo_msgs_generate_messages_py.dir/build
+.PHONY : gazebo_msgs_generate_messages_py/fast
 
 # Convenience name for target.
 ramp_trial/ramp_planner/CMakeFiles/tf2_msgs_generate_messages_cpp.dir/rule:
@@ -781,6 +646,66 @@ tf2_msgs_generate_messages_nodejs: ramp_trial/ramp_planner/CMakeFiles/tf2_msgs_g
 tf2_msgs_generate_messages_nodejs/fast:
 	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/tf2_msgs_generate_messages_nodejs.dir/build.make ramp_trial/ramp_planner/CMakeFiles/tf2_msgs_generate_messages_nodejs.dir/build
 .PHONY : tf2_msgs_generate_messages_nodejs/fast
+
+# Convenience name for target.
+ramp_trial/ramp_planner/CMakeFiles/run_tests_ramp_planner_gtest_fullPath_testFunctionality.dir/rule:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner/CMakeFiles/run_tests_ramp_planner_gtest_fullPath_testFunctionality.dir/rule
+.PHONY : ramp_trial/ramp_planner/CMakeFiles/run_tests_ramp_planner_gtest_fullPath_testFunctionality.dir/rule
+
+# Convenience name for target.
+run_tests_ramp_planner_gtest_fullPath_testFunctionality: ramp_trial/ramp_planner/CMakeFiles/run_tests_ramp_planner_gtest_fullPath_testFunctionality.dir/rule
+
+.PHONY : run_tests_ramp_planner_gtest_fullPath_testFunctionality
+
+# fast build rule for target.
+run_tests_ramp_planner_gtest_fullPath_testFunctionality/fast:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/run_tests_ramp_planner_gtest_fullPath_testFunctionality.dir/build.make ramp_trial/ramp_planner/CMakeFiles/run_tests_ramp_planner_gtest_fullPath_testFunctionality.dir/build
+.PHONY : run_tests_ramp_planner_gtest_fullPath_testFunctionality/fast
+
+# Convenience name for target.
+ramp_trial/ramp_planner/CMakeFiles/tf2_msgs_generate_messages_py.dir/rule:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner/CMakeFiles/tf2_msgs_generate_messages_py.dir/rule
+.PHONY : ramp_trial/ramp_planner/CMakeFiles/tf2_msgs_generate_messages_py.dir/rule
+
+# Convenience name for target.
+tf2_msgs_generate_messages_py: ramp_trial/ramp_planner/CMakeFiles/tf2_msgs_generate_messages_py.dir/rule
+
+.PHONY : tf2_msgs_generate_messages_py
+
+# fast build rule for target.
+tf2_msgs_generate_messages_py/fast:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/tf2_msgs_generate_messages_py.dir/build.make ramp_trial/ramp_planner/CMakeFiles/tf2_msgs_generate_messages_py.dir/build
+.PHONY : tf2_msgs_generate_messages_py/fast
+
+# Convenience name for target.
+ramp_trial/ramp_planner/CMakeFiles/pub_map_odom.dir/rule:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner/CMakeFiles/pub_map_odom.dir/rule
+.PHONY : ramp_trial/ramp_planner/CMakeFiles/pub_map_odom.dir/rule
+
+# Convenience name for target.
+pub_map_odom: ramp_trial/ramp_planner/CMakeFiles/pub_map_odom.dir/rule
+
+.PHONY : pub_map_odom
+
+# fast build rule for target.
+pub_map_odom/fast:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/pub_map_odom.dir/build.make ramp_trial/ramp_planner/CMakeFiles/pub_map_odom.dir/build
+.PHONY : pub_map_odom/fast
+
+# Convenience name for target.
+ramp_trial/ramp_planner/CMakeFiles/ramp_planner.dir/rule:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f CMakeFiles/Makefile2 ramp_trial/ramp_planner/CMakeFiles/ramp_planner.dir/rule
+.PHONY : ramp_trial/ramp_planner/CMakeFiles/ramp_planner.dir/rule
+
+# Convenience name for target.
+ramp_planner: ramp_trial/ramp_planner/CMakeFiles/ramp_planner.dir/rule
+
+.PHONY : ramp_planner
+
+# fast build rule for target.
+ramp_planner/fast:
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/ramp_planner.dir/build.make ramp_trial/ramp_planner/CMakeFiles/ramp_planner.dir/build
+.PHONY : ramp_planner/fast
 
 src/bezier_curve.o: src/bezier_curve.cpp.o
 
@@ -1193,8 +1118,8 @@ src/range.o: src/range.cpp.o
 
 # target to build an object file
 src/range.cpp.o:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/fullPath_testFunctionality.dir/build.make ramp_trial/ramp_planner/CMakeFiles/fullPath_testFunctionality.dir/src/range.cpp.o
 	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/move_gazebo_obs.dir/build.make ramp_trial/ramp_planner/CMakeFiles/move_gazebo_obs.dir/src/range.cpp.o
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/fullPath_testFunctionality.dir/build.make ramp_trial/ramp_planner/CMakeFiles/fullPath_testFunctionality.dir/src/range.cpp.o
 	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/ramp_planner.dir/build.make ramp_trial/ramp_planner/CMakeFiles/ramp_planner.dir/src/range.cpp.o
 .PHONY : src/range.cpp.o
 
@@ -1204,8 +1129,8 @@ src/range.i: src/range.cpp.i
 
 # target to preprocess a source file
 src/range.cpp.i:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/fullPath_testFunctionality.dir/build.make ramp_trial/ramp_planner/CMakeFiles/fullPath_testFunctionality.dir/src/range.cpp.i
 	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/move_gazebo_obs.dir/build.make ramp_trial/ramp_planner/CMakeFiles/move_gazebo_obs.dir/src/range.cpp.i
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/fullPath_testFunctionality.dir/build.make ramp_trial/ramp_planner/CMakeFiles/fullPath_testFunctionality.dir/src/range.cpp.i
 	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/ramp_planner.dir/build.make ramp_trial/ramp_planner/CMakeFiles/ramp_planner.dir/src/range.cpp.i
 .PHONY : src/range.cpp.i
 
@@ -1215,8 +1140,8 @@ src/range.s: src/range.cpp.s
 
 # target to generate assembly for a file
 src/range.cpp.s:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/fullPath_testFunctionality.dir/build.make ramp_trial/ramp_planner/CMakeFiles/fullPath_testFunctionality.dir/src/range.cpp.s
 	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/move_gazebo_obs.dir/build.make ramp_trial/ramp_planner/CMakeFiles/move_gazebo_obs.dir/src/range.cpp.s
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/fullPath_testFunctionality.dir/build.make ramp_trial/ramp_planner/CMakeFiles/fullPath_testFunctionality.dir/src/range.cpp.s
 	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/ramp_planner.dir/build.make ramp_trial/ramp_planner/CMakeFiles/ramp_planner.dir/src/range.cpp.s
 .PHONY : src/range.cpp.s
 
@@ -1280,8 +1205,8 @@ src/utility.o: src/utility.cpp.o
 
 # target to build an object file
 src/utility.cpp.o:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/fullPath_testFunctionality.dir/build.make ramp_trial/ramp_planner/CMakeFiles/fullPath_testFunctionality.dir/src/utility.cpp.o
 	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/move_gazebo_obs.dir/build.make ramp_trial/ramp_planner/CMakeFiles/move_gazebo_obs.dir/src/utility.cpp.o
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/fullPath_testFunctionality.dir/build.make ramp_trial/ramp_planner/CMakeFiles/fullPath_testFunctionality.dir/src/utility.cpp.o
 	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/ramp_planner.dir/build.make ramp_trial/ramp_planner/CMakeFiles/ramp_planner.dir/src/utility.cpp.o
 .PHONY : src/utility.cpp.o
 
@@ -1291,8 +1216,8 @@ src/utility.i: src/utility.cpp.i
 
 # target to preprocess a source file
 src/utility.cpp.i:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/fullPath_testFunctionality.dir/build.make ramp_trial/ramp_planner/CMakeFiles/fullPath_testFunctionality.dir/src/utility.cpp.i
 	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/move_gazebo_obs.dir/build.make ramp_trial/ramp_planner/CMakeFiles/move_gazebo_obs.dir/src/utility.cpp.i
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/fullPath_testFunctionality.dir/build.make ramp_trial/ramp_planner/CMakeFiles/fullPath_testFunctionality.dir/src/utility.cpp.i
 	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/ramp_planner.dir/build.make ramp_trial/ramp_planner/CMakeFiles/ramp_planner.dir/src/utility.cpp.i
 .PHONY : src/utility.cpp.i
 
@@ -1302,8 +1227,8 @@ src/utility.s: src/utility.cpp.s
 
 # target to generate assembly for a file
 src/utility.cpp.s:
-	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/fullPath_testFunctionality.dir/build.make ramp_trial/ramp_planner/CMakeFiles/fullPath_testFunctionality.dir/src/utility.cpp.s
 	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/move_gazebo_obs.dir/build.make ramp_trial/ramp_planner/CMakeFiles/move_gazebo_obs.dir/src/utility.cpp.s
+	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/fullPath_testFunctionality.dir/build.make ramp_trial/ramp_planner/CMakeFiles/fullPath_testFunctionality.dir/src/utility.cpp.s
 	cd /home/emendel/Documents/IndepententStudy/ramp/build && $(MAKE) -f ramp_trial/ramp_planner/CMakeFiles/ramp_planner.dir/build.make ramp_trial/ramp_planner/CMakeFiles/ramp_planner.dir/src/utility.cpp.s
 .PHONY : src/utility.cpp.s
 
@@ -1343,24 +1268,21 @@ help:
 	@echo "... install/strip"
 	@echo "... install"
 	@echo "... list_install_components"
+	@echo "... test"
+	@echo "... clean_test_results_ramp_planner"
 	@echo "... _run_tests_ramp_planner_gtest_fullPath_testFunctionality"
 	@echo "... _run_tests_ramp_planner_gtest"
 	@echo "... _run_tests_ramp_planner"
 	@echo "... run_tests_ramp_planner"
-	@echo "... fullPath_testFunctionality"
-	@echo "... move_gazebo_obs"
-	@echo "... pub_map_odom"
-	@echo "... ramp_planner"
-	@echo "... run_tests_ramp_planner_gtest_fullPath_testFunctionality"
-	@echo "... tf2_msgs_generate_messages_py"
-	@echo "... std_srvs_generate_messages_lisp"
-	@echo "... sensor_msgs_generate_messages_nodejs"
-	@echo "... sensor_msgs_generate_messages_lisp"
+	@echo "... tf_generate_messages_py"
+	@echo "... actionlib_generate_messages_py"
+	@echo "... tf_generate_messages_cpp"
 	@echo "... sensor_msgs_generate_messages_py"
 	@echo "... edit_cache"
 	@echo "... tf_generate_messages_lisp"
 	@echo "... tf2_msgs_generate_messages_lisp"
-	@echo "... std_srvs_generate_messages_eus"
+	@echo "... sensor_msgs_generate_messages_nodejs"
+	@echo "... sensor_msgs_generate_messages_lisp"
 	@echo "... run_tests_ramp_planner_gtest"
 	@echo "... sensor_msgs_generate_messages_eus"
 	@echo "... actionlib_generate_messages_lisp"
@@ -1368,13 +1290,7 @@ help:
 	@echo "... gazebo_msgs_generate_messages_eus"
 	@echo "... install/local"
 	@echo "... gazebo_msgs_generate_messages_lisp"
-	@echo "... clean_test_results_ramp_planner"
-	@echo "... std_srvs_generate_messages_nodejs"
-	@echo "... test"
-	@echo "... std_srvs_generate_messages_py"
-	@echo "... tf_generate_messages_cpp"
-	@echo "... tf_generate_messages_py"
-	@echo "... actionlib_generate_messages_py"
+	@echo "... move_gazebo_obs"
 	@echo "... gazebo_msgs_generate_messages_cpp"
 	@echo "... tf_generate_messages_nodejs"
 	@echo "... actionlib_generate_messages_cpp"
@@ -1383,11 +1299,15 @@ help:
 	@echo "... actionlib_generate_messages_eus"
 	@echo "... gazebo_msgs_generate_messages_nodejs"
 	@echo "... actionlib_generate_messages_nodejs"
-	@echo "... std_srvs_generate_messages_cpp"
-	@echo "... gazebo_msgs_generate_messages_py"
+	@echo "... fullPath_testFunctionality"
 	@echo "... tf_generate_messages_eus"
+	@echo "... gazebo_msgs_generate_messages_py"
 	@echo "... tf2_msgs_generate_messages_cpp"
 	@echo "... tf2_msgs_generate_messages_nodejs"
+	@echo "... run_tests_ramp_planner_gtest_fullPath_testFunctionality"
+	@echo "... tf2_msgs_generate_messages_py"
+	@echo "... pub_map_odom"
+	@echo "... ramp_planner"
 	@echo "... src/bezier_curve.o"
 	@echo "... src/bezier_curve.i"
 	@echo "... src/bezier_curve.s"

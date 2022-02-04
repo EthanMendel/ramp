@@ -380,6 +380,10 @@ utility.h
 range.h
 /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner/src/range.h
 
+/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner/src/utility.cpp
+utility.h
+/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner/src/utility.h
+
 /opt/ros/noetic/include/gazebo_msgs/GetModelState.h
 ros/service_traits.h
 -
