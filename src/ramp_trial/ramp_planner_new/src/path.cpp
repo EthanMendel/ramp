@@ -263,9 +263,11 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
     Td = std::min(utility.getMinLinTime(msg.points.at(0),msg.points.at(2)),
                   utility.getMinLinTime(msg.points.at(1),msg.points.at(2)));
   }else if(msg.points.size() == 4){//both entrence and exit vels need to be found
+    std::cout<<"extra points:\n"<<msg.points.at(2)<<std::endl;
+    std::cout<<"\n"<<msg.points.at(3)<<std::endl;
     uCubicEntrenceVelocities.clear();
     T = utility.getMinLinTime(msg.points.at(2),msg.points.at(3));
-    Td = utility.getMinLinTime(msg.points.at(0),msg.points.at(1));
+    Td = utility.getMinLinTime(msg.points.at(1),msg.points.at(3));
   }else{
     std::cout<<"dont know what to do in findCubicCoefs with "<<msg.points.size()<<" points"<<std::endl;
     return;
