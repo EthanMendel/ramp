@@ -65,6 +65,7 @@ void initDOF(const std::vector<double> dof_min, const std::vector<double> dof_ma
 
 // initializes global start and goal
 void initStartGoal(const std::vector<std::vector<float>> points) {
+  double pastY;
   for(unsigned int i=0;i<points.size();i++){
     MotionState point;
     std::vector<float> p = points.at(i);
@@ -73,6 +74,15 @@ void initStartGoal(const std::vector<std::vector<float>> points) {
       point.msg_.velocities.push_back(0);
       point.msg_.accelerations.push_back(0);
       point.msg_.jerks.push_back(0);
+    }
+    if(i == 0){
+      pastY = point.msg_.positions.at(1);
+    }else{
+      if(pastY == point.msg_.positions.at(1)){
+        point.msg_.positions.at(1)+=.00001;
+        std::cout<<"\t**consecutive y values.. adding .00001 to subsequent one"<<std::endl;
+      }
+      pastY = point.msg_.positions.at(1);
     }
     pathMotionStates.push_back(point);
     KnotPoint pkp(point);
