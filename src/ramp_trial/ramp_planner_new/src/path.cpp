@@ -193,7 +193,11 @@ void Path::findBezierCoefs(geometry_msgs::Point p0, geometry_msgs::Point p1, geo
     uMsg.points.push_back(p0);
     uMsg.points.push_back(p2);
     for(unsigned int i=0;i<coefs.size();i++){
-      uMsg.normVals.push_back(2*((coefs.at(i).at(1))-coefs.at(i).at(0)));
+      if(coefs.at(i).at(0) == coefs.at(i).at(1)){
+        uMsg.normVals.push_back(1);
+      }else{
+        uMsg.normVals.push_back(2*((coefs.at(i).at(1))-coefs.at(i).at(0)));
+      }
     }
     uMsg.normVals.push_back(1);//extra value to not normalize z (theta)
     findCubicCoefs(uMsg);
