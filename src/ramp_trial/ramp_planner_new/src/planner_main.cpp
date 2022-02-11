@@ -267,7 +267,7 @@ void pubStartGoalMarkers(){
   origin_marker.action = visualization_msgs::Marker::ADD;
   origin_marker.pose.position.x = 0.0;
   origin_marker.pose.position.y = 0.0;
-  origin_marker.pose.position.z = 0.0;
+  origin_marker.pose.position.z = 0.1;
   origin_marker.pose.orientation.x = 0.0;
   origin_marker.pose.orientation.y = 0.0;
   origin_marker.pose.orientation.z = 0.0;
@@ -408,16 +408,18 @@ bool acceptableAngTime(const geometry_msgs::Point& p0, const geometry_msgs::Poin
     // Equations based on "Real-time Adaptive Non-holonomic Motion Planning in Unknown Dynamic Environments"
     double A1 = 2*(plannerPath.coefs.at(0).at(0) - 2*plannerPath.coefs.at(0).at(1) + plannerPath.coefs.at(0).at(2));//Section II, Equation (3)
     double B1 = 2*(plannerPath.coefs.at(1).at(0) - 2*plannerPath.coefs.at(1).at(1) + plannerPath.coefs.at(1).at(2));
-    double A2 = 2*((plannerPath.coefs.at(0).at(1))-plannerPath.coefs.at(0).at(0));
-    double B2 = 2*((plannerPath.coefs.at(1).at(1))-plannerPath.coefs.at(1).at(0));
-    if(A1 == 0 || B1 == 0 || A2 == 0 || B2 == 0){
-      std::cout<<"/t**A,B,C,D == 0"<<std::endl;
+    double A2 = 2*(plannerPath.coefs.at(0).at(1) - plannerPath.coefs.at(0).at(0));
+    double B2 = 2*(plannerPath.coefs.at(1).at(1) - plannerPath.coefs.at(1).at(0));
+    if(A1 == 0 || B1 == 0 || (A2 == 0 && B2 == 0)){
+      std::cout<<"\t**A || B || C && D == 0"<<std::endl;
+      std::cout<<"\tA: "<<A1<<"\tB: "<<B1<<"\tC: "<<A2<<"\tD: "<<B2<<"\n";
       return false;
     }
     //Equations based on "On-line Planning of Nonholonomic Trajectories in Crowded and Geometrically Unknown Environments*"
     double t = - ((A1*A2 + B1*B2) / (pow(A1,2) + pow(B1,2))); //point of maximum angular velocity, Section II, Equation (6)
     if(t < 0 || t > 1){
-      std::cout<<"t<0 || t>1"<<std::endl;
+      std::cout<<"\tt<0 || t>1"<<std::endl;
+      std::cout<<"\tt:"<<t<<std::endl;
       return false;
     }
     float xuP = 3*plannerPath.uCoefs.at(0).at(0)*pow(t,2) + 2*plannerPath.uCoefs.at(0).at(1)*(t) + plannerPath.uCoefs.at(0).at(2);
@@ -426,7 +428,7 @@ bool acceptableAngTime(const geometry_msgs::Point& p0, const geometry_msgs::Poin
     double yVel =((B1*t + B2)*yuP);
     double linVel = sqrt(pow(xVel,2)+pow(yVel,2));
     if(linVel > utility.max_speed_linear_){
-      std::cout<<"linVel too high "<<linVel<<std::endl;
+      std::cout<<"\tlinVel too high: "<<linVel<<std::endl;
       return false;
     }
     double numerator1 = (pow(A1,2) + pow(B1,2)) * pow(t,2);
@@ -438,7 +440,7 @@ bool acceptableAngTime(const geometry_msgs::Point& p0, const geometry_msgs::Poin
     double angVel = linVel / R_min_;
     //TODO make sure this is the correct angVel value
     if(angVel >= ((2.f*PI)/3.f)){
-      std::cout<<"angVel too high"<<std::endl;
+      std::cout<<"\tangVel too high: "<<angVel<<std::endl;
       return false;
     }
     return true;
@@ -557,8 +559,9 @@ void bezify(const ramp_planner_new::BezifyRequest& br){
         cp1.y = p1.y - d*u1[1];
         cp2.x = p1.x + d*u2[0];
         cp2.y = p1.y + d*u2[1];
-	std::cout<<"\td1: "<<utility.getEuclideanDist({cp1.x,cp1.y},{p1.x,p1.y})<<std::endl;
-	std::cout<<"\td2: "<<utility.getEuclideanDist({cp2.x,cp2.y},{p1.x,p1.y})<<std::endl;
+        std::cout<<"\tD: "<<D<<std::endl;
+	      std::cout<<"\td1: "<<utility.getEuclideanDist({cp1.x,cp1.y},{p1.x,p1.y})<<std::endl;
+	      std::cout<<"\td2: "<<utility.getEuclideanDist({cp2.x,cp2.y},{p1.x,p1.y})<<std::endl;
         //find bezier based on control and test if its okay
         if(acceptableAngTime(cp1,p1,cp2)){
             std::cout<<"**found good bezier where d="<<d<<"**"<<std::endl;
