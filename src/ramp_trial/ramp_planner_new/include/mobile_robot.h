@@ -80,7 +80,10 @@ class MobileRobot
   int                       seg_step_;
   int                       time_step_;
   const unsigned int        k_dof_;
-  std::vector<ros::Time>    end_times; 
+  bool                      started_ = false;
+  ros::Time                 global_start_;
+  ros::Time                 cur_start_;
+  ros::Time                 cur_time_;
   double                    speed_linear_;
   double                    speed_angular_;
   double                    orientation_;

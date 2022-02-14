@@ -170,16 +170,23 @@ void MobileRobot::sendTwist(const geometry_msgs::Twist t) const
 /** This method moves the robot along trajectory_ */
 void MobileRobot::moveOnTrajectory() {
   ros::Rate r(10);
+  if(!started_){
+    started_ = true;
+    global_start_ = ros::Time::now();
+  }
   if(trajectory_.active == 1){
     // Execute the trajectory
     std::cout<<"starting full path portion"<<std::endl;
     // setNextTwist(); 
     seg_step_ = (int) trajectory_.startTime;
     time_step_ = (int) ((trajectory_.startTime - seg_step_) * 10);
+    cur_start_ = ros::Time::now();
     while(ros::ok() && (seg_step_+.1*time_step_) <= trajectory_.totalTime) 
     {
       while(ros::ok() && time_step_ < SEND_RESELUTION) 
       {
+        cur_time_ = ros::Time::now();
+        std::cout<<"$$calculated: "<<(seg_step_+.1*time_step_)<<"\tfound: "<<cur_time_ - cur_start_ - global_start_<<std::endl;
         if((seg_step_+.1*time_step_) > trajectory_.totalTime){
           break;
         }
