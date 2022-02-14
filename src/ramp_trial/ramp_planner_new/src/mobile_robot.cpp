@@ -12,64 +12,9 @@ const float BASE_WIDTH=0.2413;
 
 const float timeNeededToTurn = 2.5; 
 
-MobileRobot::MobileRobot() : restart_(false), num_(0), num_traveled_(0), k_dof_(3)  
-{ 
-  for(unsigned int i=0;i<k_dof_;i++)
-  {
-    motion_state_.positions.push_back(0);
-    motion_state_.velocities.push_back(0);
-    motion_state_.accelerations.push_back(0);
-    motion_state_.jerks.push_back(0);
-  }
-
-  prev_motion_state_ = motion_state_;
-
-
-  zero_twist_.linear.x = 0.;
-  zero_twist_.angular.z = 0.;
-}
+MobileRobot::MobileRobot() : k_dof_(3) {}
 
 MobileRobot::~MobileRobot() {}
-
-/* 
- * This is a callback for receiving odometry from the robot and sets the configuration of the robot 
- * It does not mutate any motion data. The time value is added based on num_travaled_.
- */
-void MobileRobot::odomCb(const nav_msgs::Odometry& msg) {
-  //ROS_INFO("Received odometry update!");
- 
-  prev_motion_state_ = motion_state_;
-
-  // Clear position and velocity vectors
-  motion_state_.positions.clear();
-  motion_state_.velocities.clear();
-  motion_state_.accelerations.clear();
-  
-  // Set latest positions
-  motion_state_.positions.push_back(msg.pose.pose.position.x);
-  motion_state_.positions.push_back(msg.pose.pose.position.y);
-  motion_state_.positions.push_back(tf::getYaw(msg.pose.pose.orientation));
-
-  // Set latest velocities
-  motion_state_.velocities.push_back(msg.twist.twist.linear.x);
-  motion_state_.velocities.push_back(msg.twist.twist.linear.y);
-  motion_state_.velocities.push_back(msg.twist.twist.angular.z);
-
-  // Odometry does not have acceleration info, but
-  // it would be pushed on here
-//  std::vector<double> a = computeAcceleration();
-//  for(unsigned int i=0;i<a.size();i++) 
-//  {
-//    motion_state_.accelerations.push_back(a.at(i));
-//  }
-
-  motion_state_.time = num_traveled_ ;//* CYCLE_TIME_IN_SECONDS;
-  
-  //ROS_INFO("Motion state: %s", utility_.toString(motion_state_).c_str());
-    
-  prev_t_ = ros::Time::now();
-} // End updateState
-
 
 void MobileRobot::imminentCollisionCb(const std_msgs::Bool msg)
 {
@@ -77,18 +22,6 @@ void MobileRobot::imminentCollisionCb(const std_msgs::Bool msg)
   //ROS_INFO("msg: %s", msg.data ? "True" : "False");
   imminent_coll_ = msg.data;
 }
-
-/** This method is on a timer to publish the robot's latest configuration */
-void MobileRobot::updateCallback(const ros::TimerEvent& e) {
-  //ROS_INFO("Publishing latest MotionState");
-  //std::cout<<"\nIn updatePublishTimer\n";
-  
-  if (pub_update_) 
-  {
-      pub_update_.publish(motion_state_);
-      //ROS_INFO("Motion state: %s", utility_.toString(motion_state_).c_str());
-  }
-} // End updatePublishTimer
 
 void MobileRobot::updateTrajectory(const ramp_planner_new::TrajectoryRepresentation& msg)
 {
@@ -119,10 +52,6 @@ void MobileRobot::calculateVelocities(const std::vector<ramp_planner_new::Coeffi
      yP = 3*coefs.at(1).values.at(0)*pow(t,2) + 2*coefs.at(1).values.at(1)*(t) + coefs.at(1).values.at(2);
   
   }else if(trajectory_.type == "bezier"){
-    // float xuMin = uCoefs.at(0).values.at(0)*pow(0,3) + uCoefs.at(0).values.at(1)*pow(0,2) + uCoefs.at(0).values.at(2)*(0) + uCoefs.at(0).values.at(3);
-    // float xuMax = (uCoefs.at(0).values.at(0)*pow(trajectory_.totalTime,3) + uCoefs.at(0).values.at(1)*pow(trajectory_.totalTime,2) + uCoefs.at(0).values.at(2)*(trajectory_.totalTime) + uCoefs.at(0).values.at(3)) - xuMin;
-    // float yuMin = uCoefs.at(1).values.at(0)*pow(0,3) + uCoefs.at(1).values.at(1)*pow(0,2) + uCoefs.at(1).values.at(2)*(0) + uCoefs.at(1).values.at(3);
-    // float yuMax = (uCoefs.at(1).values.at(0)*pow(trajectory_.totalTime,3) + uCoefs.at(1).values.at(1)*pow(trajectory_.totalTime,2) + uCoefs.at(1).values.at(2)*(trajectory_.totalTime) + uCoefs.at(1).values.at(3)) - yuMin;
     float xu = ((uCoefs.at(0).values.at(0)*pow(t,3) + uCoefs.at(0).values.at(1)*pow(t,2) + uCoefs.at(0).values.at(2)*(t) + uCoefs.at(0).values.at(3)));// - xuMin)/xuMax;
     float yu = ((uCoefs.at(1).values.at(0)*pow(t,3) + uCoefs.at(1).values.at(1)*pow(t,2) + uCoefs.at(1).values.at(2)*(t) + uCoefs.at(1).values.at(3)));// - yuMin)/yuMax;
     curXY = {
@@ -223,12 +152,8 @@ void MobileRobot::sendTwist() const
   //ROS_INFO("In MobileRobot::sendTwist()");
   pub_twist_.publish(twist_); 
 
-  // If we have the simulation up, publish to cmd_vel
-  //if(sim_) 
-  //{
-    pub_cmd_vel_.publish(twist_);
-    pub_cmd_vel2_.publish(twist_);
-  //}
+  pub_cmd_vel_.publish(twist_);
+  pub_cmd_vel2_.publish(twist_);
   
   //ROS_INFO("Exiting MobileRobot::sendTwist()");
 }
@@ -238,36 +163,13 @@ void MobileRobot::sendTwist(const geometry_msgs::Twist t) const
 {
   pub_twist_.publish(t); 
 
-  // If we have the simulation up, publish to cmd_vel
-  // if(sim_) 
-  // {
-    pub_cmd_vel_.publish(t);
-    pub_cmd_vel2_.publish(t);
-  // }
+  pub_cmd_vel_.publish(t);
+  pub_cmd_vel2_.publish(t);
 }
 
-/** Returns true if there is imminent collision */
-const bool MobileRobot::checkImminentCollision()  
-{
-  bool result = false;
-  ros::param::get("imminent_collision", result);
-  if(result)
-  {
-    ROS_ERROR("Imminent Collision exists! Stopping robot, initial_theta_: %f", initial_theta_);
-  }
-  //ROS_INFO("Imminent Collision: %s", result ? "True" : "False");
-  return result;
-} // End checkImminentCollision
-
 /** This method moves the robot along trajectory_ */
-void MobileRobot::moveOnTrajectory() 
-{
-  restart_ = false;
+void MobileRobot::moveOnTrajectory() {
   ros::Rate r(10);
-
-  ros::Time s;
-
-  double actual_theta, dist;
   if(trajectory_.active == 1){
     // Execute the trajectory
     std::cout<<"starting full path portion"<<std::endl;
@@ -282,7 +184,6 @@ void MobileRobot::moveOnTrajectory()
           break;
         }
         // std::cout<<"running for "<<(seg_step_+.1*time_step_)<<std::endl;
-        // ** Code that was used to maintain orientation ** //
         // Send the twist_message to move the robot
         setNextTwist();
         sendTwist();
@@ -295,7 +196,6 @@ void MobileRobot::moveOnTrajectory()
       // Increment num_traveled
       time_step_ = 0;
       seg_step_++;
-      // setNextTwist(); 
       // Spin once to check for updates in the trajectory
       ros::spinOnce();
     } // end while

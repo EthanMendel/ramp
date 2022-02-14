@@ -27,11 +27,9 @@ class MobileRobot
 
   void moveOnTrajectory();
   void moveOnTrajectoryRot(const ramp_msgs::RampTrajectory traj, bool simulation);
-  void odomCb(const nav_msgs::Odometry& msg);
   void updateTrajectory(const ramp_planner_new::TrajectoryRepresentation& msg); 
   void setNextTwist(); 
   void imminentCollisionCb(const std_msgs::Bool msg); 
-  void updateCallback(const ros::TimerEvent&);
   void sendTwist(const geometry_msgs::Twist twist) const;
   void controlCycle(geometry_msgs::Twist twist, ros::Time end_time, ros::Rate r);
 
@@ -40,13 +38,10 @@ class MobileRobot
   ros::Publisher                    pub_twist_;
   ros::Publisher                    pub_cmd_vel_;
   ros::Publisher                    pub_cmd_vel2_;
-  ros::Publisher                    pub_update_;
   ros::Publisher                    pub_ready_next_;
-  ros::Subscriber                   sub_odometry_;
   ros::Subscriber                   sub_imminent_collision_;
   ramp_msgs::MotionState            motion_state_; 
   ramp_planner_new::TrajectoryRepresentation trajectory_;
-  ros::Timer                        timer_;
   double                            initial_theta_;
   bool                              check_imminent_coll_;
   bool                              imminent_coll_;
@@ -82,9 +77,6 @@ class MobileRobot
 
   /** Data Members **/
 
-  bool                      restart_;
-  int                       num_;
-  int                       num_traveled_;
   int                       seg_step_;
   int                       time_step_;
   const unsigned int        k_dof_;

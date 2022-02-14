@@ -752,12 +752,6 @@ ros/ros.h
 ramp_planner_new/TrajectoryRequest.h
 -
 
-/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/mobile_robot.cpp
-../include/mobile_robot.h
-/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/include/mobile_robot.h
-ramp_planner_new/TrajectoryRequest.h
--
-
 /opt/ros/noetic/include/geometry_msgs/Point.h
 string
 -
