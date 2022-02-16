@@ -1,6 +1,5 @@
 #include "../include/mobile_robot.h"
 #include <ramp_planner_new/TrajectoryRequest.h>
-#include <ramp_planner_new/TrajectorySwap.h>
 
 const std::string MobileRobot::TOPIC_STR_PHIDGET_MOTOR="/PhidgetMotor";
 const std::string MobileRobot::TOPIC_STR_ODOMETRY="/odometry/filtered";
@@ -9,7 +8,7 @@ const std::string MobileRobot::TOPIC_STR_TWIST="/twist";
 const std::string MobileRobot::TOPIC_STR_IC="/imminent_collision";
 const std::string MobileRobot::TOPIC_STR_SIM="/cmd_vel";
 const std::string MobileRobot::TOPIC_STR_SIM2="/mobile_base/commands/velocity";
-const std::string MobileRobot::TOPIC_TRAJ_SWAP="traj_swap";
+const std::string MobileRobot::TOPIC_TRAJ_SWAP="/traj_swap";
 const float BASE_WIDTH=0.2413;
 
 const float timeNeededToTurn = 2.5; 
@@ -194,23 +193,11 @@ void MobileRobot::moveOnTrajectory() {
         if((seg_step_+.1*time_step_) > trajectory_.totalTime){
           break;
         }
-        if(tot_time_ > 2.0 && !swapped_){
+        if(tot_time_ > 5.0 && !swapped_){
           swapped_ = true;
           trajectory_.active = false;
-          ramp_planner_new::TrajectorySwap msg;
-          geometry_msgs::Point p;
-          p.x = 0.5;
-          p.y = 0.5;
-          msg.points.push_back(p);
-          p.x = 1.0;
-          p.y = 1.0;
-          msg.points.push_back(p);
-          p.x = 2.5;
-          p.y = 1.5;
-          msg.points.push_back(p);
-          p.x = 2.0;
-          p.y = 3.0;
-          msg.points.push_back(p);
+          std_msgs::Bool msg;
+          msg.data = true;
           pub_swap_traj_.publish(msg);
           break;
         }

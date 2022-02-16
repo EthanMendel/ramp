@@ -233,7 +233,7 @@ void loadParameters(const ros::NodeHandle handle){
   std::cout<<"\n---------------------------------------";
 }
 
-void pubStartGoalMarkers(){
+void pubStartGoalMarkers(bool publish = true){
   ROS_INFO("In pubStartGoalMarkers");
   visualization_msgs::MarkerArray result;
 
@@ -307,8 +307,10 @@ void pubStartGoalMarkers(){
   result.markers.push_back(origin_marker); // add origin onto rviz path points
   rviz_pub_path_points.publish(result);
   rviz_pub_path_points.publish(result);
-  pub_path_points.publish(pps);
-  pub_path_points.publish(pps);
+  if(publish){
+    pub_path_points.publish(pps);
+    pub_path_points.publish(pps);
+  }
   
   ROS_INFO("Exiting pubStartGoalMarkers");
 }
@@ -411,6 +413,19 @@ void getTrajectory(ramp_planner_new::TrajectoryRequest msg){
   }else{
       std::cout<<"foud a u trajectory in planner, something went wrong"<<std::endl;
       return;
+  }
+  if(msg.swapped){
+    std::vector<std::vector<float>> points;
+    for(unsigned int i=0;i<msg.newTrajPoints.size();i++){
+      std::vector<float> p;
+      p.push_back(msg.newTrajPoints.at(i).x);
+      p.push_back(msg.newTrajPoints.at(i).y);
+      p.push_back(0);
+      // std::cout<<"\t"<<msg.points.at(i)<<std::endl;
+      points.push_back(p);
+    }
+    initStartGoal(points);
+    pubStartGoalMarkers(false);
   }
   readyToPubPath = true;
 }
@@ -601,21 +616,6 @@ void bezify(const ramp_planner_new::BezifyRequest& br){
   pub_path_points.publish(pathPoints);
 }
 
-void swapTrajectory(ramp_planner_new::TrajectorySwap msg){
-  std::cout<<"##swapping trajectory##"<<std::endl;
-  std::vector<std::vector<float>> points;
-  for(unsigned int i=0;i<msg.points.size();i++){
-    std::vector<float> p;
-    p.push_back(msg.points.at(i).x);
-    p.push_back(msg.points.at(i).y);
-    p.push_back(0);
-    // std::cout<<"\t"<<msg.points.at(i)<<std::endl;
-    points.push_back(p);
-  }
-  initStartGoal(points);
-  pubStartGoalMarkers();
-}
-
 int main(int argc, char** argv) {
   std::cout<<"\nstarting main\n";
   srand( time(0));
@@ -637,7 +637,6 @@ int main(int argc, char** argv) {
   rviz_pub_path_points = handle.advertise<visualization_msgs::MarkerArray>("rviz_path_points",10);
   ros::Subscriber trajReq = handle.subscribe("/traj_req", 1, getTrajectory);
   ros::Subscriber bezifyListener  = handle.subscribe("bezify_request", 1, bezify);
-  ros::Subscriber trajSwap = handle.subscribe("traj_swap",1,swapTrajectory);
 
   ros::Duration d(0.5);
   d.sleep();

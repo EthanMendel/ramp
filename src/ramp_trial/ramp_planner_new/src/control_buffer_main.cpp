@@ -5,6 +5,7 @@
 #include <ramp_planner_new/TrajectoryRequest.h>
 #include <ramp_planner_new/PathPoints.h>
 #include <ramp_planner_new/BezifyRequest.h>
+#include <ramp_planner_new/TrajectorySwap.h>
 
 ramp_planner_new::PathPoints pathPoints;
 int curStartId = -1;
@@ -13,6 +14,7 @@ ros::Publisher pub_path_points;
 ros::Publisher pub_time_needed;
 ros::Publisher pub_bezify_request;
 double max_speed_linear = 0.33;
+bool swapped = false;
 
 // j should be the index of the goal marker within pathPoints
 bool needBezify(const unsigned int j){
@@ -23,8 +25,8 @@ bool needBezify(const unsigned int j){
             std::cout<<"two cubics side by side"<<std::endl;
             return true;
         }else if(pathPoints.types.at(j-1) == "uCubic" && pathPoints.types.at(j) == "uCubic"){
-            std::cout<<"foud a u trajectory, something went wrong"<<std::endl;
-            return NULL;
+            std::cout<<"foud a u trajectory, **something went wrong**"<<std::endl;
+            return false;
         }
         else{
             std::cout<<"cubic and bezier side by side"<<std::endl;
@@ -101,6 +103,11 @@ void updateStartGoal(){
                     
                     std::cout<<"sending trajectory request"<<std::endl;
                     // std::cout<<msg<<std::endl;
+                    if(swapped){
+                        msg.swapped = true;
+                        msg.newTrajPoints = pathPoints.points;
+                        swapped = false;
+                    }
                     pub_time_needed.publish(msg);
                 }
             }else{
@@ -126,6 +133,77 @@ void getNextPoint(const std_msgs::Bool b){
     updateStartGoal();
 }
 
+void swapTrajectory(const std_msgs::Bool b){
+  std::cout<<"##swapping trajectory##"<<std::endl;
+  std::vector<geometry_msgs::Point> points;
+  geometry_msgs::Point p;
+  p.x = 0.5;
+  p.y = 0.5;
+  points.push_back(p);
+  p.x = 1.0;
+  p.y = 1.0;
+  points.push_back(p);
+  p.x = 2.5;
+  p.y = 1.5;
+  points.push_back(p);
+  p.x = 2.0;
+  p.y = 3.0;
+  points.push_back(p);
+
+  ramp_planner_new::PathPoints pps;
+  // markers for both positions
+  for(unsigned int i=0;i<points.size();i++){
+    visualization_msgs::Marker marker;
+    marker.header.stamp = ros::Time::now();
+    if(i==0){
+      marker.id = 10001;
+    } else {
+      marker.id = 10001 + i;
+    }
+    marker.header.frame_id = "map";//TODO make this dynamic if needed?
+    marker.ns = "basic_shapes";
+    marker.type = visualization_msgs::Marker::SPHERE;
+    marker.action = visualization_msgs::Marker::ADD;
+    // set positions
+    marker.pose.position.x = points.at(i).x;
+    marker.pose.position.y = points.at(i).y;
+    marker.pose.position.z = 0.0;
+    // set orientations
+    marker.pose.orientation.x = 0.0;
+    marker.pose.orientation.y = 0.0;
+    marker.pose.orientation.z = 0.0;
+    marker.pose.orientation.w = 1.0;
+    // set radii
+    marker.scale.x = 0.1;
+    marker.scale.y = 0.1;
+    marker.scale.z = 0.1;
+    // set colors
+    marker.color.r = 1;
+    marker.color.g = 0;
+    marker.color.b = 0;
+    marker.color.a = 1;
+    // set lifetimes
+    marker.lifetime = ros::Duration(120.0);
+
+    pps.markers.push_back(marker);
+  }
+
+  for(unsigned int i=0;i<pps.markers.size()-1;i++){//populate type and forBez arrays
+    pps.types.push_back("cubic");
+    pps.forBez.push_back(true);
+  }
+  pps.forBez.push_back(true);//extra value needed not included above  
+  for(unsigned int i=0;i<pps.markers.size();i++){
+    pps.points.push_back(pps.markers.at(i).pose.position);
+  }
+
+  pathPoints = pps;
+  curStartId = pps.markers.at(0).id;
+  
+  swapped = true;
+  updateStartGoal();
+}
+
 int main(int argc, char** argv) {
   std::cout<<"\nstarting listener\n";
   srand( time(0));
@@ -136,6 +214,7 @@ int main(int argc, char** argv) {
 
   ros::Subscriber pathPointsListener  = handle.subscribe("/path_points_channel", 1, pathPointsCallback);
   ros::Subscriber readyNextListener = handle.subscribe("/ready_next", 1, getNextPoint);
+  ros::Subscriber trajSwap = handle.subscribe("/traj_swap",1,swapTrajectory);
   pub_path_points = handle.advertise<visualization_msgs::MarkerArray>("/start_goal_channel",10);
   pub_time_needed = handle.advertise<ramp_planner_new::TrajectoryRequest>("/traj_req",1);
   pub_bezify_request = handle.advertise<ramp_planner_new::BezifyRequest>("/bezify_request",1);
