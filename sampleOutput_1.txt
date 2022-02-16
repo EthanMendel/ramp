@@ -1,6 +1,7 @@
 ---got 4 path points in buffer---
 two cubics side by side
 ***bezifying..
+        D: 1.11803
         d1: 0.4
         d2: 0.4
 A: 0.717157     B: 1    C: 0.821115
@@ -12,7 +13,8 @@ A: -0.25        B: 0.75 C: 0    D: 0
 A: 0    B: 0    C: 0    D: 0
 2 coefs
 3 uCoefs
-linVel too high 0.365059
+        linVel too high: 0.365059
+        D: 1.11803
         d1: 0.5
         d2: 0.5
 A: 0.646447     B: 1    C: 0.776393
@@ -107,31 +109,94 @@ starting full path portion
         t: 1.8  Lin: 0.480257   Ang: 0
         curXY:  (0.413184,      0.413184)
         t: 1.9  Lin: 0.48666    Ang: 0
-        curXY:  (0.447759,      0.447759)
-        t: 2    Lin: 0.490929   Ang: 0
-        curXY:  (0.482561,      0.482561)
-        t: 2.1  Lin: 0.493064   Ang: 0
-        curXY:  (0.517439,      0.517439)
-        t: 2.2  Lin: 0.493064   Ang: 0
-        curXY:  (0.552241,      0.552241)
-        t: 2.3  Lin: 0.490929   Ang: 0
-        curXY:  (0.586816,      0.586816)
-        t: 2.4  Lin: 0.48666    Ang: 0
-        curXY:  (0.621015,      0.621015)
-        t: 2.5  Lin: 0.480257   Ang: 0
-        curXY:  (0.654684,      0.654684)
-        t: 2.6  Lin: 0.471719   Ang: 0
-        curXY:  (0.687675,      0.687675)
-        t: 2.7  Lin: 0.461046   Ang: 0
-        curXY:  (0.719836,      0.719836)
-        t: 2.8  Lin: 0.44824    Ang: 0
+##swapping trajectory##
+[ INFO] [1645031897.047309249]: In pubStartGoalMarkers
+[ INFO] [1645031897.047507803]: Exiting pubStartGoalMarkers
+---got 4 path points in buffer---
+two cubics side by side
+***bezifying..
+        D: 0.707107
+        d1: 0.4
+        d2: 0.4
+A: 0.717157     B: 1    C: 1.37947
+A: 0.717157     B: 1    C: 1.12649
+        2.4 seconds with a delta of 0 starting at t=0
+finding uCubic, but entrence velocity is 0
+A: -0.144676    B: 0.520833     C: 0    D: 0
+A: -0.144676    B: 0.520833     C: 0    D: 0
+A: 0    B: 0    C: 0    D: 0
+2 coefs
+3 uCoefs
+**found good bezier where d=0.4**
+adding 6 pathPoints
+        testing 0.5,0.5
+        testing 0.717157,0.717157
+                not found, need to add
+                found point to add before
+        testing 1,1
+                Found, need to remove
+        testing 1.37947,1.12649
+                not found, need to add
+                found point to add before
+        testing 2.5,1.5
+        testing 2,3
+---got 6 path points in buffer---
+cubic and bezier side by side
+found a forBez point after goal point
+sending trajectory request
+getting cubic trajectory
+start:
+x: 0.5
+y: 0.5
+z: 0
+
+goal:
+x: 0.717157
+y: 0.717157
+z: 0
+
+extra point:
+x: 1
+y: 1
+z: 0
+
+        2.1 seconds with a delta of 1.2 starting at t=0
+A: -0.10798     B: 0.340136     C: 0    D: 0.5
+A: -0.10798     B: 0.340136     C: 0    D: 0.5
+A: 0    B: 0    C: 0    D: 0
+        2.1 seconds with a delta of 1.2 starting at t=0 ending at t=0.9
+setting entrence velocities
+new time set to 0.9 sec..
+Cubic path has 15 points
+setting new cubic trajectory for 0.9 secs starting at 0 ending at 0.9
+starting full path portion
+        curXY:  (0.5,   0.5)
+        t: 0    Lin: 0  Ang: 0
+        curXY:  (0.503293,      0.503293)
+        t: 0.1  Lin: 0.0916238  Ang: 0
+        curXY:  (0.512742,      0.512742)
+        t: 0.2  Lin: 0.174085   Ang: 0
+        curXY:  (0.527697,      0.527697)
+        t: 0.3  Lin: 0.247384   Ang: 0
+        curXY:  (0.547511,      0.547511)
+        t: 0.4  Lin: 0.311521   Ang: 0
+        curXY:  (0.571537,      0.571537)
+        t: 0.5  Lin: 0.366495   Ang: 0
+        curXY:  (0.599125,      0.599125)
+        t: 0.6  Lin: 0.412307   Ang: 0
+        curXY:  (0.62963,       0.62963)
+        t: 0.7  Lin: 0.448957   Ang: 0
+        curXY:  (0.662401,      0.662401)
+        t: 0.8  Lin: 0.476444   Ang: 0
+        curXY:  (0.696793,      0.696793)
+        t: 0.9  Lin: 0.494769   Ang: 0
 finished full path portion
 cubic and bezier side by side
 sending trajectory request
 getting bezier trajectory
 start:
-x: 0.646447
-y: 0.646447
+x: 0.717157
+y: 0.717157
 z: 0
 
 mid:
@@ -140,107 +205,95 @@ y: 1
 z: 0
 
 goal:
-x: 0.776393
-y: 1.44721
+x: 1.37947
+y: 1.12649
 z: 0
 
-A: 0.646447     B: 1    C: 0.776393
-A: 0.646447     B: 1    C: 1.44721
-        2.5 seconds with a delta of 0 starting at t=0
-A: 0.0154367    B: -0.0578875   C: 0.44824      D: 0
-A: 0.0154367    B: -0.0578875   C: 0.44824      D: 0
+A: 0.717157     B: 1    C: 1.37947
+A: 0.717157     B: 1    C: 1.12649
+        2.4 seconds with a delta of 0 starting at t=0
+A: 0.0740441    B: -0.266559    C: 0.629914     D: 0
+A: 0.0740441    B: -0.266559    C: 0.629914     D: 0
 A: 0    B: 0    C: 0    D: 0
-Bezier path has 59 points
-setting new bezier trajectory for 2.5 secs starting at 0 ending at 2.5
+Bezier path has 40 points
+setting new bezier trajectory for 2.4 secs starting at 0 ending at 2.4
 starting full path portion
-        curXY:  (0.646447,      0.646447)
-        t: 0    Lin: 0.44824    Ang: 31.4159
-        curXY:  (0.676613,      0.677927)
-        t: 0.1  Lin: 0.424293   Ang: -31.2028
-        curXY:  (0.703873,      0.709004)
-        t: 0.2  Lin: 0.402966   Ang: 0.440179
-        curXY:  (0.728437,      0.739718)
-        t: 0.3  Lin: 0.384092   Ang: 0.454675
-        curXY:  (0.750496,      0.770117)
-        t: 0.4  Lin: 0.367522   Ang: 0.468598
-        curXY:  (0.770218,      0.800247)
-        t: 0.5  Lin: 0.353121   Ang: 0.481777
-        curXY:  (0.787752,      0.830162)
-        t: 0.6  Lin: 0.340774   Ang: 0.494055
-        curXY:  (0.803228,      0.859916)
-        t: 0.7  Lin: 0.330377   Ang: 0.505235
-        curXY:  (0.816759,      0.889566)
-        t: 0.8  Lin: 0.321845   Ang: 0.515233
-        curXY:  (0.828438,      0.919175)
-        t: 0.9  Lin: 0.315104   Ang: 0.523755
-        curXY:  (0.838345,      0.948805)
-        t: 1    Lin: 0.310099   Ang: 0.530824
-        curXY:  (0.846538,      0.978523)
-        t: 1.1  Lin: 0.306785   Ang: 0.536182
-        curXY:  (0.853064,      1.0084)
-        t: 1.2  Lin: 0.305136   Ang: 0.539881
-        curXY:  (0.857949,      1.0385)
-        t: 1.3  Lin: 0.305136   Ang: 0.541708
-        curXY:  (0.861205,      1.0689)
-        t: 1.4  Lin: 0.306785   Ang: 0.541681
-        curXY:  (0.86283,       1.09969)
-        t: 1.5  Lin: 0.310099   Ang: 0.539867
-        curXY:  (0.862802,      1.13093)
-        t: 1.6  Lin: 0.315104   Ang: 0.536169
-        curXY:  (0.861084,      1.16271)
-        t: 1.7  Lin: 0.321845   Ang: 0.530828
-        curXY:  (0.857624,      1.19512)
-        t: 1.8  Lin: 0.330377   Ang: 0.52377
-        curXY:  (0.852351,      1.22824)
-        t: 1.9  Lin: 0.340774   Ang: 0.51521
-        curXY:  (0.845177,      1.26217)
-        t: 2    Lin: 0.353121   Ang: 0.505244
-        curXY:  (0.835995,      1.29699)
-        t: 2.1  Lin: 0.367522   Ang: 0.494057
-        curXY:  (0.824681,      1.3328)
-        t: 2.2  Lin: 0.384092   Ang: 0.48177
-        curXY:  (0.81109,       1.36971)
-        t: 2.3  Lin: 0.402966   Ang: 0.468604
-        curXY:  (0.795056,      1.40781)
-        t: 2.4  Lin: 0.424293   Ang: 0.454673
-        curXY:  (0.776393,      1.44721)
-        t: 2.5  Lin: 0.44824    Ang: 0.440179
+        curXY:  (0.717157,      0.717157)
+        t: 0    Lin: 0.503931   Ang: 0
+        curXY:  (0.751677,      0.750754)
+        t: 0.1  Lin: 0.460276   Ang: -0.135482
+        curXY:  (0.784026,      0.780627)
+        t: 0.2  Lin: 0.421109   Ang: -0.262259
+        curXY:  (0.814312,      0.807258)
+        t: 0.3  Lin: 0.386177   Ang: -0.243542
+        curXY:  (0.842673,      0.831081)
+        t: 0.4  Lin: 0.355283   Ang: -0.22605
+        curXY:  (0.869273,      0.852489)
+        t: 0.5  Lin: 0.328275   Ang: -0.209995
+        curXY:  (0.894301,      0.871838)
+        t: 0.6  Lin: 0.30504    Ang: -0.195537
+        curXY:  (0.917962,      0.889448)
+        t: 0.7  Lin: 0.285492   Ang: -0.182812
+        curXY:  (0.940482,      0.905616)
+        t: 0.8  Lin: 0.269568   Ang: -0.171907
+        curXY:  (0.962102,      0.920609)
+        t: 0.9  Lin: 0.257223   Ang: -0.162893
+        curXY:  (0.983075,      0.934675)
+        t: 1    Lin: 0.248426   Ang: -0.155859
+        curXY:  (1.00367,       0.94804)
+        t: 1.1  Lin: 0.243155   Ang: -0.150795
+        curXY:  (1.02416,       0.960912)
+        t: 1.2  Lin: 0.241399   Ang: -0.147735
+        curXY:  (1.04483,       0.973482)
+        t: 1.3  Lin: 0.243155   Ang: -0.146736
+        curXY:  (1.066, 0.985924)
+        t: 1.4  Lin: 0.248426   Ang: -0.147747
+        curXY:  (1.08796,       0.998392)
+        t: 1.5  Lin: 0.257223   Ang: -0.150788
+        curXY:  (1.11104,       1.01102)
+        t: 1.6  Lin: 0.269568   Ang: -0.155856
+        curXY:  (1.13557,       1.02394)
+        t: 1.7  Lin: 0.285492   Ang: -0.1629
+        curXY:  (1.1619,        1.03722)
+        t: 1.8  Lin: 0.30504    Ang: -0.171908
+        curXY:  (1.1904,        1.05096)
+        t: 1.9  Lin: 0.328275   Ang: -0.182806
+        curXY:  (1.22144,       1.06518)
+        t: 2    Lin: 0.355283   Ang: -0.195541
+        curXY:  (1.25544,       1.07989)
+        t: 2.1  Lin: 0.386177   Ang: -0.209993
+        curXY:  (1.2928,        1.09507)
+        t: 2.2  Lin: 0.421109   Ang: -0.226052
+        curXY:  (1.33399,       1.11064)
+        t: 2.3  Lin: 0.460276   Ang: -0.243543
+        curXY:  (1.37947,       1.12649)
+        t: 2.4  Lin: 0.503931   Ang: -0.262258
 finished full path portion
 two cubics side by side
 ***bezifying..
+        D: 1.18114
         d1: 0.4
         d2: 0.4
-A: 0.678885     B: 0.5  C: 0.83282
-A: 1.64223      B: 2    C: 2.22188
-        1.8 seconds with a delta of 0 starting at t=0
-A: -0.889794    B: 2.40244      C: -0.885911    D: 0
-A: -0.0695062   B: 0.187667     C: 0.442956     D: 0
+A: 2.12053      B: 2.5  C: 2.37351
+A: 1.37351      B: 1.5  C: 1.87947
+        1.7 seconds with a delta of 0 starting at t=0
+A: -0.0821629   B: 0.209515     C: 0.46951      D: 0
+A: 0.567678     B: -1.44758     C: 1.40853      D: 0
 A: 0    B: 0    C: 0    D: 0
 2 coefs
 3 uCoefs
-linVel too high 0.359902
-        d1: 0.5
-        d2: 0.5
-A: 0.723607     B: 0.5  C: 0.916025
-A: 1.55279      B: 2    C: 2.27735
-        2.3 seconds with a delta of 0 starting at t=0
-A: -0.43233     B: 1.49154      C: -0.708729    D: 0
-A: -0.0304038   B: 0.104893     C: 0.354364     D: 0
-A: 0    B: 0    C: 0    D: 0
-2 coefs
-3 uCoefs
-**found good bezier where d=0.5**
+**found good bezier where d=0.4**
 adding 8 pathPoints
-        testing 0,0
-        testing 0.646447,0.646447
+        testing 0.5,0.5
+        testing 0.717157,0.717157
         testing 1,1
-        testing 0.776393,1.44721
-        testing 0.723607,1.55279
+        testing 1.37947,1.12649
+        testing 2.12053,1.37351
                 not found, need to add
                 found point to add before
-        testing 0.5,2
+        testing 2.5,1.5
                 Found, need to remove
-        testing 0.916025,2.27735
+        testing 2.37351,1.87947
                 not found, need to add
                 found point to add before
         testing 2,3
@@ -251,13 +304,13 @@ found a forBez point after goal point
 sending trajectory request
 getting cubic trajectory
 start:
-x: 0.776393
-y: 1.44721
+x: 1.37947
+y: 1.12649
 z: 0
 
 goal:
-x: 0.723607
-y: 1.55279
+x: 2.12053
+y: 1.37351
 z: 0
 
 extra points:
@@ -266,106 +319,132 @@ y: 1
 z: 0
 
 
-x: 0.5
-y: 2
+x: 2.5
+y: 1.5
 z: 0
 
-        3.4 seconds with a delta of 1.5 starting at t=1.5
-A: 0.0254427    B: -0.129758    C: 0    D: 1
-A: -0.0508854   B: 0.259516     C: 0    D: 1
+        4.8 seconds with a delta of 1.2 starting at t=1.2
+A: -0.0271267   B: 0.195312     C: 0    D: 1
+A: -0.00904225  B: 0.0651042    C: 0    D: 1
 A: 0    B: 0    C: 0    D: 0
-        3.4 seconds with a delta of 1.5 starting at t=1.5 ending at t=1.9
+        4.8 seconds with a delta of 1.2 starting at t=1.2 ending at t=3.6
 setting entrence velocities
-new time set to 1.9 sec..
-Cubic path has 64 points
-setting new cubic trajectory for 1.9 secs starting at 1.5 ending at 1.9
+new time set to 3.6 sec..
+Cubic path has 65 points
+setting new cubic trajectory for 3.6 secs starting at 1.2 ending at 3.6
 starting full path portion
-        curXY:  (0.793914,      1.41217)
-        t: 1.5  Lin: 0.486423   Ang: -31.2027
-        curXY:  (0.772033,      1.45593)
-        t: 1.6  Lin: 0.491544   Ang: 31.4159
-        curXY:  (0.75,  1.5)
-        t: 1.7  Lin: 0.49325    Ang: 0
-        curXY:  (0.727967,      1.54407)
-        t: 1.8  Lin: 0.491544   Ang: 0
-        curXY:  (0.706086,      1.58783)
-        t: 1.9  Lin: 0.486423   Ang: 0
+        curXY:  (1.20022,       1.06674)
+        t: 1.1  Lin: 0.349134   Ang: 31.2804
+        curXY:  (1.23438,       1.07812)
+        t: 1.2  Lin: 0.370579   Ang: -31.4159
+        curXY:  (1.27048,       1.09016)
+        t: 1.3  Lin: 0.390309   Ang: 1.77636e-14
+        curXY:  (1.30838,       1.10279)
+        t: 1.4  Lin: 0.408324   Ang: -1.77636e-14
+        curXY:  (1.3479,        1.11597)
+        t: 1.5  Lin: 0.424622   Ang: -1.77636e-14
+        curXY:  (1.38889,       1.12963)
+        t: 1.6  Lin: 0.439205   Ang: 4.88498e-14
+        curXY:  (1.43118,       1.14373)
+        t: 1.7  Lin: 0.452073   Ang: -7.54952e-14
+        curXY:  (1.47461,       1.1582)
+        t: 1.8  Lin: 0.463224   Ang: 6.21725e-14
+        curXY:  (1.51902,       1.17301)
+        t: 1.9  Lin: 0.47266    Ang: -1.77636e-14
+        curXY:  (1.56424,       1.18808)
+        t: 2    Lin: 0.480381   Ang: 0
+        curXY:  (1.61011,       1.20337)
+        t: 2.1  Lin: 0.486385   Ang: 0
+        curXY:  (1.65647,       1.21882)
+        t: 2.2  Lin: 0.490675   Ang: 1.33227e-14
+        curXY:  (1.70315,       1.23438)
+        t: 2.3  Lin: 0.493248   Ang: -2.66454e-14
+        curXY:  (1.75,  1.25)
+        t: 2.4  Lin: 0.494106   Ang: 1.33227e-14
+        curXY:  (1.79685,       1.26562)
+        t: 2.5  Lin: 0.493248   Ang: 3.10862e-14
+        curXY:  (1.84353,       1.28118)
+        t: 2.6  Lin: 0.490675   Ang: -3.10862e-14
+        curXY:  (1.88989,       1.29663)
+        t: 2.7  Lin: 0.486385   Ang: -2.66454e-14
+        curXY:  (1.93576,       1.31192)
+        t: 2.8  Lin: 0.480381   Ang: 4.44089e-14
+        curXY:  (1.98098,       1.32699)
+        t: 2.9  Lin: 0.47266    Ang: -1.77636e-14
+        curXY:  (2.02539,       1.3418)
+        t: 3    Lin: 0.463224   Ang: -1.33227e-14
+        curXY:  (2.06882,       1.35627)
+        t: 3.1  Lin: 0.452073   Ang: 3.10862e-14
+        curXY:  (2.11111,       1.37037)
+        t: 3.2  Lin: 0.439205   Ang: -1.77636e-14
+        curXY:  (2.1521,        1.38403)
+        t: 3.3  Lin: 0.424622   Ang: 4.88498e-14
+        curXY:  (2.19162,       1.39721)
+        t: 3.4  Lin: 0.408324   Ang: -9.76996e-14
+        curXY:  (2.22952,       1.40984)
+        t: 3.5  Lin: 0.390309   Ang: 4.88498e-14
 finished full path portion
 cubic and bezier side by side
 sending trajectory request
 getting bezier trajectory
 start:
-x: 0.723607
-y: 1.55279
+x: 2.12053
+y: 1.37351
 z: 0
 
 mid:
-x: 0.5
-y: 2
+x: 2.5
+y: 1.5
 z: 0
 
 goal:
-x: 0.916025
-y: 2.27735
+x: 2.37351
+y: 1.87947
 z: 0
 
-A: 0.723607     B: 0.5  C: 0.916025
-A: 1.55279      B: 2    C: 2.27735
-        2.3 seconds with a delta of 0 starting at t=0
-A: 0.0195239    B: -0.0673574   C: 0.486423     D: 0
-A: 0.0195239    B: -0.0673574   C: 0.486423     D: 0
+A: 2.12053      B: 2.5  C: 2.37351
+A: 1.37351      B: 1.5  C: 1.87947
+        1.7 seconds with a delta of 0 starting at t=0
+A: -0.0865128   B: 0.220608     C: 0.463224     D: 0
+A: -0.0865128   B: 0.220608     C: 0.463224     D: 0
 A: 0    B: 0    C: 0    D: 0
-Bezier path has 88 points
-setting new bezier trajectory for 2.3 secs starting at 0 ending at 2.3
+Bezier path has 82 points
+setting new bezier trajectory for 1.7 secs starting at 0 ending at 1.7
 starting full path portion
-        curXY:  (0.723607,      1.55279)
-        t: 0    Lin: 0.486423   Ang: -31.4159
-        curXY:  (0.703619,      1.59532)
-        t: 0.1  Lin: 0.454192   Ang: 31.1727
-        curXY:  (0.686977,      1.63601)
-        t: 0.2  Lin: 0.425714   Ang: -0.510834
-        curXY:  (0.673429,      1.67501)
-        t: 0.3  Lin: 0.400744   Ang: -0.539313
-        curXY:  (0.662755,      1.71248)
-        t: 0.4  Lin: 0.379066   Ang: -0.567899
-        curXY:  (0.654767,      1.74855)
-        t: 0.5  Lin: 0.36049    Ang: -0.595989
-        curXY:  (0.649305,      1.78336)
-        t: 0.6  Lin: 0.344855   Ang: -0.623021
-        curXY:  (0.646238,      1.81704)
-        t: 0.7  Lin: 0.332025   Ang: -0.648162
-        curXY:  (0.645463,      1.84969)
-        t: 0.8  Lin: 0.32189    Ang: -0.670872
-        curXY:  (0.646902,      1.88145)
-        t: 0.9  Lin: 0.314363   Ang: -0.690131
-        curXY:  (0.650504,      1.9124)
-        t: 1    Lin: 0.309381   Ang: -0.705417
-        curXY:  (0.65624,       1.94265)
-        t: 1.1  Lin: 0.3069     Ang: -0.716013
-        curXY:  (0.664111,      1.97228)
-        t: 1.2  Lin: 0.3069     Ang: -0.721385
-        curXY:  (0.674137,      2.00139)
-        t: 1.3  Lin: 0.309381   Ang: -0.7214
-        curXY:  (0.686366,      2.03005)
-        t: 1.4  Lin: 0.314363   Ang: -0.715994
-        curXY:  (0.70087,       2.05833)
-        t: 1.5  Lin: 0.32189    Ang: -0.70543
-        curXY:  (0.717746,      2.0863)
-        t: 1.6  Lin: 0.332025   Ang: -0.690163
-        curXY:  (0.737116,      2.11402)
-        t: 1.7  Lin: 0.344855   Ang: -0.67085
-        curXY:  (0.75913,       2.14153)
-        t: 1.8  Lin: 0.36049    Ang: -0.648184
-        curXY:  (0.783962,      2.16889)
-        t: 1.9  Lin: 0.379066   Ang: -0.622997
-        curXY:  (0.811819,      2.19613)
-        t: 2    Lin: 0.400744   Ang: -0.595987
-        curXY:  (0.842933,      2.22327)
-        t: 2.1  Lin: 0.425714   Ang: -0.56791
-        curXY:  (0.877569,      2.25034)
-        t: 2.2  Lin: 0.454192   Ang: -0.539339
-        curXY:  (0.916025,      2.27735)
-        t: 2.3  Lin: 0.486423   Ang: -0.510802
+        curXY:  (2.12053,       1.37351)
+        t: 0    Lin: 0.370579   Ang: -31.4159
+        curXY:  (2.1561,        1.38636)
+        t: 0.1  Lin: 0.384737   Ang: -31.1677
+        curXY:  (2.19187,       1.40157)
+        t: 0.2  Lin: 0.391682   Ang: 0.556352
+        curXY:  (2.2269,        1.41929)
+        t: 0.3  Lin: 0.392736   Ang: 0.66109
+        curXY:  (2.26034,       1.43961)
+        t: 0.4  Lin: 0.389478   Ang: 0.777511
+        curXY:  (2.29143,       1.46258)
+        t: 0.5  Lin: 0.383674   Ang: 0.902647
+        curXY:  (2.31952,       1.4882)
+        t: 0.6  Lin: 0.377161   Ang: 1.02979
+        curXY:  (2.3441,        1.5164)
+        t: 0.7  Lin: 0.371657   Ang: 1.14737
+        curXY:  (2.36475,       1.54706)
+        t: 0.8  Lin: 0.368525   Ang: 1.23981
+        curXY:  (2.3812,        1.57997)
+        t: 0.9  Lin: 0.368525   Ang: 1.29127
+        curXY:  (2.39334,       1.61488)
+        t: 1    Lin: 0.371657   Ang: 1.29121
+        curXY:  (2.40115,       1.65146)
+        t: 1.1  Lin: 0.377161   Ang: 1.23982
+        curXY:  (2.40479,       1.68931)
+        t: 1.2  Lin: 0.383674   Ang: 1.14736
+        curXY:  (2.40451,       1.72796)
+        t: 1.3  Lin: 0.389478   Ang: 1.02977
+        curXY:  (2.40071,       1.7669)
+        t: 1.4  Lin: 0.392736   Ang: 0.902646
+        curXY:  (2.39387,       1.80556)
+        t: 1.5  Lin: 0.391682   Ang: 0.777513
+        curXY:  (2.38458,       1.8433)
+        t: 1.6  Lin: 0.384737   Ang: 0.661093
 finished full path portion
 at begining or end of path
 found a forBez point before start point
@@ -373,8 +452,8 @@ markers not long enough, or no forBez after goal
 sending trajectory request
 getting cubic trajectory
 start:
-x: 0.916025
-y: 2.27735
+x: 2.37351
+y: 1.87947
 z: 0
 
 goal:
@@ -383,98 +462,93 @@ y: 3
 z: 0
 
 extra point:
-x: 0.5
-y: 2
+x: 2.5
+y: 1.5
 z: 0
 
-        5.5 seconds with a delta of 1.5 starting at t=1.5
-A: -0.0180316   B: 0.14876      C: 0    D: 0.5
-A: -0.012021    B: 0.0991736    C: 0    D: 2
+        4.8 seconds with a delta of 1.2 starting at t=1.2
+A: 0.00904225   B: -0.0651042   C: 0    D: 2.5
+A: -0.0271267   B: 0.195312     C: 0    D: 1.5
 A: 0    B: 0    C: 0    D: 0
-        5.5 seconds with a delta of 1.5 starting at t=1.5 ending at t=4
-Cubic path has 129 points
-setting new cubic trajectory for 5.5 secs starting at 1.5 ending at 5.5
+        4.8 seconds with a delta of 1.2 starting at t=1.2 ending at t=3.6
+Cubic path has 119 points
+setting new cubic trajectory for 4.8 secs starting at 1.2 ending at 4.8
 starting full path portion
-        curXY:  (0.773854,      2.18257)
-        t: 1.5  Lin: 0.390082   Ang: 31.1727
-        curXY:  (0.806969,      2.20465)
-        t: 1.6  Lin: 0.405685   Ang: 31.4159
-        curXY:  (0.841328,      2.22755)
-        t: 1.7  Lin: 0.419988   Ang: 1.06581e-13
-        curXY:  (0.876823,      2.25122)
-        t: 1.8  Lin: 0.432991   Ang: -2.66454e-14
-        curXY:  (0.913346,      2.27556)
-        t: 1.9  Lin: 0.444694   Ang: 8.88178e-15
-        curXY:  (0.950789,      2.30053)
-        t: 2    Lin: 0.455096   Ang: -8.88178e-15
-        curXY:  (0.989043,      2.32603)
-        t: 2.1  Lin: 0.464198   Ang: -1.77636e-14
-        curXY:  (1.028, 2.352)
-        t: 2.2  Lin: 0.471999   Ang: -8.88178e-15
-        curXY:  (1.06755,       2.37837)
-        t: 2.3  Lin: 0.478501   Ang: 2.66454e-14
-        curXY:  (1.10759,       2.40506)
-        t: 2.4  Lin: 0.483702   Ang: 0
-        curXY:  (1.14801,       2.43201)
-        t: 2.5  Lin: 0.487603   Ang: 4.88498e-14
-        curXY:  (1.1887,        2.45913)
-        t: 2.6  Lin: 0.490203   Ang: -4.88498e-14
-        curXY:  (1.22955,       2.48637)
-        t: 2.7  Lin: 0.491504   Ang: 2.22045e-14
-        curXY:  (1.27045,       2.51363)
-        t: 2.8  Lin: 0.491504   Ang: -1.02141e-13
-        curXY:  (1.3113,        2.54087)
-        t: 2.9  Lin: 0.490203   Ang: 1.24345e-13
-        curXY:  (1.35199,       2.56799)
-        t: 3    Lin: 0.487603   Ang: -2.22045e-14
-        curXY:  (1.39241,       2.59494)
-        t: 3.1  Lin: 0.483702   Ang: -7.54952e-14
-        curXY:  (1.43245,       2.62163)
-        t: 3.2  Lin: 0.478501   Ang: 5.32907e-14
-        curXY:  (1.472, 2.648)
-        t: 3.3  Lin: 0.471999   Ang: -5.32907e-14
-        curXY:  (1.51096,       2.67397)
-        t: 3.4  Lin: 0.464198   Ang: 1.02141e-13
-        curXY:  (1.54921,       2.69947)
-        t: 3.5  Lin: 0.455096   Ang: -7.54952e-14
-        curXY:  (1.58665,       2.72444)
-        t: 3.6  Lin: 0.444694   Ang: 1.06581e-13
-        curXY:  (1.62318,       2.74878)
-        t: 3.7  Lin: 0.432991   Ang: -1.68754e-13
-        curXY:  (1.65867,       2.77245)
-        t: 3.8  Lin: 0.419988   Ang: 5.77316e-14
-        curXY:  (1.69303,       2.79535)
-        t: 3.9  Lin: 0.405685   Ang: 3.10862e-14
-        curXY:  (1.72615,       2.81743)
-        t: 4    Lin: 0.390082   Ang: 0
-        curXY:  (1.75791,       2.83861)
-        t: 4.1  Lin: 0.373179   Ang: 9.32587e-14
-        curXY:  (1.78821,       2.85881)
-        t: 4.2  Lin: 0.354975   Ang: -9.76996e-14
-        curXY:  (1.81694,       2.87796)
-        t: 4.3  Lin: 0.335471   Ang: -7.10543e-14
-        curXY:  (1.844, 2.896)
-        t: 4.4  Lin: 0.314666   Ang: 1.11022e-13
-        curXY:  (1.86927,       2.91285)
-        t: 4.5  Lin: 0.292562   Ang: 0
-        curXY:  (1.89265,       2.92843)
-        t: 4.6  Lin: 0.269157   Ang: -1.24345e-13
-        curXY:  (1.91403,       2.94268)
-        t: 4.7  Lin: 0.244452   Ang: 8.88178e-14
-        curXY:  (1.93329,       2.95553)
-        t: 4.8  Lin: 0.218446   Ang: 5.32907e-14
-        curXY:  (1.95034,       2.96689)
-        t: 4.9  Lin: 0.19114    Ang: -5.32907e-14
-        curXY:  (1.96506,       2.97671)
-        t: 5    Lin: 0.162534   Ang: 6.66134e-14
-        curXY:  (1.97735,       2.9849)
-        t: 5.1  Lin: 0.132628   Ang: 1.33227e-14
-        curXY:  (1.9871,        2.9914)
-        t: 5.2  Lin: 0.101421   Ang: -7.99361e-14
-        curXY:  (1.99419,       2.99613)
-        t: 5.3  Lin: 0.0689145  Ang: -5.81757e-13
-        curXY:  (1.99853,       2.99902)
-        t: 5.4  Lin: 0.0351074  Ang: 8.12683e-13
+        curXY:  (2.43326,       1.70022)
+        t: 1.1  Lin: 0.349134   Ang: -30.5493
+        curXY:  (2.42188,       1.73438)
+        t: 1.2  Lin: 0.370579   Ang: 31.3538
+        curXY:  (2.40984,       1.77048)
+        t: 1.3  Lin: 0.390309   Ang: -4.21885e-14
+        curXY:  (2.39721,       1.80838)
+        t: 1.4  Lin: 0.408324   Ang: 3.77476e-14
+        curXY:  (2.38403,       1.8479)
+        t: 1.5  Lin: 0.424622   Ang: 3.33067e-14
+        curXY:  (2.37037,       1.88889)
+        t: 1.6  Lin: 0.439205   Ang: 0
+        curXY:  (2.35627,       1.93118)
+        t: 1.7  Lin: 0.452073   Ang: -3.33067e-14
+        curXY:  (2.3418,        1.97461)
+        t: 1.8  Lin: 0.463224   Ang: -3.10862e-14
+        curXY:  (2.32699,       2.01902)
+        t: 1.9  Lin: 0.47266    Ang: 2.88658e-14
+        curXY:  (2.31192,       2.06424)
+        t: 2    Lin: 0.480381   Ang: 0
+        curXY:  (2.29663,       2.11011)
+        t: 2.1  Lin: 0.486385   Ang: 2.22045e-15
+        curXY:  (2.28118,       2.15647)
+        t: 2.2  Lin: 0.490675   Ang: -2.66454e-14
+        curXY:  (2.26562,       2.20315)
+        t: 2.3  Lin: 0.493248   Ang: 5.55112e-14
+        curXY:  (2.25,  2.25)
+        t: 2.4  Lin: 0.494106   Ang: -3.10862e-14
+        curXY:  (2.23438,       2.29685)
+        t: 2.5  Lin: 0.493248   Ang: 2.88658e-14
+        curXY:  (2.21882,       2.34353)
+        t: 2.6  Lin: 0.490675   Ang: -2.88658e-14
+        curXY:  (2.20337,       2.38989)
+        t: 2.7  Lin: 0.486385   Ang: -2.44249e-14
+        curXY:  (2.18808,       2.43576)
+        t: 2.8  Lin: 0.480381   Ang: 5.32907e-14
+        curXY:  (2.17301,       2.48098)
+        t: 2.9  Lin: 0.47266    Ang: -2.88658e-14
+        curXY:  (2.1582,        2.52539)
+        t: 3    Lin: 0.463224   Ang: -2.88658e-14
+        curXY:  (2.14373,       2.56882)
+        t: 3.1  Lin: 0.452073   Ang: 0
+        curXY:  (2.12963,       2.61111)
+        t: 3.2  Lin: 0.439205   Ang: 3.10862e-14
+        curXY:  (2.11597,       2.6521)
+        t: 3.3  Lin: 0.424622   Ang: 9.54792e-14
+        curXY:  (2.10279,       2.69162)
+        t: 3.4  Lin: 0.408324   Ang: -9.54792e-14
+        curXY:  (2.09016,       2.72952)
+        t: 3.5  Lin: 0.390309   Ang: 0
+        curXY:  (2.07812,       2.76562)
+        t: 3.6  Lin: 0.370579   Ang: -3.77476e-14
+        curXY:  (2.06674,       2.79978)
+        t: 3.7  Lin: 0.349134   Ang: 4.44089e-15
+        curXY:  (2.05606,       2.83181)
+        t: 3.8  Lin: 0.325973   Ang: 7.54952e-14
+        curXY:  (2.04614,       2.86157)
+        t: 3.9  Lin: 0.301096   Ang: -4.21885e-14
+        curXY:  (2.03704,       2.88889)
+        t: 4    Lin: 0.274503   Ang: -5.10703e-14
+        curXY:  (2.0288,        2.9136)
+        t: 4.1  Lin: 0.246195   Ang: 5.10703e-14
+        curXY:  (2.02148,       2.93555)
+        t: 4.2  Lin: 0.216171   Ang: 1.24345e-13
+        curXY:  (2.01515,       2.95456)
+        t: 4.3  Lin: 0.184432   Ang: -5.32907e-14
+        curXY:  (2.00984,       2.97049)
+        t: 4.4  Lin: 0.150977   Ang: -7.10543e-14
+        curXY:  (2.00562,       2.98315)
+        t: 4.5  Lin: 0.115806   Ang: -1.08802e-13
+        curXY:  (2.00253,       2.9924)
+        t: 4.6  Lin: 0.0789197  Ang: -1.77636e-13
+        curXY:  (2.00064,       2.99807)
+        t: 4.7  Lin: 0.0403177  Ang: 2.84217e-13
         curXY:  (2,     3)
-        t: 5.5  Lin: 2.22045e-16        Ang: 4.61853e-13
+        t: 4.8  Lin: 4.57757e-16        Ang: 6.99441e-13
 finished full path portion
+no next point, end of trajectory
