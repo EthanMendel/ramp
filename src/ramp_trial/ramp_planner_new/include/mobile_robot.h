@@ -5,6 +5,7 @@
 #include "nav_msgs/Odometry.h"
 #include "geometry_msgs/Twist.h"
 #include "geometry_msgs/Pose.h"
+#include "geometry_msgs/Point.h"
 #include "visualization_msgs/MarkerArray.h"
 #include "tf/transform_datatypes.h"
 #include "ramp_msgs/MotionState.h"
@@ -39,6 +40,7 @@ class MobileRobot
   ros::Publisher                    pub_cmd_vel_;
   ros::Publisher                    pub_cmd_vel2_;
   ros::Publisher                    pub_ready_next_;
+  ros::Publisher                    pub_swap_traj_;
   ros::Subscriber                   sub_imminent_collision_;
   ramp_msgs::MotionState            motion_state_; 
   ramp_planner_new::TrajectoryRepresentation trajectory_;
@@ -55,6 +57,7 @@ class MobileRobot
   static const std::string  TOPIC_STR_IC;
   static const std::string  TOPIC_STR_SIM;
   static const std::string  TOPIC_STR_SIM2;
+  static const std::string  TOPIC_TRAJ_SWAP;
   static const int          SEND_RESELUTION = 10;
   static const int          ACCELERATION_CONSTANT = 50;
   const double              CYCLE_TIME_IN_SECONDS = 0.1;
@@ -79,6 +82,7 @@ class MobileRobot
 
   int                       seg_step_;
   int                       time_step_;
+  double                    tot_time_;
   const unsigned int        k_dof_;
   bool                      started_ = false;
   ros::Time                 global_start_;

@@ -1782,4 +1782,5 @@ ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/control_main.cpp
   /Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/src/../include/bezier_curve.h \
   /Users/ethanmendel/miniforge-pypy3/envs/robostackenv/include/tf/transform_broadcaster.h \
   /Users/ethanmendel/miniforge-pypy3/envs/robostackenv/include/tf2_ros/transform_broadcaster.h \
-  /Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/src/../include/mobile_robot.h
+  /Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/src/../include/mobile_robot.h \
+  /Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel/include/ramp_planner_new/TrajectorySwap.h

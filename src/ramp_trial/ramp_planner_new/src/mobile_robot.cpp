@@ -1,5 +1,6 @@
 #include "../include/mobile_robot.h"
 #include <ramp_planner_new/TrajectoryRequest.h>
+#include <ramp_planner_new/TrajectorySwap.h>
 
 const std::string MobileRobot::TOPIC_STR_PHIDGET_MOTOR="/PhidgetMotor";
 const std::string MobileRobot::TOPIC_STR_ODOMETRY="/odometry/filtered";
@@ -8,6 +9,7 @@ const std::string MobileRobot::TOPIC_STR_TWIST="/twist";
 const std::string MobileRobot::TOPIC_STR_IC="/imminent_collision";
 const std::string MobileRobot::TOPIC_STR_SIM="/cmd_vel";
 const std::string MobileRobot::TOPIC_STR_SIM2="/mobile_base/commands/velocity";
+const std::string MobileRobot::TOPIC_TRAJ_SWAP="traj_swap";
 const float BASE_WIDTH=0.2413;
 
 const float timeNeededToTurn = 2.5; 
@@ -173,6 +175,7 @@ void MobileRobot::moveOnTrajectory() {
   if(!started_){
     started_ = true;
     global_start_ = ros::Time::now();
+    tot_time_ = 0;
   }
   if(trajectory_.active == 1){
     // Execute the trajectory
@@ -190,11 +193,22 @@ void MobileRobot::moveOnTrajectory() {
         if((seg_step_+.1*time_step_) > trajectory_.totalTime){
           break;
         }
+        if(tot_time_ > 2.0){
+          ramp_planner_new::TrajectorySwap msg;
+          for(unsigned int i=0;i<4;i++){
+            geometry_msgs::Point p;
+            p.x = i;
+            p.y = i;
+            msg.points.push_back(p);
+          }
+          pub_swap_traj_.publish(msg);
+        }
         // std::cout<<"running for "<<(seg_step_+.1*time_step_)<<std::endl;
         // Send the twist_message to move the robot
         setNextTwist();
         sendTwist();
         time_step_++;
+        tot_time_ = tot_time_ + .1;
         // Sleep
         r.sleep();
         // Spin to check for updates

@@ -1304,4 +1304,5 @@ ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_new.dir/src/mobile_robot.cpp
   /Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel/include/ramp_planner_new/TrajectoryRepresentation.h \
   /Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel/include/ramp_planner_new/Coefficient.h \
   /Users/ethanmendel/miniforge-pypy3/envs/robostackenv/include/std_msgs/Bool.h \
-  /Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel/include/ramp_planner_new/TrajectoryRequest.h
+  /Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel/include/ramp_planner_new/TrajectoryRequest.h \
+  /Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel/include/ramp_planner_new/TrajectorySwap.h

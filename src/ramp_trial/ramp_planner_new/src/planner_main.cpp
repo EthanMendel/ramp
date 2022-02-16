@@ -600,6 +600,7 @@ void bezify(const ramp_planner_new::BezifyRequest& br){
 }
 
 void swapTrajectory(ramp_planner_new::TrajectorySwap msg){
+  std::cout<<"##swapping trajectory##"<<std::endl;
   std::vector<std::vector<float>> points;
   //convert new points into vector<vector<float>
   initStartGoal(points);
