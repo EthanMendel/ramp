@@ -1,2 +1,0 @@
-ramp_trial/path_modification:ramp_trial/ramp_launch:ramp_trial/ramp_msgs:ramp_trial/ramp_planner_new
--DCATKIN_DEVEL_PREFIX=/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel -DCMAKE_INSTALL_PREFIX=/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/install -G Unix Makefiles

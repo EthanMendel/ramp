@@ -1,8 +1,0 @@
-prefix=/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel
-
-Name: ramp_planner_new
-Description: Description of ramp_planner_new
-Version: 0.0.0
-Cflags: -I/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel/include
-Libs: -L${prefix}/lib 
-Requires: geometry_msgs message_runtime ramp_msgs roscpp roslib visualization_msgs

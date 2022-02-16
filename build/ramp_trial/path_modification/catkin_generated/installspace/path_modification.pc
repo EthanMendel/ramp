@@ -1,8 +1,0 @@
-prefix=/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/install
-
-Name: path_modification
-Description: Description of path_modification
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 
