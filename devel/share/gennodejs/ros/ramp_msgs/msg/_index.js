@@ -1,40 +1,40 @@
 
 "use strict";
 
-let TrajectoryRequest = require('./TrajectoryRequest.js');
-let MotionState = require('./MotionState.js');
-let TrajectoryResponse = require('./TrajectoryResponse.js');
+let EvaluationRequest = require('./EvaluationRequest.js');
 let PackedObstacle = require('./PackedObstacle.js');
+let Population = require('./Population.js');
+let Circle = require('./Circle.js');
+let Path = require('./Path.js');
+let MotionState = require('./MotionState.js');
 let CircleGroup = require('./CircleGroup.js');
 let RampTrajectory = require('./RampTrajectory.js');
-let EvaluationRequest = require('./EvaluationRequest.js');
-let Range = require('./Range.js');
-let BezierCurve = require('./BezierCurve.js');
 let ObstacleList = require('./ObstacleList.js');
-let Path = require('./Path.js');
-let HilbertMap = require('./HilbertMap.js');
-let Circle = require('./Circle.js');
-let KnotPoint = require('./KnotPoint.js');
-let Obstacle = require('./Obstacle.js');
 let EvaluationResponse = require('./EvaluationResponse.js');
-let Population = require('./Population.js');
+let TrajectoryResponse = require('./TrajectoryResponse.js');
+let Range = require('./Range.js');
+let Obstacle = require('./Obstacle.js');
+let KnotPoint = require('./KnotPoint.js');
+let HilbertMap = require('./HilbertMap.js');
+let BezierCurve = require('./BezierCurve.js');
+let TrajectoryRequest = require('./TrajectoryRequest.js');
 
 module.exports = {
-  TrajectoryRequest: TrajectoryRequest,
-  MotionState: MotionState,
-  TrajectoryResponse: TrajectoryResponse,
+  EvaluationRequest: EvaluationRequest,
   PackedObstacle: PackedObstacle,
+  Population: Population,
+  Circle: Circle,
+  Path: Path,
+  MotionState: MotionState,
   CircleGroup: CircleGroup,
   RampTrajectory: RampTrajectory,
-  EvaluationRequest: EvaluationRequest,
-  Range: Range,
-  BezierCurve: BezierCurve,
   ObstacleList: ObstacleList,
-  Path: Path,
-  HilbertMap: HilbertMap,
-  Circle: Circle,
-  KnotPoint: KnotPoint,
-  Obstacle: Obstacle,
   EvaluationResponse: EvaluationResponse,
-  Population: Population,
+  TrajectoryResponse: TrajectoryResponse,
+  Range: Range,
+  Obstacle: Obstacle,
+  KnotPoint: KnotPoint,
+  HilbertMap: HilbertMap,
+  BezierCurve: BezierCurve,
+  TrajectoryRequest: TrajectoryRequest,
 };

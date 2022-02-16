@@ -1,9 +1,10 @@
 file(REMOVE_RECURSE
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/common-lisp/ros/ramp_planner_new/msg/BezifyRequest.lisp"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/common-lisp/ros/ramp_planner_new/msg/Coefficient.lisp"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/common-lisp/ros/ramp_planner_new/msg/PathPoints.lisp"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/common-lisp/ros/ramp_planner_new/msg/TrajectoryRepresentation.lisp"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/common-lisp/ros/ramp_planner_new/msg/TrajectoryRequest.lisp"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel/share/common-lisp/ros/ramp_planner_new/msg/BezifyRequest.lisp"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel/share/common-lisp/ros/ramp_planner_new/msg/Coefficient.lisp"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel/share/common-lisp/ros/ramp_planner_new/msg/PathPoints.lisp"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel/share/common-lisp/ros/ramp_planner_new/msg/TrajectoryRepresentation.lisp"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel/share/common-lisp/ros/ramp_planner_new/msg/TrajectoryRequest.lisp"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel/share/common-lisp/ros/ramp_planner_new/msg/TrajectorySwap.lisp"
   "CMakeFiles/ramp_planner_new_generate_messages_lisp"
 )
 

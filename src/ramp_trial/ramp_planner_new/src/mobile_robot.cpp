@@ -186,7 +186,7 @@ void MobileRobot::moveOnTrajectory() {
       while(ros::ok() && time_step_ < SEND_RESELUTION) 
       {
         cur_time_ = ros::Time::now();
-        std::cout<<"$$calculated: "<<(seg_step_+.1*time_step_)<<"\tfound: "<<cur_time_ - cur_start_ - global_start_<<std::endl;
+        // std::cout<<"$$calculated: "<<(seg_step_+.1*time_step_)<<"\tfound: "<<cur_time_ - cur_start_ - global_start_<<std::endl;
         if((seg_step_+.1*time_step_) > trajectory_.totalTime){
           break;
         }

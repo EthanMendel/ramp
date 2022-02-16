@@ -1,8 +1,8 @@
-# Install script for directory: /home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/path_modification
+# Install script for directory: /Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/path_modification
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/emendel/Documents/IndepententStudy/ramp/install")
+  set(CMAKE_INSTALL_PREFIX "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -27,28 +27,28 @@ if(NOT CMAKE_INSTALL_COMPONENT)
   endif()
 endif()
 
-# Install shared libraries without execute permission?
-if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
-  set(CMAKE_INSTALL_SO_NO_EXE "1")
-endif()
-
 # Is this installation the result of a crosscompile?
 if(NOT DEFINED CMAKE_CROSSCOMPILING)
   set(CMAKE_CROSSCOMPILING "FALSE")
 endif()
 
+# Set default install directory permissions.
+if(NOT DEFINED CMAKE_OBJDUMP)
+  set(CMAKE_OBJDUMP "/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/bin/llvm-objdump")
+endif()
+
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/path_modification/catkin_generated/installspace/path_modification.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/build/ramp_trial/path_modification/catkin_generated/installspace/path_modification.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/path_modification/cmake" TYPE FILE FILES
-    "/home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/path_modification/catkin_generated/installspace/path_modificationConfig.cmake"
-    "/home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/path_modification/catkin_generated/installspace/path_modificationConfig-version.cmake"
+    "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/build/ramp_trial/path_modification/catkin_generated/installspace/path_modificationConfig.cmake"
+    "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/build/ramp_trial/path_modification/catkin_generated/installspace/path_modificationConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/path_modification" TYPE FILE FILES "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/path_modification/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/path_modification" TYPE FILE FILES "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/path_modification/package.xml")
 endif()
 

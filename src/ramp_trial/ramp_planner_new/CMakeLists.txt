@@ -53,8 +53,10 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate messages in the 'msg' folder
 add_message_files(
   FILES 
-  Coefficient.msg TrajectoryRepresentation.msg 
+  Coefficient.msg 
+  TrajectoryRepresentation.msg 
   TrajectoryRequest.msg
+  TrajectorySwap.msg
   PathPoints.msg
   BezifyRequest.msg
 )

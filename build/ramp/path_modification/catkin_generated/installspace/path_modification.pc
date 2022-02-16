@@ -1,8 +1,0 @@
-prefix=/home/emendel/Documents/IndepententStudy/ramp/install
-
-Name: path_modification
-Description: Description of path_modification
-Version: 0.0.0
-Cflags: -I${prefix}/include
-Libs: -L${prefix}/lib -lpath_modification
-Requires: roscpp

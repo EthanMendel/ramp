@@ -1,8 +1,8 @@
-prefix=/home/emendel/Documents/IndepententStudy/ramp/devel
+prefix=/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel
 
 Name: ramp_msgs
 Description: Description of ramp_msgs
 Version: 0.0.0
-Cflags: -I/home/emendel/Documents/IndepententStudy/ramp/devel/include
+Cflags: -I/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel/include
 Libs: -L${prefix}/lib 
 Requires: message_runtime nav_msgs std_msgs trajectory_msgs

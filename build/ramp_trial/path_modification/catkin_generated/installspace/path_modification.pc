@@ -1,4 +1,4 @@
-prefix=/home/emendel/Documents/IndepententStudy/ramp/install
+prefix=/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/install
 
 Name: path_modification
 Description: Description of path_modification

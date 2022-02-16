@@ -1,8 +1,0 @@
-prefix=/home/emendel/Documents/IndepententStudy/ramp/devel
-
-Name: ram_trial
-Description: Description of ram_trial
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

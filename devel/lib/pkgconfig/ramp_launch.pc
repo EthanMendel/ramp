@@ -1,4 +1,4 @@
-prefix=/home/emendel/Documents/IndepententStudy/ramp/devel
+prefix=/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel
 
 Name: ramp_launch
 Description: Description of ramp_launch

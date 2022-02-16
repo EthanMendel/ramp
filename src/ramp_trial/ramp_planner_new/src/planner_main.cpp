@@ -4,6 +4,7 @@
 #include <ramp_planner_new/TrajectoryRepresentation.h>
 #include <ramp_planner_new/TrajectoryRequest.h>
 #include <ramp_planner_new/BezifyRequest.h>
+#incldue <ramp_planner_new/TrajectorySwap.h>
  
 Utility utility;
 
@@ -65,6 +66,8 @@ void initDOF(const std::vector<double> dof_min, const std::vector<double> dof_ma
 
 // initializes global start and goal
 void initStartGoal(const std::vector<std::vector<float>> points) {
+  pathMotionStates.clear();
+  plannerPath.msg_.points.clear();
   double pastY;
   for(unsigned int i=0;i<points.size();i++){
     MotionState point;
@@ -596,6 +599,13 @@ void bezify(const ramp_planner_new::BezifyRequest& br){
   pub_path_points.publish(pathPoints);
 }
 
+void swapTrajectory(ramp_planner_new::TrajectorySwap){
+  std::vector<std::vector<float>> points;
+  //convert new points into vector<vector<float>
+  initStartGoal(points);
+  pubStartGoalMarkers();
+}
+
 int main(int argc, char** argv) {
   std::cout<<"\nstarting main\n";
   srand( time(0));
@@ -617,6 +627,7 @@ int main(int argc, char** argv) {
   rviz_pub_path_points = handle.advertise<visualization_msgs::MarkerArray>("rviz_path_points",10);
   ros::Subscriber trajReq = handle.subscribe("/traj_req", 1, getTrajectory);
   ros::Subscriber bezifyListener  = handle.subscribe("bezify_request", 1, bezify);
+  ros::Subscriber trajSwap = handle.advertise<ramp_planner_new::TrajectorySwap>("traj_swap",1,swapTrajectory)
 
   ros::Duration d(0.5);
   d.sleep();

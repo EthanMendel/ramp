@@ -1,9 +1,10 @@
 file(REMOVE_RECURSE
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/BezifyRequest.h"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/Coefficient.h"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/PathPoints.h"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/TrajectoryRepresentation.h"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/include/ramp_planner_new/TrajectoryRequest.h"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel/include/ramp_planner_new/BezifyRequest.h"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel/include/ramp_planner_new/Coefficient.h"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel/include/ramp_planner_new/PathPoints.h"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel/include/ramp_planner_new/TrajectoryRepresentation.h"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel/include/ramp_planner_new/TrajectoryRequest.h"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel/include/ramp_planner_new/TrajectorySwap.h"
   "CMakeFiles/ramp_planner_new_generate_messages_cpp"
 )
 

@@ -7,4 +7,4 @@
 # new environment variables
 
 # modified environment variables
-export PWD='/home/emendel/Documents/IndepententStudy/ramp/build'
+export PWD='/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/build'

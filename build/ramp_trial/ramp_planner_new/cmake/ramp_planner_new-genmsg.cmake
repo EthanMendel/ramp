@@ -1,8 +1,8 @@
 # generated from genmsg/cmake/pkg-genmsg.cmake.em
 
-message(STATUS "ramp_planner_new: 5 messages, 0 services")
+message(STATUS "ramp_planner_new: 6 messages, 0 services")
 
-set(MSG_I_FLAGS "-Iramp_planner_new:/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg;-Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg;-Iramp_msgs:/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_msgs/msg;-Ivisualization_msgs:/opt/ros/noetic/share/visualization_msgs/cmake/../msg;-Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg;-Inav_msgs:/opt/ros/noetic/share/nav_msgs/cmake/../msg;-Itrajectory_msgs:/opt/ros/noetic/share/trajectory_msgs/cmake/../msg;-Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg")
+set(MSG_I_FLAGS "-Iramp_planner_new:/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg;-Igeometry_msgs:/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg;-Iramp_msgs:/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_msgs/msg;-Ivisualization_msgs:/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/visualization_msgs/cmake/../msg;-Istd_msgs:/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/std_msgs/cmake/../msg;-Inav_msgs:/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/nav_msgs/cmake/../msg;-Itrajectory_msgs:/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/trajectory_msgs/cmake/../msg;-Iactionlib_msgs:/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/actionlib_msgs/cmake/../msg")
 
 # Find all generators
 find_package(gencpp REQUIRED)
@@ -17,29 +17,34 @@ add_custom_target(ramp_planner_new_generate_messages ALL)
 
 
 
-get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/Coefficient.msg" NAME_WE)
+get_filename_component(_filename "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/Coefficient.msg" NAME_WE)
 add_custom_target(_ramp_planner_new_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "ramp_planner_new" "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/Coefficient.msg" ""
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "ramp_planner_new" "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/Coefficient.msg" ""
 )
 
-get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRepresentation.msg" NAME_WE)
+get_filename_component(_filename "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRepresentation.msg" NAME_WE)
 add_custom_target(_ramp_planner_new_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "ramp_planner_new" "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRepresentation.msg" "ramp_planner_new/Coefficient"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "ramp_planner_new" "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRepresentation.msg" "ramp_planner_new/Coefficient"
 )
 
-get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRequest.msg" NAME_WE)
+get_filename_component(_filename "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRequest.msg" NAME_WE)
 add_custom_target(_ramp_planner_new_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "ramp_planner_new" "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRequest.msg" "geometry_msgs/Point"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "ramp_planner_new" "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRequest.msg" "geometry_msgs/Point"
 )
 
-get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg" NAME_WE)
+get_filename_component(_filename "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectorySwap.msg" NAME_WE)
 add_custom_target(_ramp_planner_new_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "ramp_planner_new" "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg" "std_msgs/Header:visualization_msgs/Marker:std_msgs/ColorRGBA:geometry_msgs/Quaternion:geometry_msgs/Pose:geometry_msgs/Point:geometry_msgs/Vector3"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "ramp_planner_new" "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectorySwap.msg" "geometry_msgs/Point"
 )
 
-get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/BezifyRequest.msg" NAME_WE)
+get_filename_component(_filename "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg" NAME_WE)
 add_custom_target(_ramp_planner_new_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "ramp_planner_new" "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/BezifyRequest.msg" "std_msgs/Header:visualization_msgs/Marker:std_msgs/ColorRGBA:ramp_planner_new/PathPoints:geometry_msgs/Quaternion:geometry_msgs/Pose:geometry_msgs/Point:geometry_msgs/Vector3"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "ramp_planner_new" "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg" "geometry_msgs/Quaternion:geometry_msgs/Vector3:std_msgs/Header:std_msgs/ColorRGBA:geometry_msgs/Pose:geometry_msgs/Point:visualization_msgs/Marker"
+)
+
+get_filename_component(_filename "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/BezifyRequest.msg" NAME_WE)
+add_custom_target(_ramp_planner_new_generate_messages_check_deps_${_filename}
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "ramp_planner_new" "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/BezifyRequest.msg" "geometry_msgs/Quaternion:ramp_planner_new/PathPoints:geometry_msgs/Vector3:std_msgs/Header:std_msgs/ColorRGBA:geometry_msgs/Pose:geometry_msgs/Point:visualization_msgs/Marker"
 )
 
 #
@@ -49,33 +54,39 @@ add_custom_target(_ramp_planner_new_generate_messages_check_deps_${_filename}
 ### Section generating for lang: gencpp
 ### Generating Messages
 _generate_msg_cpp(ramp_planner_new
-  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/Coefficient.msg"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/Coefficient.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/ramp_planner_new
 )
 _generate_msg_cpp(ramp_planner_new
-  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRepresentation.msg"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRepresentation.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/Coefficient.msg"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/Coefficient.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/ramp_planner_new
 )
 _generate_msg_cpp(ramp_planner_new
-  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRequest.msg"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRequest.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  "/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/ramp_planner_new
 )
 _generate_msg_cpp(ramp_planner_new
-  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectorySwap.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/visualization_msgs/cmake/../msg/Marker.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg"
+  "/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/ramp_planner_new
 )
 _generate_msg_cpp(ramp_planner_new
-  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/BezifyRequest.msg"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/visualization_msgs/cmake/../msg/Marker.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg"
+  "/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Quaternion.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Vector3.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/std_msgs/cmake/../msg/Header.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/std_msgs/cmake/../msg/ColorRGBA.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Pose.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Point.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/visualization_msgs/cmake/../msg/Marker.msg"
+  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/ramp_planner_new
+)
+_generate_msg_cpp(ramp_planner_new
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/BezifyRequest.msg"
+  "${MSG_I_FLAGS}"
+  "/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Quaternion.msg;/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Vector3.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/std_msgs/cmake/../msg/Header.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/std_msgs/cmake/../msg/ColorRGBA.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Pose.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Point.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/visualization_msgs/cmake/../msg/Marker.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/ramp_planner_new
 )
 
@@ -93,15 +104,17 @@ add_custom_target(ramp_planner_new_generate_messages_cpp
 add_dependencies(ramp_planner_new_generate_messages ramp_planner_new_generate_messages_cpp)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/Coefficient.msg" NAME_WE)
+get_filename_component(_filename "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/Coefficient.msg" NAME_WE)
 add_dependencies(ramp_planner_new_generate_messages_cpp _ramp_planner_new_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRepresentation.msg" NAME_WE)
+get_filename_component(_filename "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRepresentation.msg" NAME_WE)
 add_dependencies(ramp_planner_new_generate_messages_cpp _ramp_planner_new_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRequest.msg" NAME_WE)
+get_filename_component(_filename "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRequest.msg" NAME_WE)
 add_dependencies(ramp_planner_new_generate_messages_cpp _ramp_planner_new_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg" NAME_WE)
+get_filename_component(_filename "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectorySwap.msg" NAME_WE)
 add_dependencies(ramp_planner_new_generate_messages_cpp _ramp_planner_new_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/BezifyRequest.msg" NAME_WE)
+get_filename_component(_filename "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg" NAME_WE)
+add_dependencies(ramp_planner_new_generate_messages_cpp _ramp_planner_new_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/BezifyRequest.msg" NAME_WE)
 add_dependencies(ramp_planner_new_generate_messages_cpp _ramp_planner_new_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -114,33 +127,39 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS ramp_planner_new_generate_messages_
 ### Section generating for lang: geneus
 ### Generating Messages
 _generate_msg_eus(ramp_planner_new
-  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/Coefficient.msg"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/Coefficient.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/ramp_planner_new
 )
 _generate_msg_eus(ramp_planner_new
-  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRepresentation.msg"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRepresentation.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/Coefficient.msg"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/Coefficient.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/ramp_planner_new
 )
 _generate_msg_eus(ramp_planner_new
-  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRequest.msg"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRequest.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  "/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/ramp_planner_new
 )
 _generate_msg_eus(ramp_planner_new
-  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectorySwap.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/visualization_msgs/cmake/../msg/Marker.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg"
+  "/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/ramp_planner_new
 )
 _generate_msg_eus(ramp_planner_new
-  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/BezifyRequest.msg"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/visualization_msgs/cmake/../msg/Marker.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg"
+  "/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Quaternion.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Vector3.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/std_msgs/cmake/../msg/Header.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/std_msgs/cmake/../msg/ColorRGBA.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Pose.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Point.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/visualization_msgs/cmake/../msg/Marker.msg"
+  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/ramp_planner_new
+)
+_generate_msg_eus(ramp_planner_new
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/BezifyRequest.msg"
+  "${MSG_I_FLAGS}"
+  "/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Quaternion.msg;/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Vector3.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/std_msgs/cmake/../msg/Header.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/std_msgs/cmake/../msg/ColorRGBA.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Pose.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Point.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/visualization_msgs/cmake/../msg/Marker.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/ramp_planner_new
 )
 
@@ -158,15 +177,17 @@ add_custom_target(ramp_planner_new_generate_messages_eus
 add_dependencies(ramp_planner_new_generate_messages ramp_planner_new_generate_messages_eus)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/Coefficient.msg" NAME_WE)
+get_filename_component(_filename "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/Coefficient.msg" NAME_WE)
 add_dependencies(ramp_planner_new_generate_messages_eus _ramp_planner_new_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRepresentation.msg" NAME_WE)
+get_filename_component(_filename "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRepresentation.msg" NAME_WE)
 add_dependencies(ramp_planner_new_generate_messages_eus _ramp_planner_new_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRequest.msg" NAME_WE)
+get_filename_component(_filename "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRequest.msg" NAME_WE)
 add_dependencies(ramp_planner_new_generate_messages_eus _ramp_planner_new_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg" NAME_WE)
+get_filename_component(_filename "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectorySwap.msg" NAME_WE)
 add_dependencies(ramp_planner_new_generate_messages_eus _ramp_planner_new_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/BezifyRequest.msg" NAME_WE)
+get_filename_component(_filename "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg" NAME_WE)
+add_dependencies(ramp_planner_new_generate_messages_eus _ramp_planner_new_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/BezifyRequest.msg" NAME_WE)
 add_dependencies(ramp_planner_new_generate_messages_eus _ramp_planner_new_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -179,33 +200,39 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS ramp_planner_new_generate_messages_
 ### Section generating for lang: genlisp
 ### Generating Messages
 _generate_msg_lisp(ramp_planner_new
-  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/Coefficient.msg"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/Coefficient.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/ramp_planner_new
 )
 _generate_msg_lisp(ramp_planner_new
-  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRepresentation.msg"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRepresentation.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/Coefficient.msg"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/Coefficient.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/ramp_planner_new
 )
 _generate_msg_lisp(ramp_planner_new
-  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRequest.msg"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRequest.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  "/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/ramp_planner_new
 )
 _generate_msg_lisp(ramp_planner_new
-  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectorySwap.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/visualization_msgs/cmake/../msg/Marker.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg"
+  "/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/ramp_planner_new
 )
 _generate_msg_lisp(ramp_planner_new
-  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/BezifyRequest.msg"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/visualization_msgs/cmake/../msg/Marker.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg"
+  "/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Quaternion.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Vector3.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/std_msgs/cmake/../msg/Header.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/std_msgs/cmake/../msg/ColorRGBA.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Pose.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Point.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/visualization_msgs/cmake/../msg/Marker.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/ramp_planner_new
+)
+_generate_msg_lisp(ramp_planner_new
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/BezifyRequest.msg"
+  "${MSG_I_FLAGS}"
+  "/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Quaternion.msg;/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Vector3.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/std_msgs/cmake/../msg/Header.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/std_msgs/cmake/../msg/ColorRGBA.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Pose.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Point.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/visualization_msgs/cmake/../msg/Marker.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/ramp_planner_new
 )
 
@@ -223,15 +250,17 @@ add_custom_target(ramp_planner_new_generate_messages_lisp
 add_dependencies(ramp_planner_new_generate_messages ramp_planner_new_generate_messages_lisp)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/Coefficient.msg" NAME_WE)
+get_filename_component(_filename "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/Coefficient.msg" NAME_WE)
 add_dependencies(ramp_planner_new_generate_messages_lisp _ramp_planner_new_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRepresentation.msg" NAME_WE)
+get_filename_component(_filename "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRepresentation.msg" NAME_WE)
 add_dependencies(ramp_planner_new_generate_messages_lisp _ramp_planner_new_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRequest.msg" NAME_WE)
+get_filename_component(_filename "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRequest.msg" NAME_WE)
 add_dependencies(ramp_planner_new_generate_messages_lisp _ramp_planner_new_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg" NAME_WE)
+get_filename_component(_filename "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectorySwap.msg" NAME_WE)
 add_dependencies(ramp_planner_new_generate_messages_lisp _ramp_planner_new_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/BezifyRequest.msg" NAME_WE)
+get_filename_component(_filename "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg" NAME_WE)
+add_dependencies(ramp_planner_new_generate_messages_lisp _ramp_planner_new_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/BezifyRequest.msg" NAME_WE)
 add_dependencies(ramp_planner_new_generate_messages_lisp _ramp_planner_new_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -244,33 +273,39 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS ramp_planner_new_generate_messages_
 ### Section generating for lang: gennodejs
 ### Generating Messages
 _generate_msg_nodejs(ramp_planner_new
-  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/Coefficient.msg"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/Coefficient.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/ramp_planner_new
 )
 _generate_msg_nodejs(ramp_planner_new
-  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRepresentation.msg"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRepresentation.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/Coefficient.msg"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/Coefficient.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/ramp_planner_new
 )
 _generate_msg_nodejs(ramp_planner_new
-  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRequest.msg"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRequest.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  "/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/ramp_planner_new
 )
 _generate_msg_nodejs(ramp_planner_new
-  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectorySwap.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/visualization_msgs/cmake/../msg/Marker.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg"
+  "/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/ramp_planner_new
 )
 _generate_msg_nodejs(ramp_planner_new
-  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/BezifyRequest.msg"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/visualization_msgs/cmake/../msg/Marker.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg"
+  "/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Quaternion.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Vector3.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/std_msgs/cmake/../msg/Header.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/std_msgs/cmake/../msg/ColorRGBA.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Pose.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Point.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/visualization_msgs/cmake/../msg/Marker.msg"
+  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/ramp_planner_new
+)
+_generate_msg_nodejs(ramp_planner_new
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/BezifyRequest.msg"
+  "${MSG_I_FLAGS}"
+  "/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Quaternion.msg;/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Vector3.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/std_msgs/cmake/../msg/Header.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/std_msgs/cmake/../msg/ColorRGBA.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Pose.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Point.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/visualization_msgs/cmake/../msg/Marker.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/ramp_planner_new
 )
 
@@ -288,15 +323,17 @@ add_custom_target(ramp_planner_new_generate_messages_nodejs
 add_dependencies(ramp_planner_new_generate_messages ramp_planner_new_generate_messages_nodejs)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/Coefficient.msg" NAME_WE)
+get_filename_component(_filename "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/Coefficient.msg" NAME_WE)
 add_dependencies(ramp_planner_new_generate_messages_nodejs _ramp_planner_new_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRepresentation.msg" NAME_WE)
+get_filename_component(_filename "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRepresentation.msg" NAME_WE)
 add_dependencies(ramp_planner_new_generate_messages_nodejs _ramp_planner_new_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRequest.msg" NAME_WE)
+get_filename_component(_filename "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRequest.msg" NAME_WE)
 add_dependencies(ramp_planner_new_generate_messages_nodejs _ramp_planner_new_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg" NAME_WE)
+get_filename_component(_filename "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectorySwap.msg" NAME_WE)
 add_dependencies(ramp_planner_new_generate_messages_nodejs _ramp_planner_new_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/BezifyRequest.msg" NAME_WE)
+get_filename_component(_filename "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg" NAME_WE)
+add_dependencies(ramp_planner_new_generate_messages_nodejs _ramp_planner_new_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/BezifyRequest.msg" NAME_WE)
 add_dependencies(ramp_planner_new_generate_messages_nodejs _ramp_planner_new_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -309,33 +346,39 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS ramp_planner_new_generate_messages_
 ### Section generating for lang: genpy
 ### Generating Messages
 _generate_msg_py(ramp_planner_new
-  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/Coefficient.msg"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/Coefficient.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/ramp_planner_new
 )
 _generate_msg_py(ramp_planner_new
-  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRepresentation.msg"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRepresentation.msg"
   "${MSG_I_FLAGS}"
-  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/Coefficient.msg"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/Coefficient.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/ramp_planner_new
 )
 _generate_msg_py(ramp_planner_new
-  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRequest.msg"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRequest.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  "/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/ramp_planner_new
 )
 _generate_msg_py(ramp_planner_new
-  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectorySwap.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/visualization_msgs/cmake/../msg/Marker.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg"
+  "/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Point.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/ramp_planner_new
 )
 _generate_msg_py(ramp_planner_new
-  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/BezifyRequest.msg"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/visualization_msgs/cmake/../msg/Marker.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/ColorRGBA.msg;/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg"
+  "/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Quaternion.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Vector3.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/std_msgs/cmake/../msg/Header.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/std_msgs/cmake/../msg/ColorRGBA.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Pose.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Point.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/visualization_msgs/cmake/../msg/Marker.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/ramp_planner_new
+)
+_generate_msg_py(ramp_planner_new
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/BezifyRequest.msg"
+  "${MSG_I_FLAGS}"
+  "/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Quaternion.msg;/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Vector3.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/std_msgs/cmake/../msg/Header.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/std_msgs/cmake/../msg/ColorRGBA.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Pose.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/geometry_msgs/cmake/../msg/Point.msg;/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/share/visualization_msgs/cmake/../msg/Marker.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/ramp_planner_new
 )
 
@@ -353,15 +396,17 @@ add_custom_target(ramp_planner_new_generate_messages_py
 add_dependencies(ramp_planner_new_generate_messages ramp_planner_new_generate_messages_py)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/Coefficient.msg" NAME_WE)
+get_filename_component(_filename "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/Coefficient.msg" NAME_WE)
 add_dependencies(ramp_planner_new_generate_messages_py _ramp_planner_new_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRepresentation.msg" NAME_WE)
+get_filename_component(_filename "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRepresentation.msg" NAME_WE)
 add_dependencies(ramp_planner_new_generate_messages_py _ramp_planner_new_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRequest.msg" NAME_WE)
+get_filename_component(_filename "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectoryRequest.msg" NAME_WE)
 add_dependencies(ramp_planner_new_generate_messages_py _ramp_planner_new_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg" NAME_WE)
+get_filename_component(_filename "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/TrajectorySwap.msg" NAME_WE)
 add_dependencies(ramp_planner_new_generate_messages_py _ramp_planner_new_generate_messages_check_deps_${_filename})
-get_filename_component(_filename "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/msg/BezifyRequest.msg" NAME_WE)
+get_filename_component(_filename "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/PathPoints.msg" NAME_WE)
+add_dependencies(ramp_planner_new_generate_messages_py _ramp_planner_new_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/msg/BezifyRequest.msg" NAME_WE)
 add_dependencies(ramp_planner_new_generate_messages_py _ramp_planner_new_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -442,7 +487,7 @@ if(TARGET visualization_msgs_generate_messages_nodejs)
 endif()
 
 if(genpy_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/ramp_planner_new)
-  install(CODE "execute_process(COMMAND \"/usr/bin/python3.8\" -m compileall \"${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/ramp_planner_new\")")
+  install(CODE "execute_process(COMMAND \"/Users/ethanmendel/miniforge-pypy3/envs/robostackenv/bin/python3.8\" -m compileall \"${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/ramp_planner_new\")")
   # install generated code
   install(
     DIRECTORY ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/ramp_planner_new

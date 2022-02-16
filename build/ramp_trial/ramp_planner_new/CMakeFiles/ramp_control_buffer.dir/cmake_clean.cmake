@@ -1,7 +1,8 @@
 file(REMOVE_RECURSE
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/lib/ramp_planner_new/ramp_control_buffer"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/lib/ramp_planner_new/ramp_control_buffer.pdb"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel/lib/ramp_planner_new/ramp_control_buffer"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel/lib/ramp_planner_new/ramp_control_buffer.pdb"
   "CMakeFiles/ramp_control_buffer.dir/src/control_buffer_main.cpp.o"
+  "CMakeFiles/ramp_control_buffer.dir/src/control_buffer_main.cpp.o.d"
 )
 
 # Per-language clean rules from dependency scanning.

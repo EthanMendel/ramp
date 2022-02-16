@@ -1,8 +1,0 @@
-prefix=/home/emendel/Documents/IndepententStudy/ramp/devel
-
-Name: trajectory_generator
-Description: Description of trajectory_generator
-Version: 0.0.0
-Cflags: -I/home/emendel/Documents/IndepententStudy/ramp/src/ramp/trajectory_generator/include
-Libs: -L${prefix}/lib -ltrajectory_generator
-Requires: roscpp

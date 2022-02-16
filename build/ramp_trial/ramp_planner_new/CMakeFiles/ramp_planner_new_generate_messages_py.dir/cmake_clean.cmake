@@ -1,10 +1,11 @@
 file(REMOVE_RECURSE
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/lib/python3/dist-packages/ramp_planner_new/msg/_BezifyRequest.py"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/lib/python3/dist-packages/ramp_planner_new/msg/_Coefficient.py"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/lib/python3/dist-packages/ramp_planner_new/msg/_PathPoints.py"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/lib/python3/dist-packages/ramp_planner_new/msg/_TrajectoryRepresentation.py"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/lib/python3/dist-packages/ramp_planner_new/msg/_TrajectoryRequest.py"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/lib/python3/dist-packages/ramp_planner_new/msg/__init__.py"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel/lib/python3.8/site-packages/ramp_planner_new/msg/_BezifyRequest.py"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel/lib/python3.8/site-packages/ramp_planner_new/msg/_Coefficient.py"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel/lib/python3.8/site-packages/ramp_planner_new/msg/_PathPoints.py"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel/lib/python3.8/site-packages/ramp_planner_new/msg/_TrajectoryRepresentation.py"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel/lib/python3.8/site-packages/ramp_planner_new/msg/_TrajectoryRequest.py"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel/lib/python3.8/site-packages/ramp_planner_new/msg/_TrajectorySwap.py"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel/lib/python3.8/site-packages/ramp_planner_new/msg/__init__.py"
   "CMakeFiles/ramp_planner_new_generate_messages_py"
 )
 

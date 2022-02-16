@@ -16,4 +16,6 @@
     (:file "_package_TrajectoryRepresentation" :depends-on ("_package"))
     (:file "TrajectoryRequest" :depends-on ("_package_TrajectoryRequest"))
     (:file "_package_TrajectoryRequest" :depends-on ("_package"))
+    (:file "TrajectorySwap" :depends-on ("_package_TrajectorySwap"))
+    (:file "_package_TrajectorySwap" :depends-on ("_package"))
   ))

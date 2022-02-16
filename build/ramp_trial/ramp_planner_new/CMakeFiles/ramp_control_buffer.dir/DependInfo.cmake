@@ -1,25 +1,14 @@
+
+# Consider dependencies only in project.
+set(CMAKE_DEPENDS_IN_PROJECT_ONLY OFF)
+
 # The set of languages for which implicit dependencies are needed:
 set(CMAKE_DEPENDS_LANGUAGES
-  "CXX"
-  )
-# The set of files for implicit dependencies of each language:
-set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/emendel/Documents/IndepententStudy/ramp/src/ramp_trial/ramp_planner_new/src/control_buffer_main.cpp" "/home/emendel/Documents/IndepententStudy/ramp/build/ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_buffer.dir/src/control_buffer_main.cpp.o"
-  )
-set(CMAKE_CXX_COMPILER_ID "GNU")
-
-# Preprocessor definitions for this target.
-set(CMAKE_TARGET_DEFINITIONS_CXX
-  "ROSCONSOLE_BACKEND_LOG4CXX"
-  "ROS_BUILD_SHARED_LIBS=1"
-  "ROS_PACKAGE_NAME=\"ramp_planner_new\""
   )
 
-# The include file search paths:
-set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/include"
-  "/opt/ros/noetic/include"
-  "/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"
+# The set of dependency files which are needed:
+set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/src/control_buffer_main.cpp" "ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_buffer.dir/src/control_buffer_main.cpp.o" "gcc" "ramp_trial/ramp_planner_new/CMakeFiles/ramp_control_buffer.dir/src/control_buffer_main.cpp.o.d"
   )
 
 # Targets to which this target links.

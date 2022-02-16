@@ -1,9 +1,10 @@
 file(REMOVE_RECURSE
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/gennodejs/ros/ramp_planner_new/msg/BezifyRequest.js"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/gennodejs/ros/ramp_planner_new/msg/Coefficient.js"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/gennodejs/ros/ramp_planner_new/msg/PathPoints.js"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/gennodejs/ros/ramp_planner_new/msg/TrajectoryRepresentation.js"
-  "/home/emendel/Documents/IndepententStudy/ramp/devel/share/gennodejs/ros/ramp_planner_new/msg/TrajectoryRequest.js"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel/share/gennodejs/ros/ramp_planner_new/msg/BezifyRequest.js"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel/share/gennodejs/ros/ramp_planner_new/msg/Coefficient.js"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel/share/gennodejs/ros/ramp_planner_new/msg/PathPoints.js"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel/share/gennodejs/ros/ramp_planner_new/msg/TrajectoryRepresentation.js"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel/share/gennodejs/ros/ramp_planner_new/msg/TrajectoryRequest.js"
+  "/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel/share/gennodejs/ros/ramp_planner_new/msg/TrajectorySwap.js"
   "CMakeFiles/ramp_planner_new_generate_messages_nodejs"
 )
 

@@ -1,8 +1,0 @@
-prefix=/home/emendel/Documents/IndepententStudy/ramp/devel
-
-Name: ramp_control
-Description: Description of ramp_control
-Version: 0.0.0
-Cflags: -I/home/emendel/Documents/IndepententStudy/ramp/src/ramp/ramp_control/include
-Libs: -L${prefix}/lib -lramp_control
-Requires: roscpp
