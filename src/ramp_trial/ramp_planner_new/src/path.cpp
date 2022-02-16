@@ -95,9 +95,9 @@ void Path::addBefore(const KnotPoint kp, const KnotPoint b){
     }
   }
   std::cout<<"&&found no matching kp&&"<<std::endl;
-  std::cout<<b.motionState_.toString()<<std::endl;
-  std::cout<<"--"<<std::endl;
-  std::cout<<msg_.points.at(1).motionState<<std::endl;
+  std::cout<<"("<<b.motionState_.msg_.positions.at(0)<<","<<b.motionState_.msg_.positions.at(1)<<")";
+  std::cout<<" <--> ";
+  std::cout<<"("<<msg_.points.at(1).motionState.positions.at(0)<<","<<msg_.points.at(1).motionState.positions.at(1)<<")"<<std::endl;
 }
 
 /** insert motion state 'ms' into the path before the specified element */

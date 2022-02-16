@@ -176,8 +176,9 @@ void MobileRobot::moveOnTrajectory() {
     started_ = true;
     global_start_ = ros::Time::now();
     tot_time_ = 0;
+    swapped_ = false;
   }
-  if(trajectory_.active == 1){
+  if(trajectory_.active){
     // Execute the trajectory
     std::cout<<"starting full path portion"<<std::endl;
     // setNextTwist(); 
@@ -193,15 +194,25 @@ void MobileRobot::moveOnTrajectory() {
         if((seg_step_+.1*time_step_) > trajectory_.totalTime){
           break;
         }
-        if(tot_time_ > 2.0){
+        if(tot_time_ > 2.0 && !swapped_){
+          swapped_ = true;
+          trajectory_.active = false;
           ramp_planner_new::TrajectorySwap msg;
-          for(unsigned int i=0;i<4;i++){
-            geometry_msgs::Point p;
-            p.x = i;
-            p.y = i;
-            msg.points.push_back(p);
-          }
+          geometry_msgs::Point p;
+          p.x = 0.5;
+          p.y = 0.5;
+          msg.points.push_back(p);
+          p.x = 1.0;
+          p.y = 1.0;
+          msg.points.push_back(p);
+          p.x = 2.5;
+          p.y = 1.5;
+          msg.points.push_back(p);
+          p.x = 2.0;
+          p.y = 3.0;
+          msg.points.push_back(p);
           pub_swap_traj_.publish(msg);
+          break;
         }
         // std::cout<<"running for "<<(seg_step_+.1*time_step_)<<std::endl;
         // Send the twist_message to move the robot
@@ -214,19 +225,26 @@ void MobileRobot::moveOnTrajectory() {
         // Spin to check for updates
         ros::spinOnce();
       } // end while (move to the next point)
+      if(!trajectory_.active){
+        break;
+      }
       // Increment num_traveled
       time_step_ = 0;
       seg_step_++;
       // Spin once to check for updates in the trajectory
       ros::spinOnce();
     } // end while
-    std::cout<<"finished full path portion"<<std::endl;
-    seg_step_ = 0;
-    time_step_ = 0;
-    trajectory_.active = 0;
-    std_msgs::Bool msg;
-    msg.data = true;
-    pub_ready_next_.publish(msg);
+    if(trajectory_.active){
+      std::cout<<"finished full path portion"<<std::endl;
+      seg_step_ = 0;
+      time_step_ = 0;
+      trajectory_.active = 0;
+      std_msgs::Bool msg;
+      msg.data = true;
+      pub_ready_next_.publish(msg);
+    }else{
+      trajectory_.active = false;
+    }
     // Check that we moved on a trajectory
   }
 } // End moveOnTrajectory

@@ -602,7 +602,14 @@ void bezify(const ramp_planner_new::BezifyRequest& br){
 void swapTrajectory(ramp_planner_new::TrajectorySwap msg){
   std::cout<<"##swapping trajectory##"<<std::endl;
   std::vector<std::vector<float>> points;
-  //convert new points into vector<vector<float>
+  for(unsigned int i=0;i<msg.points.size();i++){
+    std::vector<float> p;
+    p.push_back(msg.points.at(i).x);
+    p.push_back(msg.points.at(i).y);
+    p.push_back(0);
+    // std::cout<<"\t"<<msg.points.at(i)<<std::endl;
+    points.push_back(p);
+  }
   initStartGoal(points);
   pubStartGoalMarkers();
 }
