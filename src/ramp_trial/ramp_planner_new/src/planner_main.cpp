@@ -68,6 +68,8 @@ void initDOF(const std::vector<double> dof_min, const std::vector<double> dof_ma
 void initStartGoal(const std::vector<std::vector<float>> points) {
   pathMotionStates.clear();
   plannerPath.msg_.points.clear();
+  plannerPath.uCubicEntrenceVelocities.clear();
+  //TODO send current velocities for smoother swap
   double pastY;
   for(unsigned int i=0;i<points.size();i++){
     MotionState point;
