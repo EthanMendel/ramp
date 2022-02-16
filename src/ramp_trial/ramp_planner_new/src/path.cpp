@@ -280,7 +280,7 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
   usedTdelta_ = Td;
   if(msg.points.size() == 4){
     startT_ = utility.getMinLinTime(msg.points.at(2),msg.points.at(0));
-  }else if(uCubicEntrenceVelocities.size() > 0 && msg.type == "cubic"){
+  }else if(uCubicEntrenceVelocities.size() > 0 && msg.type == "cubic" && !msg.swapped){
     startT_ = usedTdelta_;
   }else{
     startT_ = 0;

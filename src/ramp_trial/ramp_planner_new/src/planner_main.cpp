@@ -305,9 +305,9 @@ void pubStartGoalMarkers(bool publish = true){
   pps.forBez.push_back(true);//extra value needed not included above
   
   result.markers.push_back(origin_marker); // add origin onto rviz path points
-  rviz_pub_path_points.publish(result);
-  rviz_pub_path_points.publish(result);
   if(publish){
+    rviz_pub_path_points.publish(result);
+    rviz_pub_path_points.publish(result);
     pub_path_points.publish(pps);
     pub_path_points.publish(pps);
   }
@@ -402,19 +402,7 @@ void pubPath(){
 
 void getTrajectory(ramp_planner_new::TrajectoryRequest msg){
   std::cout<<"getting "<<msg.type<<" trajectory"<<std::endl;
-  std::cout<<"start:\n"<<msg.points.at(0)<<std::endl;
-  if(msg.type == "cubic"){
-      std::cout<<"goal:\n"<<msg.points.at(1)<<std::endl;
-      plannerPath.makeCubicPath(msg);
-  }else if(msg.type == "bezier"){
-      std::cout<<"mid:\n"<<msg.points.at(1)<<std::endl;
-      std::cout<<"goal:\n"<<msg.points.at(2)<<std::endl;
-      plannerPath.makeBezierPath(msg);
-  }else{
-      std::cout<<"foud a u trajectory in planner, something went wrong"<<std::endl;
-      return;
-  }
-  if(msg.swapped){
+    if(msg.swapped){
     std::vector<std::vector<float>> points;
     for(unsigned int i=0;i<msg.newTrajPoints.size();i++){
       std::vector<float> p;
@@ -426,6 +414,18 @@ void getTrajectory(ramp_planner_new::TrajectoryRequest msg){
     }
     initStartGoal(points);
     pubStartGoalMarkers(false);
+  }
+  std::cout<<"start:\n"<<msg.points.at(0)<<std::endl;
+  if(msg.type == "cubic"){
+      std::cout<<"goal:\n"<<msg.points.at(1)<<std::endl;
+      plannerPath.makeCubicPath(msg);
+  }else if(msg.type == "bezier"){
+      std::cout<<"mid:\n"<<msg.points.at(1)<<std::endl;
+      std::cout<<"goal:\n"<<msg.points.at(2)<<std::endl;
+      plannerPath.makeBezierPath(msg);
+  }else{
+      std::cout<<"foud a u trajectory in planner, something went wrong"<<std::endl;
+      return;
   }
   readyToPubPath = true;
 }
@@ -653,7 +653,7 @@ int main(int argc, char** argv) {
   /*
    * all parameters are loaded
    */
-  pubStartGoalMarkers();//red-start, blue-goal
+  pubStartGoalMarkers(true);//red-start, blue-goal
   readyToPubPath = false;
   ROS_INFO("Done with publishing markers");
 

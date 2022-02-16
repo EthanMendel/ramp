@@ -193,7 +193,7 @@ void MobileRobot::moveOnTrajectory() {
         if((seg_step_+.1*time_step_) > trajectory_.totalTime){
           break;
         }
-        if(tot_time_ > 5.0 && !swapped_){
+        if(tot_time_ > 2.0 && !swapped_){
           swapped_ = true;
           trajectory_.active = false;
           std_msgs::Bool msg;
