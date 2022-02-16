@@ -7037,7 +7037,8 @@ ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/planner_main.cpp
   /Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/include/bezier_curve.h \
   /Users/ethanmendel/miniforge-pypy3/envs/robostackenv/include/tf/transform_broadcaster.h \
   /Users/ethanmendel/miniforge-pypy3/envs/robostackenv/include/tf2_ros/transform_broadcaster.h \
-  /Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel/include/ramp_planner_new/BezifyRequest.h
+  /Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel/include/ramp_planner_new/BezifyRequest.h \
+  /Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel/include/ramp_planner_new/TrajectorySwap.h
 
 ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/range.cpp.o: /Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/src/range.cpp \
   /Users/ethanmendel/Documents/School/Masters/RAMP/ramp/src/ramp_trial/ramp_planner_new/include/range.h \
@@ -11754,6 +11755,8 @@ ramp_trial/ramp_planner_new/CMakeFiles/ramp_planner_new.dir/src/utility.cpp.o: /
 /Users/ethanmendel/miniforge-pypy3/envs/robostackenv/include/boost/mpl/begin_end.hpp:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/xlocale/_time.h:
+
+/Users/ethanmendel/Documents/School/Masters/RAMP/ramp/devel/include/ramp_planner_new/TrajectorySwap.h:
 
 /Users/ethanmendel/miniforge-pypy3/envs/robostackenv/include/boost/atomic/detail/core_arch_operations_fwd.hpp:
 
