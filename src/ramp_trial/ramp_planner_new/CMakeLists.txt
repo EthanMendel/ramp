@@ -57,6 +57,7 @@ add_message_files(
   TrajectoryRepresentation.msg 
   TrajectoryRequest.msg
   TrajectorySwap.msg
+  SwapRequest.msg
   PathPoints.msg
   BezifyRequest.msg
 )

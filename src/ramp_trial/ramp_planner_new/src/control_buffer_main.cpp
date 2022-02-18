@@ -6,6 +6,7 @@
 #include <ramp_planner_new/PathPoints.h>
 #include <ramp_planner_new/BezifyRequest.h>
 #include <ramp_planner_new/TrajectorySwap.h>
+#include <ramp_planner_new/SwapRequest.h>
 
 ramp_planner_new::PathPoints pathPoints;
 int curStartId = -1;
@@ -133,8 +134,9 @@ void getNextPoint(const std_msgs::Bool b){
     updateStartGoal();
 }
 
-void swapTrajectory(const std_msgs::Bool b){
+void swapTrajectory(const ramp_planner_new::SwapRequest msg){
   std::cout<<"##swapping trajectory##"<<std::endl;
+  std::cout<<"\tstarting vels: ("<<msg.curLinVelX<<","<<msg.curLinVelY<<")"<<std::endl;
   std::vector<geometry_msgs::Point> points;
   geometry_msgs::Point p;
   p.x = 0.5;

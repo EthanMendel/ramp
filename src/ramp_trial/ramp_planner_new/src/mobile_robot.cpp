@@ -1,5 +1,5 @@
 #include "../include/mobile_robot.h"
-#include <ramp_planner_new/TrajectoryRequest.h>
+#include <ramp_planner_new/SwapRequest.h>
 
 const std::string MobileRobot::TOPIC_STR_PHIDGET_MOTOR="/PhidgetMotor";
 const std::string MobileRobot::TOPIC_STR_ODOMETRY="/odometry/filtered";
@@ -42,15 +42,13 @@ void MobileRobot::setNextTwist()
 
 void MobileRobot::calculateVelocities(const std::vector<ramp_planner_new::Coefficient> coefs, const std::vector<ramp_planner_new::Coefficient> uCoefs, double t){  
   std::vector<double> curXY;
-  double xP;
-  double yP;
   if(trajectory_.type == "cubic"){
     curXY = {//position's velocity coefficient should be zero
       coefs.at(0).values.at(0)*pow(t,3) + coefs.at(0).values.at(1)*pow(t,2) + coefs.at(0).values.at(2)*(t) + coefs.at(0).values.at(3),
       coefs.at(1).values.at(0)*pow(t,3) + coefs.at(1).values.at(1)*pow(t,2) + coefs.at(1).values.at(2)*(t) + coefs.at(1).values.at(3)
     };
-     xP = 3*coefs.at(0).values.at(0)*pow(t,2) + 2*coefs.at(0).values.at(1)*(t) + coefs.at(0).values.at(2);
-     yP = 3*coefs.at(1).values.at(0)*pow(t,2) + 2*coefs.at(1).values.at(1)*(t) + coefs.at(1).values.at(2);
+     xP_ = 3*coefs.at(0).values.at(0)*pow(t,2) + 2*coefs.at(0).values.at(1)*(t) + coefs.at(0).values.at(2);
+     yP_ = 3*coefs.at(1).values.at(0)*pow(t,2) + 2*coefs.at(1).values.at(1)*(t) + coefs.at(1).values.at(2);
   
   }else if(trajectory_.type == "bezier"){
     float xu = ((uCoefs.at(0).values.at(0)*pow(t,3) + uCoefs.at(0).values.at(1)*pow(t,2) + uCoefs.at(0).values.at(2)*(t) + uCoefs.at(0).values.at(3)));// - xuMin)/xuMax;
@@ -65,14 +63,14 @@ void MobileRobot::calculateVelocities(const std::vector<ramp_planner_new::Coeffi
     double B2 = 2*((coefs.at(1).values.at(1))-coefs.at(1).values.at(0));
     float xuP = 3*uCoefs.at(0).values.at(0)*pow(t,2) + 2*uCoefs.at(0).values.at(1)*(t) + uCoefs.at(0).values.at(2);
     float yuP = 3*uCoefs.at(1).values.at(0)*pow(t,2) + 2*uCoefs.at(1).values.at(1)*(t) + uCoefs.at(1).values.at(2);
-    xP =((A1*xu + A2)*xuP);
-    yP =((B1*yu + B2)*yuP);
+    xP_ =((A1*xu + A2)*xuP);
+    yP_ =((B1*yu + B2)*yuP);
   }else{
     std::cout<<"got "<<trajectory_.type<<" trajectory, something went wrong"<<std::endl;
     return;
   }
 
-  speed_linear_ = sqrt(pow(xP,2) + pow(yP,2));
+  speed_linear_ = sqrt(pow(xP_,2) + pow(yP_,2));
   twist_.linear.x = speed_linear_;
 
   if(prevXY_.size() > 0){
@@ -196,8 +194,9 @@ void MobileRobot::moveOnTrajectory() {
         if(tot_time_ > 2.0 && !swapped_){
           swapped_ = true;
           trajectory_.active = false;
-          std_msgs::Bool msg;
-          msg.data = true;
+          ramp_planner_new::SwapRequest msg;
+          msg.curLinVelX = xP_;
+          msg.curLinVelY = yP_;
           pub_swap_traj_.publish(msg);
           break;
         }

@@ -2,6 +2,7 @@
 #include "../include/planner.h"
 #include "../include/mobile_robot.h"
 #include <ramp_planner_new/TrajectoryRequest.h>
+#include <ramp_planner_new/SwapRequest.h>
 
 MobileRobot robot;
 
@@ -14,7 +15,7 @@ void init_advertisers_subscribers(MobileRobot& robot, ros::NodeHandle& handle, b
   robot.pub_cmd_vel_ = handle.advertise<geometry_msgs::Twist>(MobileRobot::TOPIC_STR_SIM, 10);
   robot.pub_cmd_vel2_ = handle.advertise<geometry_msgs::Twist>(MobileRobot::TOPIC_STR_SIM2, 10);
 
-  robot.pub_swap_traj_ = handle.advertise<std_msgs::Bool>(MobileRobot::TOPIC_TRAJ_SWAP, 10);
+  robot.pub_swap_traj_ = handle.advertise<ramp_planner_new::SwapRequest>(MobileRobot::TOPIC_TRAJ_SWAP, 10);
   
   robot.pub_ready_next_ = handle.advertise<std_msgs::Bool>("/ready_next", 1);
   // Subscribers
