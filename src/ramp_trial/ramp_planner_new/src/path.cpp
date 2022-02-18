@@ -297,9 +297,6 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
       c.clear();
     }
     uCoefs.clear();
-    if(uCubicEntrenceVelocities.size() == 0 && type == "uCubic"){
-      std::cout<<"finding uCubic, but entrence velocity is 0"<<std::endl;
-    }
   }
   if(msg.points.size() >= 2){
     MotionState start = msg.points.at(0);
@@ -310,7 +307,14 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
       goal.msg_.positions.at(0) = 1;
       goal.msg_.positions.at(1) = 1;
     }
-    if(msg.points.size() == 3){
+    if(msg.points.size() == 2){
+      if(uCubicEntrenceVelocities.size() > 0){
+        std::cout<<"##setting starting vels for new first cubic##"<<std::endl;
+        for(unsigned int j=0;j<uCubicEntrenceVelocities.size();j++){
+          start.msg_.velocities.at(j) = uCubicEntrenceVelocities.at(j);
+        }
+      }
+    }else if(msg.points.size() == 3){
       if(uCubicEntrenceVelocities.size() > 0){
         start = msg.points.at(2);
         // startT_ += .4;
@@ -321,6 +325,9 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
     }else if(msg.points.size() == 4){
       start = msg.points.at(2);
       goal = msg.points.at(3);
+    }else{
+      std::cout<<"more than 4 points when finding cubic.. returning"<<std::endl;
+      return;
     }
     if(uCubicEntrenceVelocities.size() > 0 && type == "uCubic"){
       for(unsigned int j=0;j<uCubicEntrenceVelocities.size();j++){

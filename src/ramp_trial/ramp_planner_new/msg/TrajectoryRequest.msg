@@ -4,3 +4,4 @@ float64[] normVals
 bool hasNext
 bool swapped
 geometry_msgs/Point[] newTrajPoints
+float64[] startingVels

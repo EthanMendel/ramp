@@ -16,6 +16,7 @@ ros::Publisher pub_time_needed;
 ros::Publisher pub_bezify_request;
 double max_speed_linear = 0.33;
 bool swapped = false;
+std::vector<double> startingVels;
 
 // j should be the index of the goal marker within pathPoints
 bool needBezify(const unsigned int j){
@@ -108,6 +109,7 @@ void updateStartGoal(){
                         msg.swapped = true;
                         msg.newTrajPoints = pathPoints.points;
                         swapped = false;
+                        msg.startingVels = startingVels;
                     }
                     pub_time_needed.publish(msg);
                 }
@@ -137,6 +139,8 @@ void getNextPoint(const std_msgs::Bool b){
 void swapTrajectory(const ramp_planner_new::SwapRequest msg){
   std::cout<<"##swapping trajectory##"<<std::endl;
   std::cout<<"\tstarting vels: ("<<msg.curLinVelX<<","<<msg.curLinVelY<<")"<<std::endl;
+  startingVels.push_back(msg.curLinVelX);
+  startingVels.push_back(msg.curLinVelY);
   std::vector<geometry_msgs::Point> points;
   geometry_msgs::Point p;
   p.x = 0.5;

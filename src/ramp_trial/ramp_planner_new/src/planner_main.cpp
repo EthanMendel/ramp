@@ -68,7 +68,6 @@ void initDOF(const std::vector<double> dof_min, const std::vector<double> dof_ma
 void initStartGoal(const std::vector<std::vector<float>> points) {
   pathMotionStates.clear();
   plannerPath.msg_.points.clear();
-  plannerPath.uCubicEntrenceVelocities.clear();
   //TODO send current velocities for smoother swap
   double pastY;
   for(unsigned int i=0;i<points.size();i++){
@@ -403,18 +402,22 @@ void pubPath(){
 void getTrajectory(ramp_planner_new::TrajectoryRequest msg){
   std::cout<<"getting "<<msg.type<<" trajectory"<<std::endl;
     if(msg.swapped){
-    std::vector<std::vector<float>> points;
-    for(unsigned int i=0;i<msg.newTrajPoints.size();i++){
-      std::vector<float> p;
-      p.push_back(msg.newTrajPoints.at(i).x);
-      p.push_back(msg.newTrajPoints.at(i).y);
-      p.push_back(0);
-      // std::cout<<"\t"<<msg.points.at(i)<<std::endl;
-      points.push_back(p);
+      plannerPath.uCubicEntrenceVelocities.clear();
+      for(unsigned int i=0;i<msg.startingVels.size();i++){
+        plannerPath.uCubicEntrenceVelocities.push_back(msg.startingVels.at(i));
+      }
+      std::vector<std::vector<float>> points;
+      for(unsigned int i=0;i<msg.newTrajPoints.size();i++){
+        std::vector<float> p;
+        p.push_back(msg.newTrajPoints.at(i).x);
+        p.push_back(msg.newTrajPoints.at(i).y);
+        p.push_back(0);
+        // std::cout<<"\t"<<msg.points.at(i)<<std::endl;
+        points.push_back(p);
+      }
+      initStartGoal(points);
+      pubStartGoalMarkers(false);
     }
-    initStartGoal(points);
-    pubStartGoalMarkers(false);
-  }
   std::cout<<"start:\n"<<msg.points.at(0)<<std::endl;
   if(msg.type == "cubic"){
       std::cout<<"goal:\n"<<msg.points.at(1)<<std::endl;
