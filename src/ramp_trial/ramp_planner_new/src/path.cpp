@@ -307,13 +307,8 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
       goal.msg_.positions.at(0) = 1;
       goal.msg_.positions.at(1) = 1;
     }
-    if(uCubicEntrenceVelocities.size() > 0 && msg.swapped){
-      std::cout<<"##setting starting vels for new first cubic##"<<std::endl;
-      for(unsigned int j=0;j<uCubicEntrenceVelocities.size();j++){
-        start.msg_.velocities.at(j) = uCubicEntrenceVelocities.at(j);
-      }
-    }else if(msg.points.size() == 3){
-      if(uCubicEntrenceVelocities.size() > 0){
+    if(msg.points.size() == 3){
+      if(uCubicEntrenceVelocities.size() > 0 && !msg.swapped){
         start = msg.points.at(2);
         // startT_ += .4;
       }else{
@@ -327,10 +322,18 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
       std::cout<<"more than 4 points ("<<msg.points.size()<<") when finding cubic.. returning"<<std::endl;
       return;
     }
-    if(uCubicEntrenceVelocities.size() > 0 && type == "uCubic"){
-      for(unsigned int j=0;j<uCubicEntrenceVelocities.size();j++){
-        start.msg_.velocities.at(j) = uCubicEntrenceVelocities.at(j)/msg.normVals.at(j);
-        goal.msg_.velocities.at(j) = uCubicEntrenceVelocities.at(j)/msg.normVals.at(j);
+    if(uCubicEntrenceVelocities.size() > 0){
+      if(type == "uCubic"){
+        for(unsigned int j=0;j<uCubicEntrenceVelocities.size();j++){
+          start.msg_.velocities.at(j) = uCubicEntrenceVelocities.at(j)/msg.normVals.at(j);
+          goal.msg_.velocities.at(j) = uCubicEntrenceVelocities.at(j)/msg.normVals.at(j);
+        }
+      }else if(msg.swapped){
+        std::cout<<"##setting starting vels for new first cubic##"<<std::endl;
+        for(unsigned int j=0;j<uCubicEntrenceVelocities.size();j++){
+          start.msg_.velocities.at(j) = uCubicEntrenceVelocities.at(j);
+          goal.msg_.velocities.at(j) = uCubicEntrenceVelocities.at(j);
+        }
       }
     }
     for(unsigned int i = 0;i<start.msg_.positions.size();i++){

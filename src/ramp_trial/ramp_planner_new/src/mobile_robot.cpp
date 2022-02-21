@@ -195,8 +195,9 @@ void MobileRobot::moveOnTrajectory() {
           swapped_ = true;
           trajectory_.active = false;
           ramp_planner_new::SwapRequest msg;
-          msg.curLinVelX = xP_;
-          msg.curLinVelY = yP_;
+          msg.curLinVels.push_back(xP_);
+          msg.curLinVels.push_back(yP_);
+          msg.curPositions = prevXY_;
           pub_swap_traj_.publish(msg);
           break;
         }

@@ -1,2 +1,2 @@
-float64 curLinVelX
-float64 curLinVelY
+float64[] curPositions
+float64[] curLinVels
