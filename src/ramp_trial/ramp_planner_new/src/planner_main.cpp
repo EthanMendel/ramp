@@ -66,9 +66,6 @@ void initDOF(const std::vector<double> dof_min, const std::vector<double> dof_ma
 
 // initializes global start and goal
 void initStartGoal(const std::vector<std::vector<float>> points) {
-  pathMotionStates.clear();
-  plannerPath.msg_.points.clear();
-  //TODO send current velocities for smoother swap
   double pastY;
   for(unsigned int i=0;i<points.size();i++){
     MotionState point;
@@ -79,6 +76,40 @@ void initStartGoal(const std::vector<std::vector<float>> points) {
       point.msg_.accelerations.push_back(0);
       point.msg_.jerks.push_back(0);
     }
+    if(i == 0){
+      pastY = point.msg_.positions.at(1);
+    }else{
+      if(pastY == point.msg_.positions.at(1)){
+        point.msg_.positions.at(1)+=.00001;
+        std::cout<<"\t**consecutive y values.. adding .00001 to subsequent one"<<std::endl;
+      }
+      pastY = point.msg_.positions.at(1);
+    }
+    pathMotionStates.push_back(point);
+    KnotPoint pkp(point);
+    plannerPath.msg_.points.push_back(pkp.buildKnotPointMsg());
+  }
+  // std::cout<<"points at init:\n"<<plannerPath.buildPathMsg()<<std::endl;
+}
+
+void initStartGoal(const std::vector<geometry_msgs::Point> points){
+  double pastY;
+  for(unsigned int i=0;i<points.size();i++){
+    MotionState point;
+    geometry_msgs::Point p = points.at(i);
+    point.msg_.positions.push_back(p.x);//x values
+    point.msg_.velocities.push_back(0);
+    point.msg_.accelerations.push_back(0);
+    point.msg_.jerks.push_back(0);
+    point.msg_.positions.push_back(p.y);//y values
+    point.msg_.velocities.push_back(0);
+    point.msg_.accelerations.push_back(0);
+    point.msg_.jerks.push_back(0);
+    point.msg_.positions.push_back(0);//z (theta) values
+    point.msg_.velocities.push_back(0);
+    point.msg_.accelerations.push_back(0);
+    point.msg_.jerks.push_back(0);
+    
     if(i == 0){
       pastY = point.msg_.positions.at(1);
     }else{
@@ -402,21 +433,13 @@ void pubPath(){
 void getTrajectory(ramp_planner_new::TrajectoryRequest msg){
   std::cout<<"getting "<<msg.type<<" trajectory"<<std::endl;
     if(msg.swapped){
+      pathMotionStates.clear();
+      plannerPath.msg_.points.clear();
       plannerPath.uCubicEntrenceVelocities.clear();
       for(unsigned int i=0;i<msg.startingVels.size();i++){
         plannerPath.uCubicEntrenceVelocities.push_back(msg.startingVels.at(i));
       }
-      std::vector<std::vector<float>> points;
-      for(unsigned int i=0;i<msg.newTrajPoints.size();i++){
-        std::vector<float> p;
-        p.push_back(msg.newTrajPoints.at(i).x);
-        p.push_back(msg.newTrajPoints.at(i).y);
-        p.push_back(0);
-        // std::cout<<"\t"<<msg.points.at(i)<<std::endl;
-        points.push_back(p);
-      }
-      initStartGoal(points);
-      pubStartGoalMarkers(false);
+      initStartGoal(msg.newTrajPoints);
     }
   std::cout<<"start:\n"<<msg.points.at(0)<<std::endl;
   if(msg.type == "cubic"){
