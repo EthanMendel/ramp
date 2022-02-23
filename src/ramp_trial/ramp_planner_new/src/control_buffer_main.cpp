@@ -36,14 +36,19 @@ bool needBezify(const unsigned int j){
             return false;
         }
     }else{
-        std::cout<<"at begining or end of path"<<std::endl;
+        if(pathPoints.types.size() != pathPoints.points.size()){
+            std::cout<<"SOMETHING WENT WRONG, TYPES NOT SIZED RIGHT"<<std::endl;
+            std::cout<<"\ttypes.size:"<<pathPoints.types.size()<<"\tpoints.size:"<<pathPoints.points.size()<<std::endl;
+        }else{
+            std::cout<<"at begining or end of path"<<std::endl;
+        }
         return false;
     }
 }
 
 void updateStartGoal(){
     curStartGoal.markers.clear();
-    unsigned int j=0;//j used as iterator for types, as types.size() = markers.size()-1
+    unsigned int j=1;//j used as iterator for types, as types.size() = markers.size()-1
     for(int i=0;i<pathPoints.markers.size();i++){
         if(pathPoints.markers.at(i).id == curStartId){//find the current start marker based on id
             if(!pathPoints.forBez.at(i)){//if the current start is only for bezier calculation
@@ -52,7 +57,7 @@ void updateStartGoal(){
                 continue;
             }
             if(i < pathPoints.markers.size() - 1){//make sure there there is a next point (as a goal)
-                if(needBezify(j + 1)){//need bezify checks to make sure we can do i+2
+                if(needBezify(j)){//need bezify checks to make sure we can do i+2
                     //if we need to bezify the path, send bezify request
                     ramp_planner_new::BezifyRequest br;
                     br.pathPoints = pathPoints;
@@ -196,6 +201,8 @@ void swapTrajectory(const ramp_planner_new::SwapRequest msg){
     pps.markers.push_back(marker);
   }
 
+  std::cout<<"adding start in buffer"<<std::endl;
+  pps.types.push_back("START");
   for(unsigned int i=0;i<pps.markers.size()-1;i++){//populate type and forBez arrays
     pps.types.push_back("cubic");
     pps.forBez.push_back(true);
