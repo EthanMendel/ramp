@@ -22,11 +22,12 @@ std::vector<double> startingVels;
 bool needBezify(const unsigned int j){
     //type indexes are based on start index
     if(j > 0 and j < pathPoints.types.size()){
+        int offset = pathPoints.types.at(j) == "SKIP" ? 1 : 0;
         //return whether both types involving the inputed point are cubic (linear)
-        if(pathPoints.types.at(j-1) == "cubic" && pathPoints.types.at(j) == "cubic"){
+        if(pathPoints.types.at(j-1) == "cubic" && pathPoints.types.at(j + offset) == "cubic"){
             std::cout<<"two cubics side by side"<<std::endl;
             return true;
-        }else if(pathPoints.types.at(j-1) == "uCubic" && pathPoints.types.at(j) == "uCubic"){
+        }else if(pathPoints.types.at(j-1) == "uCubic" && pathPoints.types.at(j + offset) == "uCubic"){
             std::cout<<"foud a u trajectory, **something went wrong**"<<std::endl;
             return false;
         }
@@ -47,6 +48,7 @@ void updateStartGoal(){
         if(pathPoints.markers.at(i).id == curStartId){//find the current start marker based on id
             if(!pathPoints.forBez.at(i)){//if the current start is only for bezier calculation
                 curStartId += 1;//skip it
+                j++;
                 continue;
             }
             if(i < pathPoints.markers.size() - 1){//make sure there there is a next point (as a goal)
@@ -100,7 +102,7 @@ void updateStartGoal(){
                         }
                         msg.points.push_back(pathPoints.markers.at(i + 2).pose.position);
                     }else{
-                        std::cout<<"foud a u trajectory, something went wrong"<<std::endl;
+                        std::cout<<"found a "<<pathPoints.types.at(j)<<" trajectory, something went wrong"<<std::endl;
                     }
                     
                     std::cout<<"sending trajectory request"<<std::endl;
