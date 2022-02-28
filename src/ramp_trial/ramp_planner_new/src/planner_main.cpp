@@ -538,14 +538,14 @@ visualization_msgs::Marker makeMarker(geometry_msgs::Point p, int id){
 
 //add the given control points to the overall path on either side of the given marker to 'replace' the marker and 'bezify' the overall path
 ramp_planner_new::PathPoints addControlPoints(visualization_msgs::Marker m, geometry_msgs::Point cp1, geometry_msgs::Point cp2){
-    std::cout<<"markers.size:"<<pathPoints.markers.size()<<std::endl;
-    std::cout<<"forBez.size:"<<pathPoints.forBez.size()<<std::endl;
-    std::cout<<"points.size:"<<pathPoints.points.size()<<std::endl;
-    std::cout<<"types.size:"<<pathPoints.types.size()<<std::endl;
-    for(unsigned int i=0;i<pathPoints.types.size();i++){
-      std::cout<<"\t"<<pathPoints.types.at(i);
-    }
-    std::cout<<std::endl;
+    // std::cout<<"markers.size:"<<pathPoints.markers.size()<<std::endl;
+    // std::cout<<"forBez.size:"<<pathPoints.forBez.size()<<std::endl;
+    // std::cout<<"points.size:"<<pathPoints.points.size()<<std::endl;
+    // std::cout<<"types.size:"<<pathPoints.types.size()<<std::endl;
+    // for(unsigned int i=0;i<pathPoints.types.size();i++){
+    //   std::cout<<"\t"<<pathPoints.types.at(i);
+    // }
+    // std::cout<<std::endl;
     visualization_msgs::MarkerArray maRes;//result vars
     std::vector<std::string> tRes;
     std::vector<unsigned char> bRes;
@@ -590,14 +590,14 @@ ramp_planner_new::PathPoints addControlPoints(visualization_msgs::Marker m, geom
     for(unsigned int i=0;i<result.markers.size();i++){
       result.points.push_back(result.markers.at(i).pose.position);
     }
-    std::cout<<"markers.size:"<<result.markers.size()<<std::endl;
-    std::cout<<"forBez.size:"<<result.forBez.size()<<std::endl;
-    std::cout<<"points.size:"<<result.points.size()<<std::endl;
-    std::cout<<"types.size:"<<result.types.size()<<std::endl;
-    for(unsigned int i=0;i<result.types.size();i++){
-      std::cout<<"\t"<<result.types.at(i);
-    }
-    std::cout<<std::endl;
+    // std::cout<<"markers.size:"<<result.markers.size()<<std::endl;
+    // std::cout<<"forBez.size:"<<result.forBez.size()<<std::endl;
+    // std::cout<<"points.size:"<<result.points.size()<<std::endl;
+    // std::cout<<"types.size:"<<result.types.size()<<std::endl;
+    // for(unsigned int i=0;i<result.types.size();i++){
+    //   std::cout<<"\t"<<result.types.at(i);
+    // }
+    // std::cout<<std::endl;
     return result;
 }
 
