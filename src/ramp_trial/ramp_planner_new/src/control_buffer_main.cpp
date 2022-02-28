@@ -157,6 +157,10 @@ void swapTrajectory(const ramp_planner_new::SwapRequest msg){
   p.x = 2.0;
   p.y = 3.0;
   points.push_back(p);
+  p.x = 2.5;
+  p.y = 3.5;
+  points.push_back(p);
+
 
   ramp_planner_new::PathPoints pps;
   // markers for both positions
