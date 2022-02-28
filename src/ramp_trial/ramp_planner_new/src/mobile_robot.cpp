@@ -41,14 +41,18 @@ void MobileRobot::setNextTwist()
 } // End updateTrajectory
 
 void MobileRobot::calculateVelocities(const std::vector<ramp_planner_new::Coefficient> coefs, const std::vector<ramp_planner_new::Coefficient> uCoefs, double t){  
+  if(swapped_ && !trajectory_.active){
+    t += 1;
+  }
   std::vector<double> curXY;
+  double xP,yP;
   if(trajectory_.type == "cubic"){
     curXY = {//position's velocity coefficient should be zero
       coefs.at(0).values.at(0)*pow(t,3) + coefs.at(0).values.at(1)*pow(t,2) + coefs.at(0).values.at(2)*(t) + coefs.at(0).values.at(3),
       coefs.at(1).values.at(0)*pow(t,3) + coefs.at(1).values.at(1)*pow(t,2) + coefs.at(1).values.at(2)*(t) + coefs.at(1).values.at(3)
     };
-     xP_ = 3*coefs.at(0).values.at(0)*pow(t,2) + 2*coefs.at(0).values.at(1)*(t) + coefs.at(0).values.at(2);
-     yP_ = 3*coefs.at(1).values.at(0)*pow(t,2) + 2*coefs.at(1).values.at(1)*(t) + coefs.at(1).values.at(2);
+    xP = 3*coefs.at(0).values.at(0)*pow(t,2) + 2*coefs.at(0).values.at(1)*(t) + coefs.at(0).values.at(2);
+    yP = 3*coefs.at(1).values.at(0)*pow(t,2) + 2*coefs.at(1).values.at(1)*(t) + coefs.at(1).values.at(2);
   
   }else if(trajectory_.type == "bezier"){
     float xu = ((uCoefs.at(0).values.at(0)*pow(t,3) + uCoefs.at(0).values.at(1)*pow(t,2) + uCoefs.at(0).values.at(2)*(t) + uCoefs.at(0).values.at(3)));// - xuMin)/xuMax;
@@ -63,15 +67,24 @@ void MobileRobot::calculateVelocities(const std::vector<ramp_planner_new::Coeffi
     double B2 = 2*((coefs.at(1).values.at(1))-coefs.at(1).values.at(0));
     float xuP = 3*uCoefs.at(0).values.at(0)*pow(t,2) + 2*uCoefs.at(0).values.at(1)*(t) + uCoefs.at(0).values.at(2);
     float yuP = 3*uCoefs.at(1).values.at(0)*pow(t,2) + 2*uCoefs.at(1).values.at(1)*(t) + uCoefs.at(1).values.at(2);
-    xP_ =((A1*xu + A2)*xuP);
-    yP_ =((B1*yu + B2)*yuP);
+    xP =((A1*xu + A2)*xuP);
+    yP =((B1*yu + B2)*yuP);
   }else{
     std::cout<<"got "<<trajectory_.type<<" trajectory, something went wrong"<<std::endl;
     return;
   }
 
-  speed_linear_ = sqrt(pow(xP_,2) + pow(yP_,2));
+  speed_linear_ = sqrt(pow(xP,2) + pow(yP,2));
   twist_.linear.x = speed_linear_;
+
+  if(swapped_ && !trajectory_.active){
+    ramp_planner_new::SwapRequest msg;
+    msg.curLinVels.push_back(xP);
+    msg.curLinVels.push_back(yP);
+    msg.prevPositions = prevXY_;
+    msg.curPositions = curXY;
+    pub_swap_traj_.publish(msg);
+  }
 
   if(prevXY_.size() > 0){
     double theta = findAngleFromAToB(curXY,prevXY_);
@@ -182,9 +195,9 @@ void MobileRobot::moveOnTrajectory() {
     seg_step_ = (int) trajectory_.startTime;
     time_step_ = (int) ((trajectory_.startTime - seg_step_) * 10);
     cur_start_ = ros::Time::now();
-    while(ros::ok() && (seg_step_+.1*time_step_) <= trajectory_.totalTime) 
+    while(ros::ok() && (seg_step_+.1*time_step_) <= trajectory_.totalTime && trajectory_.active) 
     {
-      while(ros::ok() && time_step_ < SEND_RESELUTION) 
+      while(ros::ok() && time_step_ < SEND_RESELUTION && trajectory_.active) 
       {
         cur_time_ = ros::Time::now();
         // std::cout<<"$$calculated: "<<(seg_step_+.1*time_step_)<<"\tfound: "<<cur_time_ - cur_start_ - global_start_<<std::endl;
@@ -194,27 +207,20 @@ void MobileRobot::moveOnTrajectory() {
         if(tot_time_ > 2.0 && !swapped_){
           swapped_ = true;
           trajectory_.active = false;
-          ramp_planner_new::SwapRequest msg;
-          msg.curLinVels.push_back(xP_);
-          msg.curLinVels.push_back(yP_);
-          msg.curPositions = prevXY_;
-          pub_swap_traj_.publish(msg);
-          break;
         }
         // std::cout<<"running for "<<(seg_step_+.1*time_step_)<<std::endl;
         // Send the twist_message to move the robot
         setNextTwist();
-        sendTwist();
-        time_step_++;
-        tot_time_ = tot_time_ + .1;
+        if(trajectory_.active){
+          sendTwist();
+          time_step_++;
+          tot_time_ = tot_time_ + .1;
+        }
         // Sleep
         r.sleep();
         // Spin to check for updates
         ros::spinOnce();
       } // end while (move to the next point)
-      if(!trajectory_.active){
-        break;
-      }
       // Increment num_traveled
       time_step_ = 0;
       seg_step_++;

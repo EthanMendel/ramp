@@ -143,28 +143,30 @@ void swapTrajectory(const ramp_planner_new::SwapRequest msg){
   std::cout<<"\tstarting vels: ("<<msg.curLinVels.at(0)<<","<<msg.curLinVels.at(1)<<")"<<std::endl;
   startingVels.push_back(msg.curLinVels.at(0));
   startingVels.push_back(msg.curLinVels.at(1));
-  std::vector<geometry_msgs::Point> points;
+  ramp_planner_new::PathPoints pps;
   geometry_msgs::Point p;
+  p.x = msg.prevPositions.at(0);
+  p.y = msg.prevPositions.at(1);
+  pps.points.push_back(p);
   p.x = msg.curPositions.at(0);
   p.y = msg.curPositions.at(1);
-  points.push_back(p);
-  p.x = 1.0;
-  p.y = 1.0;
-  points.push_back(p);
+  pps.points.push_back(p);
+  p.x = 1.75;
+  p.y = 0.0;
+  pps.points.push_back(p);
   p.x = 2.5;
   p.y = 1.5;
-  points.push_back(p);
+  pps.points.push_back(p);
   p.x = 2.0;
   p.y = 3.0;
-  points.push_back(p);
+  pps.points.push_back(p);
   p.x = 2.5;
   p.y = 3.5;
-  points.push_back(p);
+  pps.points.push_back(p);
 
 
-  ramp_planner_new::PathPoints pps;
   // markers for both positions
-  for(unsigned int i=0;i<points.size();i++){
+  for(unsigned int i=0;i<pps.points.size();i++){
     visualization_msgs::Marker marker;
     marker.header.stamp = ros::Time::now();
     if(i==0){
@@ -177,8 +179,8 @@ void swapTrajectory(const ramp_planner_new::SwapRequest msg){
     marker.type = visualization_msgs::Marker::SPHERE;
     marker.action = visualization_msgs::Marker::ADD;
     // set positions
-    marker.pose.position.x = points.at(i).x;
-    marker.pose.position.y = points.at(i).y;
+    marker.pose.position.x = pps.points.at(i).x;
+    marker.pose.position.y = pps.points.at(i).y;
     marker.pose.position.z = 0.0;
     // set orientations
     marker.pose.orientation.x = 0.0;
@@ -199,15 +201,16 @@ void swapTrajectory(const ramp_planner_new::SwapRequest msg){
 
     pps.markers.push_back(marker);
   }
+//   std::cout<<"swapped pps.markers.size:"<<pps.markers.size()<<std::endl;
 
   for(unsigned int i=0;i<pps.markers.size()-1;i++){//populate type and forBez arrays
     pps.types.push_back("cubic");
     pps.forBez.push_back(true);
   }
   pps.forBez.push_back(true);//extra value needed not included above  
-  for(unsigned int i=0;i<pps.markers.size();i++){
-    pps.points.push_back(pps.markers.at(i).pose.position);
-  }
+  
+//   std::cout<<"swapped pps.types.size:"<<pps.types.size()<<std::endl;
+//   std::cout<<"swapped pps.forBez.size:"<<pps.forBez.size()<<std::endl;
 
   pathPoints = pps;
   curStartId = pps.markers.at(0).id;

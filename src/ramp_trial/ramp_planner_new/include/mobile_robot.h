@@ -89,8 +89,6 @@ class MobileRobot
   ros::Time                 global_start_;
   ros::Time                 cur_start_;
   ros::Time                 cur_time_;
-  double                    xP_;
-  double                    yP_;
   double                    speed_linear_;
   double                    speed_angular_;
   double                    orientation_;
