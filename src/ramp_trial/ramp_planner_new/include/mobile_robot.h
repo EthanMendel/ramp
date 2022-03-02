@@ -85,7 +85,8 @@ class MobileRobot
   double                    tot_time_;
   const unsigned int        k_dof_;
   bool                      started_ = false;
-  bool                      swapped_ = false;
+  bool                      look_ahead_ = false;
+  int                       swapped_ = 0;
   ros::Time                 global_start_;
   ros::Time                 cur_start_;
   ros::Time                 cur_time_;

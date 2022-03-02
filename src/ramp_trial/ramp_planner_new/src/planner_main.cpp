@@ -436,9 +436,6 @@ void getTrajectory(ramp_planner_new::TrajectoryRequest msg){
       pathMotionStates.clear();
       plannerPath.msg_.points.clear();
       plannerPath.uCubicEntrenceVelocities.clear();
-      for(unsigned int i=0;i<msg.startingVels.size();i++){
-        plannerPath.uCubicEntrenceVelocities.push_back(msg.startingVels.at(i));
-      }
       initStartGoal(msg.newTrajPoints);
     }
   std::cout<<"start:\n"<<msg.points.at(0)<<std::endl;

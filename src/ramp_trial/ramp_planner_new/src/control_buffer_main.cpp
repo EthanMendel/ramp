@@ -140,7 +140,7 @@ void getNextPoint(const std_msgs::Bool b){
 }
 
 void swapTrajectory(const ramp_planner_new::SwapRequest msg){
-  std::cout<<"##swapping trajectory##"<<std::endl;
+  std::cout<<"##swapping trajectory##"<<swapNumber<<std::endl;
   std::cout<<"\tstarting vels: ("<<msg.curLinVels.at(0)<<","<<msg.curLinVels.at(1)<<")"<<std::endl;
   startingVels.push_back(msg.curLinVels.at(0));
   startingVels.push_back(msg.curLinVels.at(1));
@@ -169,15 +169,15 @@ void swapTrajectory(const ramp_planner_new::SwapRequest msg){
     p.x = 2.0;
     p.y = 1.0;
     pps.points.push_back(p);
-    p.x = 1.5;
-    p.y = 2.0;
+    p.x = 1.0;
+    p.y = 2.5;
     pps.points.push_back(p);
     p.x = 2.5;
     p.y = 3.5;
     pps.points.push_back(p);
   }else{
-    p.x = 3.0;
-    p.y = 3.5;
+    p.x = 2.0;
+    p.y = 3.0;
     pps.points.push_back(p);
     p.x = 2.5;
     p.y = 3.5;

@@ -41,7 +41,7 @@ void MobileRobot::setNextTwist()
 } // End updateTrajectory
 
 void MobileRobot::calculateVelocities(const std::vector<ramp_planner_new::Coefficient> coefs, const std::vector<ramp_planner_new::Coefficient> uCoefs, double t){  
-  if(swapped_ && !trajectory_.active){
+  if(look_ahead_ && !trajectory_.active){
     t += 1;
   }
   std::vector<double> curXY;
@@ -77,13 +77,14 @@ void MobileRobot::calculateVelocities(const std::vector<ramp_planner_new::Coeffi
   speed_linear_ = sqrt(pow(xP,2) + pow(yP,2));
   twist_.linear.x = speed_linear_;
 
-  if(swapped_ && !trajectory_.active){
+  if(look_ahead_ && !trajectory_.active){
     ramp_planner_new::SwapRequest msg;
     msg.curLinVels.push_back(xP);
     msg.curLinVels.push_back(yP);
     msg.prevPositions = prevXY_;
     msg.curPositions = curXY;
     pub_swap_traj_.publish(msg);
+    look_ahead_ = false;
   }
 
   if(prevXY_.size() > 0){
@@ -186,7 +187,8 @@ void MobileRobot::moveOnTrajectory() {
     started_ = true;
     global_start_ = ros::Time::now();
     tot_time_ = 0;
-    swapped_ = false;
+    swapped_ = 0;
+    look_ahead_ = false;
   }
   if(trajectory_.active){
     // Execute the trajectory
@@ -204,8 +206,9 @@ void MobileRobot::moveOnTrajectory() {
         if((seg_step_+.1*time_step_) > trajectory_.totalTime){
           break;
         }
-        if((tot_time_ == 2.0 || tot_time_ == 4.5 || tot_time_ == 5.5) && !swapped_){
-          swapped_ = true;
+        if((tot_time_ > 2 && swapped_==0) || (tot_time_ > 4.5 && swapped_==1) || (tot_time_ > 10 && swapped_==2)){
+          swapped_++;
+          look_ahead_ = true;
           trajectory_.active = false;
         }
         // std::cout<<"running for "<<(seg_step_+.1*time_step_)<<std::endl;

@@ -331,8 +331,8 @@ void Path::findCubicCoefs(const ramp_planner_new::TrajectoryRequest msg){
       }else if(msg.swapped){
         std::cout<<"##setting starting vels for new first cubic##"<<std::endl;
         for(unsigned int j=0;j<uCubicEntrenceVelocities.size();j++){
-          start.msg_.velocities.at(j) = uCubicEntrenceVelocities.at(j);
-          goal.msg_.velocities.at(j) = uCubicEntrenceVelocities.at(j);
+          start.msg_.velocities.at(j) = msg.startingVels.at(j);
+          goal.msg_.velocities.at(j) = msg.startingVels.at(j);
         }
       }
     }
