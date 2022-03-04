@@ -8,7 +8,8 @@
 #include <ramp_planner_new/TrajectorySwap.h>
 #include <ramp_planner_new/SwapRequest.h>
 
-ramp_planner_new::PathPoints pathPoints;
+ramp_planner_new::PathPoints curPathPoints;
+int maxPathId = 0;
 int curStartId = -1;
 visualization_msgs::MarkerArray curStartGoal;
 ros::Publisher pub_path_points;
@@ -22,13 +23,13 @@ int swapNumber = 0;
 // j should be the index of the goal marker within pathPoints
 bool needBezify(const unsigned int j){
     //type indexes are based on start index
-    if(j > 0 and j < pathPoints.types.size()){
-        int offset = pathPoints.types.at(j) == "SKIP" ? 1 : 0;
+    if(j > 0 and j < curPathPoints.types.size()){
+        int offset = curPathPoints.types.at(j) == "SKIP" ? 1 : 0;
         //return whether both types involving the inputed point are cubic (linear)
-        if(pathPoints.types.at(j-1) == "cubic" && pathPoints.types.at(j + offset) == "cubic"){
+        if(curPathPoints.types.at(j-1) == "cubic" && curPathPoints.types.at(j + offset) == "cubic"){
             std::cout<<"two cubics side by side"<<std::endl;
             return true;
-        }else if(pathPoints.types.at(j-1) == "uCubic" && pathPoints.types.at(j + offset) == "uCubic"){
+        }else if(curPathPoints.types.at(j-1) == "uCubic" && curPathPoints.types.at(j + offset) == "uCubic"){
             std::cout<<"foud a u trajectory, **something went wrong**"<<std::endl;
             return false;
         }
@@ -45,72 +46,72 @@ bool needBezify(const unsigned int j){
 void updateStartGoal(){
     curStartGoal.markers.clear();
     unsigned int j=0;//j used as iterator for types, as types.size() = markers.size()-1
-    for(int i=0;i<pathPoints.markers.size();i++){
-        if(pathPoints.markers.at(i).id == curStartId){//find the current start marker based on id
-            if(!pathPoints.forBez.at(i)){//if the current start is only for bezier calculation
+    for(int i=0;i<curPathPoints.markers.size();i++){
+        if(curPathPoints.markers.at(i).id == curStartId){//find the current start marker based on id
+            if(!curPathPoints.forBez.at(i)){//if the current start is only for bezier calculation
                 curStartId += 1;//skip it
                 j++;
                 continue;
             }
-            if(i < pathPoints.markers.size() - 1){//make sure there there is a next point (as a goal)
+            if(i < curPathPoints.markers.size() - 1){//make sure there there is a next point (as a goal)
                 if(needBezify(j + 1)){//need bezify checks to make sure we can do i+2
                     //if we need to bezify the path, send bezify request
                     ramp_planner_new::BezifyRequest br;
-                    br.pathPoints = pathPoints;
-                    br.markers.push_back(pathPoints.markers.at(i));
-                    br.markers.push_back(pathPoints.markers.at(i+1));
-                    br.markers.push_back(pathPoints.markers.at(i+2));
+                    br.pathPoints = curPathPoints;
+                    br.markers.push_back(curPathPoints.markers.at(i));
+                    br.markers.push_back(curPathPoints.markers.at(i+1));
+                    br.markers.push_back(curPathPoints.markers.at(i+2));
                     pub_bezify_request.publish(br);
                 }else{//else, no bezify needed
-                    curStartGoal.markers.push_back(pathPoints.markers.at(i));
-                    curStartGoal.markers.push_back(pathPoints.markers.at(i+1));
+                    curStartGoal.markers.push_back(curPathPoints.markers.at(i));
+                    curStartGoal.markers.push_back(curPathPoints.markers.at(i+1));
                     ramp_planner_new::TrajectoryRequest msg;
-                    if(pathPoints.types.at(j) == "cubic"){
+                    if(curPathPoints.types.at(j) == "cubic"){
                         msg.type = "cubic";
-                        msg.points.push_back(pathPoints.markers.at(i).pose.position);
-                        if(!pathPoints.forBez.at(i + 1)){
+                        msg.points.push_back(curPathPoints.markers.at(i).pose.position);
+                        if(!curPathPoints.forBez.at(i + 1)){
                             std::cout<<"a forBez point found as goal in cubic request..\nstoping process"<<std::endl;
                             break;
                         }
-                        msg.points.push_back(pathPoints.markers.at(i + 1).pose.position);
-                        if((i-1) >= 0 && !pathPoints.forBez.at(i-1)){
+                        msg.points.push_back(curPathPoints.markers.at(i + 1).pose.position);
+                        if((i-1) >= 0 && !curPathPoints.forBez.at(i-1)){
                             std::cout<<"found a forBez point before start point"<<std::endl;//this means we need to calculate entrence velocities for cubic entrence
-                            msg.points.push_back(pathPoints.markers.at(i-1).pose.position);
+                            msg.points.push_back(curPathPoints.markers.at(i-1).pose.position);
                         }
-                        if(pathPoints.markers.size() > (i + 2) && !pathPoints.forBez.at(i+2)){
+                        if(curPathPoints.markers.size() > (i + 2) && !curPathPoints.forBez.at(i+2)){
                             std::cout<<"found a forBez point after goal point"<<std::endl;//this means we need to save exit velocities for bezier entrence
-                            msg.points.push_back(pathPoints.markers.at(i + 2).pose.position);
+                            msg.points.push_back(curPathPoints.markers.at(i + 2).pose.position);
                             msg.hasNext = true;
                         }else{
                             std::cout<<"markers not long enough, or no forBez after goal"<<std::endl;
                             msg.hasNext = false;
                         }
-                    }else if (pathPoints.types.at(j) == "bezier"){
+                    }else if (curPathPoints.types.at(j) == "bezier"){
                         msg.type = "bezier";
-                        msg.points.push_back(pathPoints.markers.at(i).pose.position);
-                        if(pathPoints.forBez.at(i + 1)){
+                        msg.points.push_back(curPathPoints.markers.at(i).pose.position);
+                        if(curPathPoints.forBez.at(i + 1)){
                             std::cout<<"a non forBez point found as p1..\nstoping process"<<std::endl;
                             break;
                         }
-                        msg.points.push_back(pathPoints.markers.at(i + 1).pose.position);
-                        if(i + 2 >= pathPoints.markers.size()){
+                        msg.points.push_back(curPathPoints.markers.at(i + 1).pose.position);
+                        if(i + 2 >= curPathPoints.markers.size()){
                             std::cout<<"not enough points for bezier request..\nstopping preocess"<<std::endl;
                             break;
                         }
-                        if(!pathPoints.forBez.at(i + 2)){
+                        if(!curPathPoints.forBez.at(i + 2)){
                             std::cout<<"a forBez point found as p2..\nstoping process"<<std::endl;
                             break;
                         }
-                        msg.points.push_back(pathPoints.markers.at(i + 2).pose.position);
+                        msg.points.push_back(curPathPoints.markers.at(i + 2).pose.position);
                     }else{
-                        std::cout<<"found a "<<pathPoints.types.at(j)<<" trajectory, something went wrong"<<std::endl;
+                        std::cout<<"found a "<<curPathPoints.types.at(j)<<" trajectory, something went wrong"<<std::endl;
                     }
                     
                     std::cout<<"sending trajectory request"<<std::endl;
                     // std::cout<<msg<<std::endl;
                     if(swapped){
                         msg.swapped = true;
-                        msg.newTrajPoints = pathPoints.points;
+                        msg.newTrajPoints = curPathPoints.points;
                         swapped = false;
                         msg.startingVels = startingVels;
                     }
@@ -127,10 +128,12 @@ void updateStartGoal(){
 
 void pathPointsCallback(const ramp_planner_new::PathPoints pp){
     std::cout<<"---got "<<pp.markers.size()<<" path points in buffer---"<<std::endl;
-    pathPoints = pp;
+    curPathPoints = pp;
     if(curStartId == -1){
         curStartId = pp.markers.at(0).id;
     }
+    maxPathId++;
+    curPathPoints.id = maxPathId;
     updateStartGoal();
 }
 
@@ -233,7 +236,7 @@ void swapTrajectory(const ramp_planner_new::SwapRequest msg){
 //   std::cout<<"swapped pps.types.size:"<<pps.types.size()<<std::endl;
 //   std::cout<<"swapped pps.forBez.size:"<<pps.forBez.size()<<std::endl;
 
-  pathPoints = pps;
+  curPathPoints = pps;
   curStartId = pps.markers.at(0).id;
   
   swapped = true;
