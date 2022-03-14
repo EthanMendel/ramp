@@ -5,7 +5,7 @@
     <!-- <include file="$(find ramp_planner_new)/launch/turtlebot_world.launch" /> -->
 
     <!-- Robot info parameters -->
-    <rosparam file="$(find ramp_planner_new)/launch/config/robot_1.yaml" command="load" ns="robot_info/" />
+    <rosparam file="$(find ramp_planner_new)/launch/config/robot_2.yaml" command="load" ns="robot_info/" />
 
     <!-- Planner -->
     <node name="ramp_control_buffer" pkg="ramp_planner_new" type="ramp_control_buffer" output="screen" />
@@ -13,5 +13,7 @@
     <node name="ramp_control_new" pkg="ramp_planner_new" type="ramp_control_new" output="screen" />
 
     <node name="ramp_planner_new" pkg="ramp_planner_new" type="ramp_planner_new" output="screen" /> 
+
+    <node name="ramp_detection" pkg="ramp_planner_new" type="ramp_detection" output="screen" />
 
 </launch>
