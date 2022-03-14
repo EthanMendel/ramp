@@ -264,7 +264,7 @@ void swapTrajectory(const ramp_planner_new::SwapRequest msg){
 }
 
 int main(int argc, char** argv) {
-  std::cout<<"\nstarting listener\n";
+  std::cout<<"\nstarting buffer\n";
   srand( time(0));
 
   ros::init(argc, argv, "ramp_control_buffer");
@@ -288,6 +288,6 @@ int main(int argc, char** argv) {
 
   fflush(stdout);
 
-  std::cout<<"\nExiting Normally\n";
+  std::cout<<"\nExiting Buffer Normally\n";
   return 0;
 }

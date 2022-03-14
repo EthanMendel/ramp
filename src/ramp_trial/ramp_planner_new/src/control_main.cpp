@@ -27,7 +27,7 @@ void trajCallback(const ramp_planner_new::TrajectoryRepresentation cubic){
 }
 
 int main(int argc, char** argv) {
-  std::cout<<"\nstarting listener\n";
+  std::cout<<"\nstarting controler\n";
   srand( time(0));
 
   ros::init(argc, argv, "ramp_controller_new");
@@ -51,6 +51,6 @@ int main(int argc, char** argv) {
 
   fflush(stdout);
 
-  std::cout<<"\nExiting Normally\n";
+  std::cout<<"\nExiting Mover Normally\n";
   return 0;
 }

@@ -260,7 +260,7 @@ void loadParameters(const ros::NodeHandle handle){
     for(uint8_t i=0;i<ranges.size();i++) {
       std::cout<<"\n  "<<i<<": "<<ranges.at(i).toString();
     }
-  std::cout<<"\n---------------------------------------";
+  std::cout<<"\n---------------------------------------\n";
 }
 
 void pubStartGoalMarkers(bool publish = true){
@@ -714,6 +714,6 @@ int main(int argc, char** argv) {
 
   fflush(stdout);
 
-  std::cout<<"\nExiting Normally\n";
+  std::cout<<"\nExiting Main Normally\n";
   return 0;
 }

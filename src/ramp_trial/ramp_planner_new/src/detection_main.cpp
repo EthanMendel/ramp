@@ -62,8 +62,8 @@ void loadParameters(const ros::NodeHandle handle){
     exit(1);
   }
     
-  std::cout<<"\n------- Done loading parameters -------\n";
-  std::cout<<"\n---------------------------------------";
+  std::cout<<"\n------- Done loading parameters -------";
+  std::cout<<"\n---------------------------------------\n";
 }
 
 void pubStartGoalMarkers(bool publish = true){
@@ -149,10 +149,10 @@ void pubStartGoalMarkers(bool publish = true){
 }
 
 int main(int argc, char** argv) {
-  std::cout<<"\nstarting detection main\n";
+  std::cout<<"\nstarting detector\n";
   srand( time(0));
 
-  ros::init(argc, argv, "ramp_planner_new");
+  ros::init(argc, argv, "ramp_detection");
   ros::NodeHandle handle;
 
   ros::param::set("ramp/cc_started", false);
@@ -177,6 +177,6 @@ int main(int argc, char** argv) {
 
   fflush(stdout);
 
-  std::cout<<"\nExiting Normally\n";
+  std::cout<<"\nExiting Detector Normally\n";
   return 0;
 }
