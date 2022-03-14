@@ -654,6 +654,7 @@ void bezify(const ramp_planner_new::BezifyRequest& br){
   // for(unsigned int i=0;i<ma.markers.size();i++){
   //   std::cout<<"marker "<<i<<":\n"<<ma.markers.at(i).pose.position<<std::endl;
   // }
+  pathPoints.id = br.pathId;
   pub_path_points.publish(pathPoints);
   pub_path_points.publish(pathPoints);
 }

@@ -8,6 +8,7 @@
 #include <ramp_planner_new/TrajectorySwap.h>
 #include <ramp_planner_new/SwapRequest.h>
 
+std::vector<ramp_planner_new::PathPoints> pathPointsPopulation;
 ramp_planner_new::PathPoints curPathPoints;
 int maxPathId = 0;
 int curStartId = -1;
@@ -61,6 +62,7 @@ void updateStartGoal(){
                     br.markers.push_back(curPathPoints.markers.at(i));
                     br.markers.push_back(curPathPoints.markers.at(i+1));
                     br.markers.push_back(curPathPoints.markers.at(i+2));
+                    br.pathId = curPathPoints.id;
                     pub_bezify_request.publish(br);
                 }else{//else, no bezify needed
                     curStartGoal.markers.push_back(curPathPoints.markers.at(i));
@@ -126,15 +128,33 @@ void updateStartGoal(){
     }
 }
 
-void pathPointsCallback(const ramp_planner_new::PathPoints pp){
-    std::cout<<"---got "<<pp.markers.size()<<" path points in buffer---"<<std::endl;
-    curPathPoints = pp;
-    if(curStartId == -1){
-        curStartId = pp.markers.at(0).id;
+void pickBestPath(){
+    //TODO do calculation
+    //TODO sort pathPointsPopulaton
+    std::cout<<"\t\t++have "<<pathPointsPopulation.size()<<" paths++"<<std::endl;
+    curPathPoints = pathPointsPopulation.back();
+    if(curStartId == -1 || swapped){
+        curStartId = curPathPoints.markers.at(0).id;
     }
-    maxPathId++;
-    curPathPoints.id = maxPathId;
+    std::cout<<"---curPath has "<<curPathPoints.markers.size()<<" path points---"<<std::endl;
     updateStartGoal();
+}
+
+void pathPointsCallback(const ramp_planner_new::PathPoints pp){
+    std::cout<<"---got "<<pp.markers.size()<<" path points in buffer with id "<<pp.id<<"---"<<std::endl;
+    pathPointsPopulation.push_back(pp);
+    if(pp.id == 0){//new path
+        maxPathId++;
+        pathPointsPopulation.back().id = maxPathId;
+    }else{
+        for(unsigned int i=0;i<pathPointsPopulation.size();i++){
+            if(pathPointsPopulation.at(i).id == pp.id){
+                pathPointsPopulation.erase(pathPointsPopulation.begin() + i);
+                break;
+            }
+        }
+    }
+    pickBestPath();
 }
 
 void getNextPoint(const std_msgs::Bool b){
@@ -143,6 +163,7 @@ void getNextPoint(const std_msgs::Bool b){
 }
 
 void swapTrajectory(const ramp_planner_new::SwapRequest msg){
+//   pathPointsPopulation.clear();
   std::cout<<"##swapping trajectory##"<<swapNumber<<std::endl;
   std::cout<<"\tstarting vels: ("<<msg.curLinVels.at(0)<<","<<msg.curLinVels.at(1)<<")"<<std::endl;
   startingVels.push_back(msg.curLinVels.at(0));
@@ -236,11 +257,10 @@ void swapTrajectory(const ramp_planner_new::SwapRequest msg){
 //   std::cout<<"swapped pps.types.size:"<<pps.types.size()<<std::endl;
 //   std::cout<<"swapped pps.forBez.size:"<<pps.forBez.size()<<std::endl;
 
-  curPathPoints = pps;
-  curStartId = pps.markers.at(0).id;
+  pathPointsPopulation.push_back(pps);
   
   swapped = true;
-  updateStartGoal();
+  pickBestPath();
 }
 
 int main(int argc, char** argv) {
