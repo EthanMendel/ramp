@@ -696,7 +696,7 @@ int main(int argc, char** argv) {
   /*
    * all parameters are loaded
    */
-  pubStartGoalMarkers(true);//red-start, blue-goal
+  // pubStartGoalMarkers(true);//red-start, blue-goal
   readyToPubPath = false;
   ROS_INFO("Done with publishing markers");
 
