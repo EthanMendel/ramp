@@ -22,23 +22,18 @@ waypoint: [1.0, 1.0, 0.0]
 waypoint2:  [0.5, 2.0, 0.0]
 goal: [2.0, 3.0, 0.0]
 
-path1: {
-  start: [0.0, 0.0, 0.0],
-  waypoint: [1.0, 1.0, 0.0],
-  waypoint2:  [0.5, 2.0, 0.0],
-  goal: [2.0, 3.0, 0.0]
-}
-path2: {
-  start: [1.75, 0.0, 0.0],
-  waypoint: [2.5, 1.5, 0.0],
-  goal: [2.5, 3.5, 0.0]
-}
-path3: {
-  start: [2.0, 1.0, 0.0],
-  waypoint: [1.0, 2.5, 0.0],
-  goal: [2.5, 3.5, 0.0]
-}
-path4: {
-  start: [2.0, 3.0, 0.0],
-  goal: [2.5, 3.5, 0.0]
-}
+path1start: [0.0, 0.0, 0.0]
+path1waypoint1: [1.0, 1.0, 0.0]
+path1waypoint2:  [0.5, 2.0, 0.0]
+path1goal: [2.0, 3.0, 0.0]
+
+path2start: [1.75, 0.0, 0.0]
+path2waypoint: [2.5, 1.5, 0.0]
+path2goal: [2.5, 3.5, 0.0]
+
+path3start: [2.0, 1.0, 0.0]
+path3waypoint: [1.0, 2.5, 0.0]
+path3goal: [2.5, 3.5, 0.0]
+
+path4start: [2.0, 3.0, 0.0]
+path4goal: [2.5, 3.5, 0.0]

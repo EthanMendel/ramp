@@ -5,15 +5,18 @@
 #include <ramp_planner_new/TrajectoryRequest.h>
 #include <ramp_planner_new/BezifyRequest.h>
 #include <ramp_planner_new/TrajectorySwap.h>
+#include <string>
 
-std::vector<MotionState> pathMotionStates;
-Path                plannerPath;
+std::vector<std::vector<MotionState>> paths;
+std::vector<Path>                plannerPaths;
 std::string         global_frame;
 
 
 // initializes global start and goal
 void initStartGoal(const std::vector<std::vector<float>> points) {
   double pastY;
+  std::vector<MotionState> path;
+  Path plannerPath;
   for(unsigned int i=0;i<points.size();i++){
     MotionState point;
     std::vector<float> p = points.at(i);
@@ -28,14 +31,16 @@ void initStartGoal(const std::vector<std::vector<float>> points) {
     }else{
       if(pastY == point.msg_.positions.at(1)){
         point.msg_.positions.at(1)+=.00001;
-        std::cout<<"\t**consecutive y values.. adding .00001 to subsequent one"<<std::endl;
+        std::cout<<"\t**consecutive y values.. adding .00001 to subsequent one\tin detector"<<std::endl;
       }
       pastY = point.msg_.positions.at(1);
     }
-    pathMotionStates.push_back(point);
+    path.push_back(point);
     KnotPoint pkp(point);
     plannerPath.msg_.points.push_back(pkp.buildKnotPointMsg());
   }
+  paths.push_back(path);
+  plannerPaths.push_back(plannerPath);
   // std::cout<<"points at init:\n"<<plannerPath.buildPathMsg()<<std::endl;
 }
 
@@ -44,23 +49,29 @@ void initStartGoal(const std::vector<std::vector<float>> points) {
 void loadParameters(const ros::NodeHandle handle){
   std::cout<<"\nLoading parameters\n";
   std::cout<<"\nHandle NS: "<<handle.getNamespace();
-  
-  // start and goal vectors
-  if(handle.hasParam("robot_info/start") &&
-      handle.hasParam("robot_info/goal")){
-    std::vector<float> p_start;
-    std::vector<float> p_goal;
-    std::vector<float> p_waypoint;
-    std::vector<float> p_waypoint2;
-    handle.getParam("robot_info/start", p_start);
-    handle.getParam("robot_info/goal",  p_goal );
-    handle.getParam("robot_info/waypoint", p_waypoint);
-    handle.getParam("robot_info/waypoint2", p_waypoint2);
-    initStartGoal({p_start, p_waypoint, p_waypoint2, p_goal});
-  }else {
-    ROS_ERROR("Did not find parameters robot_info/start, robot_info/goal");
-    exit(1);
+
+  int i=1;
+  while(handle.hasParam("robot_info/path"+std::to_string(i)+"start")){
+    std::cout<<"checking path "<<i<<std::endl;
+    std::vector<std::vector<float>> path;
+    std::vector<float> s;
+    handle.getParam("robot_info/path"+std::to_string(i)+"start",s);
+    path.push_back(s);
+    int j = 1;
+    while(handle.hasParam("robot_info/path"+std::to_string(i)+"waypoint"+std::to_string(j))){
+      std::cout<<"\tchecking waypoint "<<j<<std::endl;
+      std::vector<float> w;
+      handle.getParam("robot_info/path"+std::to_string(i)+"waypoint"+std::to_string(j), w);
+      path.push_back(w);
+      j++;
+    }
+    std::vector<float> g;
+    handle.getParam("robot_info/path"+std::to_string(i)+"goal",g);
+    path.push_back(g);
+    initStartGoal(path);
+    i++;
   }
+  std::cout<<"\nthere are "<<paths.size()<<" paths loaded"<<std::endl;
     
   std::cout<<"\n------- Done loading parameters -------";
   std::cout<<"\n---------------------------------------\n";
@@ -71,78 +82,82 @@ void pubStartGoalMarkers(bool publish = true){
   visualization_msgs::MarkerArray result;
 
   // markers for both positions
-  for(unsigned int i=0;i<pathMotionStates.size();i++){
-    visualization_msgs::Marker marker;
-    marker.header.stamp = ros::Time::now();
-    if(i==0){
-      marker.id = 10001;
-    } else {
-      marker.id = 10001 + i;
+  for(unsigned int p=0;p<paths.size();p++){
+    std::vector<MotionState> pathMotionStates = paths.at(p);
+    for(unsigned int i=0;i<pathMotionStates.size();i++){
+      visualization_msgs::Marker marker;
+      marker.header.stamp = ros::Time::now();
+      if(i==0){
+        marker.id = 10001;
+      } else {
+        marker.id = 10001 + i;
+      }
+      marker.header.frame_id = global_frame;
+      marker.ns = "basic_shapes";
+      marker.type = visualization_msgs::Marker::SPHERE;
+      marker.action = visualization_msgs::Marker::ADD;
+      // set positions
+      marker.pose.position.x = pathMotionStates.at(i).msg_.positions[0];
+      marker.pose.position.y = pathMotionStates.at(i).msg_.positions[1];
+      marker.pose.position.z = 0.0;
+      // set orientations
+      marker.pose.orientation.x = 0.0;
+      marker.pose.orientation.y = 0.0;
+      marker.pose.orientation.z = 0.0;
+      marker.pose.orientation.w = 1.0;
+      // set radii
+      marker.scale.x = 0.1;
+      marker.scale.y = 0.1;
+      marker.scale.z = 0.1;
+      // set colors
+      marker.color.r = 1;
+      marker.color.g = 0;
+      marker.color.b = 0;
+      marker.color.a = 1;
+      // set lifetimes
+      marker.lifetime = ros::Duration(120.0);
+
+      result.markers.push_back(marker);
     }
-    marker.header.frame_id = global_frame;
-    marker.ns = "basic_shapes";
-    marker.type = visualization_msgs::Marker::SPHERE;
-    marker.action = visualization_msgs::Marker::ADD;
-    // set positions
-    marker.pose.position.x = pathMotionStates.at(i).msg_.positions[0];
-    marker.pose.position.y = pathMotionStates.at(i).msg_.positions[1];
-    marker.pose.position.z = 0.0;
-    // set orientations
-    marker.pose.orientation.x = 0.0;
-    marker.pose.orientation.y = 0.0;
-    marker.pose.orientation.z = 0.0;
-    marker.pose.orientation.w = 1.0;
-    // set radii
-    marker.scale.x = 0.1;
-    marker.scale.y = 0.1;
-    marker.scale.z = 0.1;
-    // set colors
-    marker.color.r = 1;
-    marker.color.g = 0;
-    marker.color.b = 0;
-    marker.color.a = 1;
-    // set lifetimes
-    marker.lifetime = ros::Duration(120.0);
+    
+    visualization_msgs::Marker origin_marker;
 
-    result.markers.push_back(marker);
-  }
-  visualization_msgs::Marker origin_marker;
+    origin_marker.id = 10000;
+    origin_marker.header.frame_id = global_frame;
+    origin_marker.ns = "basic_shapes";
+    origin_marker.type = visualization_msgs::Marker::SPHERE;
+    origin_marker.action = visualization_msgs::Marker::ADD;
+    origin_marker.pose.position.x = 0.0;
+    origin_marker.pose.position.y = 0.0;
+    origin_marker.pose.position.z = 0.1;
+    origin_marker.pose.orientation.x = 0.0;
+    origin_marker.pose.orientation.y = 0.0;
+    origin_marker.pose.orientation.z = 0.0;
+    origin_marker.pose.orientation.w = 1.0;
+    origin_marker.scale.x = 0.1;
+    origin_marker.scale.y = 0.1;
+    origin_marker.scale.z = 0.0;
+    origin_marker.color.r = 0;
+    origin_marker.color.g = 1;
+    origin_marker.color.b = 0;
+    origin_marker.color.a = 1;
+    origin_marker.lifetime = ros::Duration(120.0);
 
-  origin_marker.id = 10000;
-  origin_marker.header.frame_id = global_frame;
-  origin_marker.ns = "basic_shapes";
-  origin_marker.type = visualization_msgs::Marker::SPHERE;
-  origin_marker.action = visualization_msgs::Marker::ADD;
-  origin_marker.pose.position.x = 0.0;
-  origin_marker.pose.position.y = 0.0;
-  origin_marker.pose.position.z = 0.1;
-  origin_marker.pose.orientation.x = 0.0;
-  origin_marker.pose.orientation.y = 0.0;
-  origin_marker.pose.orientation.z = 0.0;
-  origin_marker.pose.orientation.w = 1.0;
-  origin_marker.scale.x = 0.1;
-  origin_marker.scale.y = 0.1;
-  origin_marker.scale.z = 0.0;
-  origin_marker.color.r = 0;
-  origin_marker.color.g = 1;
-  origin_marker.color.b = 0;
-  origin_marker.color.a = 1;
-  origin_marker.lifetime = ros::Duration(120.0);
-
-  ramp_planner_new::PathPoints pps;
-  pps.markers = result.markers;
-  for(unsigned int i=0;i<result.markers.size()-1;i++){//populate type and forBez arrays
-    pps.types.push_back("cubic");
-    pps.forBez.push_back(true);
-  }
-  pps.forBez.push_back(true);//extra value needed not included above
-  
-  result.markers.push_back(origin_marker); // add origin onto rviz path points
-  if(publish){
-    // rviz_pub_path_points.publish(result);
-    // rviz_pub_path_points.publish(result);
-    // pub_path_points.publish(pps);
-    // pub_path_points.publish(pps);
+    ramp_planner_new::PathPoints pps;
+    pps.markers = result.markers;
+    for(unsigned int i=0;i<result.markers.size()-1;i++){//populate type and forBez arrays
+      pps.types.push_back("cubic");
+      pps.forBez.push_back(true);
+    }
+    pps.forBez.push_back(true);//extra value needed not included above
+    
+    result.markers.push_back(origin_marker); // add origin onto rviz path points
+    if(publish){
+      // rviz_pub_path_points.publish(result);
+      // rviz_pub_path_points.publish(result);
+      // pub_path_points.publish(pps);
+      // pub_path_points.publish(pps);
+    }
   }
   
   ROS_INFO("Exiting pubStartGoalMarkers");
