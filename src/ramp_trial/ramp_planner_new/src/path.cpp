@@ -179,38 +179,35 @@ void Path::findBezierCoefs(geometry_msgs::Point p0, geometry_msgs::Point p1, geo
   MotionState m0 = p0;
   MotionState m1 = p1;
   MotionState m2 = p2;
-  if(msg_.points.size() > 2){
-    for(unsigned int i = 0;i<m0.msg_.positions.size()-1;i++){
-      std::vector<double> hold;
-      hold.push_back( m0.msg_.positions.at(i) );
-      hold.push_back( m1.msg_.positions.at(i) );
-      hold.push_back( m2.msg_.positions.at(i) );
-      coefs.push_back(hold);
-      std::cout<<"A: "<<coefs.at(i).at(0)<<"\tB: "<<coefs.at(i).at(1)<<"\tC: "<<coefs.at(i).at(2)<<"\t\n";
-    }
-    ramp_planner_new::TrajectoryRequest uMsg;
-    uMsg.type = "uCubic";
-    uMsg.points.push_back(p0);
-    uMsg.points.push_back(p2);
-    for(unsigned int i=0;i<coefs.size();i++){
-      if(coefs.at(i).at(0) == coefs.at(i).at(1)){
-        uMsg.normVals.push_back(1);
-      }else{
-        uMsg.normVals.push_back(2*((coefs.at(i).at(1))-coefs.at(i).at(0)));
-      }
-    }
-    uMsg.normVals.push_back(1);//extra value to not normalize z (theta)
-    findCubicCoefs(uMsg);
-    type = "bezier";
-    if(uCoefs.size() < 3){
-      std::cout<<"u coefs is not large enough "<<uCoefs.size()<<std::endl;
-      return;
-    }else{
-      //TODO do something for z as theta?
-    }
-  }else{
-    //HOW TO DO WITHOUT KNOWING SIZES
+  for(unsigned int i = 0;i<m0.msg_.positions.size()-1;i++){
+    std::vector<double> hold;
+    hold.push_back( m0.msg_.positions.at(i) );
+    hold.push_back( m1.msg_.positions.at(i) );
+    hold.push_back( m2.msg_.positions.at(i) );
+    coefs.push_back(hold);
+    std::cout<<"A: "<<coefs.at(i).at(0)<<"\tB: "<<coefs.at(i).at(1)<<"\tC: "<<coefs.at(i).at(2)<<"\t\n";
   }
+  ramp_planner_new::TrajectoryRequest uMsg;
+  uMsg.type = "uCubic";
+  uMsg.points.push_back(p0);
+  uMsg.points.push_back(p2);
+  for(unsigned int i=0;i<coefs.size();i++){
+    if(coefs.at(i).at(0) == coefs.at(i).at(1)){
+      uMsg.normVals.push_back(1);
+    }else{
+      uMsg.normVals.push_back(2*((coefs.at(i).at(1))-coefs.at(i).at(0)));
+    }
+  }
+  uMsg.normVals.push_back(1);//extra value to not normalize z (theta)
+  findCubicCoefs(uMsg);
+  type = "bezier";
+  if(uCoefs.size() < 3){
+    std::cout<<"u coefs is not large enough "<<uCoefs.size()<<std::endl;
+    return;
+  }else{
+    //TODO do something for z as theta?
+  }
+  
 }
 
 void Path::makeBezierPath(const ramp_planner_new::TrajectoryRequest msg){

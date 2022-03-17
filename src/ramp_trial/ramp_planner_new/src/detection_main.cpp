@@ -58,7 +58,7 @@ void loadParameters(const ros::NodeHandle handle){
       handle.getParam("ramp/global_frame", global_frame);
     }
 
-  int i=1;
+  int i=4;
   while(handle.hasParam("robot_info/path"+std::to_string(i)+"start")){
     // std::cout<<"checking path "<<i<<std::endl;
     std::vector<std::vector<float>> path;
@@ -78,7 +78,7 @@ void loadParameters(const ros::NodeHandle handle){
     path.push_back(g);
     std::cout<<"==path "<<i<<" has "<<path.size()<<" points=="<<std::endl;
     initStartGoal(path);
-    i++;
+    i--;
   }
   std::cout<<"\nthere are "<<paths.size()<<" paths loaded"<<std::endl;
     
