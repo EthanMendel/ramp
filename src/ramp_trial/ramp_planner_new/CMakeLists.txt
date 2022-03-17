@@ -60,6 +60,7 @@ add_message_files(
   SwapRequest.msg
   PathPoints.msg
   BezifyRequest.msg
+  Population.msg
 )
 
 ## Generate services in the 'srv' folder

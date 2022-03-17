@@ -206,7 +206,7 @@ void MobileRobot::moveOnTrajectory() {
         if((seg_step_+.1*time_step_) > trajectory_.totalTime){
           break;
         }
-        if((tot_time_ > 2 && swapped_==0) || (tot_time_ > 4.5 && swapped_==1) || (tot_time_ > 10 && swapped_==2)){
+        if(false && ((tot_time_ > 2 && swapped_==0) || (tot_time_ > 4.5 && swapped_==1) || (tot_time_ > 10 && swapped_==2))){
           swapped_++;
           look_ahead_ = true;
           trajectory_.active = false;

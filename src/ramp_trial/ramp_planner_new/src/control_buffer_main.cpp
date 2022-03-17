@@ -7,6 +7,8 @@
 #include <ramp_planner_new/BezifyRequest.h>
 #include <ramp_planner_new/TrajectorySwap.h>
 #include <ramp_planner_new/SwapRequest.h>
+#include <ramp_planner_new/Population.h>
+
 
 std::vector<ramp_planner_new::PathPoints> pathPointsPopulation;
 ramp_planner_new::PathPoints curPathPoints;
@@ -140,7 +142,7 @@ void pickBestPath(){
     updateStartGoal();
 }
 
-void pathPointsCallback(const ramp_planner_new::PathPoints pp){
+void pathPointCallback(const ramp_planner_new::PathPoints pp){
     std::cout<<"---got "<<pp.markers.size()<<" path points in buffer with id "<<pp.id<<"---"<<std::endl;
     pathPointsPopulation.push_back(pp);
     if(pp.id == 0){//new path
@@ -153,6 +155,13 @@ void pathPointsCallback(const ramp_planner_new::PathPoints pp){
                 break;
             }
         }
+        pickBestPath();
+    }
+}
+
+void pathPointsCallback(const ramp_planner_new::Population pathPop){
+    for(unsigned int i=0;i<pathPop.paths.size();i++){
+        pathPointCallback(pathPop.paths.at(i));
     }
     pickBestPath();
 }
@@ -272,6 +281,7 @@ int main(int argc, char** argv) {
 //   ros::NodeHandle handle_local("~");
 
   ros::Subscriber pathPointsListener  = handle.subscribe("/path_points_channel", 1, pathPointsCallback);
+  ros::Subscriber singlePathPointsListener  = handle.subscribe("/single_path_points_channel", 1, pathPointCallback);
   ros::Subscriber readyNextListener = handle.subscribe("/ready_next", 1, getNextPoint);
   ros::Subscriber trajSwap = handle.subscribe("/traj_swap",1,swapTrajectory);
   pub_path_points = handle.advertise<visualization_msgs::MarkerArray>("/start_goal_channel",10);
