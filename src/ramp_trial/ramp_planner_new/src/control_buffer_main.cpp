@@ -142,7 +142,7 @@ void findFitness(ramp_planner_new::PathPoints& path){
         lineTime += utility.getMinLinTime(p1,p2);
         ang += abs(utility.findAngleFromAToB(p1,p2));
     }
-    path.fitness = lineTime*.7 + ang*.3;
+    path.fitness = 100/(lineTime*.7 + ang*.3);
 }
 
 void pickBestPath(){
@@ -153,6 +153,10 @@ void pickBestPath(){
             std::cout<<"\t$$fitness of path "<<i<<" is "<<pathPointsPopulation.at(i).fitness<<"$$"<<std::endl;
         }
         //TODO sort pathPointsPopulaton
+        std::sort(pathPointsPopulation.begin(), pathPointsPopulation.end(),
+        [](const ramp_planner_new::PathPoints &x, const ramp_planner_new::PathPoints &y) {
+            return x.fitness < y.fitness;
+        });
         evaluate = false;
     }
     int pastPathId = curPathPoints.id;
