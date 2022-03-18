@@ -19,17 +19,17 @@ max_acceleration: 0.33
 path1start: [0.0, 0.0, 0.0]
 path1waypoint1: [1.0, 1.0, 0.0]
 path1waypoint2:  [0.5, 2.0, 0.0]
-path1goal: [2.0, 3.0, 0.0]
+path1goal: [2.5, 3.5, 0.0]
 
-path2start: [1.75, 0.0, 0.0]
+path2start: [0.0, 0.0, 0.0]
 path2waypoint1: [1.75, 0.0, 0.0]
 path2waypoint2: [2.5, 1.5, 0.0]
 path2goal: [2.5, 3.5, 0.0]
 
-path3start: [2.0, 1.0, 0.0]
+path3start: [0.0, 0.0, 0.0]
 path3waypoint1: [2.0, 1.0, 0.0]
 path3waypoint2: [1.0, 2.5, 0.0]
 path3goal: [2.5, 3.5, 0.0]
 
 path4start: [0.0, 0.0, 0.0]
-path4goal: [2.0, 3.0, 0.0]
+path4goal: [2.5, 3.5, 0.0]

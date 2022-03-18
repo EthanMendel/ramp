@@ -13,7 +13,8 @@ std::vector<Path>                plannerPaths;
 std::string         global_frame;
 ros::Publisher      pub_path_points;
 ros::Publisher      rviz_pub_path_points;
-
+ros::Publisher      pub_markerArray;
+ramp_planner_new::Population pathPop;
 
 
 // initializes global start and goal
@@ -89,8 +90,6 @@ void loadParameters(const ros::NodeHandle handle){
 void pubStartGoalMarkers(bool publish = true){
   ROS_INFO("In pubStartGoalMarkers");
   std::vector<visualization_msgs::MarkerArray> results;
-  ramp_planner_new::Population pathPop;
-
 
   // markers for both positions
   for(unsigned int p=0;p<paths.size();p++){
@@ -100,9 +99,9 @@ void pubStartGoalMarkers(bool publish = true){
       visualization_msgs::Marker marker;
       marker.header.stamp = ros::Time::now();
       if(i==0){
-        marker.id = (p*10000) +10001;
+        marker.id = 10001;
       } else {
-        marker.id = (p*10000) + 10001 + i;
+        marker.id = 10001 + i;
       }
       marker.header.frame_id = global_frame;
       marker.ns = "basic_shapes";
@@ -177,6 +176,77 @@ void pubStartGoalMarkers(bool publish = true){
   ROS_INFO("Exiting pubStartGoalMarkers");
 }
 
+void pubPath(){
+  // ROS_INFO("In pubPath");
+  visualization_msgs::MarkerArray result;
+
+  for(unsigned int p=0;p<plannerPaths.size();p++){
+    Path plannerPath = plannerPaths.at(p);
+    for(unsigned int i=0;i<plannerPath.msg_.points.size()-1;i++) {
+      // std::cout<<plannerPath.msg_.points.at(i).motionState.positions.at(0)<<"\t"<<plannerPath.msg_.points.at(i).motionState.positions.at(1)<<"->";
+      // std::cout<<plannerPath.msg_.points.at(i+1).motionState.positions.at(0)<<"\t"<<plannerPath.msg_.points.at(i+1).motionState.positions.at(1)<<std::endl;
+      // markers for both positions
+      visualization_msgs::Marker mp_marker;
+
+      mp_marker.header.stamp = ros::Time::now();
+      mp_marker.id = ((p+1)*100000) + 20000 + i;
+
+      mp_marker.header.frame_id = global_frame;
+
+      mp_marker.ns = "points_and_lines";
+
+      mp_marker.type = visualization_msgs::Marker::LINE_STRIP;
+
+      mp_marker.action = visualization_msgs::Marker::ADD;
+      
+      // first point to create line start
+      geometry_msgs::Point first;
+      first.x = plannerPath.msg_.points[i].motionState.positions[0];
+      first.y = plannerPath.msg_.points[i].motionState.positions[1];
+      first.z = 0.0;
+      mp_marker.points.push_back(first);
+
+      // next point to create line end
+      geometry_msgs::Point next;
+      next.x = plannerPath.msg_.points[i+1].motionState.positions[0];
+      next.y = plannerPath.msg_.points[i+1].motionState.positions[1];
+      next.z = -0.1;
+      mp_marker.points.push_back(next);
+
+      // std::cout<<"segment "<<i+1<<" from ("<<first.x<<", "<<first.y<<", "<<first.z<<
+      // ") to ("<<next.x<<", "<<next.y<<", "<<next.z<<")"<<std::endl;
+      
+      // set orientations
+      mp_marker.pose.orientation.x = 0.0;
+      mp_marker.pose.orientation.y = 0.0;
+      mp_marker.pose.orientation.z = 0.0;
+      mp_marker.pose.orientation.w = 1.0;
+    
+      // set radii
+      mp_marker.scale.x = 0.1;
+      mp_marker.scale.y = 0.1;
+      mp_marker.scale.z = 0.0;
+    
+      // set colors
+      mp_marker.color.r = 0;
+      mp_marker.color.g = 0;
+      mp_marker.color.b = 0;
+      mp_marker.color.a = 1;
+
+      // set lifetimes
+      mp_marker.lifetime = ros::Duration(120.0);
+
+      // create marker array and publish
+      result.markers.push_back(mp_marker);
+    }
+  }
+  
+  pub_markerArray.publish(result);
+  pub_markerArray.publish(result);
+  
+  // ROS_INFO("Exiting pubPath");
+}
+
 int main(int argc, char** argv) {
   std::cout<<"\nstarting detector\n";
   srand( time(0));
@@ -193,10 +263,12 @@ int main(int argc, char** argv) {
   
   pub_path_points = handle.advertise<ramp_planner_new::Population>("path_points_channel",1);
   rviz_pub_path_points = handle.advertise<visualization_msgs::MarkerArray>("rviz_path_points",10);
+  pub_markerArray = handle.advertise<visualization_msgs::MarkerArray>("visualization_marker_array", 10);
 
   ros::Duration d(0.5);
   d.sleep();
   pubStartGoalMarkers(true);//red-start, blue-goal
+  pubPath();
   ROS_INFO("Done with publishing markers");
 
   ros::Rate r(1000);
