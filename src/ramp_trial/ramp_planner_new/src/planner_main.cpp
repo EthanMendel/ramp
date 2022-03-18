@@ -95,7 +95,7 @@ void initSwappedStartGoal(const std::vector<geometry_msgs::Point> points){
     KnotPoint pkp(point);
     plannerPath.msg_.points.push_back(pkp.buildKnotPointMsg());
   }
-  std::cout<<"points at init:\n"<<plannerPath.buildPathMsg()<<std::endl;
+  // std::cout<<"points at init:\n"<<plannerPath.buildPathMsg()<<std::endl;
 }
 
  /** loads all ros parameters from .yaml  */

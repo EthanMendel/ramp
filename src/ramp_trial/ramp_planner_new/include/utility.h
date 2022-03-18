@@ -19,6 +19,7 @@
 #include "ramp_msgs/HilbertMap.h"
 #include "std_msgs/Bool.h"
 #include "geometry_msgs/PoseWithCovarianceStamped.h"
+#include "geometry_msgs/Point.h"
 #include <tf/transform_datatypes.h>
 #include <tf/transform_listener.h>
 #include <ros/console.h>
@@ -56,6 +57,7 @@ class Utility {
     const double positionDistance(const std::vector<double> a, const std::vector<double> b) const;
 
     const double findAngleFromAToB(const trajectory_msgs::JointTrajectoryPoint a, const trajectory_msgs::JointTrajectoryPoint b) const;
+    const double findAngleFromAToB(const geometry_msgs::Point a, const geometry_msgs::Point b) const;
     const double findAngleFromAToB(const std::vector<float> a, const std::vector<float> b) const;
     const double findAngleFromAToB(const std::vector<double> a, const std::vector<double> b) const;
     

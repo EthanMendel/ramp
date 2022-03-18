@@ -7,6 +7,10 @@ Utility::Utility() {
   standardRanges.push_back(range0);
   standardRanges.push_back(range1);
   standardRanges.push_back(range2);
+
+  max_speed_linear_ = 0.33;
+  max_speed_angular_= 1.5708;
+  max_acceleration_ = 0.33;
 }
 
 Utility::Utility(const double lin, const double ang, const double acc){
@@ -46,6 +50,18 @@ const double Utility::findAngleFromAToB(const trajectory_msgs::JointTrajectoryPo
   for(unsigned int i=0;i<b.positions.size();i++) {
     d.push_back(b.positions.at(i));
   }
+  return findAngleFromAToB(c, d);
+}
+
+const double Utility::findAngleFromAToB(const geometry_msgs::Point a, const geometry_msgs::Point b) const {
+  std::vector<double> c;
+  std::vector<double> d;
+  // c
+  c.push_back(a.x);
+  c.push_back(a.y);
+  // d
+  d.push_back(b.x);
+  d.push_back(b.y);
   return findAngleFromAToB(c, d);
 }
 

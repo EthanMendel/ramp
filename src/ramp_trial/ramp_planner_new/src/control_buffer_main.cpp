@@ -2,13 +2,16 @@
 #include "visualization_msgs/MarkerArray.h"
 #include <std_msgs/Bool.h>
 #include <geometry_msgs/Pose.h>
+#include <geometry_msgs/Point.h>
 #include <ramp_planner_new/TrajectoryRequest.h>
 #include <ramp_planner_new/PathPoints.h>
 #include <ramp_planner_new/BezifyRequest.h>
 #include <ramp_planner_new/TrajectorySwap.h>
 #include <ramp_planner_new/SwapRequest.h>
 #include <ramp_planner_new/Population.h>
+#include <utility.h>
 
+Utility utility;
 
 std::vector<ramp_planner_new::PathPoints> pathPointsPopulation;
 ramp_planner_new::PathPoints curPathPoints;
@@ -20,6 +23,7 @@ ros::Publisher pub_time_needed;
 ros::Publisher pub_bezify_request;
 double max_speed_linear = 0.33;
 bool swapped = false;
+bool evaluate = true;
 std::vector<double> startingVels;
 
 // j should be the index of the goal marker within pathPoints
@@ -129,10 +133,28 @@ void updateStartGoal(){
     }
 }
 
+void findFitness(ramp_planner_new::PathPoints& path){
+    double lineTime = 0;
+    double ang = 0;
+    for(unsigned int i=0;i<path.markers.size()-1;i++){
+        geometry_msgs::Point p1 = path.markers.at(i).pose.position;
+        geometry_msgs::Point p2 = path.markers.at(i+1).pose.position;
+        lineTime += utility.getMinLinTime(p1,p2);
+        ang += abs(utility.findAngleFromAToB(p1,p2));
+    }
+    path.fitness = lineTime*.7 + ang*.3;
+}
+
 void pickBestPath(){
-    //TODO do calculation
-    //TODO sort pathPointsPopulaton
-    std::cout<<"\t\t++have "<<pathPointsPopulation.size()<<" paths++"<<std::endl;
+    if(evaluate){
+        //TODO do calculation
+        for(unsigned int i=0;i<pathPointsPopulation.size();i++){
+            findFitness(pathPointsPopulation.at(i));
+            std::cout<<"\t$$fitness of path "<<i<<" is "<<pathPointsPopulation.at(i).fitness<<"$$"<<std::endl;
+        }
+        //TODO sort pathPointsPopulaton
+        evaluate = false;
+    }
     int pastPathId = curPathPoints.id;
     curPathPoints = pathPointsPopulation.back();
     if(curPathPoints.id != pastPathId){
@@ -146,7 +168,7 @@ void pickBestPath(){
 }
 
 void pathPointCallback(const ramp_planner_new::PathPoints pp){
-    std::cout<<"---got "<<pp.markers.size()<<" path points in buffer with id "<<pp.id<<"---"<<std::endl;
+    std::cout<<"---path has "<<pp.markers.size()<<" points with id "<<pp.id<<"---"<<std::endl;
     pathPointsPopulation.push_back(pp);
     if(pp.id == 0){//new path
         maxPathId++;
@@ -163,6 +185,7 @@ void pathPointCallback(const ramp_planner_new::PathPoints pp){
 }
 
 void pathPointsCallback(const ramp_planner_new::Population pathPop){
+    std::cout<<"\t++have "<<pathPop.paths.size()<<" paths++"<<std::endl;
     for(unsigned int i=0;i<pathPop.paths.size();i++){
         pathPointCallback(pathPop.paths.at(i));
     }
