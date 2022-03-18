@@ -21,7 +21,6 @@ ros::Publisher pub_bezify_request;
 double max_speed_linear = 0.33;
 bool swapped = false;
 std::vector<double> startingVels;
-int swapNumber = 0;
 
 // j should be the index of the goal marker within pathPoints
 bool needBezify(const unsigned int j){
@@ -134,7 +133,11 @@ void pickBestPath(){
     //TODO do calculation
     //TODO sort pathPointsPopulaton
     std::cout<<"\t\t++have "<<pathPointsPopulation.size()<<" paths++"<<std::endl;
+    int pastPathId = curPathPoints.id;
     curPathPoints = pathPointsPopulation.back();
+    if(curPathPoints.id != pastPathId){
+        swapped = true;
+    }
     if(curStartId == -1 || swapped){
         curStartId = curPathPoints.markers.at(0).id;
     }
@@ -173,7 +176,7 @@ void getNextPoint(const std_msgs::Bool b){
 
 void swapTrajectory(const ramp_planner_new::SwapRequest msg){
 //   pathPointsPopulation.clear();
-  std::cout<<"##swapping trajectory##"<<swapNumber<<std::endl;
+  std::cout<<"##swapping trajectory##"<<std::endl;
   std::cout<<"\tstarting vels: ("<<msg.curLinVels.at(0)<<","<<msg.curLinVels.at(1)<<")"<<std::endl;
   startingVels.push_back(msg.curLinVels.at(0));
   startingVels.push_back(msg.curLinVels.at(1));
@@ -185,39 +188,7 @@ void swapTrajectory(const ramp_planner_new::SwapRequest msg){
   p.x = msg.curPositions.at(0);
   p.y = msg.curPositions.at(1);
   pps.points.push_back(p);
-  if(swapNumber == 0){
-    p.x = 1.75;
-    p.y = 0.0;
-    pps.points.push_back(p);
-    p.x = 2.5;
-    p.y = 1.5;
-    pps.points.push_back(p);
-    p.x = 2.0;
-    p.y = 3.0;
-    pps.points.push_back(p);
-    p.x = 2.5;
-    p.y = 3.5;
-    pps.points.push_back(p);
-  }else if(swapNumber == 1){
-    p.x = 2.0;
-    p.y = 1.0;
-    pps.points.push_back(p);
-    p.x = 1.0;
-    p.y = 2.5;
-    pps.points.push_back(p);
-    p.x = 2.5;
-    p.y = 3.5;
-    pps.points.push_back(p);
-  }else{
-    p.x = 2.0;
-    p.y = 3.0;
-    pps.points.push_back(p);
-    p.x = 2.5;
-    p.y = 3.5;
-    pps.points.push_back(p);
-  }
-  swapNumber++;
-
+  //TODO get add path points to swap to
 
   // markers for both positions
   for(unsigned int i=0;i<pps.points.size();i++){

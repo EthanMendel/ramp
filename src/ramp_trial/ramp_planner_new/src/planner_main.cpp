@@ -305,7 +305,7 @@ void pubPath(){
 
 void getTrajectory(ramp_planner_new::TrajectoryRequest msg){
   std::cout<<"getting "<<msg.type<<" trajectory"<<std::endl;
-    // if(msg.swapped){
+    if(msg.swapped){
       pathMotionStates.clear();
       plannerPath.msg_.points.clear();
       plannerPath.uCubicEntrenceVelocities.clear();
@@ -314,7 +314,7 @@ void getTrajectory(ramp_planner_new::TrajectoryRequest msg){
       }else{
         initSwappedStartGoal(msg.points);
       }
-    // }
+    }
   std::cout<<"start:\n"<<msg.points.at(0)<<std::endl;
   if(msg.type == "cubic"){
       std::cout<<"goal:\n"<<msg.points.at(1)<<std::endl;
