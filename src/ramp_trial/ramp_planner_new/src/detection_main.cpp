@@ -7,9 +7,11 @@
 #include <ramp_planner_new/TrajectorySwap.h>
 #include <ramp_planner_new/Population.h>
 #include <string>
+#include "obstacle.h"
 
 std::vector<std::vector<MotionState>> paths;
 std::vector<Path>                plannerPaths;
+std::vector<Obstacle>  obstacles;
 std::string         global_frame;
 ros::Publisher      pub_path_points;
 ros::Publisher      rviz_pub_path_points;
@@ -49,6 +51,11 @@ void initStartGoal(const std::vector<std::vector<float>> points) {
   // std::cout<<"points at init:\n"<<plannerPath.buildPathMsg()<<std::endl;
 }
 
+void initObstacle(const std::vector<std::vector<float>> bounds){
+  Obstacle obs(bounds);
+  obstacles.push_back(obs);
+}
+
  /** loads all ros parameters from .yaml 
  *  Calls initDOF, initStartGoal */
 void loadParameters(const ros::NodeHandle handle){
@@ -59,7 +66,7 @@ void loadParameters(const ros::NodeHandle handle){
       handle.getParam("ramp/global_frame", global_frame);
     }
 
-  int i=4;
+  int i=1;
   while(handle.hasParam("robot_info/path"+std::to_string(i)+"start")){
     // std::cout<<"checking path "<<i<<std::endl;
     std::vector<std::vector<float>> path;
@@ -79,9 +86,28 @@ void loadParameters(const ros::NodeHandle handle){
     path.push_back(g);
     std::cout<<"==path "<<i<<" has "<<path.size()<<" points=="<<std::endl;
     initStartGoal(path);
-    i--;
+    i++;
   }
-  std::cout<<"\nthere are "<<paths.size()<<" paths loaded"<<std::endl;
+  std::cout<<"there are "<<paths.size()<<" paths loaded\n"<<std::endl;
+
+  i=1;
+  while(handle.hasParam("robot_info/obs"+std::to_string(i)+"bound1")){
+    // std::cout<<"checking path "<<i<<std::endl;
+    std::vector<std::vector<float>> obs;
+    std::vector<float> b;
+    int j = 1;
+    while(handle.hasParam("robot_info/obs"+std::to_string(i)+"bound"+std::to_string(j))){
+      // std::cout<<"\tchecking waypoint "<<j<<std::endl;
+      handle.getParam("robot_info/path"+std::to_string(i)+"bound"+std::to_string(j), b);
+      obs.push_back(b);
+      j++;
+    }
+    std::cout<<"==obs "<<i<<" has "<<obs.size()<<" bounds=="<<std::endl;
+    initObstacle(obs);
+    i++;
+  }
+  std::cout<<"there are "<<obstacles.size()<<" obstacles loaded\n"<<std::endl;
+
     
   std::cout<<"\n------- Done loading parameters -------";
   std::cout<<"\n---------------------------------------\n";

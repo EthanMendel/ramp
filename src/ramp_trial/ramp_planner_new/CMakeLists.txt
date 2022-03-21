@@ -153,7 +153,7 @@ target_link_libraries(ramp_control_new ${catkin_LIBRARIES})
 add_executable(ramp_control_buffer src/control_buffer_main.cpp src/utility.cpp src/range.cpp)
 target_link_libraries(ramp_control_buffer ${catkin_LIBRARIES})
 
-add_executable(ramp_detection src/detection_main.cpp src/knot_point.cpp src/motion_state.cpp src/path.cpp src/range.cpp src/utility.cpp)
+add_executable(ramp_detection src/detection_main.cpp src/knot_point.cpp src/motion_state.cpp src/path.cpp src/range.cpp src/utility.cpp src/obstacle.cpp)
 target_link_libraries(ramp_detection ${catkin_LIBRARIES})
 
 ## Rename C++ executable without prefix
