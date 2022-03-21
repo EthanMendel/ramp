@@ -18,10 +18,10 @@ Obstacle::Obstacle(std::vector<std::vector<float>> bounds) {
 
 Obstacle::~Obstacle() {}
 
-visualization_msgs::Marker Obstacle::getMarker(std::string global_frame){
+visualization_msgs::Marker Obstacle::getMarker(std::string global_frame, int id){
     visualization_msgs::Marker marker;
     marker.header.stamp = ros::Time::now();
-    marker.id = 30001;
+    marker.id = id;
 
     marker.header.frame_id = global_frame;
     marker.ns = "basic_shapes";
@@ -47,11 +47,6 @@ visualization_msgs::Marker Obstacle::getMarker(std::string global_frame){
         marker.pose.position.x = bounds_.at(0).at(0);
         marker.pose.position.y = bounds_.at(0).at(1);
         marker.pose.position.z = bounds_.at(0).at(2);
-        // set orientations
-        marker.pose.orientation.x = 0.0;
-        marker.pose.orientation.y = 0.0;
-        marker.pose.orientation.z = 0.0;
-        marker.pose.orientation.w = 1.0;
         // set radii
         marker.scale.x = bounds_.at(1).at(0);
         marker.scale.y = bounds_.at(1).at(1);
@@ -62,11 +57,6 @@ visualization_msgs::Marker Obstacle::getMarker(std::string global_frame){
         marker.pose.position.x = (bounds_.at(0).at(0)+bounds_.at(2).at(0))/2;
         marker.pose.position.y = (bounds_.at(0).at(1)+bounds_.at(2).at(1))/2;
         marker.pose.position.z = (bounds_.at(0).at(2)+bounds_.at(2).at(2))/2;
-        // set orientations
-        marker.pose.orientation.x = 0.0;
-        marker.pose.orientation.y = 0.0;
-        marker.pose.orientation.z = 0.0;
-        marker.pose.orientation.w = 1.0;
         // set radii
         marker.scale.x = utility_.positionDistance(bounds_.at(0),bounds_.at(3));
         marker.scale.y = utility_.positionDistance(bounds_.at(0),bounds_.at(1));
@@ -74,6 +64,12 @@ visualization_msgs::Marker Obstacle::getMarker(std::string global_frame){
     }else{
         std::cout<<"MORE THAN 4 BOUNDING POINTS FOR OBSTACLE"<<std::endl;
     }
+
+    marker.pose.orientation.x = 0.0;
+    marker.pose.orientation.y = 0.0;
+    marker.pose.orientation.z = 0.0;
+    marker.pose.orientation.w = 1.0;
+
     marker.action = visualization_msgs::Marker::ADD;
     // set colors
     marker.color.r = 1;

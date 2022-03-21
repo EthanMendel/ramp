@@ -12,7 +12,7 @@ class Obstacle
     ~Obstacle();
     int numBounds_;
 
-    visualization_msgs::Marker getMarker(std::string global_frame);
+    visualization_msgs::Marker getMarker(std::string global_frame,int id);
 
     
   private:

@@ -197,7 +197,7 @@ void pubStartGoalMarkers(bool publish = true){
   universals.markers.push_back(origin_marker); // add origin onto rviz path points
   
   for(unsigned int i=0;i<obstacles.size();i++){
-    universals.markers.push_back(obstacles.at(i).getMarker(global_frame));
+    universals.markers.push_back(obstacles.at(i).getMarker(global_frame,30001+i));
   }
   results.push_back(universals);
 
