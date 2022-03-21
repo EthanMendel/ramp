@@ -98,7 +98,7 @@ void loadParameters(const ros::NodeHandle handle){
     int j = 1;
     while(handle.hasParam("robot_info/obs"+std::to_string(i)+"bound"+std::to_string(j))){
       // std::cout<<"\tchecking waypoint "<<j<<std::endl;
-      handle.getParam("robot_info/path"+std::to_string(i)+"bound"+std::to_string(j), b);
+      handle.getParam("robot_info/obs"+std::to_string(i)+"bound"+std::to_string(j), b);
       obs.push_back(b);
       j++;
     }
@@ -167,8 +167,11 @@ void pubStartGoalMarkers(bool publish = true){
     results.push_back(result);
     pathPop.paths.push_back(pps);
   }
-  visualization_msgs::Marker origin_marker;
+  std::cout<<"publishing "<<pathPop.paths.size()<<" paths"<<std::endl;
+  pub_path_points.publish(pathPop);
+  pub_path_points.publish(pathPop);
 
+  visualization_msgs::Marker origin_marker;
   origin_marker.id = 10000;
   origin_marker.header.frame_id = global_frame;
   origin_marker.ns = "basic_shapes";
@@ -189,11 +192,15 @@ void pubStartGoalMarkers(bool publish = true){
   origin_marker.color.b = 0;
   origin_marker.color.a = 1;
   origin_marker.lifetime = ros::Duration(120.0);
+  visualization_msgs::MarkerArray universals;
 
-  results.at(0).markers.push_back(origin_marker); // add origin onto rviz path points
-  std::cout<<"publishing "<<pathPop.paths.size()<<" paths"<<std::endl;
-  pub_path_points.publish(pathPop);
-  pub_path_points.publish(pathPop);
+  universals.markers.push_back(origin_marker); // add origin onto rviz path points
+  
+  for(unsigned int i=0;i<obstacles.size();i++){
+    universals.markers.push_back(obstacles.at(i).getMarker(global_frame));
+  }
+  results.push_back(universals);
+
   for(unsigned int i=0;i<results.size();i++){
     rviz_pub_path_points.publish(results.at(i));
     rviz_pub_path_points.publish(results.at(i));

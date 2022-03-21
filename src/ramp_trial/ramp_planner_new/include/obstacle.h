@@ -2,8 +2,7 @@
 #define OBSTACLE_H
 #include <vector>
 #include "utility.h"
-
-
+#include <visualization_msgs/Marker.h>
 
 class Obstacle 
 {
@@ -13,9 +12,11 @@ class Obstacle
     ~Obstacle();
     int numBounds_;
 
+    visualization_msgs::Marker getMarker(std::string global_frame);
+
     
   private:
-    std::vector<std::vector<float>> bounds_;
+    std::vector<std::vector<double>> bounds_;
     Utility utility_;
 };
 
