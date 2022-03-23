@@ -14,9 +14,28 @@ Obstacle::Obstacle(std::vector<std::vector<float>> bounds) {
     numBounds_ = bounds_.size();
     Utility u;
     utility_ = u;
+    id_ = 0;
+}
+
+Obstacle::Obstacle(ramp_planner_new::Obstacle obs){
+    for(unsigned int i=0;i<obs.bounds.size();i++){
+        std::vector<double> b;
+        b.push_back(obs.bounds.at(i).x);
+        b.push_back(obs.bounds.at(i).y);
+        b.push_back(obs.bounds.at(i).z);
+        bounds_.push_back(b);
+    }
+    numBounds_ = bounds_.size();
+    Utility u;
+    utility_ = u;
+    id_=0;
 }
 
 Obstacle::~Obstacle() {}
+
+void Obstacle::setId(int id){
+    id_ = id;
+}
 
 visualization_msgs::Marker Obstacle::getMarker(std::string global_frame, int id){
     visualization_msgs::Marker marker;
@@ -80,4 +99,17 @@ visualization_msgs::Marker Obstacle::getMarker(std::string global_frame, int id)
     marker.lifetime = ros::Duration(120.0);
 
     return marker;
+}
+
+ramp_planner_new::Obstacle Obstacle::getMsg(){
+    ramp_planner_new::Obstacle obs;
+    for(unsigned int i=0;i<bounds_.size();i++){
+        geometry_msgs::Point p;
+        p.x = bounds_.at(i).at(0);
+        p.y = bounds_.at(i).at(1);
+        p.z = bounds_.at(i).at(2);
+        obs.bounds.push_back(p);
+    }
+    obs.id = 0;
+    return obs;
 }

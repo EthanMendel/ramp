@@ -6,6 +6,8 @@
 #include <ramp_planner_new/BezifyRequest.h>
 #include <ramp_planner_new/TrajectorySwap.h>
 #include <ramp_planner_new/Population.h>
+#include <ramp_planner_new/Obstacle.h>
+#include <ramp_planner_new/ObstacleList.h>
 #include <string>
 #include "obstacle.h"
 
@@ -14,6 +16,7 @@ std::vector<Path>                plannerPaths;
 std::vector<Obstacle>  obstacles;
 std::string         global_frame;
 ros::Publisher      pub_path_points;
+ros::Publisher      pub_obstacles;
 ros::Publisher      rviz_pub_path_points;
 ros::Publisher      pub_markerArray;
 ramp_planner_new::Population pathPop;
@@ -196,9 +199,13 @@ void pubStartGoalMarkers(bool publish = true){
 
   universals.markers.push_back(origin_marker); // add origin onto rviz path points
   
+  ramp_planner_new::ObstacleList obsList;
   for(unsigned int i=0;i<obstacles.size();i++){
     universals.markers.push_back(obstacles.at(i).getMarker(global_frame,30001+i));
+    obsList.obstacles.push_back(obstacles.at(i).getMsg());
   }
+  pub_obstacles.publish(obsList);
+
   results.push_back(universals);
 
   for(unsigned int i=0;i<results.size();i++){
@@ -295,6 +302,7 @@ int main(int argc, char** argv) {
   ROS_INFO("Done loading rosparams");
   
   pub_path_points = handle.advertise<ramp_planner_new::Population>("path_points_channel",1);
+  pub_obstacles = handle.advertise<ramp_planner_new::ObstacleList>("/obstacle_channel",1);
   rviz_pub_path_points = handle.advertise<visualization_msgs::MarkerArray>("rviz_path_points",10);
   pub_markerArray = handle.advertise<visualization_msgs::MarkerArray>("visualization_marker_array", 10);
 

@@ -9,14 +9,19 @@
 #include <ramp_planner_new/TrajectorySwap.h>
 #include <ramp_planner_new/SwapRequest.h>
 #include <ramp_planner_new/Population.h>
+#include <ramp_planner_new/Obstacle.h>
+#include <ramp_planner_new/ObstacleList.h>
 #include <utility.h>
+#include "obstacle.h"
 
 Utility utility;
 
 std::vector<ramp_planner_new::PathPoints> pathPointsPopulation;
 ramp_planner_new::PathPoints curPathPoints;
+std::vector<Obstacle> obstacles;
 int maxPathId = 0;
 int curStartId = -1;
+int maxObsId = 0;
 visualization_msgs::MarkerArray curStartGoal;
 ros::Publisher pub_path_points;
 ros::Publisher pub_time_needed;
@@ -24,6 +29,7 @@ ros::Publisher pub_bezify_request;
 double max_speed_linear = 0.33;
 bool swapped = false;
 bool evaluate = true;
+bool gotObs = false;
 std::vector<double> startingVels;
 
 // j should be the index of the goal marker within pathPoints
@@ -50,6 +56,9 @@ bool needBezify(const unsigned int j){
 }
 
 void updateStartGoal(){
+    if(!gotObs){
+        return;
+    }
     curStartGoal.markers.clear();
     unsigned int j=0;//j used as iterator for types, as types.size() = markers.size()-1
     for(int i=0;i<curPathPoints.markers.size();i++){
@@ -270,6 +279,23 @@ void swapTrajectory(const ramp_planner_new::SwapRequest msg){
   pickBestPath();
 }
 
+void obstacleCallback(const ramp_planner_new::ObstacleList msg){
+    gotObs = true;
+    std::cout<<"---obstacle list has "<<msg.obstacles.size()<<" obstacles"<<"---"<<std::endl;
+    for(unsigned int i=0;i<msg.obstacles.size();i++){
+        Obstacle obs(msg.obstacles.at(i));
+        obstacles.push_back(obs);
+        if(obs.id_ == 0){//new path
+            maxObsId++;
+            obstacles.back().id_ = maxObsId;
+        }//else{
+        //     TODO needed?
+        // }
+    }
+    evaluate = true;
+    pickBestPath();
+}
+
 int main(int argc, char** argv) {
   std::cout<<"\nstarting buffer\n";
   srand( time(0));
@@ -279,6 +305,7 @@ int main(int argc, char** argv) {
 //   ros::NodeHandle handle_local("~");
 
   ros::Subscriber pathPointsListener  = handle.subscribe("/path_points_channel", 1, pathPointsCallback);
+  ros::Subscriber obstacleListener = handle.subscribe("obstacle_channel",1,obstacleCallback);
   ros::Subscriber singlePathPointsListener  = handle.subscribe("/single_path_points_channel", 1, pathPointCallback);
   ros::Subscriber readyNextListener = handle.subscribe("/ready_next", 1, getNextPoint);
   ros::Subscriber trajSwap = handle.subscribe("/traj_swap",1,swapTrajectory);

@@ -61,6 +61,8 @@ add_message_files(
   PathPoints.msg
   BezifyRequest.msg
   Population.msg
+  Obstacle.msg
+  ObstacleList.msg
 )
 
 ## Generate services in the 'srv' folder
@@ -150,7 +152,7 @@ add_executable(${PROJECT_NAME} src/planner_main.cpp src/knot_point.cpp src/motio
 add_executable(ramp_control_new src/control_main.cpp src/mobile_robot)
 target_link_libraries(ramp_control_new ${catkin_LIBRARIES})
 
-add_executable(ramp_control_buffer src/control_buffer_main.cpp src/utility.cpp src/range.cpp)
+add_executable(ramp_control_buffer src/control_buffer_main.cpp src/utility.cpp src/range.cpp src/obstacle.cpp)
 target_link_libraries(ramp_control_buffer ${catkin_LIBRARIES})
 
 add_executable(ramp_detection src/detection_main.cpp src/knot_point.cpp src/motion_state.cpp src/path.cpp src/range.cpp src/utility.cpp src/obstacle.cpp)
