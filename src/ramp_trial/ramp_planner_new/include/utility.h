@@ -54,6 +54,8 @@ class Utility {
     double max_speed_angular_;
     double max_acceleration_;
     
+    double robot_radius_ = .175;
+    
     const double positionDistance(const std::vector<double> a, const std::vector<double> b) const;
 
     const double findAngleFromAToB(const trajectory_msgs::JointTrajectoryPoint a, const trajectory_msgs::JointTrajectoryPoint b) const;
@@ -69,6 +71,8 @@ class Utility {
 
     const double getMinLinTime(const geometry_msgs::Point& start, const geometry_msgs::Point& goal) const;
     
+    const double getMinDistFromLineToPoint(const geometry_msgs::Point A,const geometry_msgs::Point B,geometry_msgs::Point E) const;
+
     const std::string toString(const ramp_msgs::Obstacle ob) const;
     const std::string toString(const ramp_msgs::ObstacleList ob) const;
     const std::string toString(const ramp_msgs::MotionState mp) const;

@@ -163,6 +163,28 @@ const double Utility::getMinLinTime(const geometry_msgs::Point& start, const geo
   return retVal;
 }
 
+//code addapted from https://www.geeksforgeeks.org/minimum-distance-from-a-point-to-the-line-segment-using-vectors/
+const double Utility::getMinDistFromLineToPoint(const geometry_msgs::Point p1,const geometry_msgs::Point p2, geometry_msgs::Point p3) const{
+  // //find A,B,C coefs from https://math.stackexchange.com/questions/637922/how-can-i-find-coefficients-a-b-c-given-two-points
+  // double A = p1.y - p2.y;
+  // double B = -(p1.x - p2.x);
+  // double C = (p1.x * p2.y)-(p2.x * p1.y);
+
+  // //get dist from point to line from https://www.cuemath.com/geometry/distance-of-a-point-from-a-line/
+  // double num = abs(A*p3.x + B*p3.y + C);
+  // double den = sqrt(pow(A,2) + pow(B,2));
+
+  // return num/den;
+  double a = positionDistance({p1.x,p1.y},{p3.x,p3.y});
+  double b = positionDistance({p1.x,p1.y},{p2.x,p2.y});
+  double c = positionDistance({p2.x,p2.y},{p3.x,p3.y});
+
+  double area = 0.25 * sqrt((a+b+c) * (-a+b+c) * (a-b+c) * (a+b-c));
+  double h = 2*area/b;
+
+  return h;
+}
+
 const std::string Utility::toString(const ramp_msgs::MotionState mp) const {
   std::ostringstream result;
   result<<"\np: [ ";

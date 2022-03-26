@@ -145,13 +145,26 @@ void updateStartGoal(){
 void findFitness(ramp_planner_new::PathPoints& path){
     double lineTime = 0;
     double ang = 0;
+    double collisionChance = 0;
+    std::cout<<path.id<<std::endl;
     for(unsigned int i=0;i<path.markers.size()-1;i++){
         geometry_msgs::Point p1 = path.markers.at(i).pose.position;
         geometry_msgs::Point p2 = path.markers.at(i+1).pose.position;
+        std::cout<<"checking line from ("<<p1.x<<","<<p1.y<<") to ("<<p2.x<<","<<p2.y<<")"<<std::endl;
         lineTime += utility.getMinLinTime(p1,p2);
         ang += abs(utility.findAngleFromAToB(p1,p2));
+        for(unsigned int j=0;j<obstacles.size();j++){
+            //need check to make sure circle?
+            geometry_msgs::Point c = obstacles.at(j).getCenter();
+            double distToLine = utility.getMinDistFromLineToPoint(p1,p2,c);
+            std::cout<<"\t\tDDD-distToLine "<<distToLine<<"\tobstRad "<<obstacles.at(j).getXradius()<<"-DDD"<<std::endl;
+            if(distToLine <= obstacles.at(j).getXradius() + utility.robot_radius_){
+                std::cout<<"\t\t\twill collide with obst centered at ("<<c.x<<","<<c.y<<")"<<std::endl;
+                collisionChance += 10;
+            }
+        }
     }
-    path.fitness = 100/(lineTime*.7 + ang*.3);
+    path.fitness = 100/(lineTime*.3 + ang*.3 - collisionChance*.4);
 }
 
 void pickBestPath(){
@@ -159,7 +172,7 @@ void pickBestPath(){
         //TODO do calculation
         for(unsigned int i=0;i<pathPointsPopulation.size();i++){
             findFitness(pathPointsPopulation.at(i));
-            std::cout<<"\t$$fitness of path "<<i<<" is "<<pathPointsPopulation.at(i).fitness<<"$$"<<std::endl;
+            std::cout<<"\t$$fitness of path "<<pathPointsPopulation.at(i).id<<" is "<<pathPointsPopulation.at(i).fitness<<"$$"<<std::endl;
         }
         //TODO sort pathPointsPopulaton
         std::sort(pathPointsPopulation.begin(), pathPointsPopulation.end(),
@@ -176,7 +189,7 @@ void pickBestPath(){
     if(curStartId == -1 || swapped){
         curStartId = curPathPoints.markers.at(0).id;
     }
-    std::cout<<"---curPath has "<<curPathPoints.markers.size()<<" path points---"<<std::endl;
+    std::cout<<"---curPath ("<<curPathPoints.id<<") has "<<curPathPoints.markers.size()<<" path points---"<<std::endl;
     updateStartGoal();
 }
 

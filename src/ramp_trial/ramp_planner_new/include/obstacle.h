@@ -4,6 +4,7 @@
 #include "utility.h"
 #include <visualization_msgs/Marker.h>
 #include <ramp_planner_new/Obstacle.h>
+#include <geometry_msgs/Point.h>
 
 class Obstacle 
 {
@@ -19,6 +20,8 @@ class Obstacle
 
     visualization_msgs::Marker getMarker(std::string global_frame,int id);
     ramp_planner_new::Obstacle getMsg();
+    geometry_msgs::Point getCenter();
+    double getXradius();
 
     
   private:

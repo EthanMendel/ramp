@@ -113,3 +113,15 @@ ramp_planner_new::Obstacle Obstacle::getMsg(){
     obs.id = 0;
     return obs;
 }
+
+geometry_msgs::Point Obstacle::getCenter(){
+    geometry_msgs::Point center;
+    center.x = bounds_.at(0).at(0);
+    center.y = bounds_.at(0).at(1);
+    center.z = bounds_.at(0).at(2);
+    return center;
+}
+
+double Obstacle::getXradius(){
+    return bounds_.at(1).at(0);
+}

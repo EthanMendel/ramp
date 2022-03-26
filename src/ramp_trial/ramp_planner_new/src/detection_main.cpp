@@ -205,6 +205,7 @@ void pubStartGoalMarkers(bool publish = true){
     obsList.obstacles.push_back(obstacles.at(i).getMsg());
   }
   pub_obstacles.publish(obsList);
+  pub_obstacles.publish(obsList);
 
   results.push_back(universals);
 
