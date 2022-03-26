@@ -236,6 +236,12 @@ void swapTrajectory(const ramp_planner_new::SwapRequest msg){
   p.x = msg.curPositions.at(0);
   p.y = msg.curPositions.at(1);
   pps.points.push_back(p);
+  p.x = 2.75;
+  p.y = 1;
+  pps.points.push_back(p);
+  p.x = 2.5;
+  p.y = 3.5;
+  pps.points.push_back(p);
   //TODO get add path points to swap to
 
   // markers for both positions
@@ -284,7 +290,8 @@ void swapTrajectory(const ramp_planner_new::SwapRequest msg){
   
 //   std::cout<<"swapped pps.types.size:"<<pps.types.size()<<std::endl;
 //   std::cout<<"swapped pps.forBez.size:"<<pps.forBez.size()<<std::endl;
-
+  maxPathId++;
+  pps.id = maxPathId;
   pathPointsPopulation.push_back(pps);
   
   swapped = true;
