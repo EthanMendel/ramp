@@ -175,14 +175,71 @@ const double Utility::getMinDistFromLineToPoint(const geometry_msgs::Point p1,co
   // double den = sqrt(pow(A,2) + pow(B,2));
 
   // return num/den;
-  double a = positionDistance({p1.x,p1.y},{p3.x,p3.y});
-  double b = positionDistance({p1.x,p1.y},{p2.x,p2.y});
-  double c = positionDistance({p2.x,p2.y},{p3.x,p3.y});
 
-  double area = 0.25 * sqrt((a+b+c) * (-a+b+c) * (a-b+c) * (a+b-c));
-  double h = 2*area/b;
+  // double a = positionDistance({p1.x,p1.y},{p3.x,p3.y});
+  // double b = positionDistance({p1.x,p1.y},{p2.x,p2.y});
+  // double c = positionDistance({p2.x,p2.y},{p3.x,p3.y});
 
-  return h;
+  // double area = 0.25 * sqrt((a+b+c) * (-a+b+c) * (a-b+c) * (a+b-c));
+  // // std::cout<<"side lengths:\ta:"<<a<<"\tb:"<<b<<"\tc:"<<c<<"\tarea:"<<area<<std::endl;
+  // double h = 2*area/b;
+
+  // return h;
+
+  // vector AB
+  geometry_msgs::Point AB;
+  AB.x = p2.x - p1.x;
+  AB.y = p2.y - p1.y;
+
+  // vector BP
+  geometry_msgs::Point BE;
+  BE.x = p3.x - p2.x;
+  BE.y = p3.y - p2.y;
+
+  // vector AP
+  geometry_msgs::Point AE;
+  AE.x = p3.x - p1.x,
+  AE.y = p3.y - p1.y;
+
+  // Variables to store dot product
+  double AB_BE, AB_AE;
+
+  // Calculating the dot product
+  AB_BE = (AB.x * BE.x + AB.y * BE.y);
+  AB_AE = (AB.x * AE.x + AB.y * AE.y);
+
+  // Minimum distance from
+  // point E to the line segment
+  double reqAns = 0;
+
+  // Case 1
+  if (AB_BE > 0) {
+
+      // Finding the magnitude
+      double y = p3.x - p2.x;
+      double x = p3.y - p2.y;
+      reqAns = sqrt(x * x + y * y);
+  }
+
+  // Case 2
+  else if (AB_AE < 0) {
+      double y = p3.x - p1.x;
+      double x = p3.y - p1.y;
+      reqAns = sqrt(x * x + y * y);
+  }
+
+  // Case 3
+  else {
+
+      // Finding the perpendicular distance
+      double x1 = AB.x;
+      double y1 = AB.y;
+      double x2 = AE.x;
+      double y2 = AE.y;
+      double mod = sqrt(x1 * x1 + y1 * y1);
+      reqAns = abs(x1 * y2 - y1 * x2) / mod;
+  }
+  return reqAns;
 }
 
 const std::string Utility::toString(const ramp_msgs::MotionState mp) const {
