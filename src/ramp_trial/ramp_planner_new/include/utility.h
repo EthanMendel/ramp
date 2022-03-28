@@ -73,6 +73,8 @@ class Utility {
     
     const double getMinDistFromLineToPoint(const geometry_msgs::Point A,const geometry_msgs::Point B,geometry_msgs::Point E) const;
 
+    const geometry_msgs::Point findFirstCollision(geometry_msgs::Point p1,geometry_msgs::Point p2,geometry_msgs::Point p3, double rad) const;
+
     const std::string toString(const ramp_msgs::Obstacle ob) const;
     const std::string toString(const ramp_msgs::ObstacleList ob) const;
     const std::string toString(const ramp_msgs::MotionState mp) const;

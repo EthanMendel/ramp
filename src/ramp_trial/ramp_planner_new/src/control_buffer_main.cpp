@@ -9,7 +9,6 @@
 #include <ramp_planner_new/TrajectorySwap.h>
 #include <ramp_planner_new/SwapRequest.h>
 #include <ramp_planner_new/Population.h>
-#include <ramp_planner_new/Obstacle.h>
 #include <ramp_planner_new/ObstacleList.h>
 #include <utility.h>
 #include "obstacle.h"
@@ -149,7 +148,7 @@ void findFitness(ramp_planner_new::PathPoints& path){
     for(unsigned int i=0;i<path.markers.size()-1;i++){
         geometry_msgs::Point p1 = path.markers.at(i).pose.position;
         geometry_msgs::Point p2 = path.markers.at(i+1).pose.position;
-        // std::cout<<"checking line from ("<<p1.x<<","<<p1.y<<") to ("<<p2.x<<","<<p2.y<<")"<<std::endl;
+        std::cout<<"checking line from ("<<p1.x<<","<<p1.y<<") to ("<<p2.x<<","<<p2.y<<")"<<std::endl;
         lineTime += utility.getMinLinTime(p1,p2);
         ang += abs(utility.findAngleFromAToB(p1,p2));
         for(unsigned int j=0;j<obstacles.size();j++){
@@ -157,13 +156,16 @@ void findFitness(ramp_planner_new::PathPoints& path){
             geometry_msgs::Point c = obstacles.at(j).getCenter();
             double distToLine = utility.getMinDistFromLineToPoint(p1,p2,c);
             // std::cout<<"\t\tDDD-distToLine "<<distToLine<<"\tobstRad "<<obstacles.at(j).getXradius()<<"-DDD"<<std::endl;
-            if(distToLine <= obstacles.at(j).getXradius() + utility.robot_radius_){
+            double rad = obstacles.at(j).getXradius();
+            if(distToLine <= rad + utility.robot_radius_){
                 // std::cout<<"\t\t\twill collide with obst centered at ("<<c.x<<","<<c.y<<")"<<std::endl;
-                collisionChance += 5;
+                geometry_msgs::Point colP = utility.findFirstCollision(p1,p2,c,rad);
+                std::cout<<"\tcollision with obst centered at ("<<c.x<<","<<c.y<<") at \t("<<colP.x<<","<<colP.y<<")"<<std::endl;
+                collisionChance += 10;
             }
         }
     }
-    path.fitness = 100/(lineTime*.3 + ang*.3 + collisionChance*.4);
+    path.fitness = 100/(lineTime*.4 + ang*.3 + collisionChance*.3);
 }
 
 void pickBestPath(){
