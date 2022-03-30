@@ -200,15 +200,18 @@ const double Utility::getMinDistFromLineToPoint(const geometry_msgs::Point p1,co
 }
 
 const geometry_msgs::Point Utility::findFirstCollision(geometry_msgs::Point p1,geometry_msgs::Point p2,geometry_msgs::Point p3, double rad) const {
+  // std::cout<<"\t\t\tchecking ("<<p1.x<<","<<p1.y<<") to \t("<<p2.x<<","<<p2.y<<")"<<std::endl;
   double d1 = positionDistance({p1.x,p1.y},{p3.x,p3.y});
+  double d2 = positionDistance({p2.x,p2.y},{p3.x,p3.y});
   if(d1 <= rad + robot_radius_){//if in collision at starting point of line
     return p1;//return point 1 as first collision
-  }else{
+  } else {
     geometry_msgs::Point midpoint;//find midpoint of line
     midpoint.x = (p1.x + p2.x)/2;
     midpoint.y = (p1.y + p2.y)/2;
-    double d2 = positionDistance({midpoint.x,midpoint.y},{p3.x,p3.y});
-    if(d2 <= rad + robot_radius_){//if in collision at midpoint
+    // std::cout<<"\t\tmidpoint ("<<midpoint.x<<","<<midpoint.y<<")"<<std::endl;
+    // double d3 = positionDistance({midpoint.x,midpoint.y},{p3.x,p3.y});
+    if(d2 > d1){//if in collision at midpoint
       return findFirstCollision(p1,midpoint,p3,rad);//repeat process for line from starting point to midpoint
     }else{
       return findFirstCollision(midpoint,p2,p3,rad);//repeat process for line from midpoint to ending point
