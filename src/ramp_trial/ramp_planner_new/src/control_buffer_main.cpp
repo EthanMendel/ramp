@@ -162,7 +162,7 @@ void findFitness(ramp_planner_new::PathPoints& path){
                 geometry_msgs::Point colP = utility.findFirstCollision(p1,p2,c,rad);
                 // std::cout<<"\tcollision with obst centered at ("<<c.x<<","<<c.y<<") at \t("<<colP.x<<","<<colP.y<<")"<<std::endl;
                 double colDist = utility.getMinLinTime(p1,colP);
-                // std::cout<<"\t\tdist to collision: "<<colDist<<std::endl;
+                std::cout<<"\t\tdist to collision: "<<colDist<<std::endl;
                 collFact += 10/colDist;
             }
         }

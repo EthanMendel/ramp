@@ -1,13 +1,52 @@
+------- Done loading parameters -------
+
+  ID: 0
+  Ranges: 
+  : 
+msg_.min: 0 msg_.max: 3.5
+  : 
+msg_.min: 0 msg_.max: 3.5
+  : 
+msg_.min: -3.14159 msg_.max: 3.14159
+---------------------------------------
+[ INFO] [1649085872.531666325]: Done loading rosparams
+==path 3 has 4 points==
+==path 4 has 2 points==
+there are 4 paths loaded
+
+==obs 1 has 2 bounds==
+==obs 2 has 2 bounds==
+==obs 3 has 2 bounds==
+==obs 4 has 2 bounds==
+there are 4 obstacles loaded
+
+
+------- Done loading parameters -------
+---------------------------------------
+[ INFO] [1649085872.547329545]: Done loading rosparams
+[ INFO] [1649085873.057641776]: In pubStartGoalMarkers
+publishing 4 paths
+[ INFO] [1649085873.058450240]: Exiting pubStartGoalMarkers
+[ INFO] [1649085873.058777020]: Done with publishing markers
         ++have 4 paths++
+---path has 4 points with id 0---
+---path has 4 points with id 0---
+---path has 4 points with id 0---
 ---path has 2 points with id 0---
----path has 4 points with id 0---
----path has 4 points with id 0---
----path has 4 points with id 0---
-        $$fitness of path 0 is 10.6551$$
-        $$fitness of path 1 is 7.44982$$
-        $$fitness of path 2 is 8.09495$$
-        $$fitness of path 3 is 8.51136$$
----curPath has 2 path points---
+        $$fitness of path 1 is 13.9684$$
+        $$fitness of path 2 is 13.5073$$
+        $$fitness of path 3 is 12.3714$$
+        $$fitness of path 4 is 18.231$$
+---curPath (4) has 2 path points---
+---obstacle list has 4 obstacles---
+                dist to collision: 1.4
+        $$fitness of path 3 is 9.779$$
+                dist to collision: 1
+        $$fitness of path 2 is 9.61226$$
+        $$fitness of path 1 is 13.9684$$
+                dist to collision: 6.5
+        $$fitness of path 4 is 16.816$$
+---curPath (4) has 2 path points---
 at begining or end of path
 markers not long enough, or no forBez after goal
 sending trajectory request
@@ -71,9 +110,9 @@ starting full path portion
         curXY:  (0.144597,      0.202436)
         t: 1.9  Lin: 0.247733   Ang: 0
         curXY:  (0.159308,      0.223031)
-        t: 2    Lin: 0.258422   Ang: 1.33227e-14
+        t: 2    Lin: 0.258422   Ang: 8.88178e-15
         curXY:  (0.174634,      0.244487)
-        t: 2.1  Lin: 0.268877   Ang: -1.77636e-14
+        t: 2.1  Lin: 0.268877   Ang: -1.33227e-14
         curXY:  (0.19056,       0.266784)
         t: 2.2  Lin: 0.279096   Ang: 8.88178e-15
         curXY:  (0.207073,      0.289903)
@@ -87,17 +126,17 @@ starting full path portion
         curXY:  (0.278726,      0.390216)
         t: 2.7  Lin: 0.326669   Ang: -2.66454e-14
         curXY:  (0.29797,       0.417158)
-        t: 2.8  Lin: 0.335479   Ang: 2.22045e-14
+        t: 2.8  Lin: 0.335479   Ang: 1.77636e-14
         curXY:  (0.31772,       0.444807)
-        t: 2.9  Lin: 0.344054   Ang: -1.33227e-14
+        t: 2.9  Lin: 0.344054   Ang: -8.88178e-15
         curXY:  (0.337961,      0.473145)
         t: 3    Lin: 0.352394   Ang: 0
         curXY:  (0.35868,       0.502152)
         t: 3.1  Lin: 0.360499   Ang: 0
         curXY:  (0.379863,      0.531809)
-        t: 3.2  Lin: 0.368369   Ang: 1.33227e-14
+        t: 3.2  Lin: 0.368369   Ang: 8.88178e-15
         curXY:  (0.401497,      0.562096)
-        t: 3.3  Lin: 0.376004   Ang: -1.77636e-14
+        t: 3.3  Lin: 0.376004   Ang: -1.33227e-14
         curXY:  (0.423569,      0.592996)
         t: 3.4  Lin: 0.383405   Ang: 1.33227e-14
         curXY:  (0.446063,      0.624488)
@@ -105,9 +144,9 @@ starting full path portion
         curXY:  (0.468967,      0.656553)
         t: 3.6  Lin: 0.3975     Ang: -1.77636e-14
         curXY:  (0.492267,      0.689173)
-        t: 3.7  Lin: 0.404196   Ang: 2.66454e-14
+        t: 3.7  Lin: 0.404196   Ang: 2.22045e-14
         curXY:  (0.515949,      0.722329)
-        t: 3.8  Lin: 0.410656   Ang: -2.66454e-14
+        t: 3.8  Lin: 0.410656   Ang: -2.22045e-14
         curXY:  (0.54,  0.756)
         t: 3.9  Lin: 0.416882   Ang: 4.88498e-14
         curXY:  (0.564406,      0.790168)
@@ -121,9 +160,9 @@ starting full path portion
         curXY:  (0.665307,      0.93143)
         t: 4.4  Lin: 0.444486   Ang: -4.88498e-14
         curXY:  (0.691284,      0.967797)
-        t: 4.5  Lin: 0.449302   Ang: 4.44089e-14
+        t: 4.5  Lin: 0.449302   Ang: 3.9968e-14
         curXY:  (0.717533,      1.00455)
-        t: 4.6  Lin: 0.453883   Ang: 8.88178e-15
+        t: 4.6  Lin: 0.453883   Ang: 1.33227e-14
         curXY:  (0.744042,      1.04166)
         t: 4.7  Lin: 0.458229   Ang: -1.33227e-14
         curXY:  (0.770797,      1.07912)
