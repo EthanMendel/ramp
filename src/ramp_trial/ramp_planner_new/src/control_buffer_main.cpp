@@ -144,11 +144,11 @@ void updateStartGoal(){
 void findFitness(ramp_planner_new::PathPoints& path){
     double lineTime = 0;
     double ang = 0;
-    double collisionChance = 0;
+    double collFact = 0;
     for(unsigned int i=0;i<path.markers.size()-1;i++){
         geometry_msgs::Point p1 = path.markers.at(i).pose.position;
         geometry_msgs::Point p2 = path.markers.at(i+1).pose.position;
-        std::cout<<"checking line from ("<<p1.x<<","<<p1.y<<") to ("<<p2.x<<","<<p2.y<<")"<<std::endl;
+        // std::cout<<"checking line from ("<<p1.x<<","<<p1.y<<") to ("<<p2.x<<","<<p2.y<<")"<<std::endl;
         lineTime += utility.getMinLinTime(p1,p2);
         ang += abs(utility.findAngleFromAToB(p1,p2));
         for(unsigned int j=0;j<obstacles.size();j++){
@@ -160,18 +160,21 @@ void findFitness(ramp_planner_new::PathPoints& path){
             if(distToLine <= rad + utility.robot_radius_){
                 // std::cout<<"\t\t\twill collide with obst centered at ("<<c.x<<","<<c.y<<")"<<std::endl;
                 geometry_msgs::Point colP = utility.findFirstCollision(p1,p2,c,rad);
-                std::cout<<"\tcollision with obst centered at ("<<c.x<<","<<c.y<<") at \t("<<colP.x<<","<<colP.y<<")"<<std::endl;
-                collisionChance += 10;
+                // std::cout<<"\tcollision with obst centered at ("<<c.x<<","<<c.y<<") at \t("<<colP.x<<","<<colP.y<<")"<<std::endl;
+                double colDist = utility.getMinLinTime(p1,colP);
+                // std::cout<<"\t\tdist to collision: "<<colDist<<std::endl;
+                collFact += 10/colDist;
             }
         }
     }
-    path.fitness = 100/(lineTime*.4 + ang*.3 + collisionChance*.3);
+    path.fitness = 100/(lineTime*.4 + ang*.3 + collFact*.3);
 }
 
 void pickBestPath(){
     if(evaluate){
         //TODO do calculation
         for(unsigned int i=0;i<pathPointsPopulation.size();i++){
+            // std::cout<<"finding fitness for path id "<<pathPointsPopulation.at(i).id<<std::endl;
             findFitness(pathPointsPopulation.at(i));
             std::cout<<"\t$$fitness of path "<<pathPointsPopulation.at(i).id<<" is "<<pathPointsPopulation.at(i).fitness<<"$$"<<std::endl;
         }
