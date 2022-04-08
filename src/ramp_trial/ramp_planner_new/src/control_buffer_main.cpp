@@ -30,6 +30,7 @@ bool swapped = false;
 bool evaluate = true;
 bool gotObs = false;
 std::vector<double> startingVels;
+int recObsCount = 0;
 
 // j should be the index of the goal marker within pathPoints
 bool needBezify(const unsigned int j){
@@ -172,7 +173,8 @@ void findFitness(ramp_planner_new::PathPoints& path){
 
 void pickBestPath(){
     if(evaluate){
-        //TODO do calculation
+        evaluate = false;
+        // std::cout<<"evaluating "<<pathPointsPopulation.size()<<" paths"<<std::endl;
         for(unsigned int i=0;i<pathPointsPopulation.size();i++){
             // std::cout<<"finding fitness for path id "<<pathPointsPopulation.at(i).id<<std::endl;
             findFitness(pathPointsPopulation.at(i));
@@ -183,7 +185,6 @@ void pickBestPath(){
         [](const ramp_planner_new::PathPoints &x, const ramp_planner_new::PathPoints &y) {
             return x.fitness < y.fitness;
         });
-        evaluate = false;
     }
     int pastPathId = curPathPoints.id;
     curPathPoints = pathPointsPopulation.back();
@@ -194,6 +195,9 @@ void pickBestPath(){
         curStartId = curPathPoints.markers.at(0).id;
     }
     std::cout<<"---curPath ("<<curPathPoints.id<<") has "<<curPathPoints.markers.size()<<" path points---"<<std::endl;
+    if(recObsCount == 3){
+        return;
+    }
     updateStartGoal();
 }
 
@@ -305,7 +309,9 @@ void swapTrajectory(const ramp_planner_new::SwapRequest msg){
 
 void obstacleCallback(const ramp_planner_new::ObstacleList msg){
     gotObs = true;
+    recObsCount++;
     std::cout<<"---obstacle list has "<<msg.obstacles.size()<<" obstacles"<<"---"<<std::endl;
+    obstacles.clear();
     for(unsigned int i=0;i<msg.obstacles.size();i++){
         Obstacle obs(msg.obstacles.at(i));
         obstacles.push_back(obs);

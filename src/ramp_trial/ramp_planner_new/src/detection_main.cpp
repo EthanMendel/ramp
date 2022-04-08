@@ -116,6 +116,17 @@ void loadParameters(const ros::NodeHandle handle){
   std::cout<<"\n---------------------------------------\n";
 }
 
+visualization_msgs::MarkerArray pubObstacles(visualization_msgs::MarkerArray universals, bool publish = true){
+  ramp_planner_new::ObstacleList obsList;
+  for(unsigned int i=0;i<obstacles.size();i++){
+    universals.markers.push_back(obstacles.at(i).getMarker(global_frame,30001+i));
+    obsList.obstacles.push_back(obstacles.at(i).getMsg());
+  }
+  pub_obstacles.publish(obsList);
+  pub_obstacles.publish(obsList);
+return universals;
+}
+
 void pubStartGoalMarkers(bool publish = true){
   ROS_INFO("In pubStartGoalMarkers");
   std::vector<visualization_msgs::MarkerArray> results;
@@ -174,38 +185,32 @@ void pubStartGoalMarkers(bool publish = true){
   pub_path_points.publish(pathPop);
   pub_path_points.publish(pathPop);
 
-  visualization_msgs::Marker origin_marker;
-  origin_marker.id = 10000;
-  origin_marker.header.frame_id = global_frame;
-  origin_marker.ns = "basic_shapes";
-  origin_marker.type = visualization_msgs::Marker::SPHERE;
-  origin_marker.action = visualization_msgs::Marker::ADD;
-  origin_marker.pose.position.x = 0.0;
-  origin_marker.pose.position.y = 0.0;
-  origin_marker.pose.position.z = 0.1;
-  origin_marker.pose.orientation.x = 0.0;
-  origin_marker.pose.orientation.y = 0.0;
-  origin_marker.pose.orientation.z = 0.0;
-  origin_marker.pose.orientation.w = 1.0;
-  origin_marker.scale.x = 0.1;
-  origin_marker.scale.y = 0.1;
-  origin_marker.scale.z = 0.0;
-  origin_marker.color.r = 0;
-  origin_marker.color.g = 1;
-  origin_marker.color.b = 0;
-  origin_marker.color.a = 1;
-  origin_marker.lifetime = ros::Duration(120.0);
+  // visualization_msgs::Marker origin_marker;
+  // origin_marker.id = 10000;
+  // origin_marker.header.frame_id = global_frame;
+  // origin_marker.ns = "basic_shapes";
+  // origin_marker.type = visualization_msgs::Marker::SPHERE;
+  // origin_marker.action = visualization_msgs::Marker::ADD;
+  // origin_marker.pose.position.x = 0.0;
+  // origin_marker.pose.position.y = 0.0;
+  // origin_marker.pose.position.z = 0.1;
+  // origin_marker.pose.orientation.x = 0.0;
+  // origin_marker.pose.orientation.y = 0.0;
+  // origin_marker.pose.orientation.z = 0.0;
+  // origin_marker.pose.orientation.w = 1.0;
+  // origin_marker.scale.x = 0.1;
+  // origin_marker.scale.y = 0.1;
+  // origin_marker.scale.z = 0.0;
+  // origin_marker.color.r = 0;
+  // origin_marker.color.g = 1;
+  // origin_marker.color.b = 0;
+  // origin_marker.color.a = 1;
+  // origin_marker.lifetime = ros::Duration(120.0);
   visualization_msgs::MarkerArray universals;
 
-  universals.markers.push_back(origin_marker); // add origin onto rviz path points
+  // universals.markers.push_back(origin_marker); // add origin onto rviz path points
   
-  ramp_planner_new::ObstacleList obsList;
-  for(unsigned int i=0;i<obstacles.size();i++){
-    universals.markers.push_back(obstacles.at(i).getMarker(global_frame,30001+i));
-    obsList.obstacles.push_back(obstacles.at(i).getMsg());
-  }
-  pub_obstacles.publish(obsList);
-  pub_obstacles.publish(obsList);
+  universals = pubObstacles(universals, publish);
 
   results.push_back(universals);
 
@@ -313,10 +318,14 @@ int main(int argc, char** argv) {
   pubPath();
   ROS_INFO("Done with publishing markers");
 
-  ros::Rate r(1000);
+  ros::Rate r(2000);//50ms = 20hz
   while(ros::ok()) 
   {
     r.sleep();
+
+    visualization_msgs::MarkerArray universals;  
+    universals = pubObstacles(universals, true);
+
     ros::spinOnce();
   }
 
