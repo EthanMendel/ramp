@@ -85,7 +85,7 @@ void MobileRobot::calculateVelocities(const std::vector<ramp_planner_new::Coeffi
     look_ahead_ = false;
   }
 
-  if(prevXY_.size() > 0){
+  if(prevXY_.size() > 0 && !look_ahead_){
     double theta = findAngleFromAToB(curXY,prevXY_);
     if(prevTheta_){
       speed_angular_ = findDistanceBetweenAngles(prevTheta_,theta)/CYCLE_TIME_IN_SECONDS;
@@ -93,7 +93,12 @@ void MobileRobot::calculateVelocities(const std::vector<ramp_planner_new::Coeffi
     }
     prevTheta_ = theta;
   }
-  prevXY_ = curXY;
+  if(look_ahead_){
+    futXY_ = curXY;
+    look_ahead_ = false;
+  }else{
+    prevXY_ = curXY;
+  }
   std::cout<<"\tcurXY:\t("<<curXY.at(0)<<",\t"<<curXY.at(1)<<")"<<std::endl;
   std::cout<<"\tt: "<<t<<"\tLin: "<<speed_linear_<<"\tAng: "<<speed_angular_<<std::endl;
 }
@@ -211,6 +216,8 @@ void MobileRobot::moveOnTrajectory() {
         }
         // std::cout<<"running for "<<(seg_step_+.1*time_step_)<<std::endl;
         // Send the twist_message to move the robot
+        setNextTwist();
+        look_ahead_ = true;
         setNextTwist();
         if(trajectory_.active){
           sendTwist();

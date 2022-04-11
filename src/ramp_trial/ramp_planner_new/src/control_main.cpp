@@ -375,6 +375,9 @@ int main(int argc, char** argv) {
   while(ros::ok()) 
   {
     robot.moveOnTrajectory();
+    if(robot.futXY_.size() > 0){
+      std::cout<<"FFF future: ("<<robot.futXY_.at(0)<<","<<robot.futXY_.at(1)<<") FFF"<<std::endl;
+    }
     if(robot.readyNext_){
       robot.readyNext_ = false;
       getNextPoint();

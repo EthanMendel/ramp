@@ -49,6 +49,7 @@ class MobileRobot
   bool                              check_imminent_coll_;
   bool                              imminent_coll_;
   bool                              sim_;
+  std::vector<double>       futXY_;
 
   // static const members
   static const std::string  TOPIC_STR_PHIDGET_MOTOR;
