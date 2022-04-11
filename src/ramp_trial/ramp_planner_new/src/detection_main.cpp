@@ -324,7 +324,7 @@ int main(int argc, char** argv) {
     r.sleep();
 
     visualization_msgs::MarkerArray universals;  
-    // universals = pubObstacles(universals, true);
+    pubObstacles(universals, true);
 
     ros::spinOnce();
   }

@@ -34,7 +34,6 @@ bool swapped = false;
 bool evaluate = true;
 bool gotObs = false;
 std::vector<double> startingVels;
-int recObsCount = 0;
 
 
 /** Initialize the MobileRobot's publishers and subscibers*/
@@ -166,7 +165,13 @@ void findFitness(ramp_planner_new::PathPoints& path){
     double ang = 0;
     double collFact = 0;
     for(unsigned int i=0;i<path.markers.size()-1;i++){//for each line segment
+        //TODO test of forBez points
         geometry_msgs::Point p1 = path.markers.at(i).pose.position;
+        if(i == 0 && robot.futXY_.size() == 2){//if the first line segment and the robot has alredy started moving -> there is a future point
+          // std::cout<<"FFF future: ("<<robot.futXY_.at(0)<<","<<robot.futXY_.at(1)<<") FFF"<<std::endl;
+          p1.x = robot.futXY_.at(0);
+          p1.y = robot.futXY_.at(1);
+        }
         geometry_msgs::Point p2 = path.markers.at(i+1).pose.position;
         // std::cout<<"checking line from ("<<p1.x<<","<<p1.y<<") to ("<<p2.x<<","<<p2.y<<")"<<std::endl;
         lineTime += utility.getMinLinTime(p1,p2);//get time to get from point to point
@@ -212,7 +217,9 @@ void pickBestPath(){
         curStartId = curPathPoints.markers.at(0).id;
     }
     std::cout<<"---curPath ("<<curPathPoints.id<<") has "<<curPathPoints.markers.size()<<" path points---"<<std::endl;
-    updateStartGoal();
+    if(swapped){
+      updateStartGoal();
+    }
 }
 
 //callback for points belonging to a single trajectory
@@ -326,7 +333,6 @@ void swapTrajectory(const ramp_planner_new::SwapRequest msg){
 //callback for a population of obstacles -> resets list on every call
 void obstacleCallback(const ramp_planner_new::ObstacleList msg){
     gotObs = true;
-    recObsCount++;
     std::cout<<"---obstacle list has "<<msg.obstacles.size()<<" obstacles"<<"---"<<std::endl;
     obstacles.clear();
     for(unsigned int i=0;i<msg.obstacles.size();i++){
@@ -375,9 +381,6 @@ int main(int argc, char** argv) {
   while(ros::ok()) 
   {
     robot.moveOnTrajectory();
-    if(robot.futXY_.size() > 0){
-      std::cout<<"FFF future: ("<<robot.futXY_.at(0)<<","<<robot.futXY_.at(1)<<") FFF"<<std::endl;
-    }
     if(robot.readyNext_){
       robot.readyNext_ = false;
       getNextPoint();
