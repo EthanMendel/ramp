@@ -165,22 +165,22 @@ void findFitness(ramp_planner_new::PathPoints& path){
     double lineTime = 0;
     double ang = 0;
     double collFact = 0;
-    for(unsigned int i=0;i<path.markers.size()-1;i++){
+    for(unsigned int i=0;i<path.markers.size()-1;i++){//for each line segment
         geometry_msgs::Point p1 = path.markers.at(i).pose.position;
         geometry_msgs::Point p2 = path.markers.at(i+1).pose.position;
         // std::cout<<"checking line from ("<<p1.x<<","<<p1.y<<") to ("<<p2.x<<","<<p2.y<<")"<<std::endl;
-        lineTime += utility.getMinLinTime(p1,p2);
-        ang += abs(utility.findAngleFromAToB(p1,p2));
-        for(unsigned int j=0;j<obstacles.size();j++){
+        lineTime += utility.getMinLinTime(p1,p2);//get time to get from point to point
+        ang += abs(utility.findAngleFromAToB(p1,p2));//get total angular difference
+        for(unsigned int j=0;j<obstacles.size();j++){//for each obstacle
             geometry_msgs::Point c = obstacles.at(j).getCenter();
-            double distToLine = utility.getMinDistFromLineToPoint(p1,p2,c);
+            double distToLine = utility.getMinDistFromLineToPoint(p1,p2,c);//get min distance from line to obstacle
             // std::cout<<"\t\tDDD-distToLine "<<distToLine<<"\tobstRad "<<obstacles.at(j).getXradius()<<"-DDD"<<std::endl;
             double rad = obstacles.at(j).getXradius();
-            if(distToLine <= rad + utility.robot_radius_){
+            if(distToLine <= rad + utility.robot_radius_){//if there will be a collision
                 // std::cout<<"\t\t\twill collide with obst centered at ("<<c.x<<","<<c.y<<")"<<std::endl;
-                geometry_msgs::Point colP = utility.findFirstCollision(p1,p2,c,rad);
+                geometry_msgs::Point colP = utility.findFirstCollision(p1,p2,c,rad);//find the first point of collision
                 // std::cout<<"\tcollision with obst centered at ("<<c.x<<","<<c.y<<") at \t("<<colP.x<<","<<colP.y<<")"<<std::endl;
-                double colDist = utility.getMinLinTime(p1,colP);
+                double colDist = utility.getMinLinTime(p1,colP);//get time to first point of collision
                 std::cout<<"\t\tdist to collision: "<<colDist<<std::endl;
                 collFact += 100/colDist;
             }
@@ -193,18 +193,18 @@ void pickBestPath(){
     if(evaluate){
         evaluate = false;
         // std::cout<<"evaluating "<<pathPointsPopulation.size()<<" paths"<<std::endl;
-        for(unsigned int i=0;i<pathPointsPopulation.size();i++){
+        for(unsigned int i=0;i<pathPointsPopulation.size();i++){//for each path
             // std::cout<<"finding fitness for path id "<<pathPointsPopulation.at(i).id<<std::endl;
-            findFitness(pathPointsPopulation.at(i));
+            findFitness(pathPointsPopulation.at(i));//find fitness
             std::cout<<"\t$$fitness of path "<<pathPointsPopulation.at(i).id<<" is "<<pathPointsPopulation.at(i).fitness<<"$$"<<std::endl;
         }
-        std::sort(pathPointsPopulation.begin(), pathPointsPopulation.end(),
+        std::sort(pathPointsPopulation.begin(), pathPointsPopulation.end(),//sort all paths by fitness
         [](const ramp_planner_new::PathPoints &x, const ramp_planner_new::PathPoints &y) {
             return x.fitness < y.fitness;
         });
     }
     int pastPathId = curPathPoints.id;
-    curPathPoints = pathPointsPopulation.back();
+    curPathPoints = pathPointsPopulation.back();//set the current path to be the most fit
     if(curPathPoints.id != pastPathId){
         swapped = true;
     }
@@ -212,19 +212,17 @@ void pickBestPath(){
         curStartId = curPathPoints.markers.at(0).id;
     }
     std::cout<<"---curPath ("<<curPathPoints.id<<") has "<<curPathPoints.markers.size()<<" path points---"<<std::endl;
-    if(recObsCount == 3){
-        return;
-    }
     updateStartGoal();
 }
 
+//callback for points belonging to a single trajectory
 void pathPointCallback(const ramp_planner_new::PathPoints pp){
     std::cout<<"---path has "<<pp.markers.size()<<" points with id "<<pp.id<<"---"<<std::endl;
     pathPointsPopulation.push_back(pp);
     if(pp.id == 0){//new path
         maxPathId++;
         pathPointsPopulation.back().id = maxPathId;
-    }else{
+    }else{//replace old path with the same id (after being bezified)
         for(unsigned int i=0;i<pathPointsPopulation.size();i++){
             if(pathPointsPopulation.at(i).id == pp.id){
                 pathPointsPopulation.erase(pathPointsPopulation.begin() + i);
@@ -235,6 +233,7 @@ void pathPointCallback(const ramp_planner_new::PathPoints pp){
     }
 }
 
+//callback for a population of trajectories
 void pathPointsCallback(const ramp_planner_new::Population pathPop){
     std::cout<<"\t++have "<<pathPop.paths.size()<<" paths++"<<std::endl;
     for(unsigned int i=0;i<pathPop.paths.size();i++){
@@ -244,7 +243,7 @@ void pathPointsCallback(const ramp_planner_new::Population pathPop){
 }
 
 void getNextPoint(){
-    curStartId += 1;
+    curStartId += 1;//increment knot point id
     updateStartGoal();
 }
 
@@ -324,6 +323,7 @@ void swapTrajectory(const ramp_planner_new::SwapRequest msg){
   pickBestPath();
 }
 
+//callback for a population of obstacles -> resets list on every call
 void obstacleCallback(const ramp_planner_new::ObstacleList msg){
     gotObs = true;
     recObsCount++;
@@ -344,8 +344,8 @@ void obstacleCallback(const ramp_planner_new::ObstacleList msg){
 }
 
 
-void trajCallback(const ramp_planner_new::TrajectoryRepresentation cubic){
-  robot.updateTrajectory(cubic);
+void trajCallback(const ramp_planner_new::TrajectoryRepresentation traj){
+  robot.updateTrajectory(traj);
 }
 
 int main(int argc, char** argv) {
@@ -379,7 +379,7 @@ int main(int argc, char** argv) {
       robot.readyNext_ = false;
       getNextPoint();
     }
-    if(robot.swap_traj_.curPositions.size() != 0){
+    if(robot.swap_traj_.curPositions.size() != 0){//if robot wants to swap trajectories
       swapTrajectory(robot.swap_traj_);
       robot.swap_traj_.curPositions.clear();
       robot.swap_traj_.curLinVels.clear();
