@@ -14,6 +14,7 @@
 #include "ramp_planner_new/Coefficient.h"
 #include "std_msgs/Bool.h"
 #include <math.h>
+#include <ramp_planner_new/SwapRequest.h>
 
 #define PI 3.14159f
 
@@ -39,8 +40,8 @@ class MobileRobot
   ros::Publisher                    pub_twist_;
   ros::Publisher                    pub_cmd_vel_;
   ros::Publisher                    pub_cmd_vel2_;
-  ros::Publisher                    pub_ready_next_;
-  ros::Publisher                    pub_swap_traj_;
+  bool readyNext_;
+  ramp_planner_new::SwapRequest swap_traj_;
   ros::Subscriber                   sub_imminent_collision_;
   ramp_msgs::MotionState            motion_state_; 
   ramp_planner_new::TrajectoryRepresentation trajectory_;
@@ -57,7 +58,6 @@ class MobileRobot
   static const std::string  TOPIC_STR_IC;
   static const std::string  TOPIC_STR_SIM;
   static const std::string  TOPIC_STR_SIM2;
-  static const std::string  TOPIC_TRAJ_SWAP;
   static const int          SEND_RESELUTION = 10;
   static const int          ACCELERATION_CONSTANT = 50;
   const double              CYCLE_TIME_IN_SECONDS = 0.1;

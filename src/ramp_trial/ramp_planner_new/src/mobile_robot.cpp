@@ -1,5 +1,4 @@
 #include "../include/mobile_robot.h"
-#include <ramp_planner_new/SwapRequest.h>
 
 const std::string MobileRobot::TOPIC_STR_PHIDGET_MOTOR="/PhidgetMotor";
 const std::string MobileRobot::TOPIC_STR_ODOMETRY="/odometry/filtered";
@@ -8,7 +7,6 @@ const std::string MobileRobot::TOPIC_STR_TWIST="/twist";
 const std::string MobileRobot::TOPIC_STR_IC="/imminent_collision";
 const std::string MobileRobot::TOPIC_STR_SIM="/cmd_vel";
 const std::string MobileRobot::TOPIC_STR_SIM2="/mobile_base/commands/velocity";
-const std::string MobileRobot::TOPIC_TRAJ_SWAP="/traj_swap";
 const float BASE_WIDTH=0.2413;
 
 const float timeNeededToTurn = 2.5; 
@@ -83,7 +81,7 @@ void MobileRobot::calculateVelocities(const std::vector<ramp_planner_new::Coeffi
     msg.curLinVels.push_back(yP);
     msg.prevPositions = prevXY_;
     msg.curPositions = curXY;
-    pub_swap_traj_.publish(msg);
+    swap_traj_ = msg;
     look_ahead_ = false;
   }
 
@@ -235,9 +233,7 @@ void MobileRobot::moveOnTrajectory() {
       seg_step_ = 0;
       time_step_ = 0;
       trajectory_.active = 0;
-      std_msgs::Bool msg;
-      msg.data = true;
-      pub_ready_next_.publish(msg);
+      readyNext_ = true;
     }else{
       trajectory_.active = false;
     }
