@@ -166,12 +166,12 @@ void findFitness(ramp_planner_new::PathPoints& path){
     double ang = 0;
     double collFact = 0;
     for(unsigned int i=0;i<path.markers.size()-1;i++){//for each line segment
-        //TODO test of forBez points
         geometry_msgs::Point p1 = path.markers.at(i).pose.position;
         if(i == 0 && robot.futXY_.size() == 2){//if the first line segment and the robot has alredy started moving -> there is a future point
           // std::cout<<"FFF future: ("<<robot.futXY_.at(0)<<","<<robot.futXY_.at(1)<<") FFF"<<std::endl;
           p1.x = robot.futXY_.at(0);
           p1.y = robot.futXY_.at(1);
+          path.markers.at(i).pose.position = p1;
         }else if(!path.forBez.at(i)){
           continue;
         }
@@ -222,6 +222,7 @@ void pickBestPath(){
     curPathPoints = pathPointsPopulation.back();//set the current path to be the most fit
     if(curPathPoints.id != pastPathId){
         swapped = true;
+        std::cout<<"\t\t---##swapped based on id##---"<<std::endl;
     }
     if(curStartId == -1 || swapped){
         curStartId = curPathPoints.markers.at(0).id;
