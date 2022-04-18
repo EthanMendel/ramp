@@ -50,6 +50,7 @@ class MobileRobot
   bool                              imminent_coll_;
   bool                              sim_;
   std::vector<double>       futXY_;
+  std::vector<double>       prevXY_;
 
   // static const members
   static const std::string  TOPIC_STR_PHIDGET_MOTOR;
@@ -97,7 +98,6 @@ class MobileRobot
 
   geometry_msgs::Twist      twist_;
   geometry_msgs::Twist      zero_twist_;
-  std::vector<double>       prevXY_;
   double                    prevTheta_;
   ramp_msgs::MotionState    prev_motion_state_; 
   ros::Time                 prev_t_;

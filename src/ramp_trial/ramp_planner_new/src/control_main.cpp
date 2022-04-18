@@ -222,6 +222,45 @@ void pickBestPath(){
     curPathPoints = pathPointsPopulation.back();//set the current path to be the most fit
     if(curPathPoints.id != pastPathId){
         swapped = true;
+        if(robot.futXY_.size() == 2){
+            //TODO this needs to be moved into evaluation
+            //so that we evaluate the transition portion as well
+            //this also should help in updating points for 'bezifying'
+            visualization_msgs::Marker marker;
+            marker.header.stamp = ros::Time::now();
+            marker.id = curPathPoints.markers.at(0).id;
+            marker.header.frame_id = ""; //global_frame
+            marker.ns = "basic_shapes";
+            marker.type = visualization_msgs::Marker::SPHERE;
+            marker.action = visualization_msgs::Marker::ADD;
+            // set positions
+            marker.pose.position.x = robot.prevXY_.at(0);
+            marker.pose.position.y = robot.prevXY_.at(1);
+            marker.pose.position.z = 0.0;
+            // set orientations
+            marker.pose.orientation.x = 0.0;
+            marker.pose.orientation.y = 0.0;
+            marker.pose.orientation.z = 0.0;
+            marker.pose.orientation.w = 1.0;
+            // set radii
+            marker.scale.x = 0.1;
+            marker.scale.y = 0.1;
+            marker.scale.z = 0.1;
+            // set colors
+            marker.color.r = 1;
+            marker.color.g = 0;
+            marker.color.b = 0;
+            marker.color.a = 1;
+            // set lifetimes
+            marker.lifetime = ros::Duration(120.0);
+            for(unsigned int i=0;i<curPathPoints.markers.size();i++){
+                curPathPoints.markers.at(i).id++;
+            }
+            curPathPoints.markers.insert(curPathPoints.markers.begin(),marker);
+            curPathPoints.types.insert(curPathPoints.types.begin(),"cubic");
+            curPathPoints.forBez.insert(curPathPoints.forBez.begin(),true);
+            pathPointsPopulation.back() = curPathPoints;
+        }
         std::cout<<"\t\t---##swapped based on id##---"<<std::endl;
     }
     if(curStartId == -1 || swapped){
