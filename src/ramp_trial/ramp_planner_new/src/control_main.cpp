@@ -33,6 +33,7 @@ double max_speed_linear = 0.33;
 bool swapped = false;
 bool evaluate = true;
 bool gotObs = false;
+bool gettingNext = false;
 std::vector<double> startingVels;
 
 
@@ -171,8 +172,17 @@ void findFitness(ramp_planner_new::PathPoints& path){
           // std::cout<<"FFF future: ("<<robot.futXY_.at(0)<<","<<robot.futXY_.at(1)<<") FFF"<<std::endl;
           p1.x = robot.futXY_.at(0);
           p1.y = robot.futXY_.at(1);
+        }else if(!path.forBez.at(i)){
+          continue;
         }
         geometry_msgs::Point p2 = path.markers.at(i+1).pose.position;
+        if(!path.forBez.at(i+1)){
+          if(i+2 < path.markers.size()){
+            p2 = path.markers.at(i+2).pose.position;
+          }else{
+            std::cout<<"***found forBez point in fitnessFunction, no next point to use***"<<std::endl;
+          }
+        }
         // std::cout<<"checking line from ("<<p1.x<<","<<p1.y<<") to ("<<p2.x<<","<<p2.y<<")"<<std::endl;
         lineTime += utility.getMinLinTime(p1,p2);//get time to get from point to point
         ang += abs(utility.findAngleFromAToB(p1,p2));//get total angular difference
@@ -186,8 +196,8 @@ void findFitness(ramp_planner_new::PathPoints& path){
                 geometry_msgs::Point colP = utility.findFirstCollision(p1,p2,c,rad);//find the first point of collision
                 // std::cout<<"\tcollision with obst centered at ("<<c.x<<","<<c.y<<") at \t("<<colP.x<<","<<colP.y<<")"<<std::endl;
                 double colDist = utility.getMinLinTime(p1,colP);//get time to first point of collision
-                std::cout<<"\t\tdist to collision: "<<colDist<<std::endl;
-                collFact += 100/colDist;
+                // std::cout<<"\t\tdist to collision: "<<colDist<<std::endl;
+                collFact += 100000/colDist;
             }
         }
     }
@@ -217,7 +227,8 @@ void pickBestPath(){
         curStartId = curPathPoints.markers.at(0).id;
     }
     std::cout<<"---curPath ("<<curPathPoints.id<<") has "<<curPathPoints.markers.size()<<" path points---"<<std::endl;
-    if(swapped){
+    if(swapped || gettingNext){
+      gettingNext = false;
       updateStartGoal();
     }
 }
@@ -236,6 +247,7 @@ void pathPointCallback(const ramp_planner_new::PathPoints pp){
                 break;
             }
         }
+        gettingNext = true;
         pickBestPath();
     }
 }
@@ -251,6 +263,7 @@ void pathPointsCallback(const ramp_planner_new::Population pathPop){
 
 void getNextPoint(){
     curStartId += 1;//increment knot point id
+    gettingNext = true;
     updateStartGoal();
 }
 
