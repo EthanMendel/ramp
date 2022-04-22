@@ -138,11 +138,7 @@ void pubStartGoalMarkers(bool publish = true){
     for(unsigned int i=0;i<pathMotionStates.size();i++){
       visualization_msgs::Marker marker;
       marker.header.stamp = ros::Time::now();
-      if(i==0){
-        marker.id = 10001;
-      } else {
-        marker.id = 10001 + i;
-      }
+      marker.id = 10001 + i;
       marker.header.frame_id = global_frame;
       marker.ns = "basic_shapes";
       marker.type = visualization_msgs::Marker::SPHERE;
@@ -168,6 +164,10 @@ void pubStartGoalMarkers(bool publish = true){
       // set lifetimes
       marker.lifetime = ros::Duration(120.0);
 
+      if(i == 0){//add the first marker twice as a placeholder once robot starts moving
+        result.markers.push_back(marker);
+      }
+      marker.id++;
       result.markers.push_back(marker);
     }
     ramp_planner_new::PathPoints pps;

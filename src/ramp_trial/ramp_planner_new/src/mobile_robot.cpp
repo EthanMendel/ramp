@@ -39,7 +39,7 @@ void MobileRobot::setNextTwist()
 } // End updateTrajectory
 
 void MobileRobot::calculateVelocities(const std::vector<ramp_planner_new::Coefficient> coefs, const std::vector<ramp_planner_new::Coefficient> uCoefs, double t){  
-  if(look_ahead_ && !trajectory_.active){
+  if(look_ahead_){
     t += 1;
   }
   std::vector<double> curXY;

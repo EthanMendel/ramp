@@ -34,6 +34,7 @@ bool swapped = false;
 bool evaluate = true;
 bool gotObs = false;
 bool gettingNext = false;
+bool robotStarted = false;
 std::vector<double> startingVels;
 
 
@@ -167,21 +168,30 @@ void findFitness(ramp_planner_new::PathPoints& path){
     double collFact = 0;
     for(unsigned int i=0;i<path.markers.size()-1;i++){//for each line segment
         geometry_msgs::Point p1 = path.markers.at(i).pose.position;
-        if(i == 0 && robot.futXY_.size() == 2){//if the first line segment and the robot has alredy started moving -> there is a future point
+        geometry_msgs::Point p2 = path.markers.at(i+1).pose.position;
+        if(i == 0 && robot.prevXY_.size() == 2 && robot.futXY_.size() == 2){//if the first line segment and the robot has alredy started moving -> there is a future point
           // std::cout<<"FFF future: ("<<robot.futXY_.at(0)<<","<<robot.futXY_.at(1)<<") FFF"<<std::endl;
-          p1.x = robot.futXY_.at(0);
-          p1.y = robot.futXY_.at(1);
+          robotStarted = true;
+          p1.x = robot.prevXY_.at(0);
+          p1.y = robot.prevXY_.at(1);
           path.markers.at(i).pose.position = p1;
+          p2.x = robot.futXY_.at(0);
+          p2.y = robot.futXY_.at(1);
+          path.markers.at(i+1).pose.position = p2;
+        //   std::cout<<"("<<p1.x<<","<<p1.y<<"),("<<p2.x<<","<<p2.y<<")"<<std::endl;
         }else if(!path.forBez.at(i)){
           continue;
+        }else{
+            if(!path.forBez.at(i+1)){
+                if(i+2 < path.markers.size()){
+                    p2 = path.markers.at(i+2).pose.position;
+                }else{
+                    std::cout<<"***found forBez point in fitnessFunction, no next point to use***"<<std::endl;
+                }
+            }
         }
-        geometry_msgs::Point p2 = path.markers.at(i+1).pose.position;
-        if(!path.forBez.at(i+1)){
-          if(i+2 < path.markers.size()){
-            p2 = path.markers.at(i+2).pose.position;
-          }else{
-            std::cout<<"***found forBez point in fitnessFunction, no next point to use***"<<std::endl;
-          }
+        if(p1 == p2){
+            continue;
         }
         // std::cout<<"checking line from ("<<p1.x<<","<<p1.y<<") to ("<<p2.x<<","<<p2.y<<")"<<std::endl;
         lineTime += utility.getMinLinTime(p1,p2);//get time to get from point to point
@@ -222,51 +232,17 @@ void pickBestPath(){
     curPathPoints = pathPointsPopulation.back();//set the current path to be the most fit
     if(curPathPoints.id != pastPathId){
         swapped = true;
-        if(robot.futXY_.size() == 2){
-            //TODO this needs to be moved into evaluation
-            //so that we evaluate the transition portion as well
-            //this also should help in updating points for 'bezifying'
-            visualization_msgs::Marker marker;
-            marker.header.stamp = ros::Time::now();
-            marker.id = curPathPoints.markers.at(0).id;
-            marker.header.frame_id = ""; //global_frame
-            marker.ns = "basic_shapes";
-            marker.type = visualization_msgs::Marker::SPHERE;
-            marker.action = visualization_msgs::Marker::ADD;
-            // set positions
-            marker.pose.position.x = robot.prevXY_.at(0);
-            marker.pose.position.y = robot.prevXY_.at(1);
-            marker.pose.position.z = 0.0;
-            // set orientations
-            marker.pose.orientation.x = 0.0;
-            marker.pose.orientation.y = 0.0;
-            marker.pose.orientation.z = 0.0;
-            marker.pose.orientation.w = 1.0;
-            // set radii
-            marker.scale.x = 0.1;
-            marker.scale.y = 0.1;
-            marker.scale.z = 0.1;
-            // set colors
-            marker.color.r = 1;
-            marker.color.g = 0;
-            marker.color.b = 0;
-            marker.color.a = 1;
-            // set lifetimes
-            marker.lifetime = ros::Duration(120.0);
-            for(unsigned int i=0;i<curPathPoints.markers.size();i++){
-                curPathPoints.markers.at(i).id++;
-            }
-            curPathPoints.markers.insert(curPathPoints.markers.begin(),marker);
-            curPathPoints.types.insert(curPathPoints.types.begin(),"cubic");
-            curPathPoints.forBez.insert(curPathPoints.forBez.begin(),true);
-            pathPointsPopulation.back() = curPathPoints;
-        }
         std::cout<<"\t\t---##swapped based on id##---"<<std::endl;
     }
     if(curStartId == -1 || swapped){
-        curStartId = curPathPoints.markers.at(0).id;
+        if(robotStarted){
+            curStartId = curPathPoints.markers.at(0).id;
+        }else{
+            curStartId = curPathPoints.markers.at(1).id;
+        }
     }
     std::cout<<"---curPath ("<<curPathPoints.id<<") has "<<curPathPoints.markers.size()<<" path points---"<<std::endl;
+    std::cout<<"\tstarting at marker id "<<curStartId<<std::endl;
     if(swapped || gettingNext){
       gettingNext = false;
       updateStartGoal();
