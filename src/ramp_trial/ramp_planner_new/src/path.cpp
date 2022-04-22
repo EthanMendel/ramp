@@ -86,6 +86,23 @@ void Path::addBeforeGoal(const MotionState ms) {
   addBeforeGoal(kp);
 }
 
+void Path::removePoint(const MotionState ms) {
+  KnotPoint kp(ms);
+  removePoint(kp);
+}
+
+void Path::removePoint(const KnotPoint kp){
+    for(unsigned int i=0;i<msg_.points.size();i++){
+    if(kp.equals(msg_.points.at(i))){
+      // std::cout<<"found matching kp"<<std::endl;
+      msg_.points.erase(msg_.points.begin() + i,msg_.points.begin() + i + 1);
+      return;
+    }
+  }
+  std::cout<<"&&found no matching kp to remove&&"<<std::endl;
+  std::cout<<"("<<kp.motionState_.msg_.positions.at(0)<<","<<kp.motionState_.msg_.positions.at(1)<<")";
+}
+
 void Path::addBefore(const KnotPoint kp, const KnotPoint b){
   for(unsigned int i=0;i<msg_.points.size();i++){
     if(b.equals(msg_.points.at(i))){
@@ -221,7 +238,7 @@ void Path::makeBezierPath(const ramp_planner_new::TrajectoryRequest msg){
     float yuMin = uCoefs.at(1).at(0)*pow(0,3) + uCoefs.at(1).at(1)*pow(0,2) + uCoefs.at(1).at(2)*(0) + uCoefs.at(1).at(3);
     float yuMax = (uCoefs.at(1).at(0)*pow(usedT_,3) + uCoefs.at(1).at(1)*pow(usedT_,2) + uCoefs.at(1).at(2)*(usedT_) + uCoefs.at(1).at(3)) - yuMin;
     std::vector<std::vector<float>> uAdjs = {{xuMin,xuMax},{yuMin,yuMax}};
-    for(float t=0;t<=usedT_;t+=resolution){
+    for(float t=startT_;t<=usedT_;t+=resolution){
       MotionState ms;
       for(unsigned int j=0;j<2;j++){//run for x and y, but not z (representing theta)
         float u   = ((uCoefs.at(j).at(0)*pow(t,3) + uCoefs.at(j).at(1)*pow(t,2) + uCoefs.at(j).at(2)*(t) + uCoefs.at(j).at(3)) - uAdjs.at(j).at(0))/uAdjs.at(j).at(1);
@@ -242,10 +259,14 @@ void Path::makeBezierPath(const ramp_planner_new::TrajectoryRequest msg){
       }
       //TODO do something for z as theta?
       
-      // std::cout<<"point #"<<t+1<<"\t("<<ms.msg_.velocities.at(0)<<",\t"<<ms.msg_.velocities.at(1)<<",\t"<<ms.msg_.velocities.at(2)<<")\n";
+      std::cout<<"point #"<<t+1<<"\t("<<ms.msg_.positions.at(0)<<",\t"<<ms.msg_.positions.at(1)<<"\n";
       addBefore(ms,msg.points.at(2));
     }
   }
+  MotionState ms(msg.points.at(1));
+  removePoint(ms);
+  ms = msg.points.at(2);
+  removePoint(ms);
   std::cout<<"Bezier path has "<<msg_.points.size()<<" points\n";
 }
 

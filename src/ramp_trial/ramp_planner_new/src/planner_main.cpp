@@ -226,7 +226,7 @@ void pubPath(){
   }
 
   for(unsigned int i=0;i<plannerPath.msg_.points.size()-1;i++) {
-    // std::cout<<plannerPath.msg_.points.at(i).motionState.positions.at(0)<<"\t\t"<<plannerPath.msg_.points.at(i).motionState.positions.at(1)<<std::endl;
+    std::cout<<plannerPath.msg_.points.at(i).motionState.positions.at(0)<<"\t\t"<<plannerPath.msg_.points.at(i).motionState.positions.at(1)<<std::endl;
     // markers for both positions
     visualization_msgs::Marker mp_marker;
 

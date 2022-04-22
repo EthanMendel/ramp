@@ -318,7 +318,7 @@ int main(int argc, char** argv) {
   pubPath();
   ROS_INFO("Done with publishing markers");
 
-  ros::Rate r(4000);//50ms = 20hz
+  ros::Rate r(1);//in Hz
   while(ros::ok()) 
   {
     r.sleep();

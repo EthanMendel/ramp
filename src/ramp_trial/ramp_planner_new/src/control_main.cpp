@@ -240,9 +240,9 @@ void pickBestPath(){
         }else{
             curStartId = curPathPoints.markers.at(1).id;
         }
+        std::cout<<"\tstarting at marker id "<<curStartId<<std::endl;
     }
     std::cout<<"---curPath ("<<curPathPoints.id<<") has "<<curPathPoints.markers.size()<<" path points---"<<std::endl;
-    std::cout<<"\tstarting at marker id "<<curStartId<<std::endl;
     if(swapped || gettingNext){
       gettingNext = false;
       updateStartGoal();

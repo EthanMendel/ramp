@@ -41,6 +41,8 @@ class Path {
     const KnotPoint at(const uint8_t i) const;
     void addBeforeGoal(const KnotPoint kp);
     void addBeforeGoal(const MotionState kp);
+    void removePoint(const MotionState ms);
+    void removePoint(const KnotPoint kp);
     void addBefore(const KnotPoint kp, const KnotPoint b);
     void addBefore(const MotionState ms, const MotionState bms);
     void changeStart(const MotionState ms);
